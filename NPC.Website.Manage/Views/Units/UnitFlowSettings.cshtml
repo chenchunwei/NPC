@@ -3,5 +3,110 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model NPC.Application.ManageModels.Units.UnitFlowSettingsModel
-<h2>
-    UnitFlowSettings</h2>
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示:设置单位相关议案建议审批节点处理单位信息</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th>
+                        当前单位：
+                    </th>
+                    <td>
+                        @Html.Raw(Model.Unit.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 政府办公室Id：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.GovUnitId, new { style = "width:380px;", maxlength = 36 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 人大办Id：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.NpcUnitId, new { style = "width:380px;", maxlength = 36 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                       <span style="color: red;">*</span>  主办单位：
+                    </th>
+                    <td>
+                        @Html.TextAreaFor(o => o.SponsorUnitIdString, new { cols = "60", rows = "12", maxlength = 600 })<br />
+                        &nbsp;*填入主办单位Id，多个以逗号','分隔开
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                       <span style="color: red;">*</span>  协办单位：
+                    </th>
+                    <td>
+                        @Html.TextAreaFor(o => o.SubsidiaryUnitString, new { cols = "60", rows = "12", maxlength = 600 })<br />
+                        &nbsp;*填入协办单位Id，多个以逗号','分隔开
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    保存</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "GovUnitId": "required"
+                , "NpcUnitId": "required"
+                , "SponsorUnitIdString": "required"
+                , "SubsidiaryUnitString": "required"
+            },
+            messages: {
+                "GovUnitId": "必填项"
+                , "NpcUnitId": "必填项"
+                , "SponsorUnitIdString": "必填项"
+                , "SubsidiaryUnitString": "必填项"
+            }
+        });
+    });
+</script>

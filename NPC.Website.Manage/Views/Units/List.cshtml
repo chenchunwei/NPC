@@ -111,7 +111,8 @@
             { field: 'name', title: '组织名称', width: 290, align: 'left' },
             { field: 'id', title: 'UnitId', width: 280, align: 'left' },
             { field: 'isFlowUnit', title: '承办单位', width: 80, align: 'left', formatter: convertState },
-            { field: 'isWebUnit', title: '开通网站', width: 80, align: 'left', formatter: convertState }
+            { field: 'isWebUnit', title: '开通网站', width: 80, align: 'left', formatter: convertState },
+            { field: 'IconCls', title: '操作', width: 80, align: 'left', formatter: formatOper }
         ]],
             onLoadSuccess: function () {
             },
@@ -140,6 +141,9 @@
         return '否';
     }
 
+    function formatOper(val, row) {
+        return '<b><a href="@Url.Action("UnitFlowSettings")?id=' + row.id + '">设置审批单位</a></b>';
+    }
     function onContextMenu(e, row) {
         e.preventDefault();
         $(this).treegrid('select', row.id);
@@ -165,7 +169,7 @@
             $("#FormData_Name").val(row.name);
             if (row.isWebUnit) {
                 $("#FormData_IsWebUnit").attr("checked", "checked");
-            }else {
+            } else {
                 $("#FormData_IsWebUnit").removeAttr("checked");
             }
             if (row.isFlowUnit) {

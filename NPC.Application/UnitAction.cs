@@ -165,6 +165,7 @@ namespace NPC.Application
             var unit = _unitRepository.Find(id);
             var model = new UnitFlowSettingsModel();
             model.Id = id;
+            model.Unit = unit;
             if (unit.UnitFlowSettings != null)
             {
                 model.NpcUnitId = unit.UnitFlowSettings.NpcUnit.Id;
