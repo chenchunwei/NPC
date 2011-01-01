@@ -23,6 +23,7 @@ namespace NPC.Domain.Model.Mappings.Units
             References(o => o.JieKouRen).Column("JieKouRenId");
             Component(o => o.RecordDescription);
             HasMany(o => o.Departments).KeyColumn("UnitId");
+            HasOne(o => o.UnitFlowSettings).ForeignKey("UnitId");
             Table("Units");
         }
     }

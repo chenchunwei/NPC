@@ -30,6 +30,7 @@ namespace NPC.Domain.Models.Units
         public virtual bool IsFlowUint { get; set; }
         public virtual User JieKouRen { get; set; }
         public virtual string AliasName { get; set; }
+        public virtual UnitFlowSettings UnitFlowSettings { get; set; }
 
         public virtual string Path
         {

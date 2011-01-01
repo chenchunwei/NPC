@@ -158,5 +158,27 @@ namespace NPC.Application
             }
         }
         #endregion
+
+        #region FlowSettings
+        public UnitFlowSettingsModel InitializeUnitFlowSettingsModel(Guid id)
+        {
+            var unit = _unitRepository.Find(id);
+            var model = new UnitFlowSettingsModel();
+            model.Id = id;
+            if (unit.UnitFlowSettings != null)
+            {
+                model.NpcUnitId = unit.UnitFlowSettings.NpcUnit.Id;
+                model.GovUnitId = unit.UnitFlowSettings.GovUnit.Id;
+                model.SponsorUnitIdString = string.Join(",", unit.UnitFlowSettings.SponsorUnits.Select(o => o.Id));
+                model.SubsidiaryUnitString = string.Join(",", unit.UnitFlowSettings.SubsidiaryUnits.Select(o => o.Id));
+            }
+            return model;
+        }
+
+        public void FlowSettings(UnitFlowSettingsModel unitFlowSettingsModel)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

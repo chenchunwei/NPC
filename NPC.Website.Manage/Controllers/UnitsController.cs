@@ -61,5 +61,26 @@ namespace NPC.Website.Manage.Controllers
             }
             return new NewtonsoftJsonResult() { Data = new { status = "success" } };
         }
+
+        #region 设置流程相关信息
+        public ActionResult UnitFlowSettings(Guid id)
+        {
+            var model = _unitAction.InitializeUnitFlowSettingsModel(id);
+            return View(model);
+        }
+        [HttpPost, ActionName("UnitFlowSettings")]
+        public ActionResult UnitFlowSettingsPost(UnitFlowSettingsModel unitFlowSettingsModel)
+        {
+            try
+            {
+                _unitAction.FlowSettings(unitFlowSettingsModel);
+            }
+            catch (Exception)
+            {
+                return new NewtonsoftJsonResult() { Data = new { status = "failure" } };
+            }
+            return new NewtonsoftJsonResult() { Data = new { status = "success" } };
+        }
+        #endregion
     }
 }

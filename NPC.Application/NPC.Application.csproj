@@ -135,6 +135,7 @@
     <Compile Include="ManageModels\Roles\RolePrivilegeSettingsModel.cs" />
     <Compile Include="ManageModels\Tasks\MyTasksModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
+    <Compile Include="ManageModels\Units\UnitFlowSettingsModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
     <Compile Include="ManageModels\Users\EditPasswordModel.cs" />

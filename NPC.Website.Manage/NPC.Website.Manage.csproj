@@ -1313,6 +1313,7 @@
     <Content Include="Views\Privileges\EditPrivilege.cshtml" />
     <Content Include="Views\Roles\EditRole.cshtml" />
     <Content Include="Views\Roles\RolePrivilegeSettings.cshtml" />
+    <Content Include="Views\Units\UnitFlowSettings.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
