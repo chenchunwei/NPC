@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
+=======
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin
+obj
+
+# mstest test results
+TestResults
+>>>>>>> 72c0f08f43de28fc9181da3b92b04fd8cd6f1a31
