@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{90402F2F-D29A-4869-9372-1B1B1C6809D4}</ProjectGuid>
+    <ProjectGuid>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NPC.Query.Model.Mappings</RootNamespace>
-    <AssemblyName>NPC.Query.Model.Mappings</AssemblyName>
+    <RootNamespace>NPC.Domain.Repository</RootNamespace>
+    <AssemblyName>NPC.Domain.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,11 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ArticleCategoryRepository.cs" />
+    <Compile Include="ArticleRepository.cs" />
+    <Compile Include="NestSqlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Articles\" />
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
+      <Name>NPC.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

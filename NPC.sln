@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website", "Website", "{AF1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0A106619-B39A-4DE8-B200-4A681A545C4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPC.Domain.Repository", "NPC.Domain.Repository\NPC.Domain.Repository.csproj", "{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,16 @@ Global
 		{A5CC91A4-293C-44F6-8C01-2E774EA21517}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A5CC91A4-293C-44F6-8C01-2E774EA21517}.Release|x86.ActiveCfg = Release|x86
 		{A5CC91A4-293C-44F6-8C01-2E774EA21517}.Release|x86.Build.0 = Release|x86
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,5 +164,6 @@ Global
 		{90402F2F-D29A-4869-9372-1B1B1C6809D4} = {0A106619-B39A-4DE8-B200-4A681A545C4E}
 		{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E} = {0A106619-B39A-4DE8-B200-4A681A545C4E}
 		{4E3349E5-F505-4F9B-BACF-690D8D56A52D} = {0A106619-B39A-4DE8-B200-4A681A545C4E}
+		{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B} = {0A106619-B39A-4DE8-B200-4A681A545C4E}
 	EndGlobalSection
 EndGlobal
