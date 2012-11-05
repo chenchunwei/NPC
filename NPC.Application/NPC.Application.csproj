@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>974d40cc-392d-4720-802c-2bfedb194a9a</ProjectGuid>
+    <ProjectGuid>{22C05668-41AB-46B3-81EF-72294624FBCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPC.Application</RootNamespace>
