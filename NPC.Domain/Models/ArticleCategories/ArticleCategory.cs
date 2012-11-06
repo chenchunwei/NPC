@@ -8,10 +8,13 @@ namespace NPC.Domain.Models.ArticleCategories
 {
     public class ArticleCategory : IAggregateRoot
     {
-        public Guid Id { get; set; }
-        public string CategoryName { get; set; }
-        public string DateOfPublish { get; set; }
-        public string Publisher { get; set; }
-        public string PublisherId { get; set; }
+        public virtual ArticleCategory ParentArticleCategory { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string CategoryName { get; set; }
+        public virtual string DateOfPublish { get; set; }
+        public virtual string Publisher { get; set; }
+        public virtual string PublisherId { get; set; }
+        public virtual Guid UintId { get; set; }
+        public virtual IList<ArticleCategory> ChilrenArticleCategories { get; set; }
     }
 }

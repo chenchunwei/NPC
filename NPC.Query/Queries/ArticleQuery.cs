@@ -15,8 +15,8 @@ namespace NPC.Query.Queries
         public IList<ArticleQueryModel> Query(ArticleQueryItem queryItem)
         {
             var queryReturns = FormatQuery(queryItem);
-            string tempString = queryReturns.Item1;
-            Hashtable parameters = queryReturns.Item2;
+            var tempString = queryReturns.Item1;
+            var parameters = queryReturns.Item2;
             var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct i.*", ""), "Order by rel_time desc"));
             var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct i.Id)", ""));
 
