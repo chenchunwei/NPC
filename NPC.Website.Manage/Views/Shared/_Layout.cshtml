@@ -1,12 +1,142 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>人大管理系统后台</title>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/reset.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/style.css")" rel="stylesheet" />
 </head>
-
 <body>
-    @RenderBody()
+    <div class="header">
+        <div class="container">
+            <div class="quit">
+                下午好，系统管理员&nbsp;&nbsp;<a href="#"><b>[退出]</b></a></div>
+            <div class="toplinkmenu">
+                <div class="left">
+                </div>
+                <ul class="center">
+                    <li class="line">
+                        <div>
+                            <img src="@Url.Content("~/Content/images/icon_1.jpg")" alt="" /></div>
+                        <div>
+                            <a href="#">帮助中心</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="@Url.Content("~/Content/images/icon_2.jpg")" alt="" /></div>
+                        <div>
+                            <a href="#">问题提交</a></div>
+                    </li>
+                </ul>
+                <div class="right">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="wrapperin">
+                <div class="left3">
+                    <img src="@Url.Content("~/Content/images/menu_left.jpg")" alt="" /></div>
+                <ul class="topmenu">
+                    <li class="taboff">
+                        <div class="tabbj_left">
+                        </div>
+                        <div class="tabbj_center">
+                            首页</div>
+                        <div class="tabbj_right">
+                        </div>
+                    </li>
+                    <li class="tabon">
+                        <div class="tabbj_left">
+                        </div>
+                        <div class="tabbj_center">
+                            商品</div>
+                        <div class="tabbj_right">
+                        </div>
+                    </li>
+                    <li class="taboff">
+                        <div class="tabbj_left">
+                        </div>
+                        <div class="tabbj_center">
+                            订单</div>
+                        <div class="tabbj_right">
+                        </div>
+                    </li>
+                    <li class="taboff">
+                        <div class="tabbj_left">
+                        </div>
+                        <div class="tabbj_center">
+                            会员</div>
+                        <div class="tabbj_right">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="background: #E6EAF3 url(Images/wrapper_rightbj.jpg) right bottom no-repeat;
+        overflow: hidden; zoom: 1;">
+        <div class="sidecontent">
+            <div class="title">
+                <img src="@Url.Content("~/Content/images/quickmenu_title.jpg")" alt="" /></div>
+            <div class="grouplevel">
+                商品管理</div>
+            <div class="groupleve2on">
+                添加商品</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                商品列表</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                缺货列表</div>
+            <div class="grouplevel">
+                商品分类管理</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                新增商品分类</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                商品分类列表</div>
+            <div class="grouplevel">
+                虚拟分类管理</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                新增虚拟分类</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                虚拟分类列表</div>
+            <div class="grouplevel">
+                商品类别管理</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                新增商品类别</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                商品类别列表</div>
+            <div class="grouplevel">
+                规格管理</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                新增规格</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                规格列表</div>
+            <div class="grouplevel">
+                品牌管理</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;">
+                品牌列表</div>
+            <div class="bottom">
+                <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" /></div>
+        </div>
+        <div class="workground">
+            @RenderBody()
+        </div>
+    </div>
+    <div style="width: 100%;">
+        <div class="footerarea">
+            <div class="footer_left">
+            </div>
+        </div>
+    </div>
 </body>
 </html>
