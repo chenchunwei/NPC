@@ -37,7 +37,7 @@
 .taboff .tabbj_center { float: left; height: 32px; padding-top: 1px; padding-left: 10px; padding-right: 10px; display: inline; line-height: 32px; color: #FFFFFF; font-weight: normal; background: url(../Images/taboffbj.gif) 0 0 repeat-x; }
 
 /* 侧部样式 */
-.sidecontent { float: left; width: 171px; padding-left: 5px; margin-right: 8px; display: inline; overflow: hidden; background: #B7C9EE url(../Images/wrapper_bj.jpg) 0 0 no-repeat; }
+.sidecontent { float: left; width: 171px; padding-left: 7px; margin-right: 8px; display: inline; overflow: hidden; background: #e6eaf3 url(../Images/wrapper_bj.jpg) 0 0 no-repeat;padding-bottom:30000px; margin-bottom:-30000px }
 .sidecontent .title , .sidecontent .grouplevel , .sidecontent .groupleve2 , .sidecontent .bottom { float: left; }
 .sidecontent .title { width: 171px; height: 33px; }
 .sidecontent .grouplevel , .sidecontent .groupleve2 , .sidecontent .groupleve2on { float: left; height: 26px; line-height: 26px; text-align: left; }
@@ -127,7 +127,7 @@
 .faline .span_3 , .faline_c .span_3 { float: left; width: 50%; line-height: 22px; padding: 5px 0; overflow: hidden; margin: 0 5px 0 10px; text-align: left; }
 
 .tipsOrange { height: 28px; margin: 5px 10px; border: 1px solid #F8A330; background: #FFF2DF; }
-.tipsOrange .icon { float: left; width: 16px; height: 16px; margin: 6px 10px 0 10px; background: url(../Images/icon_13.gif) 0 0 no-repeat; display; inline; }
+.tipsOrange .icon { float: left; width: 16px; height: 16px; margin: 6px 10px 0 10px; background: url(../Images/icon_13.gif) 0 0 no-repeat; display: inline; }
 .tipsOrange .font { float: left; height: 28px; line-height: 28px; color: #F8A330; }
 .tipsOrange .font a { color: #8AB923; }
 
@@ -138,7 +138,7 @@
 .form_button .btn { float: left; padding: 10px 0; margin-right: 20px; display: inline; }
 
 /* 工作区域-脚样式 */
-.footBar { padding-right: 11px; height: 31px; overflow: hidden; background: url(../Images/fb_right.jpg) right top no-repeat; overflow: hidden; }
+.footBar { padding-right: 0px; height: 31px; overflow: hidden; background: url(../Images/fb_right.jpg) right top no-repeat; overflow: hidden; }
 .fb_content { height: 31px; padding-bottom: 10px; background: url(../Images/fb_left.jpg) 0 0 no-repeat; }
 .fb_button { float: left; padding-left: 5px; display: inline; }
 .fb_button .fbb_left , .fb_button .fbb_right { float: left; width: 5px; }
@@ -156,3 +156,5 @@
 /* 底部样式 */
 .footerarea { height: 10px; padding-right: 15px; overflow: hidden; background: url(../Images/footer_right.jpg) right top no-repeat; } 
 .footer_left {height: 10px;  padding-right: 15px; overflow: hidden; background: url(../Images/footer_left.jpg) 0 0 no-repeat; } 
+
+.treeBody  { overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB; }

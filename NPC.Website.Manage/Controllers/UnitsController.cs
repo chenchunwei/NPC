@@ -8,9 +8,6 @@ namespace NPC.Website.Manage.Controllers
 {
     public class UnitsController : Controller
     {
-        //
-        // GET: /Units/
-
         public ActionResult List()
         {
             return View();
