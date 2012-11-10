@@ -15,6 +15,7 @@ namespace NPC.Domain.Model.Mappings.Departments
             Map(o => o.Name);
             References(o => o.Manager).Column("ManagerId");
             References(o => o.Unit).Column("UnitId");
+            References(o => o.Parent).Column("ParentId");
             HasMany(o => o.Departments).KeyColumn("ParentId");
             Component(o => o.RecordDescription);
             Table("Departments");

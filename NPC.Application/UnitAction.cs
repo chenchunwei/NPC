@@ -11,7 +11,7 @@ using NPC.Domain.Repository;
 
 namespace NPC.Application
 {
-    public class UnitAction
+    public class UnitAction : BaseAction
     {
         #region 构造函数
         private readonly UnitRepository _unitRepository;
@@ -32,6 +32,31 @@ namespace NPC.Application
             var subs = parentId.HasValue ? _unitRepository.GetSubUnit(parentId.Value) : _unitRepository.GetRootUnit();
 
             subs.ToList().ForEach(o => model.Components.Add(ConvertUnitToModel(o, true)));
+
+            return model;
+        }
+        #endregion
+        #region 转换unit到Model
+        private UnitTreeModelComponent ConvertUnitToModel(Unit unit, bool isNeedSub)
+        {
+            var model = new UnitTreeModelComponent()
+            {
+                Id = unit.Id,
+                Name = unit.Name,
+                IconCls = ApplicationConst.TreeLeafCls,
+            };
+            var childrens = _unitRepository.GetSubUnit(unit.Id).ToList();
+            if (childrens.Any())
+            {
+                if (isNeedSub)
+                {
+                    model.State = "";
+                    childrens.ForEach(o => model.Childrens.Add(ConvertUnitToModel(o, false)));
+                }
+                model.IconCls = ApplicationConst.TreeParentNode;
+            }
+            else
+                model.State = "";
 
             return model;
         }
@@ -64,29 +89,12 @@ namespace NPC.Application
         }
         #endregion
 
-        #region 转换unit到Model
-        private UnitTreeModelComponent ConvertUnitToModel(Unit unit, bool isNeedSub)
+        #region 删除组织单位
+        public void DeleteUnit(Guid id)
         {
-            var model = new UnitTreeModelComponent()
-            {
-                Id = unit.Id,
-                Name = unit.Name,
-                IconCls = ApplicationConst.TreeLeafCls,
-            };
-            var childrens = _unitRepository.GetSubUnit(unit.Id).ToList();
-            if (childrens.Any())
-            {
-                if (isNeedSub)
-                {
-                    model.State = "";
-                    childrens.ForEach(o => model.Childrens.Add(ConvertUnitToModel(o, false)));
-                }
-                model.IconCls = ApplicationConst.TreeParentNode;
-            }
-            else
-                model.State = "";
-
-            return model;
+            var unit = _unitRepository.Find(id);
+            unit.RecordDescription.IsDelete = true;
+            _unitRepository.Save(unit);
         }
         #endregion
     }

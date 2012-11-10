@@ -16,6 +16,8 @@ namespace NPC.Domain.Models.Departments
             RecordDescription = new RecordDescription();
             Departments = new List<Department>();
         }
+
+        public virtual Department Parent { get; set; }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         public virtual User Manager { get; set; }

@@ -42,9 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConst.cs" />
+    <Compile Include="BaseAction.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
+    <Compile Include="DepartmentAction.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleListModel.cs" />
+    <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />
+    <Compile Include="ManageModels\Departments\DepartmentListModel.cs" />
+    <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
     <Compile Include="ManageModels\Indexs\IndexModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />

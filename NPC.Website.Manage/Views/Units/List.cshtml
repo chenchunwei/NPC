@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "List";
+    ViewBag.Title = "组织管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -104,7 +104,15 @@
     function remove() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
-            $('#treegrid').treegrid('remove', node.id);
+            $.post('@Url.Action("DeleteUnit", "Units")', { "id": node.id }, function (data) {
+                data = evalJson(data);
+                if (data.status == "success") {
+                    $('#treegrid').treegrid('remove', node.id);
+                    showSlide("删除成功!", 3000);
+                } else {
+                    msgShow("失败信息", "删除组织失败!", "error");
+                }
+            });
         }
     }
     $("#newForm").validate({
@@ -121,6 +129,7 @@
             if (data.status == "success") {
                 $("#treegrid").treegrid('reload', $("#Id").val());
                 $("#newWin").window("close");
+                showSlide("添加成功!", 3000);
             } else {
                 msgShow("失败信息", "添加组织失败!", "error");
             }

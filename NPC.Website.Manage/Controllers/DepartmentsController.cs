@@ -5,16 +5,16 @@ using System.Web;
 using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using NPC.Application;
-using NPC.Application.ManageModels.Units;
+using NPC.Application.ManageModels.Departments;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class UnitsController : Controller
+    public class DepartmentsController : Controller
     {
-        private readonly UnitAction _unitAction;
-        public UnitsController()
+        private readonly  DepartmentAction _departmentAction;
+        public DepartmentsController()
         {
-            _unitAction = new UnitAction();
+            _departmentAction = new DepartmentAction();
         }
 
         public ActionResult List()
@@ -22,18 +22,18 @@ namespace NPC.Website.Manage.Controllers
             return View();
         }
 
-        public JsonResult GetUnits(Guid? id)
+        public JsonResult GetDepartments(Guid? id)
         {
-            var model = _unitAction.InitializeUnitTreeModel(id);
+            var model = _departmentAction.InitializeDepartmentTreeModel(id);
             return new NewtonsoftJsonResult() { Data = model.Components };
         }
 
-        [HttpPost, ActionName("EditUnit")]
-        public JsonResult EditUnitPost(EditUnitModel model)
+        [HttpPost, ActionName("EditDepartment")]
+        public JsonResult EditUnitPost(EditDepartmentModel model)
         {
             try
             {
-                _unitAction.CreateNewUnit(model);
+                _departmentAction.CreateNewDepartment(model);
             }
             catch (Exception)
             {
@@ -41,12 +41,12 @@ namespace NPC.Website.Manage.Controllers
             }
             return new NewtonsoftJsonResult() { Data = new { status = "success" } };
         }
-         [HttpPost, ActionName("DeleteUnit")]
+         [HttpPost, ActionName("DeleteDepartment")]
         public JsonResult DeleteUnitPost(Guid id)
         {
             try
             {
-                _unitAction.DeleteUnit(id);
+                _departmentAction.DeleteDepartment(id);
             }
             catch (Exception)
             {
