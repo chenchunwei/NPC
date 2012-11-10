@@ -18,7 +18,6 @@ namespace NPC.Domain.Model.Mappings.Articles
             Map(o => o.HitCount);
             References(o => o.Publisher).Column("PublisherId");
             Map(o => o.Title);
-            Map(o => o.Title);
             
             Table("ArticleCategory");
         }

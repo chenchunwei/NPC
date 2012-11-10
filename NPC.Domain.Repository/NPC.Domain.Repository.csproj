@@ -46,8 +46,11 @@
   <ItemGroup>
     <Compile Include="ArticleCategoryRepository.cs" />
     <Compile Include="ArticleRepository.cs" />
+    <Compile Include="DepartmentRepository.cs" />
     <Compile Include="NestSqlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
