@@ -25,7 +25,7 @@ namespace NPC.Application
             return model;
         }
         #endregion
-        #region 转换unit到Model
+        #region 转换Department到Model
         private DepartmentTreeModelComponent ConvertDepartmentToModel(Department department, bool isNeedSub)
         {
             var model = new DepartmentTreeModelComponent()

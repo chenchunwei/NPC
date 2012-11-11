@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "EditArticle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="EditNews.aspx?id=0" id="mainForm" style="margin: 0px;">
+</form>
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示：在机构节点上右键进行删除或添加新节点操作</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 文章类别：
+                    </th>
+                    <td>
+                        <select class="easyui-combotree" name="language" data-options="url:'@Url.Action("GetUnits", "Units")',cascadeCheck:false" style="width:200px;">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 新闻标题：
+                    </th>
+                    <td>
+                        <input name="ctl00$content$NewsTitle" type="text" id="content_NewsTitle" size="60" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 文章内容：
+                    </th>
+                    <td>
+                        <textarea name="ctl00$content$NewsContent" id="content_NewsContent" cols="170" rows="30" width="99%" 
+                                  class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    提交</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                            <div class="btn" id="resetBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    重置</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>

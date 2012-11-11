@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleCategories\ArticleCategoryMap.cs" />
+    <Compile Include="Articles\ArticleMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,10 +64,7 @@
       <Name>NPC.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ArticleCategories\" />
-    <Folder Include="Articles\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -48,7 +48,7 @@
 .sidecontent .bottom {}
 
 /* 工作区域样式 */
-.workground { padding-right: 5px; background: #E1E5F0 url(../Images/wrapper_bj.jpg) right top no-repeat; }
+.workground { padding-right: 5px; background: #E1E5F0 url(../Images/wrapper_bj.jpg) right top repeat-y; }
 .workgroundin { padding: 0; margin: 0; }
 
 /* 工作区域-头样式 */
@@ -126,7 +126,7 @@
 .faline .span_2 textarea , .faline_c .span_2 textarea { margin: 5px 0; text-align: left; }
 .faline .span_3 , .faline_c .span_3 { float: left; width: 50%; line-height: 22px; padding: 5px 0; overflow: hidden; margin: 0 5px 0 10px; text-align: left; }
 
-.tipsOrange { height: 28px; margin: 5px 10px; border: 1px solid #F8A330; background: #FFF2DF; }
+.tipsOrange { height: 28px; margin: 0 10px 5px 10px; border: 1px solid #F8A330; background: #FFF2DF; }
 .tipsOrange .icon { float: left; width: 16px; height: 16px; margin: 6px 10px 0 10px; background: url(../Images/icon_13.gif) 0 0 no-repeat; display: inline; }
 .tipsOrange .font { float: left; height: 28px; line-height: 28px; color: #F8A330; }
 .tipsOrange .font a { color: #8AB923; }
@@ -157,5 +157,15 @@
 .footerarea { height: 10px; padding-right: 15px; overflow: hidden; background: url(../Images/footer_right.jpg) right top no-repeat; } 
 .footer_left {height: 10px;  padding-right: 15px; overflow: hidden; background: url(../Images/footer_left.jpg) 0 0 no-repeat; } 
 
-.treeBody  { overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB;min-height: 100px; background-color: #FAFAFA }
+.treeBody  {color: #666666; border-left: 1px solid #BAC5DB;min-height: 100px; background-color: #FAFAFA }
  .error{ color: red;padding-left: 4px;}
+ 
+.fromTable tr{ margin: 0 10px; line-height: 32px; overflow: hidden; color: #666666; border-bottom: 1px solid #DBE2EC;}
+.fromTable td{ padding: 5px 10px;}
+.fromTable th{ text-align: right;}
+ 
+.fromTable { margin-right: 8px; line-height: 32px; overflow: hidden; color: #666666;  background: #FFFFFF; zoom: 1; }
+.fromTable .fbb_left , .fromTable .fbb_right { float: left; width: 5px; overflow: hidden; }
+.fromTable .fbb_center { float: left; height: 22px; padding: 0 14px 1px 14px; display: inline; overflow: hidden; line-height: 22px; color: #8E9CBA; background: url(../Images/fbb_center.gif) 0 0 repeat-x; }
+.fromTable .wrapper_btn {float: left; margin-left: 40%; display: inline; }
+.fromTable .btn { float: left; padding: 10px 0; margin-right: 20px; display: inline; }

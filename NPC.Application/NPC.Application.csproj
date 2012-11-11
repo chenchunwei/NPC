@@ -42,9 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConst.cs" />
+    <Compile Include="ArticleCategoryAction.cs" />
     <Compile Include="BaseAction.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
     <Compile Include="DepartmentAction.cs" />
+    <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
+    <Compile Include="ManageModels\ArticleCategories\ArticleCategoryListModel.cs" />
+    <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleListModel.cs" />
     <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />

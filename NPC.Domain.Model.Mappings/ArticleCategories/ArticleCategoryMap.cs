@@ -13,12 +13,10 @@ namespace NPC.Domain.Model.Mappings.ArticleCategories
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.CategoryName);
-            Map(o => o.DateOfPublish);
-            Map(o => o.Publisher);
-            Map(o => o.PublisherId);
-            Map(o => o.UintId);
+            References(o => o.Unit).Column("UnitId");
             HasMany(o => o.ChilrenArticleCategories).KeyColumn("ParentArticleCategoryId");
             References(o => o.ParentArticleCategory).Column("ParentArticleCategoryId");
+            Component(o => o.RecordDescription);
             Table("ArticleCategory");
         }
     }
