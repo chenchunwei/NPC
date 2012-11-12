@@ -13,10 +13,10 @@ namespace NPC.Application
         private readonly ArticleCategoryRepository _articleCategoryRepository;
         public ArticleCategoryAction()
         {
-            _articleCategoryRepository=new ArticleCategoryRepository();
+            _articleCategoryRepository = new ArticleCategoryRepository();
         }
         #region 初始化树模型
-       public ArticleCategoryTreeModel InitializeArticleCategoryTreeModel(Guid? id)
+        public ArticleCategoryTreeModel InitializeArticleCategoryTreeModel(Guid? id)
         {
             var model = new ArticleCategoryTreeModel();
             var subs = id.HasValue ? _articleCategoryRepository.GetSubs(NpcContext.CurrentUser.Unit.Id, id.Value) : _articleCategoryRepository.GetRoot(NpcContext.CurrentUser.Unit.Id);
@@ -27,7 +27,7 @@ namespace NPC.Application
 
         }
         #endregion
-        #region 转换unit到Model
+        #region 转换ArticleCategory到Model
         private ArticleCategoryTreeModelComponent ConvertArticleCategoryToModel(ArticleCategory articleCategory, bool isNeedSub)
         {
             var model = new ArticleCategoryTreeModelComponent()
@@ -41,17 +41,27 @@ namespace NPC.Application
             {
                 if (isNeedSub)
                 {
-                    model.State = "";
                     childrens.ForEach(o => model.Childrens.Add(ConvertArticleCategoryToModel(o, false)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
             }
-            else
-                model.State = "";
 
             return model;
         }
         #endregion
-       
+
+        #region 添加新的分类
+        public void CreateNewCategory(EditArticleCategoryModel model)
+        {
+            var articleCategory = new ArticleCategory();
+            articleCategory.CategoryName = model.FormData.Name;
+            articleCategory.Unit = NpcContext.CurrentUser.Unit;
+            if (model.Id.HasValue)
+            {
+                articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.Id.Value);
+            }
+            _articleCategoryRepository.Save(articleCategory);
+        }
+        #endregion
     }
 }

@@ -39,14 +39,12 @@ namespace NPC.Application
             {
                 if (isNeedSub)
                 {
-                    model.State = "";
+    
                     childrens.ForEach(o => model.Childrens.Add(ConvertDepartmentToModel(o, false)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
             }
-            else
-                model.State = "";
-
+         
             return model;
         }
         #endregion

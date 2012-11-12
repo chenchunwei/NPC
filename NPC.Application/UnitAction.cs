@@ -50,14 +50,11 @@ namespace NPC.Application
             {
                 if (isNeedSub)
                 {
-                    model.State = "";
-                    childrens.ForEach(o => model.Childrens.Add(ConvertUnitToModel(o, false)));
+                     childrens.ForEach(o => model.Childrens.Add(ConvertUnitToModel(o, false)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
             }
-            else
-                model.State = "";
-
+            
             return model;
         }
         #endregion

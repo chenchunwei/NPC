@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Fluent.Infrastructure.Log;
 
 namespace NPC.Website.Manage
 {
@@ -31,6 +32,7 @@ namespace NPC.Website.Manage
 
         protected void Application_Start()
         {
+            new DefaultLoggerFactory().GetLogger().Info("日志已启动");
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using NPC.Application;
+using NPC.Application.ManageModels.ArticleCategories;
 using NPC.Domain.Repository;
 
 namespace NPC.Website.Manage.Controllers
 {
     public class ArticleCategoriesController : Controller
     {
-        private ArticleCategoryAction _articleCategoryAction; 
+        private readonly ArticleCategoryAction _articleCategoryAction; 
         public ArticleCategoriesController()
         {
             _articleCategoryAction = new ArticleCategoryAction();
@@ -21,10 +22,24 @@ namespace NPC.Website.Manage.Controllers
             return View();
         }
 
-        public JsonResult GetUnits(Guid? id)
+        public JsonResult GetCategories(Guid? id)
         {
             var model = _articleCategoryAction.InitializeArticleCategoryTreeModel(id);
             return new NewtonsoftJsonResult() { Data = model.Components };
+        }
+
+        [HttpPost, ActionName("EditCategory")]
+        public JsonResult EditCategoryPost(EditArticleCategoryModel model)
+        {
+            try
+            {
+                _articleCategoryAction.CreateNewCategory(model);
+            }
+            catch (Exception)
+            {
+                return new NewtonsoftJsonResult() { Data = new { status = "failure" } };
+            }
+            return new NewtonsoftJsonResult() { Data = new { status = "success" } };
         }
     }
 }

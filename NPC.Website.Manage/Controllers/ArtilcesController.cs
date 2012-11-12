@@ -22,5 +22,6 @@ namespace NPC.Website.Manage.Controllers
         {
             return View();
         }
+
     }
 }

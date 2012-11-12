@@ -10,13 +10,7 @@ namespace NPC.Application
     {
         public NpcContext NpcContext
         {
-            get
-            {
-                return new NpcContext()
-                {
-
-                };
-            }
+            get { return new NpcContext(); }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace NPC.Application.ManageModels.Departments
 
     public class EditDepartmentModelFormData
     {
+        public Guid? Id { get; set; }
         public string Name { get; set; }
     }
 }

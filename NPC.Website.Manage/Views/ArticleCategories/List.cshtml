@@ -11,7 +11,25 @@
         <div class="pic">
             <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
         <div class="font">
-            提示：在机构节点上右键进行删除或添加新节点操作</div>
+            提示：在分类节点上右键进行删除或添加新节点操作</div>
+    </div>
+</div>
+<div class="contentContainer contentleftBorder">
+    <div class="hasTooler">
+        <ul>
+            <li class="buttonon" onclick="append()" id="newTopLevel">
+                <div class="hc_left">
+                </div>
+                <div class="hc_center">
+                    <div>
+                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                    <div>
+                        添加分类</div>
+                </div>
+                <div class="hc_right">
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="main_content">
@@ -28,12 +46,12 @@
 </div>
 <div id="mm" class="easyui-menu" style="width: 120px;">
     <div onclick="append()" data-options="iconCls:'icon-add'">
-        添加新机构
+        添加新分类
     </div>
     <div class="menu-sep">
     </div>
     <div onclick="remove()" data-options="iconCls:'icon-remove'">
-        移除机构
+        移除分类
     </div>
 </div>
 <div id="wins" style="display: none;">
@@ -45,7 +63,7 @@
                 <table>
                     <tr>
                         <th width="120px;">
-                            机构名称：
+                            分类名称：
                         </th>
                         <td>
                             <input id="FormData_Name" name="FormData.Name" type="text" />
@@ -67,10 +85,10 @@
 <script type="text/javascript">
     $(function () {
         $("#treegrid").treegrid({
-            url: '@Url.Action("GetDepartments", "Departments")',
+            url: '@Url.Action("GetCategories", "ArticleCategories")',
             iconCls: 'icon-redo',
             rownumbers: true,
-            treeField: 'name',
+            treeField: 'text',
             idField: 'id',
             fit: false,
             border: 0,
@@ -78,7 +96,7 @@
             title: "&nbsp;文章分类列表",
             columns: [[
             { field: 'id', hidden: true },
-            { field: 'name', title: '分类名称', width: 90, align: 'left' }
+            { field: 'text', title: '分类名称', width: 90, align: 'left' }
         ]],
             onLoadSuccess: function () {
             },
@@ -102,7 +120,8 @@
     }
     function append() {
         var node = $('#treegrid').treegrid('getSelected');
-        $("#Id").val(node.id);
+        if (node != null && node.id != undefined)
+            $("#Id").val(node.id);
         $('#newWin').window('open');
     }
     function remove() {
@@ -124,14 +143,15 @@
             "FormData.Name": { required: true }
         },
         messages: {
-            "FormData.Name": { required: "必须填写组织名称" }
+            "FormData.Name": { required: "必须填写分类名称" }
         }
     });
     $("#newForm").submit(function () {
-        $.post('@Url.Action("EditDepartment", "Departments")', utility.formSerialize($("#newForm")), function (data) {
+        $.post('@Url.Action("EditCategory", "ArticleCategories")', utility.formSerialize($("#newForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
-                $("#treegrid").treegrid('reload', $("#Id").val());
+                alert($("#Id").val());
+                $("#treegrid").treegrid('reload', '' + $("#Id").val());
                 $("#newWin").window("close");
                 showSlide("添加成功!", 3000);
             } else {

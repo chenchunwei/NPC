@@ -15,9 +15,9 @@ namespace NPC.Domain.Model.Mappings.ArticleCategories
             Map(o => o.CategoryName);
             References(o => o.Unit).Column("UnitId");
             HasMany(o => o.ChilrenArticleCategories).KeyColumn("ParentArticleCategoryId");
-            References(o => o.ParentArticleCategory).Column("ParentArticleCategoryId");
+            References(o => o.ParentArticleCategory).Column("ParentArticleCategoryId").Cascade.All();
             Component(o => o.RecordDescription);
-            Table("ArticleCategory");
+            Table("ArticleCategories");
         }
     }
 }
