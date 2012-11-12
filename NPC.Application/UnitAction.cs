@@ -55,7 +55,6 @@ namespace NPC.Application
                 model.IconCls = ApplicationConst.TreeParentNode;
                 model.State = isNeedSub ? "open" : "closed";
             }
-
             return model;
         }
         #endregion

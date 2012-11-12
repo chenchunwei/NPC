@@ -57,7 +57,12 @@ namespace NPC.Application
 
         public void CreateNewDepartment(EditDepartmentModel model)
         {
-            throw new NotImplementedException();
+            var department = new Department();
+            department.Name = model.FormData.Name;
+            department.Unit = NpcContext.CurrentUser.Unit;
+            if (model.Id.HasValue)
+                department.Parent = _departmentRepository.Find(model.Id.Value);
+            _departmentRepository.Save(department);
         }
     }
 }
