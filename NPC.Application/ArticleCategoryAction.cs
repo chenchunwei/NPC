@@ -44,6 +44,7 @@ namespace NPC.Application
                     childrens.ForEach(o => model.Childrens.Add(ConvertArticleCategoryToModel(o, false)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
+                model.State = isNeedSub ? "open" : "closed";
             }
 
             return model;

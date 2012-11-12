@@ -150,8 +150,7 @@
         $.post('@Url.Action("EditCategory", "ArticleCategories")', utility.formSerialize($("#newForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
-                alert($("#Id").val());
-                $("#treegrid").treegrid('reload', '' + $("#Id").val());
+                $("#treegrid").treegrid('reload', $("#Id").val());
                 $("#newWin").window("close");
                 showSlide("添加成功!", 3000);
             } else {
