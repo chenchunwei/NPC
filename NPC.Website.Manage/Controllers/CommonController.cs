@@ -67,7 +67,7 @@ namespace NPC.Website.Manage.Controllers
             {
                 return new NewtonsoftJsonResult() { Data = new { err = e.Message, msg = e.Message } };
             }
-            return new NewtonsoftJsonResult { Data = new { url = fullPath, localname, id = "1" } };
+            return new NewtonsoftJsonResult { Data = new { err = "", msg = new { url = fullPath, localname, id = "1" } } };
         }
 
         private string GetFileExt(string fullPath)
