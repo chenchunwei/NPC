@@ -33,8 +33,10 @@ namespace NPC.Application
 
         public void NewArticle(ArticleEditModel model)
         {
+            if (!model.FormData.ArticleCategoryId.HasValue)
+                throw new ArgumentException("model.FormData.ArticleCategoryId不能为空");
             var article = new Article();
-            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId);
+            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId.Value);
             article.Content = model.FormData.Content;
             article.HitCount = 0;
             article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
@@ -47,10 +49,12 @@ namespace NPC.Application
 
         public void UpdateArticle(ArticleEditModel model)
         {
+            if (!model.FormData.ArticleCategoryId.HasValue)
+                throw new ArgumentException("model.FormData.ArticleCategoryId不能为空");
             if (!model.Id.HasValue)
                 throw new ArgumentException("model.Id不能为空");
             var article = _articleRepository.Find(model.Id.Value);
-            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId);
+            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId.Value);
             article.Content = model.FormData.Content;
             article.HitCount = 0;
             article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
