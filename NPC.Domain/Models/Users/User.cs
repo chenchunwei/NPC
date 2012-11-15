@@ -22,5 +22,6 @@ namespace NPC.Domain.Models.Users
         public virtual Unit Unit { get; set; }
         public virtual Department Department { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual bool Sex { get; set; }
     }
 }

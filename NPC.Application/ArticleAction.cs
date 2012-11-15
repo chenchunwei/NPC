@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Articles;
+using NPC.Domain.Models.Articles;
 using NPC.Domain.Repository;
 
 namespace NPC.Application
 {
-    public class ArticleAction
+    public class ArticleAction : BaseAction
     {
         private readonly ArticleRepository _articleRepository;
+        private readonly ArticleCategoryRepository _articleCategoryRepository;
         public ArticleAction()
         {
             _articleRepository = new ArticleRepository();
+            _articleCategoryRepository = new ArticleCategoryRepository();
         }
         public ArticleEditModel InitializeArticleEditModel(Guid? articleId)
         {
@@ -29,13 +33,31 @@ namespace NPC.Application
 
         public void NewArticle(ArticleEditModel model)
         {
-            
+            var article = new Article();
+            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId);
+            article.Content = model.FormData.Content;
+            article.HitCount = 0;
+            article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
+            article.Title = model.FormData.Title;
+            article.Unit = NpcContext.CurrentUser.Unit;
+            article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            _articleRepository.Save(article);
         }
 
 
         public void UpdateArticle(ArticleEditModel model)
         {
-
+            if (!model.Id.HasValue)
+                throw new ArgumentException("model.Id不能为空");
+            var article = _articleRepository.Find(model.Id.Value);
+            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId);
+            article.Content = model.FormData.Content;
+            article.HitCount = 0;
+            article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
+            article.Title = model.FormData.Title;
+            article.Unit = NpcContext.CurrentUser.Unit;
+            article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            _articleRepository.Save(article);
         }
     }
 }

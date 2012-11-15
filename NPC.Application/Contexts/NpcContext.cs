@@ -14,7 +14,6 @@ namespace NPC.Application.Contexts
         public NpcContext()
         {
             UserRepository = new UserRepository();
-
         }
 
         public User CurrentUser
