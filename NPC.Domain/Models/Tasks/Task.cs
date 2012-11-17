@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fluent.Infrastructure;
+using Fluent.Infrastructure.Domain;
+using NPC.Domain.Models.Common;
+using NPC.Domain.Models.Users;
 
 namespace NPC.Domain.Models.Tasks
 {
@@ -12,7 +15,6 @@ namespace NPC.Domain.Models.Tasks
     public class Task : IAggregateRoot
     {
         public virtual Guid Id { get; set; }
-
         /// <summary>
         /// 任务标题
         /// </summary>
@@ -22,22 +24,20 @@ namespace NPC.Domain.Models.Tasks
         /// </summary>
         public virtual string Description { get; set; }
         /// <summary>
-        /// 任务创建日期
+        /// 任务处理人
         /// </summary>
-        public virtual string DateOfCreate { get; set; }
-        /// <summary>
-        /// 任务
-        /// </summary>
-        public virtual Guid UserIdOfCreate { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual Guid UserIdOfSendTo { get; set; }
+        public virtual IList<User> TaskProcessers { get; set; }
         /// <summary>
         /// 与任务关联的外部对象id
         /// </summary>
         public virtual string OuterId { get; set; }
-
+        /// <summary>
+        /// 任务状态
+        /// </summary>
         public virtual TaskStatus TaskStatus { get; set; }
+        /// <summary>
+        /// 记录创建及修改的基本信息
+        /// </summary>
+        public virtual RecordDescription RecordDescription { get; set; }
     }
 }

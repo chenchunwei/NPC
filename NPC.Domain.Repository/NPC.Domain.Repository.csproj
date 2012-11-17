@@ -49,6 +49,7 @@
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="NestSqlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProposalRepository.cs" />
     <Compile Include="TaskRepository.cs" />
     <Compile Include="UnitRepository.cs" />
     <Compile Include="UserRepository.cs" />

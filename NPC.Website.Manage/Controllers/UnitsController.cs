@@ -9,7 +9,7 @@ using NPC.Application.ManageModels.Units;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class UnitsController : Controller
+    public class UnitsController : BaseController
     {
         private readonly UnitAction _unitAction;
         public UnitsController()

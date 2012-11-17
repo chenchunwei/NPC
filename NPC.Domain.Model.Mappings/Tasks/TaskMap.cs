@@ -11,14 +11,13 @@ namespace NPC.Domain.Model.Mappings.Tasks
     {
         public TaskMap()
         {
-            Id(o => o.OuterId).GeneratedBy.GuidComb();
-            Map(o => o.DateOfCreate);
+            Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Description);
             Map(o => o.OuterId);
             Map(o => o.Title);
-            Map(o => o.UserIdOfCreate);
-            Map(o => o.UserIdOfSendTo);
             Map(o => o.TaskStatus).CustomType<TaskStatus>();
+            Component(o => o.RecordDescription);
+            HasManyToMany(o => o.TaskProcessers).ChildKeyColumn("UserId").ParentKeyColumn("TaskId");
             Table("Tasks");
         }
     }

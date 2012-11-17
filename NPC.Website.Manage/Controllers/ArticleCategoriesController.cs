@@ -10,7 +10,7 @@ using NPC.Domain.Repository;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class ArticleCategoriesController : Controller
+    public class ArticleCategoriesController : BaseController
     {
         private readonly ArticleCategoryAction _articleCategoryAction; 
         public ArticleCategoriesController()

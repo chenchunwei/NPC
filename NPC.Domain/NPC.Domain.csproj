@@ -46,6 +46,8 @@
     <Compile Include="Models\Common\RecordDescription.cs" />
     <Compile Include="Models\Departments\Department.cs" />
     <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\Proposals\Proposal.cs" />
+    <Compile Include="Models\Proposals\ProposalType.cs" />
     <Compile Include="Models\QueryItemBase.cs" />
     <Compile Include="Models\Tasks\Task.cs" />
     <Compile Include="Models\Tasks\TaskStatus.cs" />

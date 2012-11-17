@@ -51,6 +51,7 @@
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proposals\ProposalMap.cs" />
     <Compile Include="Tasks\TaskMap.cs" />
     <Compile Include="Units\UnitMap.cs" />
     <Compile Include="Users\UserMap.cs" />

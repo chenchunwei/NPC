@@ -9,7 +9,7 @@ using NPC.Application.ManageModels.Departments;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class DepartmentsController : Controller
+    public class DepartmentsController : BaseController
     {
         private readonly  DepartmentAction _departmentAction;
         public DepartmentsController()

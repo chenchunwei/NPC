@@ -8,7 +8,7 @@ using NPC.Application.ManageModels.Articles;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class ArtilcesController : Controller
+    public class ArtilcesController : BaseController
     {
         private readonly ArticleAction _articleAction;
         public ArtilcesController()

@@ -9,7 +9,7 @@ using Fluent.Infrastructure.Mvc;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class CommonController : Controller
+    public class CommonController : BaseController
     {
         const string Inputname = "filedata"; //表单文件域name
         const int Maxattachsize = 8097152; // 最大上传大小，默认是2M
