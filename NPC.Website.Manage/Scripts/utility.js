@@ -55,3 +55,8 @@ controller.del = function (url, datagridSelector, idFeild) {
         }
     );
 };
+$.validator.setDefaults({
+    errorPlacement: function (error, element) {
+        error.appendTo($(element).parent());
+    }
+});

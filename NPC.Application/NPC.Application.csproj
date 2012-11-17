@@ -61,6 +61,7 @@
     <Compile Include="ManageModels\Units\UnitListModel.cs" />
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskAction.cs" />
     <Compile Include="UnitAction.cs" />
   </ItemGroup>
   <ItemGroup>

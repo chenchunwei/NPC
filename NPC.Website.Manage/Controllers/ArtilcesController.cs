@@ -29,15 +29,10 @@ namespace NPC.Website.Manage.Controllers
         public ActionResult EditArticlePost(ArticleEditModel model)
         {
             if (model.Id.HasValue)
-            {
                 _articleAction.UpdateArticle(model);
-            }
             else
-            {
                 _articleAction.NewArticle(model);
-                
-            }
-            return View();
+            return View(model);
         }
 
     }

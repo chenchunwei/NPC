@@ -2,11 +2,13 @@
     ViewBag.Title = Model.Id.HasValue ? "文章编辑" : "新增文章";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using System.ComponentModel
 @model NPC.Application.ManageModels.Articles.ArticleEditModel
 <script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
 <div class="workgroundin" style="height: 5px;">
 </div>
 <form method="post" action="" id="mainForm" style="margin: 0px;">
+@Html.HiddenFor(o => o.Id)
 <div class="main_content">
     <div class="main_search">
         <div class="mc_search">
@@ -30,8 +32,7 @@
                         <span style="color: red;">*</span> 文章类别：
                     </th>
                     <td>
-                        <select class="easyui-combotree" name="FormData.ArticleCategoryId" id="FormData_ArticleCategoryId" data-options="url:'@Url.Action("GetCategories", "ArticleCategories")',cascadeCheck:false" style="width:200px;">
-                        </select>
+                        @Html.DropDownListFor(o => o.FormData.ArticleCategoryId, new BindingList<SelectListItem>(), new { style = "width:250px;" })
                     </td>
                 </tr>
                 <tr>
@@ -56,7 +57,7 @@
                     </th>
                     <td>
                         <textarea name="FormData.Content" id="FormData_Content" cols="170" rows="30" width="99%" 
-                                      class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }"></textarea>
+                                      class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -91,20 +92,22 @@
 </div>
 </form>
 <script type="text/javascript">
-    $("#mainForm").validate({
-        ignore: "",
-        rules: {
-            "FormData.ArticleCategoryId": "required",
-            "FormData.Title": "required"
-        },
-        messages: {
-            "FormData.ArticleCategoryId": "请选择文章分类",
-            "FormData.Title": "请输入文章标题"
-        }
-    });
-
     $(function () {
-
+        $("#FormData_ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
+        $('#FormData_ArticleCategoryId').combotree('setValue', '@(Model.FormData.ArticleCategoryId.HasValue ? Model.FormData.ArticleCategoryId.Value : default(Guid?))');
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "FormData.ArticleCategoryId": "required",
+                "FormData.Title": "required",
+                "FormData.Content": "required"
+            },
+            messages: {
+                "FormData.ArticleCategoryId": "请选择文章分类",
+                "FormData.Title": "请输入文章标题",
+                "FormData.Content": "请填写文章内容"
+            }
+        });
         $("#submitBtn").click(function () {
             $("#mainForm").submit();
         });

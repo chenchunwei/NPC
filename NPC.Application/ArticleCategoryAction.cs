@@ -33,7 +33,7 @@ namespace NPC.Application
             var model = new ArticleCategoryTreeModelComponent()
             {
                 Id = articleCategory.Id,
-                Text = articleCategory.CategoryName,
+                Name = articleCategory.CategoryName,
                 IconCls = ApplicationConst.TreeLeafCls,
             };
             var childrens = _articleCategoryRepository.GetSubs(NpcContext.CurrentUser.Unit.Id, articleCategory.Id).ToList();
@@ -41,7 +41,7 @@ namespace NPC.Application
             {
                 if (isNeedSub)
                 {
-                    childrens.ForEach(o => model.Childrens.Add(ConvertArticleCategoryToModel(o, false)));
+                    childrens.ForEach(o => model.Childrens.Add(ConvertArticleCategoryToModel(o, true)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
                 model.State = isNeedSub ? "open" : "closed";

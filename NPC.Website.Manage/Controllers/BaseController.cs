@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace NPC.Website.Manage.Controllers
 {
+    [ValidateInput(false)]
     public class BaseController : Controller
     {
+
         public ActionResult RedirectToMessage(string message, string returnUrl = "", string textOfReturnUrl = "")
         {
             return new RedirectResult(Url.Action("Message", "System") + string.Format("?message={0}&returnUrl={1}&textOfReturnUrl={2}", message, returnUrl, textOfReturnUrl));

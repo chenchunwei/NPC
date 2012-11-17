@@ -47,6 +47,8 @@
     <Compile Include="Models\Departments\Department.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\QueryItemBase.cs" />
+    <Compile Include="Models\Tasks\Task.cs" />
+    <Compile Include="Models\Tasks\TaskStatus.cs" />
     <Compile Include="Models\Units\Unit.cs" />
     <Compile Include="Models\Units\UnitStatus.cs" />
     <Compile Include="Models\Users\User.cs" />

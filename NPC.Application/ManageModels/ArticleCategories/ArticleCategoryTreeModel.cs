@@ -32,7 +32,7 @@ namespace NPC.Application.ManageModels.ArticleCategories
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
         [DataMember(Name = "text")]
-        public string Text { get; set; }
+        public string Name { get; set; }
         [DataMember(Name = "children")]
         public IList<ArticleCategoryTreeModelComponent> Childrens { get; set; }
     }

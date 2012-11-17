@@ -40,7 +40,7 @@ namespace NPC.Application
                 if (isNeedSub)
                 {
     
-                    childrens.ForEach(o => model.Childrens.Add(ConvertDepartmentToModel(o, false)));
+                    childrens.ForEach(o => model.Childrens.Add(ConvertDepartmentToModel(o, true)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
                 model.State = isNeedSub ? "open" : "closed";

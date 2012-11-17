@@ -62,6 +62,7 @@ namespace NPC.Application
             article.Unit = NpcContext.CurrentUser.Unit;
             article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
             _articleRepository.Save(article);
+            model.Id = article.Id;
         }
     }
 }

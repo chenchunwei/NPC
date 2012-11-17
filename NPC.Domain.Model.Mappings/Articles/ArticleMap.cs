@@ -20,7 +20,7 @@ namespace NPC.Domain.Model.Mappings.Articles
             Component(o => o.RecordDescription);
             References(o => o.ArticleCategory).Column("ArticleCategoryId");
             References(o => o.Unit).Column("UnitId");
-            Table("ArticleCategories");
+            Table("Articles");
         }
     }
 }
