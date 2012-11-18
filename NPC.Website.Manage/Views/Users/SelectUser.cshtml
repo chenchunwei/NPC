@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "SelectUser";
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>人大管理系统后台</title>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/reset.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/style.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/showpage.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/default/easyui.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/icon.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/showpage.src.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-easyui-1.3.1/jquery.easyui.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-loadmask/jquery.loadmask.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/customIcon.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-loadmask/jquery.loadmask.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/utility.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easyui.extension.js")"></script>
+</head>
+<body>
+    <table id="treegrid">
+    </table>
+</body>
+<script type="text/javascript">
+    var treeUrls = {
+        '0': '@Url.Action("GetSelectUserOptionsWithUnit", "Users")',
+        '1': '@Url.Action("GetSelectUserOptionsWithDepartment", "Users")',
+        '2': '@Url.Action("GetSelectUserOptionsWithUser", "Users")'
+    };
+    $(function () {
+        $("#treegrid").treegrid({
+            url: '@Url.Action("GetSelectUserOptionsWithUnit", "Users")',
+            iconCls: 'icon-redo',
+            checkbox: true,
+            rownumbers: true,
+            treeField: 'name',
+            idField: 'id',
+            fit: false,
+            border: 0,
+            fitColumns: true,
+            singleSelect: false,
+            cascadeCheck: true,
+            columns: [[
+                    { field: 'ck', checkbox: true },
+                    { field: 'id', hidden: true },
+                    { field: 'name', title: '机构名称', width: 90, align: 'left' },
+                    { field: 'state', title: '姓名', width: 90, align: 'left' }
+                ]],
+            onBeforeExpand: function (row) {
+                $("#treegrid").treegrid("options").url = treeUrls[row.nodeType] + '?id=' + row.treeid;
+                return true;
+            }
+        });
+    });
+//    div.datagrid - cell - check
+//    function formatName(val, row) {
+//        if (val != undefined)
+//            return ' <div class="datagrid-cell-check"><input style="width:24px;" type="checkbox" name="FormData.SelectedUserIds" value="' + row.id + '"/><span>' + val + '</span></div>';
+//        return '';
+//    }
+
+</script>
+</html>

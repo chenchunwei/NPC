@@ -62,7 +62,7 @@
 .buttonoff .hc_center div { float: left; }
 .buttonoff .hc_center div img { padding: 4px 4px 4px 0; padding: 4px 4px 4px 0\9; *padding: 4px 4px 4px 0; _padding: 4px 4px 4px 0; display: inline; }
 .buttonoff .hc_center div { line-height: 22px; line-height: 25px\9; *line-height: 21px; _line-height: 21px;}
-
+.buttonon,.buttonoff { float: left; height: 25px; padding: 3px 0; margin-right: 3px; display: inline; }
 .buttonon .hc_left , .buttonon .hc_right { float: left; width: 6px; height: 25px; overflow: hidden; }
 .buttonon .hc_left { background: url(../Images/hcbutton_on_left.jpg) 0 0 no-repeat; }
 .buttonon .hc_right { background: url(../Images/hcbutton_on_right.jpg) 0 0 no-repeat; }

@@ -14,7 +14,6 @@ namespace NPC.Domain.Repository
             return Session.CreateQuery("from Unit Where ParentUint.Id=:id And RecordDescription.IsDelete=0")
                 .SetGuid("id", id).List<Unit>();
         }
-
         public IEnumerable<Unit> GetRootUnit()
         {
             return Session.CreateQuery("from Unit Where ParentUint is Null And RecordDescription.IsDelete=0")

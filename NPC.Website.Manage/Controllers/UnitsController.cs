@@ -41,7 +41,7 @@ namespace NPC.Website.Manage.Controllers
             }
             return new NewtonsoftJsonResult() { Data = new { status = "success" } };
         }
-         [HttpPost, ActionName("DeleteUnit")]
+        [HttpPost, ActionName("DeleteUnit")]
         public JsonResult DeleteUnitPost(Guid id)
         {
             try

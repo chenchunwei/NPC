@@ -9,8 +9,10 @@ namespace NPC.Domain.Models.Proposals
     public enum ProposalType
     {
         [Description("代表议案")]
-        Npc = 0,
-        [Description("群众议案")]
-        Masses = 1
+        NpcProposal = 0,
+        [Description("代表建议")]
+        NpcSuggest = 1,
+        [Description("群众意见")]
+        MassesOpinion = 2
     }
 }

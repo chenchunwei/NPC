@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NPC.Domain.Models.Proposals;
+using NPC.Domain.Models.Users;
 
 namespace NPC.Application.ManageModels.Proposals
 {
@@ -16,6 +17,7 @@ namespace NPC.Application.ManageModels.Proposals
 
         public EditProposalModelForm FormData { get; set; }
         public Dictionary<string, string> ProposalTypeOptions { get; set; }
+        public User CurrentUser { get; set; }
     }
 
     public class EditProposalModelForm
