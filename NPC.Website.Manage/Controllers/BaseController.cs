@@ -9,6 +9,16 @@ namespace NPC.Website.Manage.Controllers
     [ValidateInput(false)]
     public class BaseController : Controller
     {
+        protected int PageIndex
+        {
+            get
+            {
+                int pageIndex;
+                if (string.IsNullOrEmpty(Request["p"]) && int.TryParse(Request["p"], out pageIndex))
+                    return pageIndex;
+                return 1;
+            }
+        }
 
         public ActionResult RedirectToMessage(string message, string returnUrl = "", string textOfReturnUrl = "")
         {

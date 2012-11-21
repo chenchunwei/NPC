@@ -157,6 +157,7 @@
 .footerarea { height: 10px; padding-right: 15px; overflow: hidden; background: url(../Images/footer_right.jpg) right top no-repeat; } 
 .footer_left {height: 10px;  padding-right: 15px; overflow: hidden; background: url(../Images/footer_left.jpg) 0 0 no-repeat; } 
 
+.treeBodyWrapper  { margin-right: 8px; line-height: 32px; overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB; background: #FFFFFF; zoom: 1;}
 .treeBody  {color: #666666; border-left: 1px solid #BAC5DB;min-height: 100px; background-color: #FAFAFA }
  .error{ color: red;padding-left: 4px;line-height: 14px;}
  
@@ -174,4 +175,3 @@
 .hasTooler ul{ background:#FAFAFA ;height: 31px;margin-right: 8px;border-bottom: 1px solid #BAC5DB}
 .hasTooler li { float: left; height: 25px;padding: 3px 0 3px 5px; margin-right: 3px; display: inline; }
 .contentleftBorder{border-left: 1px solid #BAC5DB;}
-input{ width: 245px;}

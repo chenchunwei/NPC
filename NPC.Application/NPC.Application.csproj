@@ -53,6 +53,7 @@
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleListModel.cs" />
+    <Compile Include="ManageModels\Articles\ArtilceSearchModel.cs" />
     <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentListModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />

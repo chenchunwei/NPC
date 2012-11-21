@@ -28,6 +28,8 @@ namespace NPC.Application.ManageModels.Users
         public string IconCls { get; set; }
         [DataMember(Name = "name")]
         public string Name { get; set; }
+        [DataMember(Name = "position")]
+        public string Position { get; set; }
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
         [DataMember(Name = "nodeType")]

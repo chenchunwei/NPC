@@ -81,6 +81,8 @@ $.extend($.fn.treegrid.methods, {
 */
 $.extend($.fn.treegrid.defaults, {
     onLoadSuccess: function (data) {
+        if (data == null)
+            return;
         var target = $(this);
         var opts = $.data(this, "treegrid").options;
         var panel = $(this).datagrid("getPanel");
@@ -129,8 +131,8 @@ $.extend($.fn.treegrid.defaults, {
         }
         function hander(id, status, isChk) {
             //级联选择父节点
-            selectParent(target, id, idField, status, isChk);
             selectChildren(target, id, idField, opts.deepCascadeCheck, status);
+            selectParent(target, id, idField, status, isChk);
             /**
             * 级联选择父节点
             * @param {Object} target

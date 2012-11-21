@@ -18,8 +18,8 @@ namespace NPC.Domain.Repository
             var queryReturns = FormatQuery(queryItem);
             var tempString = queryReturns.Item1;
             var parameters = queryReturns.Item2;
-            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct i.*", ""), "Order by rel_time desc"));
-            var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct i.Id)", ""));
+            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct a.*", ""), "Order by DateOfCreate desc"));
+            var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct a.Id)", ""));
 
             SetParameters(query, parameters);
             SetParameters(queryTotalCount, parameters);
@@ -36,10 +36,8 @@ namespace NPC.Domain.Repository
         private static Tuple<string, Hashtable> FormatQuery(ArticleQueryItem queryItem)
         {
             //表区域
-            var stringBuilder = new StringBuilder("Select {0} From EC_Q_INFREL i Left Join ");
-            stringBuilder.Append("EC_S_PLFRAME p ");
-            stringBuilder.Append("On i.CORP_ID =p.CORP_ID ");
-            stringBuilder.Append("Where 1=1 ");
+            var stringBuilder = new StringBuilder("Select {0} From Articles a ");
+             stringBuilder.Append("Where 1=1 ");
             var parameters = new Hashtable();
 
             //if (!string.IsNullOrEmpty(infrelQueryParameters.Keyword))
@@ -47,7 +45,7 @@ namespace NPC.Domain.Repository
             //    stringBuilder.Append("And i.REL_TITLE like :Keyword ");
             //    parameters.Add("Keyword", "%" + infrelQueryParameters.Keyword + "%");
             //}
-            stringBuilder.Append("And i.STATUS=1 ");
+            stringBuilder.Append("And a.IsDelete=0 ");
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);
         }

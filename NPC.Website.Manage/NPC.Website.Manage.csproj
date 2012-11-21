@@ -969,6 +969,10 @@
       <Project>{22C05668-41AB-46B3-81EF-72294624FBCB}</Project>
       <Name>NPC.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
+      <Name>NPC.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Units\List.cshtml" />
@@ -979,6 +983,7 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="AdminCenter\修改List.cshtml" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\combobox_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data2.json" />

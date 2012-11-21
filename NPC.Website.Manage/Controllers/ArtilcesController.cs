@@ -15,9 +15,11 @@ namespace NPC.Website.Manage.Controllers
         {
             _articleAction = new ArticleAction();
         }
-        public ActionResult List()
+        public ActionResult List(ArtilceSearchModel searchModel)
         {
-            return View();
+            searchModel.ArticleQueryItem.Pagination.PageIndex = PageIndex;
+            var model = _articleAction.InitializeArticleListModel(searchModel.ArticleQueryItem);
+            return View(model);
         }
 
         public ActionResult EditArticle(Guid? id)

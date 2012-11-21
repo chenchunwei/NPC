@@ -48,8 +48,8 @@
             columns: [[
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
-                    { field: 'name', title: '机构名称', width: 90, align: 'left' },
-                    { field: 'state', title: '姓名', width: 90, align: 'left' }
+                    { field: 'name', title: '机构名称-姓名', width: 90, align: 'left' },
+                    { field: 'position', title: '职位', width: 90, align: 'left' }
                 ]],
             onBeforeExpand: function (row) {
                 $("#treegrid").treegrid("options").url = treeUrls[row.nodeType] + '?id=' + row.treeid;
@@ -57,12 +57,12 @@
             }
         });
     });
-//    div.datagrid - cell - check
-//    function formatName(val, row) {
-//        if (val != undefined)
-//            return ' <div class="datagrid-cell-check"><input style="width:24px;" type="checkbox" name="FormData.SelectedUserIds" value="' + row.id + '"/><span>' + val + '</span></div>';
-//        return '';
-//    }
+    //    div.datagrid - cell - check
+    //    function formatName(val, row) {
+    //        if (val != undefined)
+    //            return ' <div class="datagrid-cell-check"><input style="width:24px;" type="checkbox" name="FormData.SelectedUserIds" value="' + row.id + '"/><span>' + val + '</span></div>';
+    //        return '';
+    //    }
 
 </script>
 </html>

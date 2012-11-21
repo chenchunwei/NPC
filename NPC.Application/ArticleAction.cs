@@ -6,6 +6,7 @@ using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Articles;
 using NPC.Domain.Models.Articles;
 using NPC.Domain.Repository;
+using NPC.Query.Articles;
 
 namespace NPC.Application
 {
@@ -63,6 +64,14 @@ namespace NPC.Application
             article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
             _articleRepository.Save(article);
             model.Id = article.Id;
+        }
+
+        public ArticleListModel InitializeArticleListModel(ArticleQueryItem queryItem)
+        {
+            var model = new ArticleListModel();
+            model.ArtilceSearchModel.ArticleQueryItem = queryItem;
+            model.Articles = _articleRepository.Query(queryItem);
+            return model;
         }
     }
 }

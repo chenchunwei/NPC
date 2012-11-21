@@ -1,7 +1,162 @@
 ﻿@{
-    ViewBag.Title = "List";
+    ViewBag.Title = "文章列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>List</h2>
-
+@model NPC.Application.ManageModels.Articles.ArticleListModel 
+<div class="workgroundin">
+    <ul class="head_content">
+        <li class="buttonon">
+            <div class="hc_left">
+            </div>
+            <div class="hc_center">
+                <div>
+                    <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                <div>
+                    添加</div>
+            </div>
+            <div class="hc_right">
+            </div>
+        </li>
+        <li class="buttonoff">
+            <div class="hc_left">
+            </div>
+            <div class="hc_center">
+                <div>
+                    <img src="@Url.Content("~/Content/images/icon_4.gif")" alt="" /></div>
+                <div>
+                    编辑</div>
+            </div>
+            <div class="hc_right">
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="main_search">
+    <div class="mc_search">
+        <div class="pic">
+            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+        <div class="font">
+            搜索：</div>
+        <div class="s1">
+            <select name="select" id="select">
+                <option>货号</option>
+            </select></div>
+        <div class="i1">
+            <input type="text" name="textfield" id="textfield" /></div>
+        <div class="i2">
+            <div class="fbb_left">
+                <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
+            <div class="fbb_center">
+                搜索</div>
+            <div class="fbb_right">
+                <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+        </div>
+    </div>
+</div>
+<div class="main_content">
+    <div class="topline">
+        <div class="span_1">
+            <input type="checkbox" name="checkbox" id="checkbox" /></div>
+        <div class="span_2">
+            操作</div>
+        <div class="span_5">
+            货号</div>
+        <div class="span_3">
+            名称</div>
+        <div class="span_2">
+            成本价</div>
+        <div class="span_2">
+            销售价</div>
+        <div class="span_4">
+            库存</div>
+        <div class="span_4">
+            推荐</div>
+        <div class="span_4">
+            上架</div>
+    </div>
+    <div class="row">
+        @foreach (var row in Model.Articles)
+        {
+            <div class="rowline">
+                <div class="span_1">
+                    <input type="checkbox" name="checkbox" id="checkbox" /></div>
+                <div class="span_2">
+                    <a href="#">编辑 | 删除</a></div>
+                <div class="span_5">
+                    GBT209802010030501</div>
+                <div class="span_3">
+                    联想Thinkpad SL410 2874-7GC</div>
+                <div class="span_2">
+                    ￥ 6988.00</div>
+                <div class="span_2">
+                    ￥ 6488.00</div>
+                <div class="span_4">
+                    100</div>
+                <div class="span_4">
+                    是</div>
+                <div class="span_4">
+                    是</div>
+            </div>
+            <div class="rowline_c">
+                <div class="span_1">
+                    <input type="checkbox" name="checkbox" id="checkbox" /></div>
+                <div class="span_2">
+                    <a href="#">编辑 | 删除</a></div>
+                <div class="span_5">
+                    GBT209802010030501</div>
+                <div class="span_3">
+                    联想Thinkpad SL410 2874-7GC</div>
+                <div class="span_2">
+                    ￥ 6988.00</div>
+                <div class="span_2">
+                    ￥ 6488.00</div>
+                <div class="span_4">
+                    100</div>
+                <div class="span_4">
+                    是</div>
+                <div class="span_4">
+                    是</div>
+            </div>
+        }
+        <div class="footBar">
+            <div class="fb_content">
+                <ul class="fb_button">
+                    <li>
+                        <div class="fbb_left">
+                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
+                        <div class="fbb_center">
+                            全选</div>
+                        <div class="fbb_right">
+                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+                    </li>
+                    <li>
+                        <div class="fbb_left">
+                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
+                        <div class="fbb_center">
+                            反选</div>
+                        <div class="fbb_right">
+                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+                    </li>
+                    <li>
+                        <div class="fbb_left">
+                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
+                        <div class="fbb_center">
+                            取消</div>
+                        <div class="fbb_right">
+                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+                    </li>
+                </ul>
+                <div class="fb_page">
+                    <script type="text/javascript">
+                        var pg = new showPages('pg');
+                        pg.argName = 'p';  //定义参数名(可选,缺省为page)
+                        pg.newPage = 1;
+                        pg.count = 224;
+                        pg.pageCount = 15;
+                        pg.printHtml(1);    //显示
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
