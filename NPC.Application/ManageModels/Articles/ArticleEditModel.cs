@@ -11,7 +11,6 @@ namespace NPC.Application.ManageModels.Articles
         {
             FormData = new ArticleEditModelFormData();
         }
-
         public Guid? Id { get; set; }
         public ArticleEditModelFormData FormData { get; set; }
     }

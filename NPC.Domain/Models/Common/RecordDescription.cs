@@ -17,5 +17,14 @@ namespace NPC.Domain.Models.Common
         public virtual User UserOfLasetestModify { get; set; }
         public virtual User UserOfCreate { get; set; }
         public virtual bool IsDelete { get; set; }
+        public virtual void OnUpdate(User operatorUser)
+        {
+            DateOfLastestModify = DateTime.Now;
+            UserOfLasetestModify = operatorUser;
+        }
+        public virtual void OnCreate(User operatorUser)
+        {
+            UserOfLasetestModify = operatorUser;
+        }
     }
 }

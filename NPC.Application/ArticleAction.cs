@@ -44,9 +44,9 @@ namespace NPC.Application
             article.Title = model.FormData.Title;
             article.Unit = NpcContext.CurrentUser.Unit;
             article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            article.RecordDescription.OnCreate(NpcContext.CurrentUser);
             _articleRepository.Save(article);
         }
-
 
         public void UpdateArticle(ArticleEditModel model)
         {
@@ -62,6 +62,7 @@ namespace NPC.Application
             article.Title = model.FormData.Title;
             article.Unit = NpcContext.CurrentUser.Unit;
             article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            article.RecordDescription.OnUpdate(NpcContext.CurrentUser);
             _articleRepository.Save(article);
             model.Id = article.Id;
         }

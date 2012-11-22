@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application.ManageModels.Units;
 using NPC.Domain.Models.Departments;

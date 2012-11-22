@@ -7,7 +7,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
 <div class="workgroundin" style="height: 5px;">
 </div>
-<form method="post" action="" id="mainForm" style="margin: 0px;">
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
 @Html.HiddenFor(o => o.Id)
 <div class="main_content">
     <div class="main_search">
@@ -48,8 +48,8 @@
                         封面图片：
                     </th>
                     <td>
-                        <input type="file" name="FormData.CoverImg" id="FormData_CoverImg" />
-                    </td>
+                        <input type="file" name="FormData.CoverImg"  />
+                     </td>
                 </tr>
                 <tr>
                     <th>

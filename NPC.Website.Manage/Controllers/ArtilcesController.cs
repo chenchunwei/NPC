@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Fluent.Infrastructure.Web.HttpFiles;
 using NPC.Application;
 using NPC.Application.ManageModels.Articles;
 
@@ -27,15 +28,18 @@ namespace NPC.Website.Manage.Controllers
             var model = _articleAction.InitializeArticleEditModel(id);
             return View(model);
         }
+
         [HttpPost, ActionName("EditArticle")]
         public ActionResult EditArticlePost(ArticleEditModel model)
         {
+            var fileHelper = new FileHelper();
+            fileHelper.Upload();
+            model.FormData.UrlOfCoverImage = string.Join(";", fileHelper.GetFileInfosByKey("FormData.CoverImg").ToArray().Select(o => o.ServerFileName));
             if (model.Id.HasValue)
                 _articleAction.UpdateArticle(model);
             else
                 _articleAction.NewArticle(model);
             return View(model);
         }
-
     }
 }

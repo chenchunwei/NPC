@@ -56,23 +56,23 @@
 <div class="main_content">
     <div class="topline">
         <div class="span_1">
-            <input type="checkbox" name="checkbox" id="checkbox" /></div>
+            <input type="checkbox" name="checkbox" id="ids" /></div>
         <div class="span_2">
             操作</div>
         <div class="span_5">
-            货号</div>
+            标题</div>
         <div class="span_3">
-            名称</div>
+            分类</div>
         <div class="span_2">
-            成本价</div>
+            发布人</div>
         <div class="span_2">
-            销售价</div>
+            发布时间</div>
         <div class="span_4">
-            库存</div>
+        </div>
         <div class="span_4">
-            推荐</div>
+        </div>
         <div class="span_4">
-            上架</div>
+        </div>
     </div>
     <div class="row">
         @foreach (var row in Model.Articles)
@@ -83,39 +83,19 @@
                 <div class="span_2">
                     <a href="#">编辑 | 删除</a></div>
                 <div class="span_5">
-                    GBT209802010030501</div>
-                <div class="span_3">
-                    联想Thinkpad SL410 2874-7GC</div>
+                    @row.Title</div>
+                <div class="span_3" style="text-align: center">
+                    @row.ArticleCategory.CategoryName</div>
                 <div class="span_2">
-                    ￥ 6988.00</div>
+                </div>
                 <div class="span_2">
-                    ￥ 6488.00</div>
+                    @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">
-                    100</div>
+                </div>
                 <div class="span_4">
-                    是</div>
+                </div>
                 <div class="span_4">
-                    是</div>
-            </div>
-            <div class="rowline_c">
-                <div class="span_1">
-                    <input type="checkbox" name="checkbox" id="checkbox" /></div>
-                <div class="span_2">
-                    <a href="#">编辑 | 删除</a></div>
-                <div class="span_5">
-                    GBT209802010030501</div>
-                <div class="span_3">
-                    联想Thinkpad SL410 2874-7GC</div>
-                <div class="span_2">
-                    ￥ 6988.00</div>
-                <div class="span_2">
-                    ￥ 6488.00</div>
-                <div class="span_4">
-                    100</div>
-                <div class="span_4">
-                    是</div>
-                <div class="span_4">
-                    是</div>
+                </div>
             </div>
         }
         <div class="footBar">

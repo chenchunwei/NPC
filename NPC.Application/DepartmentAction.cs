@@ -62,6 +62,7 @@ namespace NPC.Application
             department.Unit = NpcContext.CurrentUser.Unit;
             if (model.Id.HasValue)
                 department.Parent = _departmentRepository.Find(model.Id.Value);
+            department.RecordDescription.OnCreate(NpcContext.CurrentUser);
             _departmentRepository.Save(department);
         }
     }
