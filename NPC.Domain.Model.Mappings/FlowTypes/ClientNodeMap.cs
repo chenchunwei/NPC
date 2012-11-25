@@ -14,8 +14,8 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Name);
             Map(o => o.ProcessUrl);
-            HasMany(o => o.ClientNodeActions).KeyColumn("ClientNodeId");
-            HasMany(o => o.ClientNodeLines).KeyColumn("ClientNodeId");
+            HasMany(o => o.ClientNodeActions).KeyColumn("ClientNodeId").Cascade.All();
+            HasMany(o => o.ClientNodeLines).KeyColumn("ClientNodeId").Cascade.All();
             Component(o => o.RecordDescription);
             Table("ClientNodes");
         }

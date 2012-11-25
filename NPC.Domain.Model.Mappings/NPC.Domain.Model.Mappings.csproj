@@ -53,6 +53,7 @@
     <Compile Include="FlowTypes\ClientNodeActionMap.cs" />
     <Compile Include="FlowTypes\ClientNodeLineMap.cs" />
     <Compile Include="FlowTypes\ClientNodeMap.cs" />
+    <Compile Include="FlowTypes\FlowDataFieldMap.cs" />
     <Compile Include="FlowTypes\FlowTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposals\ProposalMap.cs" />

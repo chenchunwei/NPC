@@ -26,9 +26,17 @@ namespace NPC.Domain.Models.FlowTypes
         /// </summary>
         public virtual string UrlOfDetail { get; set; }
         /// <summary>
+        /// 流程变量
+        /// </summary>
+        public virtual IList<FlowDataField> FlowDataFields { get; set; }
+        /// <summary>
+        /// 流程节点
+        /// </summary>
+        public virtual IList<ClientNode> ClientNodes { get; set; }
+        /// <summary>
         /// 记录描述信息
         /// </summary>
         public virtual RecordDescription RecordDescription { get; set; }
-      
+
     }
 }
