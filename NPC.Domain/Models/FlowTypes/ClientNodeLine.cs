@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NPC.Domain.Models.Common;
 
-namespace NPC.Domain.Models.FlowNodes
+namespace NPC.Domain.Models.FlowTypes
 {
     public class ClientNodeLine
     {

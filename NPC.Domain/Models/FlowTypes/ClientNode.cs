@@ -5,7 +5,7 @@ using System.Text;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.FlowTypes;
 
-namespace NPC.Domain.Models.FlowNodes
+namespace NPC.Domain.Models.FlowTypes
 {
     public class ClientNode
     {

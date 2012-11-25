@@ -45,9 +45,9 @@
     <Compile Include="Models\Articles\ArticleQueryItem.cs" />
     <Compile Include="Models\Common\RecordDescription.cs" />
     <Compile Include="Models\Departments\Department.cs" />
-    <Compile Include="Models\FlowNodes\ClientNode.cs" />
-    <Compile Include="Models\FlowNodes\ClientNodeAction.cs" />
-    <Compile Include="Models\FlowNodes\ClientNodeLine.cs" />
+    <Compile Include="Models\FlowTypes\ClientNode.cs" />
+    <Compile Include="Models\FlowTypes\ClientNodeAction.cs" />
+    <Compile Include="Models\FlowTypes\ClientNodeLine.cs" />
     <Compile Include="Models\FlowTypes\FlowType.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\Proposals\Proposal.cs" />
