@@ -10,17 +10,11 @@ namespace NPC.Domain.Models.FlowNodes
     /// </summary>
     public class ClientNodeAction
     {
-        public ClientNodeAction()
-        {
-            ClientNodeLines=new List<ClientNodeLine>();
-        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 动作名称
         /// </summary>
         public virtual string Name { get; set; }
-
-        public virtual IList<ClientNodeLine> ClientNodeLines { get; set; }
 
     }
 }

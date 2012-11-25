@@ -50,6 +50,10 @@
     <Compile Include="Articles\ArticleMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
+    <Compile Include="FlowNodes\ClientNodeActionMap.cs" />
+    <Compile Include="FlowNodes\ClientNodeLineMap.cs" />
+    <Compile Include="FlowNodes\ClientNodeMap.cs" />
+    <Compile Include="FlowTypes\FlowTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposals\ProposalMap.cs" />
     <Compile Include="Tasks\TaskMap.cs" />

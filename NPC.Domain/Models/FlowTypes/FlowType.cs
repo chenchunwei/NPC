@@ -22,12 +22,13 @@ namespace NPC.Domain.Models.FlowTypes
         /// </summary>
         public virtual string Description { get; set; }
         /// <summary>
-        /// 记录描述信息
-        /// </summary>
-        public virtual RecordDescription RecordDescription { get; set; }
-        /// <summary>
         /// 详情地址
         /// </summary>
         public virtual string UrlOfDetail { get; set; }
+        /// <summary>
+        /// 记录描述信息
+        /// </summary>
+        public virtual RecordDescription RecordDescription { get; set; }
+      
     }
 }
