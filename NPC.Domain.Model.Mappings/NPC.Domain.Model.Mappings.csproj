@@ -48,8 +48,11 @@
   <ItemGroup>
     <Compile Include="ArticleCategories\ArticleCategoryMap.cs" />
     <Compile Include="Articles\ArticleMap.cs" />
+    <Compile Include="Agents\AgentMap.cs" />
+    <Compile Include="ClientNodeInstances\ClientNodeInstanceMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
+    <Compile Include="Flows\FlowMap.cs" />
     <Compile Include="FlowTypes\ClientNodeActionMap.cs" />
     <Compile Include="FlowTypes\ClientNodeLineMap.cs" />
     <Compile Include="FlowTypes\ClientNodeMap.cs" />

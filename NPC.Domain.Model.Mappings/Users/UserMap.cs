@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.Users
             References(o => o.Unit).Column("UnitId");
             References(o => o.Department).Column("DepartmentId");
             Component(o => o.RecordDescription);
+            References(o => o.Agents).Column("UserId");
             Table("Users");
         }
     }

@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Agents\Agent.cs" />
     <Compile Include="Models\ArticleCategories\ArticleCategory.cs" />
     <Compile Include="Models\Articles\Article.cs" />
     <Compile Include="Models\Articles\ArticleQueryItem.cs" />
+    <Compile Include="Models\ClientNodeInstances\ClientNodeInstance.cs" />
     <Compile Include="Models\Common\RecordDescription.cs" />
     <Compile Include="Models\Departments\Department.cs" />
+    <Compile Include="Models\Flows\Flow.cs" />
+    <Compile Include="Models\Flows\FlowStatus.cs" />
     <Compile Include="Models\FlowTypes\ClientNode.cs" />
     <Compile Include="Models\FlowTypes\ClientNodeAction.cs" />
     <Compile Include="Models\FlowTypes\ClientNodeLine.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure;
 using Fluent.Infrastructure.Domain;
+using NPC.Domain.Models.Agents;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.Departments;
 using NPC.Domain.Models.Units;
@@ -15,6 +16,7 @@ namespace NPC.Domain.Models.Users
         public User()
         {
             RecordDescription = new RecordDescription();
+            Agents=new List<Agent>();
         }
         public virtual Guid Id { get; set; }
         public virtual string Account { get; set; }
@@ -24,5 +26,6 @@ namespace NPC.Domain.Models.Users
         public virtual Department Department { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual bool Sex { get; set; }
+        public virtual IList<Agent> Agents { get; set; }
     }
 }
