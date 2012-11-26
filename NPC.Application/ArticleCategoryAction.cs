@@ -61,7 +61,7 @@ namespace NPC.Application
             {
                 articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.Id.Value);
             }
-            articleCategory.RecordDescription.OnCreate(NpcContext.CurrentUser);
+            articleCategory.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _articleCategoryRepository.Save(articleCategory);
         }
         #endregion

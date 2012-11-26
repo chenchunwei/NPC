@@ -9,6 +9,12 @@ namespace NPC.Domain.Models.FlowTypes
 {
     public class FlowType : IAggregateRoot
     {
+        public FlowType()
+        {
+            ClientNodes=new List<ClientNode>();
+            FlowDataFields=new List<FlowDataField>();
+            RecordDescription=new RecordDescription();
+        }
         /// <summary>
         /// 流程 id
         /// </summary>
