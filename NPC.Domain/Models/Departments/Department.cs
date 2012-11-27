@@ -25,5 +25,23 @@ namespace NPC.Domain.Models.Departments
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual IList<Department> Departments { get; set; }
+        public virtual string Path
+        {
+            get
+            {
+                var path = string.Empty;
+                var nodes = new Stack<Department>();
+                nodes.Push(this);
+                while (nodes.Any())
+                {
+                    var o = nodes.Pop();
+                    path = string.Format("{0};{1}", o.Id, path);
+                    if (o.Parent != null)
+                        nodes.Push(o.Parent);
+                }
+                return path.TrimEnd(';');
+            }
+            set { return; }
+        }
     }
 }

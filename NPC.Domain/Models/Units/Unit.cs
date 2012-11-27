@@ -26,5 +26,24 @@ namespace NPC.Domain.Models.Units
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual UnitStatus UnitStatus { get; set; }
         public virtual User Manager { get; set; }
+        public virtual string Path
+        {
+            get
+            {
+                var path = string.Empty;
+                var nodes = new Stack<Unit>();
+                nodes.Push(this);
+                while (nodes.Any())
+                {
+                    var o = nodes.Pop();
+                    path = string.Format("{0};{1}", o.Id, path);
+                    if (o.ParentUint != null)
+                        nodes.Push(o.ParentUint);
+                }
+                return path.TrimEnd(';');
+            }
+             set { return; }
+        }
     }
 }
+

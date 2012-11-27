@@ -13,6 +13,7 @@ namespace NPC.Domain.Model.Mappings.Departments
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Name);
+            Map(o => o.Path);
             References(o => o.Manager).Column("ManagerId");
             References(o => o.Unit).Column("UnitId");
             References(o => o.Parent).Column("ParentId");

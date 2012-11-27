@@ -15,6 +15,7 @@ namespace NPC.Domain.Model.Mappings.Units
             Map(o => o.BannerImgUrl);
             References(o => o.ParentUint).Column("ParentUintId");
             Map(o => o.Name);
+            Map(o => o.Path);
             Component(o => o.RecordDescription);
             Table("Units");
         }

@@ -24,5 +24,23 @@ namespace NPC.Domain.Models.ArticleCategories
         public virtual IList<ArticleCategory> ChilrenArticleCategories { get; set; }
         public virtual ArticleCategory ParentArticleCategory { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual string Path
+        {
+            get
+            {
+                var path = string.Empty;
+                var nodes = new Stack<ArticleCategory>();
+                nodes.Push(this);
+                while (nodes.Any())
+                {
+                    var o = nodes.Pop();
+                    path = string.Format("{0};{1}", o.Id, path);
+                    if (o.ParentArticleCategory != null)
+                        nodes.Push(o.ParentArticleCategory);
+                }
+                return path.TrimEnd(';');
+            }
+            set { return; }
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace NPC.Domain.Model.Mappings.ArticleCategories
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.CategoryName);
+            Map(o => o.Path);
             References(o => o.Unit).Column("UnitId");
             HasMany(o => o.ChilrenArticleCategories).KeyColumn("ParentArticleCategoryId");
             References(o => o.ParentArticleCategory).Column("ParentArticleCategoryId");
