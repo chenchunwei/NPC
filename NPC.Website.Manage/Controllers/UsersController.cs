@@ -34,5 +34,10 @@ namespace NPC.Website.Manage.Controllers
             var model = _userAction.InitializeSelectUserOptionsModelWithUser(id);
             return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
         }
+        [HttpPost]
+        public JsonResult ParseSelectedToUsers(string selectedJson)
+        {
+            return new NewtonsoftJsonResult() { Data = _userAction.ConvertToUserList(selectedJson) };
+        }
     }
 }

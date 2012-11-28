@@ -615,9 +615,11 @@
     <Content Include="Scripts\jquery-loadmask\jquery.loadmask.js" />
     <Content Include="Scripts\jquery-loadmask\jquery.loadmask.min.js" />
     <Content Include="Scripts\jquery.easyui.extension.js" />
+    <Content Include="Scripts\jquery.json-2.4.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validator.extension.js" />
     <Content Include="Scripts\showpage.src.js" />
+    <Content Include="Scripts\jquery.json-2.4.min.txt" />
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\xheditor-1.1.14\CHANGE.txt" />
     <Content Include="Scripts\xheditor-1.1.14\demos\common.css" />

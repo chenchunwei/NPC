@@ -48,21 +48,27 @@
             columns: [[
                     { field: 'ck', checkbox: true },
                     { field: 'id', hidden: true },
+                    { field: 'type', hidden: true },
                     { field: 'name', title: '机构名称-姓名', width: 90, align: 'left' },
                     { field: 'position', title: '职位', width: 90, align: 'left' }
                 ]],
             onBeforeExpand: function (row) {
-                $("#treegrid").treegrid("options").url = treeUrls[row.nodeType] + '?id=' + row.treeid;
+                $("#treegrid").treegrid("options").url = treeUrls[row.type] + '?id=' + row.treeid;
                 return true;
             }
         });
     });
-    //    div.datagrid - cell - check
-    //    function formatName(val, row) {
-    //        if (val != undefined)
-    //            return ' <div class="datagrid-cell-check"><input style="width:24px;" type="checkbox" name="FormData.SelectedUserIds" value="' + row.id + '"/><span>' + val + '</span></div>';
-    //        return '';
-    //    }
-
+    var pageApi = {};
+    pageApi.selectedValues = function () {
+        var selectArray = [];
+        var rows = $("#treegrid").treegrid("getSelections");
+        for (var i = 0; i < rows.length; i++) {
+            var rowData = {};
+            rowData["id"] = rows[i].id;
+            rowData["type"] = rows[i].type;
+            selectArray.push(rowData);
+        }
+        return selectArray;
+    };
 </script>
 </html>

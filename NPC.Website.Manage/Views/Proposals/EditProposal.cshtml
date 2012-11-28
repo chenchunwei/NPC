@@ -5,6 +5,7 @@
 }
 @model NPC.Application.ManageModels.Proposals.EditProposalModel
 <script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")"></script>
 <form method="post" action="" id="mainForm" style="margin: 0px;">
 <div class="main_content">
     <div class="main_search">
@@ -43,10 +44,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="width: 150px;">
                         发起人：
                     </th>
-                    <td>
+                    <td id="originators">
                         <li class="buttonon">
                             <div class="hc_left">
                             </div>
@@ -62,7 +63,7 @@
                             <div class="hc_left">
                             </div>
                             <div class="hc_center">
-                                <div class="removeUser">
+                                <div class="removeUser" userid="">
                                     <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />
                                 </div>
                                 <div>
@@ -156,16 +157,19 @@
             </div>
             <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
                 background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
-                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        取消</a>
+                <a id="btnAddSelect" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    添加</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        完成</a>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
+    var selectedUsers = [];
     $(function () {
         $(".removeUser").click(function () {
+            var userId = $(this).attr("userId");
+            selectedUsers.remove(userId);
             $(this).parent().parent().remove();
         });
         $("#mainForm").validate({
@@ -187,7 +191,33 @@
         $('#wins,#selectWin').show();
         $("#selectUser").click(function () {
             $('#selectWin').window('open');
-            $("#selectWin iframe").attr("src","@Url.Action("SelectUser", "Users")");
+            $("#selectWin iframe").attr('src', '@Url.Action("SelectUser", "Users")');
+        });
+        $("#btnAddSelect").click(function () {
+            var selects = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
+            var filterSelects = [];
+            for (var key in selects) {
+                if (selects[key].type != 2)
+                    continue;
+                filterSelects.push(selects[key]);
+            }
+            if (filterSelects.length == 0) {
+                msgShow("请选择具体的人员", "请选择具体的人员", "");
+                return;
+            }
+            $.post('@Url.Action("ParseSelectedToUsers", "Users")', { 'selectedJson': $.toJSON(filterSelects) },
+                function (data) {
+                    $(evalJson(data)).each(function (index, row) {
+                        if ($.inArray(row.id, selectedUsers) >= 0) {
+                            return;
+                        }
+                        selectedUsers.push(row.id);
+                        $("#originators").append('<li class="buttonoff"><div class="hc_left"></div><div class="hc_center">\
+                            <div class="removeUser" userId="' + row.id + '"><img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                            </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
+                    });
+                }
+            );
         });
     });
 </script>

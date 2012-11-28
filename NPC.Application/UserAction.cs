@@ -7,26 +7,30 @@ using NPC.Domain.Models.Departments;
 using NPC.Domain.Models.Units;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
+using Newtonsoft.Json;
 
 namespace NPC.Application
 {
     public class UserAction : BaseAction
     {
+        #region 构造函数及私有成员
         private readonly UnitRepository _unitRepository;
         private readonly DepartmentRepository _departmentRepository;
         private readonly UserRepository _userRepository;
+
         public UserAction()
         {
             _unitRepository = new UnitRepository();
             _departmentRepository = new DepartmentRepository();
             _userRepository = new UserRepository();
         }
+        #endregion
 
         #region unit gridtree Model
         public SelectUserOptionsModel InitializeSelectUserOptionsModelWithUnit(Guid? unitId)
         {
             var model = new SelectUserOptionsModel();
-         
+
             if (unitId.HasValue)
             {
                 _unitRepository.GetSubUnit(unitId.Value).ToList().ForEach(o => model.SelectUserOptionsRows.Add(ConvertUnit2SelectUserOptionsRow(o)));
@@ -105,5 +109,20 @@ namespace NPC.Application
             };
         }
         #endregion
+
+        public IList<UserViewModel> ConvertToUserList(string selectedJson)
+        {
+            var selectedComponents = JsonConvert.DeserializeObject<IList<SelectUserOptionsComponent>>(selectedJson);
+            var groups = selectedComponents.ToLookup(o => o.NodeType);
+            var users = new List<User>();
+
+            foreach (var @group in groups.Where(@group => @group.Key == 2))
+            {
+                users = _userRepository.GetUsers(@group.Select(o => o.Id).ToArray()).ToList();
+            }
+            var returns = new List<UserViewModel>();
+            users.ForEach(o => returns.Add(new UserViewModel(){Id = o.Id,Name = o.Name}));
+            return returns;
+        }
     }
 }

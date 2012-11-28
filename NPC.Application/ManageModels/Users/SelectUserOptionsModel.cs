@@ -32,7 +32,7 @@ namespace NPC.Application.ManageModels.Users
         public string Position { get; set; }
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
-        [DataMember(Name = "nodeType")]
+        [DataMember(Name = "type")]
         public int NodeType { get; set; }
         [DataMember(Name = "state")]
         public string State { get; set; }

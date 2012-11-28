@@ -19,5 +19,12 @@ namespace NPC.Domain.Repository
             return Session.CreateQuery("from Unit Where ParentUint is Null And RecordDescription.IsDelete=0")
                .List<Unit>();
         }
+
+        public IEnumerable<Unit> GetUnits(params Guid[] unitIds)
+        {
+            return Session.CreateQuery("from Unit Where Id in (:ids) and RecordDescription.IsDelete=0")
+                .SetParameterList("ids", unitIds)
+                .List<Unit>();
+        }
     }
 }

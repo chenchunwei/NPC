@@ -21,5 +21,11 @@ namespace NPC.Domain.Repository
             return Session.CreateQuery("from Department Where Unit.Id=:unitId and Parent is Null And RecordDescription.IsDelete=0")
                .SetGuid("unitId", unitId).List<Department>();
         }
+
+        public IList<Department> GetDepartments(params Guid[] ids)
+        {
+            return Session.CreateQuery("from Department Where  Id in(:ids) And RecordDescription.IsDelete=0")
+              .SetParameterList("ids", ids).List<Department>();
+        }
     }
 }

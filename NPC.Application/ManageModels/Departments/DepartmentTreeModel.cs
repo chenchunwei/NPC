@@ -24,7 +24,8 @@ namespace NPC.Application.ManageModels.Departments
             State = "closed";
             Childrens = new List<DepartmentTreeModelComponent>();
         }
-
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
         [DataMember(Name = "state")]
         public string State { get; set; }
         [DataMember(Name = "iconCls")]
