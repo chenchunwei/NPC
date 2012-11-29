@@ -59,34 +59,6 @@
                             <div class="hc_right">
                             </div>
                         </li>
-                        <li class="buttonoff">
-                            <div class="hc_left">
-                            </div>
-                            <div class="hc_center">
-                                <div class="removeUser" userid="">
-                                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />
-                                </div>
-                                <div>
-                                    鲁佳毅
-                                </div>
-                            </div>
-                            <div class="hc_right">
-                            </div>
-                        </li>
-                        <li class="buttonoff">
-                            <div class="hc_left">
-                            </div>
-                            <div class="hc_center">
-                                <div class="removeUser">
-                                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />
-                                </div>
-                                <div>
-                                    鲁佳毅
-                                </div>
-                            </div>
-                            <div class="hc_right">
-                            </div>
-                        </li>
                     </td>
                 </tr>
                 <tr>
@@ -103,8 +75,8 @@
                     </th>
                     <td>
                         @Html.DropDownListFor(o => o.FormData.ProposalType,
-                                                  new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
-                                                      .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
+                            new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
+                            .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
                     </td>
                 </tr>
                 <tr>
@@ -146,6 +118,8 @@
         </div>
     </div>
 </div>
+<div style="display: none;" id="selectedUserDiv">
+</div>
 </form>
 <div id="wins" style="display: none;">
     <div id="selectWin" class="easyui-window" title="请选择发起人" style="width: 750px; height: 500px;
@@ -158,8 +132,8 @@
             <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
                 background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
                 <a id="btnAddSelect" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    添加</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        完成</a>
+                    添加并继续</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel"
+                        href="javascript:void(0)">完成并关闭</a>
             </div>
         </div>
     </div>
@@ -167,11 +141,6 @@
 <script type="text/javascript">
     var selectedUsers = [];
     $(function () {
-        $(".removeUser").click(function () {
-            var userId = $(this).attr("userId");
-            selectedUsers.remove(userId);
-            $(this).parent().parent().remove();
-        });
         $("#mainForm").validate({
             ignore: "",
             rules: {
@@ -188,36 +157,51 @@
         $("#submitBtn").click(function () {
             $("#mainForm").submit();
         });
+
         $('#wins,#selectWin').show();
         $("#selectUser").click(function () {
             $('#selectWin').window('open');
             $("#selectWin iframe").attr('src', '@Url.Action("SelectUser", "Users")');
         });
         $("#btnAddSelect").click(function () {
-            var selects = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
-            var filterSelects = [];
-            for (var key in selects) {
-                if (selects[key].type != 2)
-                    continue;
-                filterSelects.push(selects[key]);
-            }
-            if (filterSelects.length == 0) {
-                msgShow("请选择具体的人员", "请选择具体的人员", "");
-                return;
-            }
-            $.post('@Url.Action("ParseSelectedToUsers", "Users")', { 'selectedJson': $.toJSON(filterSelects) },
+            handerSelected();
+        });
+        $("#btnCompletedSelect").click(function () {
+            handerSelected();
+            $('#selectWin').window('close');
+        });
+    });
+
+    function removeUser(id) {
+        $("#user" + id).parent().parent().remove();
+    }
+
+    function handerSelected() {
+        var selects = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
+        var filterSelects = [];
+        for (var key in selects) {
+            if (selects[key].type != 2)
+                continue;
+            filterSelects.push(selects[key]);
+        }
+        if (filterSelects.length == 0) {
+            msgShow("请选择具体的人员", "请选择具体的人员", "");
+            return;
+        }
+        $.post('@Url.Action("ParseSelectedToUsers", "Users")', { 'selectedJson': $.toJSON(filterSelects) },
                 function (data) {
                     $(evalJson(data)).each(function (index, row) {
                         if ($.inArray(row.id, selectedUsers) >= 0) {
                             return;
                         }
                         selectedUsers.push(row.id);
-                        $("#originators").append('<li class="buttonoff"><div class="hc_left"></div><div class="hc_center">\
-                            <div class="removeUser" userId="' + row.id + '"><img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+                            <div class="hc_left"></div><div class="hc_center">\
+                            <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
+                            <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
                             </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
                     });
                 }
             );
-        });
-    });
+    }
 </script>
