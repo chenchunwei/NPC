@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Domain;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Models.Flows;
@@ -9,7 +10,7 @@ using NPC.Domain.Models.Users;
 
 namespace NPC.Domain.Models.ClientNodeInstances
 {
-    public class ClientNodeInstance
+    public class ClientNodeInstance : IAggregateRoot
     {
         public ClientNodeInstance()
         {

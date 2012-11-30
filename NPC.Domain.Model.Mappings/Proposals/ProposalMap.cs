@@ -16,8 +16,9 @@ namespace NPC.Domain.Model.Mappings.Proposals
             Map(o => o.ProposalType).CustomType<ProposalType>();
             Map(o => o.Content);
             Component(o => o.RecordDescription);
-            HasManyToMany(o => o.ProposalOriginators).ParentKeyColumn("ProposalId").ChildKeyColumn("UserId");
-            HasManyToMany(o => o.Tasks).ParentKeyColumn("ProposalId").ChildKeyColumn("TaskId");
+            HasManyToMany(o => o.ProposalOriginators).ParentKeyColumn("ProposalId").ChildKeyColumn("OriginatorId").Table("ProposalOrginators");
+            HasManyToMany(o => o.Tasks).ParentKeyColumn("ProposalId").ChildKeyColumn("TaskId").Table("ProposalTaskMapping");
+            Table("Proposals");
         }
     }
 }

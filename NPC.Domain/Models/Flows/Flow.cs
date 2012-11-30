@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Domain;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Models.Users;
 
 namespace NPC.Domain.Models.Flows
 {
-    public class Flow
+    public class Flow : IAggregateRoot
     {
         public Flow()
         {

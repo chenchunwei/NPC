@@ -615,6 +615,7 @@
     <Content Include="Scripts\jquery-loadmask\jquery.loadmask.js" />
     <Content Include="Scripts\jquery-loadmask\jquery.loadmask.min.js" />
     <Content Include="Scripts\jquery.easyui.extension.js" />
+    <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Scripts\jquery.json-2.4.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validator.extension.js" />
