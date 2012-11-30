@@ -60,6 +60,7 @@
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
     <Compile Include="DepartmentAction.cs" />
+    <Compile Include="FlowService.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryListModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
