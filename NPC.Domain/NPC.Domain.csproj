@@ -45,6 +45,8 @@
     <Compile Include="Models\Articles\Article.cs" />
     <Compile Include="Models\Articles\ArticleQueryItem.cs" />
     <Compile Include="Models\ClientNodeInstances\ClientNodeInstance.cs" />
+    <Compile Include="Models\ClientNodeInstances\ClientNodeInstanceUserState.cs" />
+    <Compile Include="Models\ClientNodeInstances\ExecuteStatus.cs" />
     <Compile Include="Models\Common\RecordDescription.cs" />
     <Compile Include="Models\Departments\Department.cs" />
     <Compile Include="Models\Flows\Flow.cs" />

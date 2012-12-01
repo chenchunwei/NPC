@@ -9,10 +9,10 @@ namespace NPC.Domain.Repository
 {
     public class FlowTypeRepository : AbstractNhibernateRepository<Guid, FlowType>
     {
-        public FlowType GetTypeName(string flowName)
+        public FlowType GetByTypeName(string flowName)
         {
-            return Session.CreateQuery("from FlowType where Name=:Name and IsDelete=0").SetString("Name", flowName)
-                          .UniqueResult<FlowType>();
+            return Session.CreateQuery("from FlowType where Name=:Name and IsDelete=0")
+                .SetString("Name", flowName).UniqueResult<FlowType>();
         }
     }
 }

@@ -14,6 +14,11 @@ namespace NPC.Domain.Models.Flows
         [Description("发起流程")]
         Instance = 0,
         /// <summary>
+        /// 实例化
+        /// </summary>
+        [Description("任务开始")]
+        Start = 0,
+        /// <summary>
         /// 已打开
         /// </summary>
         [Description("执行中")]

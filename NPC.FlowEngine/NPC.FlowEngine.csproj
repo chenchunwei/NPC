@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\Infrastructure\ExternalAssembly\Log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Infrastructure\ExternalAssembly\Nhibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\Infrastructure\ExternalAssembly\Quartz.Net\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,8 +50,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="FlowEngineService.cs" />
+    <Compile Include="FlowService.cs" />
+    <Compile Include="JobEntrance.cs" />
+    <Compile Include="Jobs\ClientNodeInstanceJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
+      <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
+      <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Application\NPC.Application.csproj">
+      <Project>{22C05668-41AB-46B3-81EF-72294624FBCB}</Project>
+      <Name>NPC.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
+      <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>
+      <Name>NPC.Domain.Model.Mappings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Repository\NPC.Domain.Repository.csproj">
+      <Project>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</Project>
+      <Name>NPC.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
+      <Name>NPC.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,6 +9,10 @@ namespace NPC.Domain.Repository
 {
     public class FlowRepository : AbstractNhibernateRepository<Guid, Flow>
     {
-
+        public IList<Flow> GetInstanceFlow()
+        {
+            return Session.CreateQuery("from Flow where IsDelete=0 and FlowStatus in (:FlowStatus)")
+                .SetParameterList("FlowStatus", new object[]{FlowStatus.Instance}).List<Flow>();
+        }
     }
 }

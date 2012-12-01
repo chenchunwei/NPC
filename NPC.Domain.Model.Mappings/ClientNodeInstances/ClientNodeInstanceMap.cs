@@ -11,19 +11,16 @@ using NPC.Domain.Models.Users;
 
 namespace NPC.Domain.Model.Mappings.ClientNodeInstances
 {
-    public class ClientNodeInstanceMap:ClassMap<ClientNodeInstance>
+    public sealed class ClientNodeInstanceMap:ClassMap<ClientNodeInstance>
     {
         public ClientNodeInstanceMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             References(o => o.BelongsClientNode).Column("BelongsClientNodeId");
             References(o => o.BelongsFlow).Column("BelongsFlowId");
-            Component(o => o.RecordDescription);
             Map(o => o.TimeOfFinished);
-            HasManyToMany(o => o.Users)
-                .ChildKeyColumn("UserId")
-                .ParentKeyColumn("ClientNodeId")
-                .Table("ClientNodeInstanceUsers");
+            HasMany(o => o.ClientNodeInstanceUserState).KeyColumn("ClientNodeInstanceId");
+            Component(o => o.RecordDescription);
             Table("ClientNodeInstances");
         }
      }

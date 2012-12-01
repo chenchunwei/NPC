@@ -50,6 +50,7 @@
     <Compile Include="Articles\ArticleMap.cs" />
     <Compile Include="Agents\AgentMap.cs" />
     <Compile Include="ClientNodeInstances\ClientNodeInstanceMap.cs" />
+    <Compile Include="ClientNodeInstances\ClientNodeInstanceUserStateMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
     <Compile Include="Flows\FlowMap.cs" />

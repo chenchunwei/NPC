@@ -16,6 +16,14 @@ namespace NPC.Domain.Models.Tasks
     {
         public virtual Guid Id { get; set; }
         /// <summary>
+        /// 分组名
+        /// </summary>
+        public virtual string GroupName { get; set; }
+        /// <summary>
+        /// 类型名
+        /// </summary>
+        public virtual string TypeName { get; set; }
+        /// <summary>
         /// 任务标题
         /// </summary>
         public virtual string Title { get; set; }

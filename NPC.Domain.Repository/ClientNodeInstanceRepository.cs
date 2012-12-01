@@ -9,5 +9,6 @@ namespace NPC.Domain.Repository
 {
     public class ClientNodeInstanceRepository : AbstractNhibernateRepository<Guid, ClientNodeInstance>
     {
+        
     }
 }

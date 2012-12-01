@@ -11,7 +11,8 @@
     <RootNamespace>NPC.FlowEngine.Service</RootNamespace>
     <AssemblyName>NPC.FlowEngine.Service</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,7 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\Infrastructure\ExternalAssembly\Log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\Infrastructure\ExternalAssembly\Quartz.Net\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,8 +58,24 @@
     <Compile Include="FlowEngineService.Designer.cs">
       <DependentUpon>FlowEngineService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="JobServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ServiceEntrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
+      <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
+      <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.FlowEngine\NPC.FlowEngine.csproj">
+      <Project>{966BFAAB-80CA-4FFA-AB10-D92FF323471F}</Project>
+      <Name>NPC.FlowEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,13 +14,18 @@ namespace NPC.Domain.Models.ClientNodeInstances
     {
         public ClientNodeInstance()
         {
-            Users = new List<User>();
+            ClientNodeInstanceUserState = new List<ClientNodeInstanceUserState>();
+            RecordDescription = new RecordDescription();
         }
         public virtual Guid Id { get; set; }
         public virtual DateTime? TimeOfFinished { get; set; }
         public virtual Flow BelongsFlow { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual ClientNode BelongsClientNode { get; set; }
-        public virtual IList<User> Users { get; set; }
+        /// <summary>
+        /// 节点的执行人
+        /// </summary>
+        public virtual IList<ClientNodeInstanceUserState> ClientNodeInstanceUserState { get; set; }
+       
     }
 }

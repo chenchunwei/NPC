@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NPC.FlowEngine.Service
 {
-    static class Program
+    static class ServiceEntrace
     {
         /// <summary>
         /// The main entry point for the application.
