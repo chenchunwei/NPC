@@ -7,7 +7,7 @@ using NPC.Domain.Models.FlowTypes;
 
 namespace NPC.Domain.Model.Mappings.FlowTypes
 {
-    public class ClientNodeMap : ClassMap<ClientNode>
+    public sealed class ClientNodeMap : ClassMap<ClientNode>
     {
         public ClientNodeMap()
         {
@@ -17,6 +17,7 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             HasMany(o => o.ClientNodeActions).KeyColumn("ClientNodeId").Cascade.All();
             HasMany(o => o.ClientNodeLines).KeyColumn("ClientNodeId").Cascade.All();
             Component(o => o.RecordDescription);
+            Map(o => o.IsFirstNode);
             Table("ClientNodes");
         }
     }

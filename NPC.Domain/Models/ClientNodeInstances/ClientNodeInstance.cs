@@ -14,7 +14,7 @@ namespace NPC.Domain.Models.ClientNodeInstances
     {
         public ClientNodeInstance()
         {
-            ClientNodeInstanceUserState = new List<ClientNodeInstanceUserState>();
+            ClientNodeInstanceUserStates = new List<ClientNodeInstanceUserState>();
             RecordDescription = new RecordDescription();
         }
         public virtual Guid Id { get; set; }
@@ -22,10 +22,14 @@ namespace NPC.Domain.Models.ClientNodeInstances
         public virtual Flow BelongsFlow { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual ClientNode BelongsClientNode { get; set; }
-        /// <summary>
-        /// 节点的执行人
-        /// </summary>
-        public virtual IList<ClientNodeInstanceUserState> ClientNodeInstanceUserState { get; set; }
-       
+        public virtual IList<ClientNodeInstanceUserState> ClientNodeInstanceUserStates { get; set; }
+
+        public virtual void Execute(User user, ClientNodeAction action)
+        {
+            var userState = ClientNodeInstanceUserStates.Single(o => o.User.Id == user.Id);
+            userState.ExecuteStatus = ExecuteStatus.Executed;
+            userState.ClientNodeAction = action;
+            userState.RecordDescription.UpdateBy(user);
+        }
     }
 }

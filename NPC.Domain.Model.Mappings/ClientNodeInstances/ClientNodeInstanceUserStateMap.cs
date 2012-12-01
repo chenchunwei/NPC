@@ -14,7 +14,10 @@ namespace NPC.Domain.Model.Mappings.ClientNodeInstances
             Id(o => o.Id).GeneratedBy.Assigned();
             Map(o => o.ExecuteStatus).CustomType<ExecuteStatus>();
             References(o => o.User).Column("UserId");
+            References(o => o.ClientNodeAction).Column("ClientNodeActionId");
+            Component(o => o.RecordDescription);
             Table("ClientNodeInstanceUserStates");
         }
     }
 }
+                               

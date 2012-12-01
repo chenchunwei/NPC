@@ -24,6 +24,14 @@ namespace NPC.Domain.Models.Tasks
         /// </summary>
         public virtual string TypeName { get; set; }
         /// <summary>
+        /// 任务内容
+        /// </summary>
+        public virtual string Body { get; set; }
+        /// <summary>
+        /// 任务处理地址
+        /// </summary>
+        public virtual string TaskProcessUrl { get; set; }
+        /// <summary>
         /// 任务标题
         /// </summary>
         public virtual string Title { get; set; }
@@ -34,18 +42,22 @@ namespace NPC.Domain.Models.Tasks
         /// <summary>
         /// 任务处理人
         /// </summary>
-        public virtual IList<User> TaskProcessers { get; set; }
+        public virtual IList<TaskUserState> TaskUserStates { get; set; }
         /// <summary>
         /// 与任务关联的外部对象id
         /// </summary>
-        public virtual string OuterId { get; set; }
-        /// <summary>
-        /// 任务状态
-        /// </summary>
-        public virtual TaskStatus TaskStatus { get; set; }
+        public virtual Guid? OuterId { get; set; }
+
         /// <summary>
         /// 记录创建及修改的基本信息
         /// </summary>
         public virtual RecordDescription RecordDescription { get; set; }
+
+        public virtual void Done(User user, TaskStatus taskStatus)
+        {
+            var state = TaskUserStates.Single(o => o.Id == user.Id);
+            state.RecordDescription.UpdateBy(user);
+            state.TaskStatus = taskStatus;
+        }
     }
 }

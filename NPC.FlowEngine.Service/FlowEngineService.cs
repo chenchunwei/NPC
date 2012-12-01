@@ -21,7 +21,7 @@ namespace NPC.FlowEngine.Service
         public FlowEngineService()
         {
             var loggerFactory = new DefaultLoggerFactory();
-            _logger = loggerFactory.GetLogger(this.GetType().ToString());
+            _logger = loggerFactory.GetLogger();
             _jobEntrance = new JobEntrance();
         }
 
@@ -30,6 +30,7 @@ namespace NPC.FlowEngine.Service
             try
             {
                 _jobEntrance.Run();
+                _logger.Info("流程服务正常启动");
             }
             catch (Exception exception)
             {

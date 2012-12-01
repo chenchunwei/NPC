@@ -50,8 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientNodeInstanceService.cs" />
     <Compile Include="FlowEngineService.cs" />
     <Compile Include="FlowService.cs" />
+    <Compile Include="FlowTypeService.cs" />
     <Compile Include="JobEntrance.cs" />
     <Compile Include="Jobs\ClientNodeInstanceJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

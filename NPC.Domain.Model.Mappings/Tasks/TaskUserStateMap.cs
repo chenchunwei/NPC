@@ -7,17 +7,15 @@ using NPC.Domain.Models.Tasks;
 
 namespace NPC.Domain.Model.Mappings.Tasks
 {
-    public class TaskMap : ClassMap<Task>
+    public sealed class TaskUserStateMap : ClassMap<TaskUserState>
     {
-        public TaskMap()
+        public TaskUserStateMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
-            Map(o => o.Description);
-            Map(o => o.OuterId);
-            Map(o => o.Title);
+            Map(o => o.TaskStatus).CustomType<TaskStatus>();
             Component(o => o.RecordDescription);
-            HasMany(o => o.TaskUserStates).KeyColumn("TaskId");
-            Table("Tasks");
+            References(o => o.User).Column("UserId");
+            Table("TaskUserStates");
         }
-    }
+     }
 }

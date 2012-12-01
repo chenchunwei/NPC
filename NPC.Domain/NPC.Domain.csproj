@@ -50,10 +50,12 @@
     <Compile Include="Models\Common\RecordDescription.cs" />
     <Compile Include="Models\Departments\Department.cs" />
     <Compile Include="Models\Flows\Flow.cs" />
+    <Compile Include="Models\Flows\FlowDataField.cs" />
     <Compile Include="Models\Flows\FlowStatus.cs" />
     <Compile Include="Models\FlowTypes\ClientNode.cs" />
     <Compile Include="Models\FlowTypes\ClientNodeAction.cs" />
     <Compile Include="Models\FlowTypes\ClientNodeLine.cs" />
+    <Compile Include="Models\FlowTypes\ValueType.cs" />
     <Compile Include="Models\FlowTypes\FlowDataField.cs" />
     <Compile Include="Models\FlowTypes\FlowType.cs" />
     <Compile Include="Models\Pagination.cs" />
@@ -61,7 +63,9 @@
     <Compile Include="Models\Proposals\ProposalType.cs" />
     <Compile Include="Models\QueryItemBase.cs" />
     <Compile Include="Models\Tasks\Task.cs" />
+    <Compile Include="Models\Tasks\TaskConst.cs" />
     <Compile Include="Models\Tasks\TaskStatus.cs" />
+    <Compile Include="Models\Tasks\TaskUserState.cs" />
     <Compile Include="Models\Units\Unit.cs" />
     <Compile Include="Models\Units\UnitStatus.cs" />
     <Compile Include="Models\Users\User.cs" />

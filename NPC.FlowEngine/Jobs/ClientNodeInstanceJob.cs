@@ -16,9 +16,8 @@ namespace NPC.FlowEngine.Jobs
         public ClientNodeInstanceJob()
         {
             var loggerFactory = new DefaultLoggerFactory();
-            _logger = loggerFactory.GetLogger(this.GetType().ToString());
-            ISchedulerFactory sf = new StdSchedulerFactory();
-            _scheduler = sf.GetScheduler();
+            _logger = loggerFactory.GetLogger();
+         
         }
         public void Execute(IJobExecutionContext context)
         {

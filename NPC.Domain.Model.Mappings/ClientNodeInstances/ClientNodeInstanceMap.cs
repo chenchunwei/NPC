@@ -19,7 +19,7 @@ namespace NPC.Domain.Model.Mappings.ClientNodeInstances
             References(o => o.BelongsClientNode).Column("BelongsClientNodeId");
             References(o => o.BelongsFlow).Column("BelongsFlowId");
             Map(o => o.TimeOfFinished);
-            HasMany(o => o.ClientNodeInstanceUserState).KeyColumn("ClientNodeInstanceId");
+            HasMany(o => o.ClientNodeInstanceUserStates).KeyColumn("ClientNodeInstanceId");
             Component(o => o.RecordDescription);
             Table("ClientNodeInstances");
         }
