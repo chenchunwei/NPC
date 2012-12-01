@@ -12,7 +12,7 @@ namespace NPC.Domain.Models.FlowTypes
         public FlowType()
         {
             ClientNodes = new List<ClientNode>();
-            FlowDataFields = new List<FlowDataField>();
+            FlowTypeDataFields = new List<FlowTypeDataField>();
             RecordDescription = new RecordDescription();
         }
         /// <summary>
@@ -34,7 +34,7 @@ namespace NPC.Domain.Models.FlowTypes
         /// <summary>
         /// 流程变量
         /// </summary>
-        public virtual IList<FlowDataField> FlowDataFields { get; set; }
+        public virtual IList<FlowTypeDataField> FlowTypeDataFields { get; set; }
         /// <summary>
         /// 流程节点
         /// </summary>

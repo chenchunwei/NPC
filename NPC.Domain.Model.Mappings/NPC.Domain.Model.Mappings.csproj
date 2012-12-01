@@ -53,11 +53,12 @@
     <Compile Include="ClientNodeInstances\ClientNodeInstanceUserStateMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
+    <Compile Include="Flows\FlowDataFieldMap.cs" />
     <Compile Include="Flows\FlowMap.cs" />
     <Compile Include="FlowTypes\ClientNodeActionMap.cs" />
     <Compile Include="FlowTypes\ClientNodeLineMap.cs" />
     <Compile Include="FlowTypes\ClientNodeMap.cs" />
-    <Compile Include="FlowTypes\FlowDataFieldMap.cs" />
+    <Compile Include="FlowTypes\FlowTypeDataFieldMap.cs" />
     <Compile Include="FlowTypes\FlowTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposals\ProposalMap.cs" />

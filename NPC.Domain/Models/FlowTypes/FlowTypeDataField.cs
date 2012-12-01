@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NPC.Domain.Models.FlowTypes
 {
-    public class FlowDataField
+    public class FlowTypeDataField
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }

@@ -17,8 +17,8 @@ namespace NPC.Domain.Model.Mappings.Flows
             Map(o => o.DateTimeofFinished);
             Map(o => o.FlowStatus).CustomType<FlowStatus>();
             References(o => o.FlowType).Column("FlowTypeId");
-            References(o => o.UserOfFlowAdmin).Column("UserIdOfFlowAdmin");
-            Component(o => o.RecordDescription);
+            References(o => o.UserOfFlowAdmin).Column("UserIdOfFlowAdmin");Component(o => o.RecordDescription);
+            HasMany(o => o.FlowDataFields).KeyColumn("FlowId").Cascade.All();
             Table("Flows");
         }
     }
