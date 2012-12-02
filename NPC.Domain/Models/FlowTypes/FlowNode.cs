@@ -25,5 +25,6 @@ namespace NPC.Domain.Models.FlowTypes
         public virtual FlowValueType ExecutorType { get; set; }
         public virtual bool IsExecutorWithArray { get; set; }
         public virtual string ExecutorValue { get; set; }
+        public virtual bool IsServerNode { get; set; }
     }
 }

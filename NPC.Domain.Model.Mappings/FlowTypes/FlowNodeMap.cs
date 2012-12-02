@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             HasMany(o => o.FlowNodeLines).KeyColumn("FlowNodeId").Cascade.All();
             Component(o => o.RecordDescription);
             Map(o => o.IsFirstNode);
+            Map(o => o.IsServerNode);
             Table("FlowNodes");
         }
     }

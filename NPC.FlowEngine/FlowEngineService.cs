@@ -34,10 +34,10 @@ namespace NPC.FlowEngine
         public void CreateFlowNodeInstance()
         {
             var instances = _flowRepository.GetInstanceFlow();
-            instances.ToList().ForEach(CreateSingleClinentNodeInstance);
+            instances.ToList().ForEach(CreateSingleFlowNodeInstance);
         }
 
-        private void CreateSingleClinentNodeInstance(Flow flow)
+        private void CreateSingleFlowNodeInstance(Flow flow)
         {
             var trans = TransactionManager.BeginTransaction();
             try
@@ -99,40 +99,53 @@ namespace NPC.FlowEngine
 
         private void DealSingleFlowNodeFlowTo(FlowNodeInstance flowNodeInstance)
         {
+            //处理结点的下一个节点信息
             var trans = TransactionManager.BeginTransaction();
             try
             {
-                var flowNode = flowNodeInstance.BelongsFlowNode;
-                foreach (var targetClinetNode in from clientLine in flowNode.FlowNodeLines where clientLine.RuleCode == flowNodeInstance.FlowNodeAction.Name select clientLine.ContactTo)
-                {
-                    var task = new Task();
-                    //创建新节点实例
-                    var newClientInstance = new FlowNodeInstance();
-                    newClientInstance.BelongsFlow = flowNodeInstance.BelongsFlow;
-                    newClientInstance.BelongsFlowNode = targetClinetNode;
-                    var userIds = newClientInstance.BelongsFlow.GetActionUsers(targetClinetNode.Id);
-                    userIds.ToList().ForEach(o =>
-                    {
-                        var user = _userRepository.Find(o);
-                        task.TaskUserStates.Add(new TaskUserState { User = user });
-                        newClientInstance.FlowNodeInstanceUserStates.Add(new FlowNodeInstanceUserState() { User = user });
-                    });
-                    flowNodeInstance.InstanceStatus = InstanceStatus.Runing;
-                    _flowNodeInstanceRepository.Save(newClientInstance);
-
-                    //创建任务
-                    task.Title = flowNodeInstance.BelongsFlow.Title;
-                    task.Body = newClientInstance.Id.ToString();
-                    task.GroupName = TaskConst.FlowTaskGroup;
-                    task.TypeName = TaskConst.FlowTaskType;
-                    task.OuterId = flowNodeInstance.Id;
-                    task.TaskProcessUrl = flowNode.ProcessUrl;
-
-                    _taskRepository.Save(task);
-                }
+                var targetFlowNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
                 //设置原节点为完成
                 flowNodeInstance.Finished();
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
+
+                //当下一个节点信息不存时，流程结束
+                if (targetFlowNode == null)
+                {
+                    Finished(flowNodeInstance.BelongsFlow);
+                    trans.Commit();
+                    return;
+                }
+                #region 服务端节点处理
+                //当下一结点是服务器节点时,无需创建任务，直接标记成已完成进入下一个结点
+                if (targetFlowNode.IsServerNode)
+                {
+                    var nodes = new Stack<FlowNodeInstance>();
+                    nodes.Push(flowNodeInstance);
+                    while (nodes.Any())
+                    {
+                        var tempFlowNodeInstance = nodes.Pop();
+                        if (!tempFlowNodeInstance.BelongsFlowNode.IsServerNode)
+                        {
+                            DealClientNode(tempFlowNodeInstance);
+                        }
+                        var returnNodeInstanace = DealServerNode(tempFlowNodeInstance);
+                        //服务端与客户端的区别，服务端的处理完之后就已经Finished了，所以直接接着处理下一个节点，
+                        //如果是客户端则需要生成客户端任务，服务端则继续执行服务端的处理
+                        if (returnNodeInstanace.GetNextNodeTypeWhenActioned() == null)
+                        {
+                            Finished(flowNodeInstance.BelongsFlow);
+                            trans.Commit();
+                            return;
+                        }
+                        nodes.Push(returnNodeInstanace);
+                    }
+                    trans.Commit();
+                    return;
+                }
+                #endregion
+
+                //客户节点处理
+                DealClientNode(flowNodeInstance);
                 trans.Commit();
             }
             catch (Exception)
@@ -140,6 +153,57 @@ namespace NPC.FlowEngine
                 trans.Rollback();
                 throw;
             }
+        }
+
+        private void Finished(Flow flow)
+        {
+            flow.Finished();
+            _flowRepository.Save(flow);
+        }
+
+        private FlowNodeInstance DealServerNode(FlowNodeInstance flowNodeInstance)
+        { //处理结点的下一个节点信息
+            var flowNode = flowNodeInstance.BelongsFlowNode;
+            var targetFlowNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
+            //生成节点实例
+            var newFlowInstanceOfServer = new FlowNodeInstance();
+            newFlowInstanceOfServer.BelongsFlow = flowNodeInstance.BelongsFlow;
+            newFlowInstanceOfServer.BelongsFlowNode = targetFlowNode;
+            newFlowInstanceOfServer.TimeOfFinished = DateTime.Now;
+            newFlowInstanceOfServer.Execute();
+            newFlowInstanceOfServer.InstanceStatus = InstanceStatus.Finished;
+            _flowNodeInstanceRepository.Save(newFlowInstanceOfServer);
+            return newFlowInstanceOfServer;
+        }
+
+        private FlowNodeInstance DealClientNode(FlowNodeInstance flowNodeInstance)
+        {
+            var targetFlowNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
+
+            var task = new Task();
+            //创建新节点实例
+            var newFlowInstance = new FlowNodeInstance();
+            newFlowInstance.BelongsFlow = flowNodeInstance.BelongsFlow;
+            newFlowInstance.BelongsFlowNode = targetFlowNode;
+            var userIds = newFlowInstance.GetNodeActionUserIds();
+            userIds.ToList().ForEach(o =>
+            {
+                var user = _userRepository.Find(o);
+                task.TaskUserStates.Add(new TaskUserState { User = user });
+                newFlowInstance.FlowNodeInstanceUserStates.Add(new FlowNodeInstanceUserState() { User = user });
+            });
+            flowNodeInstance.InstanceStatus = InstanceStatus.Runing;
+            _flowNodeInstanceRepository.Save(newFlowInstance);
+
+            //创建任务
+            task.Title = flowNodeInstance.BelongsFlow.Title;
+            task.Body = newFlowInstance.Id.ToString();
+            task.GroupName = TaskConst.FlowTaskGroup;
+            task.TypeName = TaskConst.FlowTaskType;
+            task.OuterId = flowNodeInstance.Id;
+            task.TaskProcessUrl = targetFlowNode.ProcessUrl;
+            _taskRepository.Save(task);
+            return newFlowInstance;
         }
     }
 }

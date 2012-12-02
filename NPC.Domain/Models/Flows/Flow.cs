@@ -27,19 +27,32 @@ namespace NPC.Domain.Models.Flows
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual IList<FlowDataField> FlowDataFields { get; set; }
         public virtual IList<FlowNodeInstance> FlowNodeInstances { get; set; }
-        public virtual IList<Guid> GetActionUsers(Guid flowNodeId)
+
+        public virtual void Finished()
         {
-            var flowNode = FlowType.FlowNodes.Single(o => o.Id == flowNodeId);
-            var executorText = string.Empty;
-            if (flowNode.ExecutorType == FlowValueType.ByValue)
+            FlowStatus = FlowStatus.Finished;
+            RecordDescription.DateOfLastestModify = DateTime.Now;
+            DateTimeofFinished = DateTime.Now;
+        }
+
+        public virtual void WriteDataFields(Dictionary<string, string> args)
+        {
+            if (args == null)
+                return;
+            args.ToList().ForEach(pair =>
             {
-                executorText = flowNode.ExecutorValue;
-            }
-            if (flowNode.ExecutorType == FlowValueType.ByDataField)
-            {
-                executorText = FlowDataFields.Single(o => o.Name == flowNode.ExecutorValue).Value;
-            }
-            return executorText.Split(';').Select(Guid.Parse).ToList();
+                var dataField = FlowDataFields.SingleOrDefault(o => o.Name == pair.Key);
+                if (dataField != null)
+                {
+                    dataField.Value = pair.Value;
+                    return;
+                }
+                FlowDataFields.Add(new FlowDataField()
+               {
+                   Value = pair.Value,
+                   Name = pair.Key
+               });
+            });
         }
     }
 }

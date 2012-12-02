@@ -61,23 +61,8 @@ namespace NPC.FlowEngine
                 if (task.GroupName != TaskConst.FlowTaskGroup)
                     throw new ApplicationException("该任务非流程任务");
                 var flowNodeInstance = _flowNodeInstanceRepository.Find(Guid.Parse(task.Body));
-                flowNodeInstance.Execute(executor, actionName);
-                args = args ?? new Dictionary<string, string>();
-                //写入流程变量
-                args.ToList().ForEach(pair =>
-                {
-                    var dataField = flowNodeInstance.BelongsFlow.FlowDataFields.SingleOrDefault(o => o.Name == pair.Key);
-                    if (dataField != null)
-                    {
-                        dataField.Value = pair.Value;
-                        return;
-                    }
-                    flowNodeInstance.BelongsFlow.FlowDataFields.Add(new FlowDataField()
-                    {
-                        Value = pair.Value,
-                        Name = pair.Key
-                    });
-                });
+                flowNodeInstance.Execute(actionName, executor);
+                flowNodeInstance.BelongsFlow.WriteDataFields(args);
                 task.Done(executor, TaskStatus.Finished);
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
                 _taskRepository.Save(task);

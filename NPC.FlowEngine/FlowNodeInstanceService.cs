@@ -31,7 +31,7 @@ namespace NPC.FlowEngine
                 if (flowNodeInstance == null)
                     throw new ArgumentException("该任务未找到对应的流程节点对象");
                 var action = flowNodeInstance.BelongsFlowNode.FlowNodeActions.Single(o => o.Name == actionName);
-                flowNodeInstance.Execute(executor, actionName);
+                flowNodeInstance.Execute(actionName, executor);
                 var executorText = string.Empty;
                 if (flowNodeInstance.BelongsFlowNode.ExecutorType == FlowValueType.ByValue)
                 {

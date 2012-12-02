@@ -36,7 +36,7 @@ namespace NPC.Domain.Models.Flows
         /// <summary>
         /// 已打开
         /// </summary>
-        [Description("已停止")]
+        [Description("已完成")]
         Finished = 4,
     }
 }
