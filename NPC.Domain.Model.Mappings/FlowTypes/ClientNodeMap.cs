@@ -7,18 +7,18 @@ using NPC.Domain.Models.FlowTypes;
 
 namespace NPC.Domain.Model.Mappings.FlowTypes
 {
-    public sealed class ClientNodeMap : ClassMap<ClientNode>
+    public sealed class FlowNodeMap : ClassMap<FlowNode>
     {
-        public ClientNodeMap()
+        public FlowNodeMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Name);
             Map(o => o.ProcessUrl);
-            HasMany(o => o.ClientNodeActions).KeyColumn("ClientNodeId").Cascade.All();
-            HasMany(o => o.ClientNodeLines).KeyColumn("ClientNodeId").Cascade.All();
+            HasMany(o => o.FlowNodeActions).KeyColumn("FlowNodeId").Cascade.All();
+            HasMany(o => o.FlowNodeLines).KeyColumn("FlowNodeId").Cascade.All();
             Component(o => o.RecordDescription);
             Map(o => o.IsFirstNode);
-            Table("ClientNodes");
+            Table("FlowNodes");
         }
     }
 }

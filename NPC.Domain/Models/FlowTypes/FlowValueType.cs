@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NPC.Domain.Models.FlowTypes
 {
-    public enum ValueType
+    public enum FlowValueType
     {
         ByValue = 0,
         ByDataField

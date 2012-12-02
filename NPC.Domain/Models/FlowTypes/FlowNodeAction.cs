@@ -8,7 +8,7 @@ namespace NPC.Domain.Models.FlowTypes
     /// <summary>
     /// 节点动作
     /// </summary>
-    public class ClientNodeAction
+    public class FlowNodeAction
     {
         public virtual Guid Id { get; set; }
         /// <summary>

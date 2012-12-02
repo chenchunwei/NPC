@@ -11,7 +11,7 @@ namespace NPC.Domain.Models.FlowTypes
     {
         public FlowType()
         {
-            ClientNodes = new List<ClientNode>();
+            FlowNodes = new List<FlowNode>();
             FlowTypeDataFields = new List<FlowTypeDataField>();
             RecordDescription = new RecordDescription();
         }
@@ -38,7 +38,7 @@ namespace NPC.Domain.Models.FlowTypes
         /// <summary>
         /// 流程节点
         /// </summary>
-        public virtual IList<ClientNode> ClientNodes { get; set; }
+        public virtual IList<FlowNode> FlowNodes { get; set; }
         /// <summary>
         /// 记录描述信息
         /// </summary>
@@ -47,11 +47,11 @@ namespace NPC.Domain.Models.FlowTypes
         /// 获取第一个节点
         /// </summary>
         /// <returns></returns>
-        public virtual ClientNode GetFirstNode()
+        public virtual FlowNode GetFirstNode()
         {
-            if(!ClientNodes.Any())
+            if(!FlowNodes.Any())
                 throw  new ArgumentException("流程没有任何节点");
-            return ClientNodes.FirstOrDefault(o => o.IsFirstNode);
+            return FlowNodes.FirstOrDefault(o => o.IsFirstNode);
         }
     }
 }

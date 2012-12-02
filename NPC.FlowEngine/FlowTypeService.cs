@@ -14,7 +14,5 @@ namespace NPC.FlowEngine
         {
             _flowTypeRepository = new FlowTypeRepository();
         }
-
-       
     }
 }

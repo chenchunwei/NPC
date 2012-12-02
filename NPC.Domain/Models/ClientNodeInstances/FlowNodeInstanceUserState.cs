@@ -6,18 +6,18 @@ using NPC.Domain.Models.Common;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Models.Users;
 
-namespace NPC.Domain.Models.ClientNodeInstances
+namespace NPC.Domain.Models.FlowNodeInstances
 {
-    public class ClientNodeInstanceUserState
+    public class FlowNodeInstanceUserState
     {
-        public ClientNodeInstanceUserState()
+        public FlowNodeInstanceUserState()
         {
             RecordDescription=new RecordDescription();
         }
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
         public virtual ExecuteStatus ExecuteStatus { get; set; }
-        public virtual ClientNodeAction ClientNodeAction { get; set; }
+        public virtual FlowNodeAction FlowNodeAction { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
     }
 }

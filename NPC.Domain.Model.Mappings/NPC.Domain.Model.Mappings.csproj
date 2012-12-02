@@ -49,8 +49,8 @@
     <Compile Include="ArticleCategories\ArticleCategoryMap.cs" />
     <Compile Include="Articles\ArticleMap.cs" />
     <Compile Include="Agents\AgentMap.cs" />
-    <Compile Include="ClientNodeInstances\ClientNodeInstanceMap.cs" />
-    <Compile Include="ClientNodeInstances\ClientNodeInstanceUserStateMap.cs" />
+    <Compile Include="ClientNodeInstances\FlowNodeInstanceMap.cs" />
+    <Compile Include="ClientNodeInstances\FlowNodeInstanceUserStateMap.cs" />
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
     <Compile Include="Flows\FlowDataFieldMap.cs" />

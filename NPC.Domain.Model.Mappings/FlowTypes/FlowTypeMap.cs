@@ -16,7 +16,7 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             Map(o => o.UrlOfDetail);
             Map(o => o.Description);
             HasMany(o => o.FlowTypeDataFields).KeyColumn("FlowTypeId").Cascade.All();
-            HasMany(o => o.ClientNodes).KeyColumn("FlowTypeId").Cascade.All();
+            HasMany(o => o.FlowNodes).KeyColumn("FlowTypeId").Cascade.All();
             Component(o => o.RecordDescription);
             Table("FlowTypes");
         }

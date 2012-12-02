@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace NPC.Domain.Models.ClientNodeInstances
+namespace NPC.Domain.Models.FlowNodeInstances
 {
     public enum ExecuteStatus
     {
@@ -12,7 +12,7 @@ namespace NPC.Domain.Models.ClientNodeInstances
         /// 待执行
         /// </summary>
         [Description("待执行")]
-        WaitingExecute=0,
+        WaitingExecute = 0,
         /// <summary>
         /// 已执行
         /// </summary>

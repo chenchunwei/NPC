@@ -7,16 +7,16 @@ using NPC.Domain.Models.FlowTypes;
 
 namespace NPC.Domain.Model.Mappings.FlowTypes
 {
-    public class ClientNodeLineMap : ClassMap<ClientNodeLine>
+    public class FlowNodeLineMap : ClassMap<FlowNodeLine>
     {
-        public ClientNodeLineMap()
+        public FlowNodeLineMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Name);
             Map(o => o.RuleCode);
-            References(o => o.ContactTo).Column("ClientNodeIdOfContactTo");
+            References(o => o.ContactTo).Column("FlowNodeIdOfContactTo");
             Component(o => o.RecordDescription);
-            Table("ClientNodeLines");
+            Table("FlowNodeLines");
         }
     }
 }

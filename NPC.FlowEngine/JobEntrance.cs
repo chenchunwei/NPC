@@ -25,9 +25,9 @@ namespace NPC.FlowEngine
         }
         public void Run()
         {
-            IJobDetail clientNodeInstanceJob = new JobDetailImpl("ClientNodeInstanceJob", "Npc", typeof(ClientNodeInstanceJob));
-            var trigger = new CronTriggerImpl("clientNodeInstanceJobTrigger", "Npc", "00 0/1 * * * ? *");
-            _scheduler.ScheduleJob(clientNodeInstanceJob, trigger);
+            IJobDetail flowNodeInstanceJob = new JobDetailImpl("FlowNodeInstanceJob", "Npc", typeof(FlowNodeInstanceJob));
+            var trigger = new CronTriggerImpl("FlowNodeInstanceJobTrigger", "Npc", "00 0/1 * * * ? *");
+            _scheduler.ScheduleJob(flowNodeInstanceJob, trigger);
             _scheduler.Start();
         }
         public void Stop()

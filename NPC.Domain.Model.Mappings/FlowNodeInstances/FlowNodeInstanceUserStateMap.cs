@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentNHibernate.Mapping;
-using NPC.Domain.Models.ClientNodeInstances;
+using NPC.Domain.Models.FlowNodeInstances;
 
-namespace NPC.Domain.Model.Mappings.ClientNodeInstances
+namespace NPC.Domain.Model.Mappings.FlowNodeInstances
 {
-    public class ClientNodeInstanceUserStateMap : ClassMap<ClientNodeInstanceUserState>
+    public class FlowNodeInstanceUserStateMap : ClassMap<FlowNodeInstanceUserState>
     {
-        public ClientNodeInstanceUserStateMap()
+        public FlowNodeInstanceUserStateMap()
         {
             Id(o => o.Id).GeneratedBy.Assigned();
             Map(o => o.ExecuteStatus).CustomType<ExecuteStatus>();
             References(o => o.User).Column("UserId");
-            References(o => o.ClientNodeAction).Column("ClientNodeActionId");
+            References(o => o.FlowNodeAction).Column("FlowNodeActionId");
             Component(o => o.RecordDescription);
-            Table("ClientNodeInstanceUserStates");
+            Table("FlowNodeInstanceUserStates");
         }
     }
 }
