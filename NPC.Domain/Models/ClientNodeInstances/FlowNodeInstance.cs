@@ -87,7 +87,7 @@ namespace NPC.Domain.Models.FlowNodeInstances
                 //值，以此来判断流程走向
                 //判断所有的ActionLine,执行第一个符合条件的line
                 var isAnyMatched = false;
-                BelongsFlowNode.FlowNodeLines.ForEach(line =>
+                BelongsFlowNode.FlowNodeLines.ToList().ForEach(line =>
                 {
                     var datas = BelongsFlow.FlowDataFields.Where(
                           dataField => dataField.Name == line.RuleCode);

@@ -26,7 +26,7 @@ namespace NPC.FlowEngine
             _taskRepository = new TaskRepository();
         }
 
-        public void CreateFlowWithAssignId(Guid flowId, string flowName, User originator, string title, Dictionary<string, string> args = null)
+        public void CreateFlowWithAssignId(Guid flowId, string flowName, User originator, string title, Dictionary<string, string> args = null, string comment = null)
         {
             var trans = TransactionManager.BeginTransaction();
             try

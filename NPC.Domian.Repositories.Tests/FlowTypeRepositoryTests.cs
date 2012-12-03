@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Repository;
@@ -20,10 +21,13 @@ namespace NPC.Domian.Repositories.Tests
         [TestMethod]
         public void TestDefineFlow()
         {
+            var trans = TransactionManager.BeginTransaction();
             var flowType = new FlowType();
             flowType.Name = "ProposalFlow";
+
+            FlowTypeRepository.Save(flowType);
             //第一个节点
-            var firstClient = new FlowNode()
+            var firstNode = new FlowNode()
             {
                 Name = "审批",
                 ExecutorType = FlowValueType.ByDataField,
@@ -32,18 +36,27 @@ namespace NPC.Domian.Repositories.Tests
                 IsFirstNode = true,
                 ProcessUrl = "urlOfProcess"
             };
+            //添加流程变量声明
+            flowType.FlowTypeDataFields.Add(new FlowTypeDataField() { Name = "Auditor" });
+            flowType.FlowTypeDataFields.Add(new FlowTypeDataField() { Name = "IsNeedNextAudit" });
             //第一个节点的Actions
-            firstClient.FlowNodeActions.Add(new FlowNodeAction() { Name = "办结" });
-            firstClient.FlowNodeActions.Add(new FlowNodeAction() { Name = "返还" });
-            firstClient.FlowNodeActions.Add(new FlowNodeAction() { Name = "下一轮审批" });
-            firstClient.FlowNodeActions.Add(new FlowNodeAction() { Name = "否决" });
+            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "办结" });
+            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "返还" });
+            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "下一轮审批" });
+            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "否决" });
             //第二个节点
-            var auditFlowNode = new FlowNode()
+            var endAudit = new FlowNode()
             {
-                Name="完结",
-                //ExecutorType=Flo
+                Name = "完结",
+                IsServerNode = true
             };
-            flowType.FlowNodes.Add(firstClient);
+            flowType.FlowNodes.Add(endAudit);
+            flowType.FlowNodes.Add(firstNode);
+            //添加流程分支
+            firstNode.FlowNodeLines.Add(new FlowNodeLine() { RuleCode = "办结", Name = "办结", ContactTo = endAudit });
+            firstNode.FlowNodeLines.Add(new FlowNodeLine() { RuleCode = "下一轮审批", Name = "下一轮审批", ContactTo = firstNode });
+            FlowTypeRepository.Save(flowType);
+            trans.Commit();
         }
     }
 }

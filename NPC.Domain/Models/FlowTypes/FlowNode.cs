@@ -17,8 +17,8 @@ namespace NPC.Domain.Models.FlowTypes
         }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
-        public virtual List<FlowNodeAction> FlowNodeActions { get; set; }
-        public virtual List<FlowNodeLine> FlowNodeLines { get; set; }
+        public virtual IList<FlowNodeAction> FlowNodeActions { get; set; }
+        public virtual IList<FlowNodeLine> FlowNodeLines { get; set; }
         public virtual string ProcessUrl { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual bool IsFirstNode { get; set; }

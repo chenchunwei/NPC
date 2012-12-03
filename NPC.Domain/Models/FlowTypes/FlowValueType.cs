@@ -8,6 +8,6 @@ namespace NPC.Domain.Models.FlowTypes
     public enum FlowValueType
     {
         ByValue = 0,
-        ByDataField
+        ByDataField=1
     }
 }

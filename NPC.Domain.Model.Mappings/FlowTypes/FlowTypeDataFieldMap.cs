@@ -14,7 +14,7 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Name);
             Map(o => o.DefaultValue);
-            Table("FlowDataFields");
+            Table("FlowTypeDataFields");
         }
     }
 }

@@ -91,7 +91,7 @@ namespace NPC.FlowEngine
                 else
                 {
                     var newInstance = DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
-                    CreateTask(newInstance);
+                   
                 }
 
                 trans.Commit();
@@ -135,6 +135,8 @@ namespace NPC.FlowEngine
 
                 newFlowInstance.FlowNodeInstanceUserStates.Add(new FlowNodeInstanceUserState() { User = user });
             });
+            _flowNodeInstanceRepository.Save(newFlowInstance);
+            CreateTask(newFlowInstance);
             return newFlowInstance;
         }
 

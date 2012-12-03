@@ -14,6 +14,11 @@ namespace NPC.Domain.Models.Tasks
     /// </summary>
     public class Task : IAggregateRoot
     {
+        public Task()
+        {
+            TaskUserStates=new List<TaskUserState>();
+            RecordDescription=new RecordDescription();
+        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 分组名

@@ -19,6 +19,9 @@ namespace NPC.Domain.Model.Mappings.FlowTypes
             Component(o => o.RecordDescription);
             Map(o => o.IsFirstNode);
             Map(o => o.IsServerNode);
+            Map(o => o.ExecutorValue);
+            Map(o => o.ExecutorType).CustomType<FlowValueType>();
+            Map(o => o.IsExecutorWithArray);
             Table("FlowNodes");
         }
     }
