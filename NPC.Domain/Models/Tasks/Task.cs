@@ -16,8 +16,8 @@ namespace NPC.Domain.Models.Tasks
     {
         public Task()
         {
-            TaskUserStates=new List<TaskUserState>();
-            RecordDescription=new RecordDescription();
+            TaskUserStates = new List<TaskUserState>();
+            RecordDescription = new RecordDescription();
         }
         public virtual Guid Id { get; set; }
         /// <summary>
@@ -63,6 +63,6 @@ namespace NPC.Domain.Models.Tasks
             var state = TaskUserStates.Single(o => o.Id == user.Id);
             state.RecordDescription.UpdateBy(user);
             state.TaskStatus = taskStatus;
-        }
+         }
     }
 }

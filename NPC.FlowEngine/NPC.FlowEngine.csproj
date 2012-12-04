@@ -57,6 +57,7 @@
     <Compile Include="JobEntrance.cs" />
     <Compile Include="Jobs\FlowNodeInstanceJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">

@@ -15,6 +15,8 @@ namespace NPC.Domain.Model.Mappings.Tasks
             Map(o => o.Description);
             Map(o => o.OuterId);
             Map(o => o.Title);
+            Map(o => o.GroupName);
+            Map(o => o.TypeName);
             Component(o => o.RecordDescription);
             HasMany(o => o.TaskUserStates).KeyColumn("TaskId").Cascade.All();
             Table("Tasks");
