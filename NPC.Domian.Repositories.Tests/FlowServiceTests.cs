@@ -36,6 +36,12 @@ namespace NPC.Domian.Repositories.Tests
         public void TestNewFlowNodeInstance()
         {
             FlowEngineService.CreateFlowNodeInstance();
+        }
+
+        [TestMethod]
+        public void DealFlowNodeFlowTo()
+        {
+            FlowEngineService.DealFlowNodeFlowTo();
 
         }
     }

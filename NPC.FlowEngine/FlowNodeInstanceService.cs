@@ -15,8 +15,10 @@ namespace NPC.FlowEngine
     {
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
         private readonly UserRepository _userRepository;
-        public FlowNodeInstanceService()
+        private readonly FlowRepository _flowRepository;
+        public FlowNodeInstanceService( )
         {
+            _flowRepository = new FlowRepository();
             _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _userRepository = new UserRepository();
         }
@@ -30,22 +32,10 @@ namespace NPC.FlowEngine
                 var flowNodeInstance = _flowNodeInstanceRepository.Find(flowNodeInstanceId);
                 if (flowNodeInstance == null)
                     throw new ArgumentException("该任务未找到对应的流程节点对象");
-                var action = flowNodeInstance.BelongsFlowNode.FlowNodeActions.Single(o => o.Name == actionName);
                 flowNodeInstance.Execute(actionName, executor);
-                var executorText = string.Empty;
-                if (flowNodeInstance.BelongsFlowNode.ExecutorType == FlowValueType.ByValue)
-                {
-                    executorText = flowNodeInstance.BelongsFlowNode.ExecutorValue;
-                }
-                if (flowNodeInstance.BelongsFlowNode.ExecutorType == FlowValueType.ByDataField)
-                {
-                    executorText = flowNodeInstance.BelongsFlow.FlowDataFields.Single(o => o.Name == flowNodeInstance.BelongsFlowNode.ExecutorValue).Value;
-                }
-                var executorIds = executorText.Split(';');
-                //读取用户信息
-                var users = _userRepository.GetUsers(executorIds.Select(Guid.Parse).ToArray());
-                users.ToList().ForEach(user => flowNodeInstance.FlowNodeInstanceUserStates.Add(new FlowNodeInstanceUserState { User = user }));
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
+                flowNodeInstance.BelongsFlow.WriteDataFields(args);
+                _flowRepository.Save(flowNodeInstance.BelongsFlow);
                 trans.Commit();
             }
             catch (Exception)

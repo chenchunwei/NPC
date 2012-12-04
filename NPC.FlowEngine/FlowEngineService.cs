@@ -91,7 +91,7 @@ namespace NPC.FlowEngine
                 else
                 {
                     var newInstance = DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
-                   
+
                 }
 
                 trans.Commit();
@@ -111,6 +111,8 @@ namespace NPC.FlowEngine
 
         private FlowNodeInstance DealServerNode(Flow flow, FlowNode targetFlowNode)
         {
+            if (targetFlowNode == null)
+                return null;
             //生成服务端节点实例
             var newFlowInstanceOfServer = new FlowNodeInstance();
             newFlowInstanceOfServer.BelongsFlow = flow;
@@ -178,7 +180,7 @@ namespace NPC.FlowEngine
                 var returnNodeInstanace = DealServerNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
                 //服务端与客户端的区别，服务端的处理完之后就已经Finished了，所以直接接着处理下一个节点，
                 //如果是客户端则需要生成客户端任务，服务端则继续执行服务端的处理
-                if (returnNodeInstanace.GetNextNodeTypeWhenActioned() == null)
+                if (returnNodeInstanace == null)
                 {
                     Finished(flow);
                     return;
