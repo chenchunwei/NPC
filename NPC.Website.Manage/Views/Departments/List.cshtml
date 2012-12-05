@@ -120,7 +120,9 @@
     }
     function append() {
         var node = $('#treegrid').treegrid('getSelected');
-        $("#Id").val(node.id);
+        if (node != null) {
+            $("#Id").val(node.id);
+        }
         $('#newWin').window('open');
     }
     function remove() {
