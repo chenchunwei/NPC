@@ -10,6 +10,7 @@ namespace NPC.Application.ManageModels.Articles
         public ArticleEditModel()
         {
             FormData = new ArticleEditModelFormData();
+            FormData.IsShow = true;
         }
         public Guid? Id { get; set; }
         public ArticleEditModelFormData FormData { get; set; }
@@ -20,6 +21,8 @@ namespace NPC.Application.ManageModels.Articles
         public string Title { get; set; }
         public string UrlOfCoverImage { get; set; }
         public string Content { get; set; }
+        public string Author { get; set; }
+        public bool IsShow { get; set; }
         public Guid? ArticleCategoryId { get; set; }
     }
 }

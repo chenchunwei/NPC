@@ -15,5 +15,6 @@ namespace NPC.Query.Articles
         public bool? IsShow { get; set; }
         public string Keyword { get; set; }
         public Guid? CategoryId { get; set; }
+        public Guid? UnitId { get; set; }
     }
 }

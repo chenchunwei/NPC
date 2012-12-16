@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using Fluent.Infrastructure.Web.HttpFiles;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.NodeRecords;
 using Saturday.Application;
 
@@ -40,6 +41,7 @@ namespace NPC.Website.Manage.Controllers
         public ActionResult List(NodeRecordListModel listModel)
         {
             listModel.NodeRecordSearchModel.NodeRecordQueryItem.Pagination.PageIndex = PageIndex;
+            listModel.NodeRecordSearchModel.NodeRecordQueryItem.UnitId = new NpcContext().CurrentUser.Unit.Id;
             var model = _nodeRecordAction.InitializeNodeRecordListModel(listModel.NodeRecordSearchModel.NodeRecordQueryItem);
             return View(model);
         }

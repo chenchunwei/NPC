@@ -74,5 +74,18 @@ namespace NPC.Application
             model.Articles = _articleRepository.Query(queryItem);
             return model;
         }
+
+        public void Delete(params Guid[] ids)
+        {
+            if (ids != null && ids.Length > 0)
+                ids.ToList().ForEach(SingleDelete);
+        }
+
+        private void SingleDelete(Guid id)
+        {
+            var target = _articleRepository.Find(id);
+            target.RecordDescription.Delete();
+            _articleRepository.SaveOrUpdate(target);
+        }
     }
 }

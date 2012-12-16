@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using System.ComponentModel
-@model NPC.Application.ManageModels.Articles.ArticleEditModel
+@model  NPC.Application.ManageModels.Articles.ArticleEditModel
 <script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
 <div class="workgroundin" style="height: 5px;">
 </div>
@@ -28,11 +28,11 @@
             </div>
             <table class="fromTable" width="100%">
                 <tr>
-                    <th>
+                    <th style="width: 220px;">
                         <span style="color: red;">*</span> 文章类别：
                     </th>
                     <td>
-                        @Html.DropDownListFor(o => o.FormData.ArticleCategoryId, new BindingList<SelectListItem>(), new { style = "width:250px;" })
+                        @Html.DropDownListFor(o => o.FormData.ArticleCategoryId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
                     </td>
                 </tr>
                 <tr>
@@ -40,7 +40,24 @@
                         <span style="color: red;">*</span> 新闻标题：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Title)
+                        @Html.TextBoxFor(o => o.FormData.Title, new { style = "width:380px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                         作者：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.Author, new { style = "width:380px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 显示到站点：
+                    </th>
+                    <td>
+                        <input type="radio" value="True" name="FormData.IsShow" @(Model.FormData.IsShow ? "checked" : "") />&nbsp;是&nbsp;
+                        <input type="radio" value="False" name="FormData.IsShow"  @(Model.FormData.IsShow ? "" : "checked") />&nbsp;否
                     </td>
                 </tr>
                 <tr>
@@ -48,9 +65,20 @@
                         封面图片：
                     </th>
                     <td>
-                        <input type="file" name="FormData.CoverImg" />
+                        <input type="file" name="FormData.CoverImg" id="FormData_CoverImg" />
                     </td>
                 </tr>
+                @if (!string.IsNullOrEmpty(Model.FormData.UrlOfCoverImage))
+                {
+                    <tr>
+                        <th>
+                            当前图片：
+                        </th>
+                        <td>
+                            <a href="/Manage/Attachments/@Model.FormData.UrlOfCoverImage" target="_blank">/Manage/Attachments/@Model.FormData.UrlOfCoverImage</a>
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <th>
                         <span style="color: red;">*</span> 文章内容：
@@ -67,15 +95,7 @@
                                 <div class="fbb_left">
                                     <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
                                 <div class="fbb_center">
-                                    提交</div>
-                                <div class="fbb_right">
-                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
-                            </div>
-                            <div class="btn" id="resetBtn">
-                                <div class="fbb_left">
-                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
-                                <div class="fbb_center">
-                                    重置</div>
+                                    发布</div>
                                 <div class="fbb_right">
                                     <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
                             </div>
@@ -100,7 +120,8 @@
             rules: {
                 "FormData.ArticleCategoryId": "required",
                 "FormData.Title": "required",
-                "FormData.Content": "required"
+                "FormData.Content": "required",
+                "FormData.CoverImg": "checkImageExt"
             },
             messages: {
                 "FormData.ArticleCategoryId": "请选择文章分类",
@@ -114,5 +135,6 @@
         $("#submitBtn").click(function () {
             $("#mainForm").submit();
         });
+        $("#FormData_CoverImg").uploadPreview({ width: 200, height: 200, imgDiv: "#imgDiv", imgType: ["bmp", "gif", "png", "jpg"] });
     });
 </script>

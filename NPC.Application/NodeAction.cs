@@ -22,12 +22,14 @@ namespace NPC.Application
         public NodeTreeModel InitializeNodeTreeModel(Guid? id)
         {
             var model = new NodeTreeModel();
-            var subs = id.HasValue ? _nodeRepository.GetSubs(id.Value) : _nodeRepository.GetRootNodes();
+            var unitId = NpcContext.CurrentUser.Unit.Id;
+            var subs = id.HasValue ? _nodeRepository.GetSubsInUnit(unitId, id.Value) : _nodeRepository.GetRootNodesInUnit(unitId);
             subs.ToList().ForEach(o => model.Components.Add(ConvertArticleCategoryToModel(o, true)));
             return model;
 
         }
         #endregion
+
         #region 转换ArticleCategory到Model
         private NodeTreeModelComponent ConvertArticleCategoryToModel(Node node, bool isNeedSub)
         {
@@ -62,7 +64,7 @@ namespace NPC.Application
             var node = new Node();
             node.Name = model.FormData.Name;
             node.Code = model.FormData.Code;
-            if (_nodeRepository.IsNodeCodeRepeat(node.Code))
+            if (_nodeRepository.IsNodeCodeRepeatInUnit(NpcContext.CurrentUser.Unit.Id, node.Code))
             {
                 throw new ApplicationException("节点编码不能重复，请重新设置！");
             }
@@ -70,6 +72,7 @@ namespace NPC.Application
             {
                 node.ParentNode = _nodeRepository.Find(model.Id.Value);
             }
+            node.Unit = NpcContext.CurrentUser.Unit;
             node.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _nodeRepository.Save(node);
         }

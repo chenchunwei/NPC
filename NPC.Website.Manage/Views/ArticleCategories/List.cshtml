@@ -7,26 +7,18 @@
 <div class="main_search">
     <div class="mc_search">
         <div class="pic">
-            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" />
+        </div>
         <div class="font">
-            提示：在分类节点上右键进行删除或添加新节点操作</div>
+            提示：在分类节点上右键进行删除或添加新节点操作
+        </div>
     </div>
 </div>
 <div class="contentContainer contentleftBorder">
     <div class="hasTooler">
         <ul>
-            <li class="buttonon" onclick="append()" id="newTopLevel">
-                <div class="hc_left">
-                </div>
-                <div class="hc_center">
-                    <div>
-                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
-                    <div>
-                        添加新分类</div>
-                </div>
-                <div class="hc_right">
-                </div>
-            </li>
+            @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新分类", "newNode", "icon_3.gif", true))
+            @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加根分类", "newTopNode", "icon_3.gif", false))
         </ul>
     </div>
 </div>
@@ -53,29 +45,25 @@
     </div>
 </div>
 <div id="wins" style="display: none;">
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 120px;
-        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="newWin" class="easyui-window" title="添加新分类" style="width: 400px; height: 120px; background-color: #EFEFEF; display: none"
+        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditCategory", "ArticleCategories")" method="post">
-            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                <table>
-                    <tr>
-                        <th width="120px;">
-                            节点名称：
-                        </th>
-                        <td>
-                            <input id="FormData_Name" name="FormData.Name" type="text" />
-                            <input id="Id" name="Id" type="hidden" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        取消</a>
-            </div>
+                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                    <table>
+                        <tr>
+                            <th width="120px;">分类名称：
+                            </th>
+                            <td>
+                                <input id="FormData_Name" name="FormData.Name" type="text" />
+                                <input id="Id" name="Id" type="hidden" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                    <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+                </div>
             </form>
         </div>
     </div>
@@ -107,6 +95,14 @@
         });
         $("#btnCancelNew").click(function () {
             $("#newWin").window("close");
+        });
+        $("#newTopNode").click(function () {
+            $("#Id").val();
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+        });
+        $("#newNode").click(function () {
+            append();
         });
     });
     function onContextMenu(e, row) {
@@ -148,16 +144,16 @@ $("#newForm").validate({
 });
 $("#newForm").submit(function () {
     $.post('@Url.Action("EditCategory", "ArticleCategories")', utility.formSerialize($("#newForm")), function (data) {
-            data = evalJson(data);
-            if (data.status == "success") {
-                $("#treegrid").treegrid('reload', $("#Id").val());
-                $("#newWin").window("close");
-                showSlide("添加成功!", 3000);
-            } else {
-                msgShow("提示信息", "添加失败!", "error");
-            }
-        });
-        return false;
+        data = evalJson(data);
+        if (data.status == "success") {
+            $("#treegrid").treegrid('reload', $("#Id").val());
+            $("#newWin").window("close");
+            showSlide("添加成功!", 3000);
+        } else {
+            msgShow("提示信息", "添加失败!", "error");
+        }
     });
+    return false;
+});
 
 </script>

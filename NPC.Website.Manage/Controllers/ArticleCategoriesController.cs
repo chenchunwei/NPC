@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using NPC.Application;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.ArticleCategories;
 
 namespace NPC.Website.Manage.Controllers
@@ -32,6 +33,7 @@ namespace NPC.Website.Manage.Controllers
         {
             try
             {
+                model.Unit = new NpcContext().CurrentUser.Unit;
                 _articleCategoryAction.CreateNewCategory(model);
             }
             catch (Exception)

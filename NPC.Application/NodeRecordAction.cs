@@ -112,7 +112,7 @@ namespace Saturday.Application
             _nodeRecordRepository.SaveOrUpdate(target);
         }
 
-        private void WapperNodeRecordMark(Node node)
+        private static void WapperNodeRecordMark(Node node)
         {
             if (node.NodeRecordMark == null)
             {

@@ -37,6 +37,7 @@ namespace NPC.Domain.Repository
         {
             //表区域
             var stringBuilder = new StringBuilder("Select {0} From NodeRecords nr ");
+            stringBuilder.Append("join Node n on n.Id= nr.UnitId ");
             stringBuilder.Append("Where 1=1 ");
             var parameters = new Hashtable();
 
@@ -54,6 +55,11 @@ namespace NPC.Domain.Repository
             {
                 stringBuilder.Append("And nr.BelongsToNodeId = :BelongsToNodeId ");
                 parameters.Add("BelongsToNodeId", queryItem.NodeId);
+            }
+            if (queryItem.UnitId.HasValue)
+            {
+                stringBuilder.Append("And n.UnitId = :UnitId ");
+                parameters.Add("UnitId", queryItem.UnitId.Value);
             }
             stringBuilder.Append("And nr.IsDelete=0 ");
             stringBuilder.Append("{1}");

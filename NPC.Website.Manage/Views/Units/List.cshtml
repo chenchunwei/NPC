@@ -17,18 +17,8 @@
 <div class="contentContainer contentleftBorder">
     <div class="hasTooler">
         <ul>
-            <li class="buttonon" onclick="append()" id="newTopLevel">
-                <div class="hc_left">
-                </div>
-                <div class="hc_center">
-                    <div>
-                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
-                    <div>
-                        添加新组织</div>
-                </div>
-                <div class="hc_right">
-                </div>
-            </li>
+            @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新节点", "newNode", "icon_3.gif", true))
+            @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加根节点", "newTopNode", "icon_3.gif", false))
         </ul>
     </div>
 </div>
@@ -108,6 +98,14 @@
         });
         $("#btnCancelNew").click(function () {
             $("#newWin").window("close");
+        });
+        $("#newTopNode").click(function () {
+            $("#Id").val();
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+        });
+        $("#newNode").click(function () {
+            append();
         });
     });
     function onContextMenu(e, row) {

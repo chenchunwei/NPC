@@ -14,5 +14,6 @@ namespace NPC.Domain.Models.NodeRecords
         public Guid? NodeId { get; set; }
         public string Keyword { get; set; }
         public bool? IsShow { get; set; }
+        public Guid? UnitId { get; set; }
     }
 }

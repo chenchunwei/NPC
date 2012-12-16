@@ -58,6 +58,7 @@ namespace NPC.Application
         {
             var articleCategory = new ArticleCategory();
             articleCategory.CategoryName = model.FormData.Name;
+            articleCategory.Unit = model.Unit;
             if (model.Id.HasValue)
             {
                 articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.Id.Value);

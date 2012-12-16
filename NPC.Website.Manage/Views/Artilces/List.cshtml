@@ -2,69 +2,55 @@
     ViewBag.Title = "文章列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model NPC.Application.ManageModels.Articles.ArticleListModel 
+@model   NPC.Application.ManageModels.Articles.ArticleListModel 
 <div class="workgroundin">
     <ul class="head_content">
-        <li class="buttonon">
-            <div class="hc_left">
-            </div>
-            <div class="hc_center">
-                <div>
-                    <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
-                <div>
-                    添加</div>
-            </div>
-            <div class="hc_right">
-            </div>
-        </li>
-        <li class="buttonoff">
-            <div class="hc_left">
-            </div>
-            <div class="hc_center">
-                <div>
-                    <img src="@Url.Content("~/Content/images/icon_4.gif")" alt="" /></div>
-                <div>
-                    编辑</div>
-            </div>
-            <div class="hc_right">
-            </div>
-        </li>
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("发布新文章", "newArticleBtn", "icon_3.gif", true))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
     </ul>
 </div>
+<form action="" method="GET" id="searchForm">
 <div class="main_search">
     <div class="mc_search">
         <div class="pic">
             <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
         <div class="font">
-            搜索：</div>
+            分类：</div>
         <div class="s1">
-            <select name="select" id="select">
-                <option>货号</option>
+        </div>
+        <div class="i1">
+            @Html.TextBoxFor(o => o.ArtilceSearchModel.ArticleQueryItem.CategoryId,new{style="width:200px;"})
+        </div>
+        <div class="font">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+        <div class="s1">
+            <select>
+                <option>标题</option>
             </select></div>
         <div class="i1">
-            <input type="text" name="textfield" id="textfield" /></div>
-        <div class="i2">
-            <div class="fbb_left">
-                <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
-            <div class="fbb_center">
-                搜索</div>
-            <div class="fbb_right">
-                <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+            @Html.TextBoxFor(o => o.ArtilceSearchModel.ArticleQueryItem.Keyword)
         </div>
+        @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
     </div>
 </div>
+</form>
 <div class="main_content">
     <div class="topline">
         <div class="span_1">
-            <input type="checkbox" name="checkbox" id="ids" /></div>
+            <input type="checkbox" id="topChk" /></div>
         <div class="span_2">
             操作</div>
-        <div class="span_5">
+        <div class="span_3">
             标题</div>
         <div class="span_3">
             分类</div>
         <div class="span_2">
-            发布人</div>
+            作者</div>
+        <div class="span_2">
+            是否发布</div>
+        <div class="span_2">
+            封面图片</div>
         <div class="span_2">
             发布时间</div>
         <div class="span_4">
@@ -79,14 +65,22 @@
         {
             <div class="rowline">
                 <div class="span_1">
-                    <input type="checkbox" name="checkbox" id="checkbox" /></div>
+                    <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="#">编辑 | 删除</a></div>
-                <div class="span_5">
+                    <a href="@Url.Action("EditArticle", "Artilces")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                        删除</a></div>
+                <div class="span_3">
                     @row.Title</div>
                 <div class="span_3" style="text-align: center">
                     @row.ArticleCategory.CategoryName</div>
                 <div class="span_2">
+                    @row.Author
+                </div>
+                <div class="span_2">
+                    @(row.IsShow ? "是" : "否")
+                </div>
+                <div class="span_2">
+                    @Html.Raw(!string.IsNullOrEmpty(row.UrlOfCoverImage) ? "<a href=\"/Manage/Attachments/" + row.UrlOfCoverImage + "\" target=\"_blank\">看图</a>" : "无")
                 </div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
@@ -96,43 +90,22 @@
                 </div>
                 <div class="span_4">
                 </div>
-            </div>
+            </div> 
         }
         <div class="footBar">
             <div class="fb_content">
                 <ul class="fb_button">
-                    <li>
-                        <div class="fbb_left">
-                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
-                        <div class="fbb_center">
-                            全选</div>
-                        <div class="fbb_right">
-                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
-                    </li>
-                    <li>
-                        <div class="fbb_left">
-                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
-                        <div class="fbb_center">
-                            反选</div>
-                        <div class="fbb_right">
-                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
-                    </li>
-                    <li>
-                        <div class="fbb_left">
-                            <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
-                        <div class="fbb_center">
-                            取消</div>
-                        <div class="fbb_right">
-                            <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
-                    </li>
+                    @Html.Partial("_LiButton", new Tuple<string, string>("全选", "chkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("取消", "unChkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("反选", "invertBtn"))
                 </ul>
                 <div class="fb_page">
                     <script type="text/javascript">
                         var pg = new showPages('pg');
                         pg.argName = 'p';  //定义参数名(可选,缺省为page)
-                        pg.newPage = 1;
-                        pg.count = 224;
-                        pg.pageCount = 15;
+                        pg.newPage = @Model.ArtilceSearchModel.ArticleQueryItem.Pagination.PageIndex;
+                        pg.count =  @Model.ArtilceSearchModel.ArticleQueryItem.Pagination.TotalRecordsCount;
+                        pg.pageCount = @Model.ArtilceSearchModel.ArticleQueryItem.Pagination.TotalPage;
                         pg.printHtml(1);    //显示
                     </script>
                 </div>
@@ -140,3 +113,36 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $("#ArtilceSearchModel_ArticleQueryItem_CategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
+    $('#ArtilceSearchModel_ArticleQueryItem_CategoryId').combotree('setValue', '@Model.ArtilceSearchModel.ArticleQueryItem.CategoryId');
+    $('#ArtilceSearchModel_ArticleQueryItem_CategoryId').next().children().first().css("padding", "0px");
+    var urlOfDel = '@Url.Action("Delete", "Artilces")';
+    function singleDel(id) {
+        var delIds = [];
+        delIds.push(id);
+        controller.del(urlOfDel, delIds);
+    }
+    $("#chkAllBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 1);
+    });
+    $("#unChkAllBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 0);
+    });
+    $("#invertBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 2);
+    });
+    $("#topChk").click(function () {
+        var result = $(this).attr("checked") ? 1 : 0;
+        controller.batchOfChk("input[name=ids]", result);
+    });
+    $("#newArticleBtn").click(function () {
+        window.location.href = '@Url.Action("EditArticle", "Artilces")';
+    });
+        $("#batchDelBtn").click(function () {
+            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+        });
+        $("#searchBtn").click(function () {
+            $("#searchForm").submit();
+        });
+</script>
