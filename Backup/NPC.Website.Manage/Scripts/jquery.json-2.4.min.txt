@@ -1,0 +1,8 @@
+﻿var thing = { plugin: 'jquery-json', version: 2.4 };
+
+var encoded = $.toJSON( thing );
+// '{"plugin":"jquery-json","version":2.4}'
+var name = $.evalJSON( encoded ).plugin;
+// "jquery-json"
+var version = $.evalJSON(encoded).version;
+// 2.4

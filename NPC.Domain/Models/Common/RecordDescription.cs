@@ -26,5 +26,10 @@ namespace NPC.Domain.Models.Common
         {
             UserOfLasetestModify = operatorUser;
         }
+        public virtual void Delete()
+        {
+            IsDelete = true;
+            DateOfLastestModify = DateTime.Now;
+        }
     }
 }

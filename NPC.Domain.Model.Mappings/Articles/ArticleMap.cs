@@ -12,14 +12,16 @@ namespace NPC.Domain.Model.Mappings.Articles
     {
         public ArticleMap()
         {
+            References(o => o.Unit).Column("UnitId");
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.UrlOfCoverImage);
             Map(o => o.Title);
             Map(o => o.Content);
             Map(o => o.HitCount);
+            Map(o => o.Author);
+            Map(o => o.IsShow);
             Component(o => o.RecordDescription);
             References(o => o.ArticleCategory).Column("ArticleCategoryId");
-            References(o => o.Unit).Column("UnitId");
             Table("Articles");
         }
     }

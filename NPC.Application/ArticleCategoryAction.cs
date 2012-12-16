@@ -35,7 +35,9 @@ namespace NPC.Application
                 Id = articleCategory.Id,
                 Name = articleCategory.CategoryName,
                 IconCls = ApplicationConst.TreeLeafCls,
+                CategoryId = articleCategory.Id
             };
+
             var childrens = _articleCategoryRepository.GetSubs(NpcContext.CurrentUser.Unit.Id, articleCategory.Id).ToList();
             if (childrens.Any())
             {
@@ -56,13 +58,21 @@ namespace NPC.Application
         {
             var articleCategory = new ArticleCategory();
             articleCategory.CategoryName = model.FormData.Name;
-            articleCategory.Unit = NpcContext.CurrentUser.Unit;
             if (model.Id.HasValue)
             {
                 articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.Id.Value);
             }
             articleCategory.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _articleCategoryRepository.Save(articleCategory);
+        }
+        #endregion
+
+        #region 删除 
+        public void Delete(Guid id)
+        {
+            var target = _articleCategoryRepository.Find(id);
+            target.RecordDescription.Delete();
+            _articleCategoryRepository.Save(target);
         }
         #endregion
     }

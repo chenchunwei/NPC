@@ -8,5 +8,12 @@ namespace NPC.Query.Articles
 {
     public class ArticleQueryItem : QueryItemBase
     {
+        public ArticleQueryItem()
+        {
+            Pagination = new Pagination();
+        }
+        public bool? IsShow { get; set; }
+        public string Keyword { get; set; }
+        public Guid? CategoryId { get; set; }
     }
 }

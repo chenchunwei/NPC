@@ -1,0 +1,13 @@
+﻿@model Tuple<string, string, string, bool>
+<li class="@(Model.Item4 ? "buttonon" : "buttonoff")" id="@Model.Item2">
+    <div class="hc_left">
+    </div>
+    <div class="hc_center">
+        <div>
+            <img src="@Url.Content("~/Content/images/" + Model.Item3)" alt="" /></div>
+        <div>
+            @Model.Item1</div>
+    </div>
+    <div class="hc_right">
+    </div>
+</li>

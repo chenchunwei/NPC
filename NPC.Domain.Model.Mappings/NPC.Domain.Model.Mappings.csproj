@@ -60,6 +60,9 @@
     <Compile Include="FlowTypes\FlowNodeMap.cs" />
     <Compile Include="FlowTypes\FlowTypeDataFieldMap.cs" />
     <Compile Include="FlowTypes\FlowTypeMap.cs" />
+    <Compile Include="NodeRecords\NodeRecordMap.cs" />
+    <Compile Include="Nodes\NodeMap.cs" />
+    <Compile Include="Nodes\NodeRecordMarkMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposals\ProposalMap.cs" />
     <Compile Include="Tasks\TaskMap.cs" />

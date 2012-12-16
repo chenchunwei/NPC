@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using NPC.Application;
 using NPC.Application.ManageModels.ArticleCategories;
-using NPC.Domain.Repository;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -40,6 +39,20 @@ namespace NPC.Website.Manage.Controllers
                 return new NewtonsoftJsonResult() { Data = new { status = "failure" } };
             }
             return new NewtonsoftJsonResult() { Data = new { status = "success" } };
+        }
+        [HttpPost, ActionName("Delete")]
+        public JsonResult DeletePost(Guid id)
+        {
+            try
+            {
+                _articleCategoryAction.Delete(id);
+            }
+            catch (Exception)
+            {
+                return new NewtonsoftJsonResult() { Data = new { status = "failure" } };
+            }
+            return new NewtonsoftJsonResult() { Data = new { status = "success" } };
+
         }
     }
 }

@@ -59,6 +59,9 @@
     <Compile Include="Models\FlowTypes\FlowValueType.cs" />
     <Compile Include="Models\FlowTypes\FlowTypeDataField.cs" />
     <Compile Include="Models\FlowTypes\FlowType.cs" />
+    <Compile Include="Models\NodeRecords\NodeRecord.cs" />
+    <Compile Include="Models\NodeRecords\NodeRecordQueryItem.cs" />
+    <Compile Include="Models\Nodes\Node.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\Proposals\Proposal.cs" />
     <Compile Include="Models\Proposals\ProposalType.cs" />

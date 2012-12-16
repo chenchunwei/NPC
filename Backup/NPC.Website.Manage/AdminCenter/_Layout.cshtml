@@ -1,0 +1,107 @@
+﻿@using System.Web.UI.WebControls
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>人大管理系统后台</title>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/reset.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/style.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/showpage.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/default/easyui.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/icon.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/showpage.src.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-easyui-1.3.1/jquery.easyui.min.js")"></script>
+</head>
+<body style="background: #E6EAF3 url(@Url.Content("~/Content/Images/body_bg.jpg")) repeat left top;">
+    <div class="header">
+        <div class="container">
+            <div class="quit">
+                您好，系统管理员&nbsp;&nbsp;<a href="logout.aspx"><b>[退出]</b></a></div>
+            <div class="toplinkmenu">
+                <div class="left">
+                </div>
+                <ul class="center">
+                    <li class="line">
+                        <div>
+                            <img src="@Url.Content("~/Content/images/icon_1.jpg")" alt="" /></div>
+                        <div>
+                            <a href="http://wpa.qq.com/msgrd?V=1amp;Uin=8189119;Site=ioshenmueMenu=yes">QQ帮助中心</a></div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="@Url.Content("~/Content/images/icon_2.jpg")" alt="" /></div>
+                        <div>
+                            <a href="/default.aspx" target="_blank">打开公司首页</a></div>
+                    </li>
+                </ul>
+                <div class="right">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="wrapperin">
+                <div class="left3">
+                    <img src="@Url.Content("~/Content/images/menu_left.jpg")" alt="" /></div>
+                <ul class="topmenu">
+                    <li class="tabon">
+                        <div class="tabbj_left">
+                        </div>
+                        <div class="tabbj_center">
+                            管理中心控制面板</div>
+                        <div class="tabbj_right">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="background: #E6EAF3 url(@Url.Content("~/Content/Images/wrapper_rightbj.jpg")) right top no-repeat;
+        overflow: hidden; zoom: 1;">
+        <div class="sidecontent">
+            <div class="title">
+                <img src="@Url.Content("~/Content/images/quickmenu_title.jpg")" alt="" /></div>
+            <div class="grouplevel">
+                操作菜单</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='EditCompany.aspx'">
+                修改企业简介</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='EditContact.aspx'">
+                修改联系我们</div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                onclick="window.location.href='news.aspx'" style="cursor: pointer;">
+                新闻动态管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='Job.aspx'">
+                公司招聘管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='Message.aspx'">
+                客户留言管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='HoldingCorp.aspx'">
+                下属公司管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='Admins.aspx'">
+                管理员管理
+            </div>
+            <div class="bottom">
+                <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" />
+            </div>
+        </div>
+        <div class="workground">
+            @RenderBody()
+        </div>
+    </div>
+    <div style="width: 100%;">
+        <div class="footerarea">
+            <div class="footer_left">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

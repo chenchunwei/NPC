@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "自定义记录编辑";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model NPC.Application.ManageModels.NodeRecords.EditNodeRecordModel
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
+@Html.HiddenFor(o => o.Id)
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示：自定义记录,用于添加定制信息!</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 220px;">
+                        所属节点：
+                    </th>
+                    <td>
+                        <div class="tipsOrange" style="margin: 0; float: left; padding: 8px 15px 0 15px;">
+                            @Html.TextBoxFor(o => o.FormData.SelectedNodeId, new { style = "width:200px;" })
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="formDiv">
+                @Html.Partial("_EditNodeRecordForm", Model)
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    发布</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $("#FormData_SelectedNodeId").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false, onChange: initForm });
+    $('#FormData_SelectedNodeId').combotree('setValue', '@(Model.FormData.SelectedNodeId.HasValue ? Model.FormData.SelectedNodeId.Value : default(Guid?))');
+    
+    
+    $(function () {
+        $("#submitBtn").click(function () {
+            $("#mainForm").submit();
+        });
+    });
+    var url = '@Url.Action("InitializeForm", "NodeRecords")';
+    function initForm(newValue) {
+        var cid = $("#Id").val();
+        $("body").mask("加载表单信息，请稍等……");
+        $.post(url, { 'nodeId': newValue, id: cid }, function (data) {
+            $("#formDiv").html(data);
+            $("body").unmask();
+        });
+    }
+</script>

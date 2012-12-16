@@ -24,5 +24,23 @@ namespace NPC.Domain.Models
         /// 总记录大小
         /// </summary>
         public int TotalRecordsCount { get; set; }
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        public int TotalPage
+        {
+            get { return (int)Math.Ceiling((double)TotalRecordsCount / PageSize); }
+        }
+
+        public bool IsFirstpage
+        {
+            get { return PageIndex == 1; }
+        }
+
+        public bool IsLastPage
+        {
+            get { return PageSize * PageIndex >= TotalRecordsCount; }
+        }
+
     }
 }

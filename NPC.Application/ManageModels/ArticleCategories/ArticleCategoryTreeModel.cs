@@ -6,7 +6,6 @@ using System.Text;
 
 namespace NPC.Application.ManageModels.ArticleCategories
 {
-
     public class ArticleCategoryTreeModel
     {
         public ArticleCategoryTreeModel()
@@ -33,6 +32,8 @@ namespace NPC.Application.ManageModels.ArticleCategories
         public Guid Id { get; set; }
         [DataMember(Name = "text")]
         public string Name { get; set; }
+        [DataMember(Name = "categoryId")]
+        public Guid CategoryId { get; set; }
         [DataMember(Name = "children")]
         public IList<ArticleCategoryTreeModelComponent> Childrens { get; set; }
     }

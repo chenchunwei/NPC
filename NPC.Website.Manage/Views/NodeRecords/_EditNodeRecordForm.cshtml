@@ -1,0 +1,176 @@
+﻿@model NPC.Application.ManageModels.NodeRecords.EditNodeRecordModel 
+<table class="fromTable" width="100%">
+    <tr>
+        <th style="width: 220px;">
+            <span style="color: red;">*</span> 显示到站点：
+        </th>
+        <td>
+            <input type="radio" value="True" name="FormData.IsShow" @(Model.FormData.IsShow ? "checked" : "") />&nbsp;是&nbsp;
+            <input type="radio" value="False" name="FormData.IsShow"  @(Model.FormData.IsShow ? "" : "checked") />&nbsp;否
+        </td>
+    </tr>
+    @if (!Model.Node.NodeRecordMark.IsRecordLinkHidden)
+    {
+        <tr>
+            <th style="width: 150px;">
+                @Html.Raw(Model.Node.NodeRecordMark.RecordLinkTitle)：
+            </th>
+            <td>
+                @Html.TextBoxFor(o => o.FormData.RecordLink, new { style = "width:450px;" })
+                @Html.Raw(Model.Node.NodeRecordMark.RecordLinkTip)
+            </td>
+        </tr>
+    }
+    @if (!Model.Node.NodeRecordMark.IsFirstTitleHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.FisrtTitleTitle)：
+            </th>
+            <td>
+                @Html.TextBoxFor(o => o.FormData.FirstTitle, new { style = "width:450px;" })
+                @Html.Raw(Model.Node.NodeRecordMark.FirstTitleTip)
+            </td>
+        </tr>
+    }
+    @if (!Model.Node.NodeRecordMark.IsSecondTitleHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.SecondTitleTitle)：
+            </th>
+            <td>
+                @Html.TextBoxFor(o => o.FormData.SecondTitle, new { style = "width:450px;" })
+                @Html.Raw(Model.Node.NodeRecordMark.SecondTitleTip)
+            </td>
+        </tr>
+    }
+    @if (!Model.Node.NodeRecordMark.IsFirstContentHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.FirstContentTitle)：
+            </th>
+            <td>
+                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 8, cols = 90 })
+                @Html.Raw(Model.Node.NodeRecordMark.FirstContentTip)
+            </td>
+        </tr>
+    }
+    @if (!Model.Node.NodeRecordMark.IsSecondContentHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.SecondContentTitle)：
+            </th>
+            <td>
+                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 8, cols = 90 })
+                @Html.Raw(@Model.Node.NodeRecordMark.SecondContentTip)
+            </td>
+        </tr>
+    }
+    @if (!Model.Node.NodeRecordMark.IsFirstImageHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.FirstImageTitle)：
+            </th>
+            <td>
+                <input type="file" name="FormData.FirstImage" id="FormData_FirstImage" />
+                <input type="hidden" id="IsFirstImageHaveValue" value="@Model.FormData.FirstImage"/>
+                @Html.Raw(Model.Node.NodeRecordMark.FirstImageTip)
+            </td>
+        </tr>
+                     
+        if (!string.IsNullOrEmpty(Model.FormData.FirstImage))
+        {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.FirstImageTitle)：
+            </th>
+            <td>
+                <a href="/Manage/Attachments/@Model.FormData.FirstImage"
+                       target="_blank">/Manage/Attachments/@Model.FormData.FirstImage</a>
+            </td>
+        </tr>
+        }
+    }
+    @if (!Model.Node.NodeRecordMark.IsSecondImageHidden)
+    {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.SecondImageTitle)：
+            </th>
+            <td>
+                <input type="file" name="FormData.SecondImage" id="FormData_SecondImage" />
+                <input type="hidden" id="IsSecondImageHaveValue" value="@Model.FormData.SecondImage"/>
+                @Html.Raw(Model.Node.NodeRecordMark.SecondImageTip)
+            </td>
+        </tr>
+        if (!string.IsNullOrEmpty(Model.FormData.SecondImage))
+        {
+        <tr>
+            <th>
+                @Html.Raw(Model.Node.NodeRecordMark.SecondImageTitle)：
+            </th>
+            <td>
+                <a href="/Manage/Attachments/@Model.FormData.SecondImage" target="_blank">/Manage/Attachments/@Model.FormData.SecondImage</a>
+            </td>
+        </tr>
+        }
+    }
+</table>
+<script type="text/javascript">
+    $("#mainForm").validate({
+        ignore: "",
+        rules: {
+            "FormData.SelectedNodeId": "required"
+        },
+        messages: {
+            "FormData.SelectedNodeId": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请选择记录所属节点"
+        }
+    });
+    $.validator.addMethod('checkedImageIsHave', function (value, element) {
+        var name = $(element).attr("name");
+        if ( name== 'FormData.FirstImage') {
+            if (value == '' && $("#IsFirstImageHaveValue").val() == '') {
+                return false;
+            }
+        }
+        if (name == 'FormData.SecondImage') {
+            if (value == '' && $("#IsSecondImageHaveValue").val() == '') {
+                return false;
+            }
+        }
+        return true;
+    }, '请选择图片');
+    @if (Model.Node.NodeRecordMark.IsRecordLinkRequired && !Model.Node.NodeRecordMark.IsRecordLinkHidden)
+    {
+        @Html.Raw("$('#FormData_RecordLink').rules('add', { required:true,messages:{required:'必填项'}});");
+    }
+    @if (Model.Node.NodeRecordMark.IsFirstTitleRequired && !Model.Node.NodeRecordMark.IsFirstTitleHidden)
+    {
+        @Html.Raw("$('#FormData_FirstTitle').rules('add',{ required:true,messages:{required:'必填项'}});");
+    }
+    @if (Model.Node.NodeRecordMark.IsSecondTitleRequired && !Model.Node.NodeRecordMark.IsSecondTitleHidden)
+    {
+        @Html.Raw("$('#FormData_SecondTitle').rules('add',{ required:true,messages:{required:'必填项'}});");
+    }
+    @if (Model.Node.NodeRecordMark.IsFirstContentRequired && !Model.Node.NodeRecordMark.IsFirstContentHidden)
+    {
+        @Html.Raw("$('#FormData_FirstContent').rules('add', { required:true,messages:{required:'必填项'}});");
+    }
+    @if (Model.Node.NodeRecordMark.IsSecondContentRequired && !Model.Node.NodeRecordMark.IsSecondContentRequired)
+    {
+        @Html.Raw("$('#FormData_SecondContent').rules('add', { required:true,messages:{required:'必填项'}});");
+    }
+    @if (Model.Node.NodeRecordMark.IsFirstImageRequired && !Model.Node.NodeRecordMark.IsFirstImageHidden)
+    {
+        @Html.Raw("$('#FormData_FirstImage').rules('add', { checkedImageIsHave:true});");
+    }
+    @if (Model.Node.NodeRecordMark.IsSecondImageRequired && !Model.Node.NodeRecordMark.IsSecondImageHidden)
+    {
+        @Html.Raw("$('#FormData_SecondImage').rules('add',{ checkedImageIsHave:true});");
+    }
+    
+</script>

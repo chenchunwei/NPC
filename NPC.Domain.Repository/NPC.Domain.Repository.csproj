@@ -51,6 +51,8 @@
     <Compile Include="FlowRepository.cs" />
     <Compile Include="FlowTypeRepository.cs" />
     <Compile Include="NestSqlBuilder.cs" />
+    <Compile Include="NodeRecordRepository.cs" />
+    <Compile Include="NodeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalRepository.cs" />
     <Compile Include="TaskRepository.cs" />

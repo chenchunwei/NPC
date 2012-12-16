@@ -61,7 +61,6 @@
     <Compile Include="Contexts\NpcContext.cs" />
     <Compile Include="DepartmentAction.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
-    <Compile Include="ManageModels\ArticleCategories\ArticleCategoryListModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleListModel.cs" />
@@ -70,6 +69,14 @@
     <Compile Include="ManageModels\Departments\DepartmentListModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
     <Compile Include="ManageModels\Indexs\IndexModel.cs" />
+    <Compile Include="ManageModels\NodeRecords\EditNodeRecordModel.cs" />
+    <Compile Include="ManageModels\NodeRecords\EditNodeRecordModelFormData.cs" />
+    <Compile Include="ManageModels\NodeRecords\NodeRecordListModel.cs" />
+    <Compile Include="ManageModels\NodeRecords\NodeRecordSearchModel.cs" />
+    <Compile Include="ManageModels\Nodes\EditNodeModel.cs" />
+    <Compile Include="ManageModels\Nodes\NodeListModel.cs" />
+    <Compile Include="ManageModels\Nodes\NodeTreeModel.cs" />
+    <Compile Include="ManageModels\Nodes\RelateNodeModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />
     <Compile Include="ManageModels\RedirectMessageModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
@@ -77,6 +84,8 @@
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
     <Compile Include="ManageModels\Users\SelectUserOptionsModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
+    <Compile Include="NodeAction.cs" />
+    <Compile Include="NodeRecordAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalAction.cs" />
     <Compile Include="TaskAction.cs" />

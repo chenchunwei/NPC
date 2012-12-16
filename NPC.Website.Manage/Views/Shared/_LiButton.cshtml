@@ -1,0 +1,9 @@
+﻿@model Tuple<string, string>
+<li id="@Model.Item2" style="cursor: pointer">
+    <div class="fbb_left">
+        <img src="@Url.Content("~/Content/images/fbb_left.jpg")" alt="" /></div>
+    <div class="fbb_center">
+        @Model.Item1</div>
+    <div class="fbb_right">
+        <img src="@Url.Content("~/Content/images/fbb_right.jpg")" alt="" /></div>
+</li>
