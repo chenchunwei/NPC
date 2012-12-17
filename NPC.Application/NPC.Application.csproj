@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,7 @@
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
     <Compile Include="DepartmentAction.cs" />
+    <Compile Include="IndexAction.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
@@ -68,7 +70,6 @@
     <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentListModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
-    <Compile Include="ManageModels\Indexs\IndexModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModelFormData.cs" />
     <Compile Include="ManageModels\NodeRecords\NodeRecordListModel.cs" />
@@ -84,6 +85,11 @@
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
     <Compile Include="ManageModels\Users\SelectUserOptionsModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
+    <Compile Include="MianModels\HeaderModel.cs" />
+    <Compile Include="MianModels\Homes\DetailModel.cs" />
+    <Compile Include="MianModels\Homes\IndexModel.cs" />
+    <Compile Include="MianModels\Homes\ListModel.cs" />
+    <Compile Include="MianModels\PagerModel.cs" />
     <Compile Include="NodeAction.cs" />
     <Compile Include="NodeRecordAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,9 +98,7 @@
     <Compile Include="UnitAction.cs" />
     <Compile Include="UserAction.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ManageModels\MainModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>

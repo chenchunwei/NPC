@@ -32,9 +32,10 @@ namespace NPC.Domain.Repository
                 .UniqueResult<long>() > 0;
         }
 
-        public Node GetSingleByCode(string code)
+        public Node GetSingleByCode(Guid unitId, string code)
         {
-            return Session.CreateQuery("from Node Where  RecordDescription.IsDelete=0 and Code=:Code")
+            return Session.CreateQuery("from Node Where  RecordDescription.IsDelete=0 and Code=:Code and Unit.Id=:UnitId")
+                .SetGuid("UnitId", unitId)
                 .SetString("Code", code.Trim())
                 .UniqueResult<Node>();
         }
@@ -50,11 +51,11 @@ namespace NPC.Domain.Repository
         public IEnumerable<Node> GetRootNodesInUnit(Guid unitId)
         {
             return Session.CreateQuery("from Node Where  RecordDescription.IsDelete=0 and ParentNode is Null and Unit.Id=:UnitId")
-                .SetGuid("UnitId", unitId) 
+                .SetGuid("UnitId", unitId)
                 .List<Node>();
         }
 
-        public IEnumerable<Node> GetSubsInUnit(Guid unitId,Guid id)
+        public IEnumerable<Node> GetSubsInUnit(Guid unitId, Guid id)
         {
             return Session.CreateQuery("from Node Where  RecordDescription.IsDelete=0 and ParentNode.Id=:id and Unit.Id=:UnitId")
                  .SetGuid("id", id)

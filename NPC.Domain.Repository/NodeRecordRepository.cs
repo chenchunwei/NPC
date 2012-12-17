@@ -68,26 +68,26 @@ namespace NPC.Domain.Repository
         #endregion
 
         #region top n
-        public IList<NodeRecord> GetTopN(Guid nodeId, int topN)
+        public IList<NodeRecord> GetTopN(Guid unitId, Guid nodeId, int topN)
         {
             return Session.CreateSQLQuery(
-                    string.Format(
-                        "select top {0} * from NodeRecords nr where nr.BelongsToNodeId=:BelongsToNodeId and IsDelete =0 and  nr.IsShow=1",
-                        topN))
+                    string.Format(@"select top {0} * from NodeRecords nr 
+                        where nr.BelongsToNodeId=:BelongsToNodeId and IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId", topN))
                        .AddEntity(typeof(NodeRecord))
+                       .SetGuid("UnitId", unitId)
                        .SetGuid("BelongsToNodeId", nodeId)
                        .List<NodeRecord>();
         }
         #endregion
 
         #region top n
-        public IList<NodeRecord> GetTopN(string code, int topN)
+        public IList<NodeRecord> GetTopN(Guid unitId, string code, int topN)
         {
             return Session.CreateSQLQuery(
-                    string.Format(
-                        "select top {0} * from NodeRecords nr join Nodes n on n.Id=nr.BelongsToNodeId where n.Code=:code and nr.IsDelete =0 and  nr.IsShow=1",
-                        topN))
+                    string.Format(@"select top {0} * from NodeRecords nr join Nodes n on n.Id=nr.BelongsToNodeId 
+                        where n.Code=:code and nr.IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId", topN))
                        .AddEntity(typeof(NodeRecord))
+                       .SetGuid("UnitId", unitId)
                        .SetString("code", code)
                        .List<NodeRecord>();
         }
