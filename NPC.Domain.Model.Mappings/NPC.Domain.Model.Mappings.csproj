@@ -71,6 +71,10 @@
     <Compile Include="Users\UserMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure.Web\Fluent.Infrastructure.Web.csproj">
+      <Project>{9456CEB8-232E-43C1-BDF4-E44EF9841F5F}</Project>
+      <Name>Fluent.Infrastructure.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure;
 using Fluent.Infrastructure.Domain;
+using Fluent.Infrastructure.Web.HttpMoudles;
 using NPC.Domain.Models.Agents;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.Departments;

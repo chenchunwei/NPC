@@ -19,5 +19,26 @@ namespace NPC.Domain.Repository
             return Session.CreateQuery("from User Where Id in(:ids) And RecordDescription.IsDelete=0")
               .SetParameterList("ids", ids).List<User>();
         }
+
+        public  User FindByAccount(string account)
+        {
+            if (string.IsNullOrEmpty(account))
+                throw new ArgumentNullException(account);
+            //HACK:添加Account字段
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account").AddEntity(typeof(User)).SetString("account", account.Trim()).UniqueResult<User>();
+        }
+
+        public User FindByAccountAndPwd(string account,string pwd)
+        {
+            if (string.IsNullOrEmpty(account))
+                throw new ArgumentNullException(account);
+            if (string.IsNullOrEmpty(pwd))
+                throw new ArgumentNullException(pwd);
+            //HACK:添加Account字段
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and Pwd=:Pwd").AddEntity(typeof(User))
+                .SetString("account", account.Trim())
+                .SetString("Pwd", pwd.Trim())
+                .UniqueResult<User>();
+        }
     }
 }

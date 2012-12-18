@@ -37,7 +37,7 @@ namespace NPC.Domain.Repository
         {
             //表区域
             var stringBuilder = new StringBuilder("Select {0} From NodeRecords nr ");
-            stringBuilder.Append("join Node n on n.Id= nr.UnitId ");
+            stringBuilder.Append("join Nodes n on n.Id= nr.BelongsToNodeId ");
             stringBuilder.Append("Where 1=1 ");
             var parameters = new Hashtable();
 

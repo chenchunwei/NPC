@@ -16,7 +16,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.RecordLinkTitle)：
             </th>
             <td>
-                @Html.TextBoxFor(o => o.FormData.RecordLink, new { style = "width:450px;" })
+                @Html.TextBoxFor(o => o.FormData.RecordLink, new { style = "width:450px;", maxlength = 200 })
                 @Html.Raw(Model.Node.NodeRecordMark.RecordLinkTip)
             </td>
         </tr>
@@ -28,7 +28,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.FisrtTitleTitle)：
             </th>
             <td>
-                @Html.TextBoxFor(o => o.FormData.FirstTitle, new { style = "width:450px;" })
+                @Html.TextBoxFor(o => o.FormData.FirstTitle, new { style = "width:450px;", maxlength = 50 })
                 @Html.Raw(Model.Node.NodeRecordMark.FirstTitleTip)
             </td>
         </tr>
@@ -40,7 +40,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.SecondTitleTitle)：
             </th>
             <td>
-                @Html.TextBoxFor(o => o.FormData.SecondTitle, new { style = "width:450px;" })
+                @Html.TextBoxFor(o => o.FormData.SecondTitle, new { style = "width:450px;", maxlength = 50 })
                 @Html.Raw(Model.Node.NodeRecordMark.SecondTitleTip)
             </td>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 8, cols = 90 })
+                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 8, cols = 90, maxlength = 500 })
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTip)
             </td>
         </tr>
@@ -64,7 +64,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.SecondContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 8, cols = 90 })
+                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 8, cols = 90, maxlength = 500 })
                 @Html.Raw(@Model.Node.NodeRecordMark.SecondContentTip)
             </td>
         </tr>
@@ -132,7 +132,7 @@
     });
     $.validator.addMethod('checkedImageIsHave', function (value, element) {
         var name = $(element).attr("name");
-        if ( name== 'FormData.FirstImage') {
+        if (name == 'FormData.FirstImage') {
             if (value == '' && $("#IsFirstImageHaveValue").val() == '') {
                 return false;
             }

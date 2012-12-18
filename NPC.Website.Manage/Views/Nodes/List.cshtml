@@ -7,9 +7,11 @@
 <div class="main_search">
     <div class="mc_search">
         <div class="pic">
-            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" />
+        </div>
         <div class="font">
-            提示：在节点上右键进行删除或添加新节点操作</div>
+            提示：在节点上右键进行删除或添加新节点操作
+        </div>
     </div>
 </div>
 <div class="contentContainer contentleftBorder">
@@ -43,223 +45,198 @@
     </div>
 </div>
 <div id="wins" style="display: none;">
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px;
-        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px; background-color: #EFEFEF; display: none"
+        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditNode", "Nodes")" method="post">
-            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                <table>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            节点名称：
-                        </th>
-                        <td>
-                            <input id="FormData_Name" name="FormData.Name" type="text" />
-                            <input id="Id" name="Id" type="hidden" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            节点编码：
-                        </th>
-                        <td>
-                            <input id="FormData_Code" name="FormData.Code" type="text" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        取消</a>
-            </div>
+                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                    <table>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">节点名称：
+                            </th>
+                            <td>
+                                <input id="FormData_Name" name="FormData.Name" type="text" maxlength="20" />
+                                <input id="Id" name="Id" type="hidden" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">节点编码：
+                            </th>
+                            <td>
+                                <input id="FormData_Code" name="FormData.Code" type="text" maxlength="20" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                    <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+                </div>
             </form>
         </div>
     </div>
-    <div id="relateWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px;
-        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="relateWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px; background-color: #EFEFEF; display: none"
+        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newRelateForm" action="@Url.Action("RelateNode", "Nodes")" method="post">
-            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                <table>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            关联到分类：
-                        </th>
-                        <td>
-                            <input id="ArticleCategoryId" name="ArticleCategoryId" type="text" style="width: 200px;" />
-                            <input id="NodeId" name="NodeId" type="hidden" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                <a id="btnSubmitRelate" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    提交</a> <a id="btnCancelRelate" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        取消</a>
-            </div>
+                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                    <table>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">关联到分类：
+                            </th>
+                            <td>
+                                <input id="ArticleCategoryId" name="ArticleCategoryId" type="text" style="width: 200px;" />
+                                <input id="NodeId" name="NodeId" type="hidden" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                    <a id="btnSubmitRelate" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelRelate" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+                </div>
             </form>
         </div>
     </div>
     <style type="text/css">
-        #settingMarkWin td
-        {
+        #settingMarkWin td {
             padding: 0 5px;
         }
     </style>
-    <div id="settingMarkWin" class="easyui-window" title="节点自定义设置" style="width: 700px;
-        height: 350px; background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="settingMarkWin" class="easyui-window" title="节点自定义设置" style="width: 700px; height: 350px; background-color: #EFEFEF; display: none"
+        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newSettingForm" action="@Url.Action("SettingNode", "Nodes")" method="post">
-            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                <table cellpadding="5" cellspacing="5">
-                    <input id="NodeId4Mark" name="NodeId4Mark" type="hidden" />
-                    <tr style="line-height: 30px;">
-                        <th width="120px;" style="text-align: center">
-                            设置项
-                        </th>
-                        <td style="text-align: center">
-                            不显示
-                        </td>
-                        <td style="text-align: center">
-                            自定义标题
-                        </td>
-                        <td style="text-align: center">
-                            说明信息
-                        </td>
-                        <td style="text-align: center">
-                            是否必填
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            链接：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsRecordLinkHidden" id="IsRecordLinkHidden" />
-                        </td>
-                        <td>
-                            <input id="RecordLinkTitle" name="RecordLinkTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="RecordLinkTip" name="RecordLinkTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsRecordLinkRequired" id="IsRecordLinkRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            标题一：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstTitleHidden" id="IsFirstTitleHidden" />
-                        </td>
-                        <td>
-                            <input id="FisrtTitleTitle" name="FisrtTitleTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="FirstTitleTip" name="FirstTitleTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstTitleRequired" id="IsFirstTitleRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            标题二：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondTitleHidden" id="IsSecondTitleHidden" />
-                        </td>
-                        <td>
-                            <input id="SecondTitleTitle" name="SecondTitleTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="SecondTitleTip" name="SecondTitleTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondTitleRequired" id="IsSecondTitleRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            内容一：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstContentHidden" id="IsFirstContentHidden" />
-                        </td>
-                        <td>
-                            <input id="FirstContentTitle" name="FirstContentTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="FirstContentTip" name="FirstContentTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstContentRequired" id="IsFirstContentRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            内容二：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondContentHidden" id="IsSecondContentHidden" />
-                        </td>
-                        <td>
-                            <input id="SecondContentTitle" name="SecondContentTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="SecondContentTip" name="SecondContentTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondContentRequired" id="IsSecondContentRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            图片一：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstImageHidden" id="IsFirstImageHidden" />
-                        </td>
-                        <td>
-                            <input id="FirstImageTitle" name="FirstImageTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="FirstImageTip" name="FirstImageTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsFirstImageRequired" id="IsFirstImageRequired" />
-                        </td>
-                    </tr>
-                    <tr style="line-height: 30px;">
-                        <th width="120px;">
-                            图片二：
-                        </th>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondImageHidden" id="IsSecondImageHidden" />
-                        </td>
-                        <td>
-                            <input id="SecondImageTitle" name="SecondImageTitle" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input id="SecondImageTip" name="SecondImageTip" type="text" style="width: 200px;" />
-                        </td>
-                        <td>
-                            <input type="checkbox" value="True" name="IsSecondImageRequired" id="IsSecondImageRequired" />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                <a id="btnSubmitSetting" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    提交</a> <a id="btnCancelSetting" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
-                        取消</a>
-            </div>
+                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                    <table cellpadding="5" cellspacing="5">
+                        <input id="NodeId4Mark" name="NodeId4Mark" type="hidden" />
+                        <tr style="line-height: 30px;">
+                            <th width="120px;" style="text-align: center">设置项
+                            </th>
+                            <td style="text-align: center">不显示
+                            </td>
+                            <td style="text-align: center">自定义标题
+                            </td>
+                            <td style="text-align: center">说明信息
+                            </td>
+                            <td style="text-align: center">是否必填
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">链接：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsRecordLinkHidden" id="IsRecordLinkHidden" />
+                            </td>
+                            <td>
+                                <input id="RecordLinkTitle" name="RecordLinkTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="RecordLinkTip" name="RecordLinkTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsRecordLinkRequired" id="IsRecordLinkRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">标题一：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstTitleHidden" id="IsFirstTitleHidden" />
+                            </td>
+                            <td>
+                                <input id="FisrtTitleTitle" name="FisrtTitleTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="FirstTitleTip" name="FirstTitleTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstTitleRequired" id="IsFirstTitleRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">标题二：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondTitleHidden" id="IsSecondTitleHidden" />
+                            </td>
+                            <td>
+                                <input id="SecondTitleTitle" name="SecondTitleTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="SecondTitleTip" name="SecondTitleTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondTitleRequired" id="IsSecondTitleRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">内容一：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstContentHidden" id="IsFirstContentHidden" />
+                            </td>
+                            <td>
+                                <input id="FirstContentTitle" name="FirstContentTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="FirstContentTip" name="FirstContentTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstContentRequired" id="IsFirstContentRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">内容二：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondContentHidden" id="IsSecondContentHidden" />
+                            </td>
+                            <td>
+                                <input id="SecondContentTitle" name="SecondContentTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="SecondContentTip" name="SecondContentTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondContentRequired" id="IsSecondContentRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">图片一：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstImageHidden" id="IsFirstImageHidden" />
+                            </td>
+                            <td>
+                                <input id="FirstImageTitle" name="FirstImageTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="FirstImageTip" name="FirstImageTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsFirstImageRequired" id="IsFirstImageRequired" />
+                            </td>
+                        </tr>
+                        <tr style="line-height: 30px;">
+                            <th width="120px;">图片二：
+                            </th>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondImageHidden" id="IsSecondImageHidden" />
+                            </td>
+                            <td>
+                                <input id="SecondImageTitle" name="SecondImageTitle" type="text" style="width: 200px;" maxlength="50" />
+                            </td>
+                            <td>
+                                <input id="SecondImageTip" name="SecondImageTip" type="text" style="width: 200px;" maxlength="100" />
+                            </td>
+                            <td>
+                                <input type="checkbox" value="True" name="IsSecondImageRequired" id="IsSecondImageRequired" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                    <a id="btnSubmitSetting" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelSetting" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+                </div>
             </form>
         </div>
     </div>
@@ -284,7 +261,7 @@
                     { field: 'code', title: '节点编码', width: 130, align: 'left' },
                     { field: 'id', title: '节点Id', width: 300, align: 'left' },
                     { field: 'operation', title: '设置', width: 260, align: 'left', formatter: addOperator },
-                    { field: 'categoryName', title: '关联的分类名', width: 500, align: 'left'}
+                    { field: 'categoryName', title: '关联的分类名', width: 500, align: 'left' }
                 ]],
                 onLoadSuccess: function () {
                 },
@@ -309,7 +286,7 @@
         $("#btnCancelRelate").click(function () {
             $("#relateWin").window("close");
         });
-         $("#btnSubmitSetting").click(function () {
+        $("#btnSubmitSetting").click(function () {
             if ($("#newSettingForm").valid()) {
                 $("#newSettingForm").submit();
             }
@@ -366,23 +343,22 @@
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("Delete", "Nodes")', { "id": node.id }, function (data) {
-                data = evalJson(data);
-                if (data.status == "success") {
-                    $('#treegrid').treegrid('remove', node.id);
-                    showSlide("删除成功!", 3000);
-                } else {
-                    msgShow("提示信息", "删除失败!", "error");
-                }
-            });
-        }
+            data = evalJson(data);
+            if (data.status == "success") {
+                $('#treegrid').treegrid('remove', node.id);
+                showSlide("删除成功!", 3000);
+            } else {
+                msgShow("提示信息", "删除失败!", "error");
+            }
+        });
     }
-    function addOperator(val, row) {
-        return '<a href="javascript:setRelete(\'' + row.id + '\')">设置关联</a>&nbsp;\
+}
+function addOperator(val, row) {
+    return '<a href="javascript:setRelete(\'' + row.id + '\')">设置关联</a>&nbsp;\
              <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
-             <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId='+row.id+'">添加记录</a>';
+             <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
     }
-    function setMark(id)
-    { 
+    function setMark(id) {
         $("#NodeId4Mark").val(id);
         var row = $("#treegrid").treegrid("find", id);
         var nodeRecordMark = row["nodeRecordMark"];
@@ -394,7 +370,7 @@
             } else {
                 $("#IsRecordLinkHidden").attr("checked", "checked");
             }
-             if (!nodeRecordMark.IsRecordLinkRequired) {
+            if (!nodeRecordMark.IsRecordLinkRequired) {
                 $("#IsRecordLinkRequired").removeAttr("checked");
             } else {
                 $("#IsRecordLinkRequired").attr("checked", "checked");
@@ -507,8 +483,8 @@
         });
         return false;
     });
-    $("#newRelateForm").submit(function () {
-        $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
+        $("#newRelateForm").submit(function () {
+            $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
                 $("#treegrid").treegrid('reload', $("#Id").val());

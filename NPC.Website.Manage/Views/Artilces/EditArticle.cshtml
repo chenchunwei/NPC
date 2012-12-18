@@ -40,7 +40,7 @@
                         <span style="color: red;">*</span> 新闻标题：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Title, new { style = "width:380px;" })
+                        @Html.TextBoxFor(o => o.FormData.Title, new { style = "width:380px;",maxlength=75 })
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                          作者：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Author, new { style = "width:380px;" })
+                        @Html.TextBoxFor(o => o.FormData.Author, new { style = "width:380px;",maxlength=25 })
                     </td>
                 </tr>
                 <tr>

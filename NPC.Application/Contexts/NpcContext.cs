@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
+using Fluent.Infrastructure.Web.HttpMoudles;
 using NPC.Domain.Models.Units;
-using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
+using User = NPC.Domain.Models.Users.User;
 
 namespace NPC.Application.Contexts
 {
     public class NpcContext
     {
+        private readonly string _keyOfNpcUser = "__________keyOfNpcUser___________";
         protected UserRepository UserRepository { get; set; }
         public NpcContext()
         {
@@ -18,7 +21,15 @@ namespace NPC.Application.Contexts
 
         public User CurrentUser
         {
-            get { return UserRepository.Find(new Guid("68155f4b-b352-4c27-b3af-a1050188e6ad")); }
+            get
+            {
+                if (HttpContext.Current.Items[_keyOfNpcUser] != null)
+                    return HttpContext.Current.Items[_keyOfNpcUser] as User;
+                var userId = AuthenticationClinet.CurrentUser.Id;
+                var user = UserRepository.Find(userId);
+                HttpContext.Current.Items[_keyOfNpcUser] = user;
+                return user;
+            }
         }
 
     }
