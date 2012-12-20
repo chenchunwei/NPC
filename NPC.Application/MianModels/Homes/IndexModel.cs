@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NPC.Domain.Models.NodeRecords;
 using NPC.Domain.Models.Nodes;
+using NPC.Domain.Models.Units;
 
 namespace NPC.Application.MianModels.Homes
 {
@@ -12,9 +13,25 @@ namespace NPC.Application.MianModels.Homes
         public IndexModel()
         {
             WheelBroadcastPicsOfTopLeft = new List<NodeRecord>();
+            News=new List<NodeRecord>();
+            Notices=new List<NodeRecord>();
+            Directors=new List<NodeRecord>();
+            ViceDirectors=new List<NodeRecord>();
+            Members=new List<NodeRecord>();
+            LeaderSpeechs=new List<NodeRecord>();
+            SuperviseWindow=new List<NodeRecord>();
+            NpcWorks=new List<NodeRecord>();
+            SelfImprovement=new List<NodeRecord>();
+            Basics=new List<NodeRecord>();
+            Mediums=new List<NodeRecord>();
+            TownPics=new List<NodeRecord>();
+            Elections=new List<NodeRecord>();
+            Investigates=new List<NodeRecord>();
+            NpcPics=new List<NodeRecord>();
             Links = new List<NodeRecord>();
         }
 
+        public Unit Unit { get; set; }
         public Node NewsNode { get; set; }
         public Node NoticesNode { get; set; }
         public Node DirectorsNode { get; set; }

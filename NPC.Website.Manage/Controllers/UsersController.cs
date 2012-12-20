@@ -8,7 +8,7 @@ using NPC.Application;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : CommonController
     {
         private readonly UserAction _userAction;
         public UsersController()

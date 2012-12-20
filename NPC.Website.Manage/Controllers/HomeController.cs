@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : CommonController
     {
         public ActionResult Login()
         {

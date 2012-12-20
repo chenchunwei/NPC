@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain;
 using NPC.Domain.Models.Common;
+using NPC.Domain.Models.NodeRecords;
 using NPC.Domain.Models.Units;
 
 namespace NPC.Domain.Models.Nodes
@@ -13,6 +14,8 @@ namespace NPC.Domain.Models.Nodes
         public Node()
         {
             RecordDescription = new RecordDescription();
+            Childrens=new List<Node>();
+            NodeRecords=new List<NodeRecord>();
         }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
@@ -22,6 +25,8 @@ namespace NPC.Domain.Models.Nodes
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual Guid? OuterCategoryId { get; set; }
         public virtual Node ParentNode { get; set; }
+        public virtual IList<Node> Childrens { get; set; }
+        public virtual IList<NodeRecord> NodeRecords { get; set; }
         public virtual NodeRecordMark NodeRecordMark { get; set; }
         public virtual Unit Unit { get; set; }
     }

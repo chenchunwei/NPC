@@ -16,7 +16,7 @@ namespace NPC.Domain.Model.Mappings.Articles
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.UrlOfCoverImage);
             Map(o => o.Title);
-            Map(o => o.Content);
+            Map(o => o.Content).CustomType("StringClob").CustomSqlType("varchar(max)"); 
             Map(o => o.HitCount);
             Map(o => o.Author);
             Map(o => o.IsShow);

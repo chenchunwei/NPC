@@ -12,7 +12,7 @@ namespace NPC.Application.Contexts
 {
     public class NpcContext
     {
-        private readonly string _keyOfNpcUser = "__________keyOfNpcUser___________";
+        private const string KeyOfNpcUser = "__________keyOfNpcUser___________";
         protected UserRepository UserRepository { get; set; }
         public NpcContext()
         {
@@ -23,11 +23,11 @@ namespace NPC.Application.Contexts
         {
             get
             {
-                if (HttpContext.Current.Items[_keyOfNpcUser] != null)
-                    return HttpContext.Current.Items[_keyOfNpcUser] as User;
+                if (HttpContext.Current.Items[KeyOfNpcUser] != null)
+                    return HttpContext.Current.Items[KeyOfNpcUser] as User;
                 var userId = AuthenticationClinet.CurrentUser.Id;
                 var user = UserRepository.Find(userId);
-                HttpContext.Current.Items[_keyOfNpcUser] = user;
+                HttpContext.Current.Items[KeyOfNpcUser] = user;
                 return user;
             }
         }

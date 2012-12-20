@@ -10,7 +10,7 @@ using NPC.Application.ManageModels.ArticleCategories;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class ArticleCategoriesController : BaseController
+    public class ArticleCategoriesController : CommonController
     {
         private readonly ArticleCategoryAction _articleCategoryAction; 
         public ArticleCategoriesController()

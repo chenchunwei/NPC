@@ -7,7 +7,7 @@ using NPC.Application.ManageModels;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class SystemController : BaseController
+    public class SystemController : CommonController
     {
         public ActionResult Message(RedirectMessageModel model)
         {

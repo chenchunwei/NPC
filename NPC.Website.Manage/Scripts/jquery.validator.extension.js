@@ -42,3 +42,12 @@ $.validator.addMethod('CheckIdCardNumber', function (value, element) {
         return true;
     return /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/.test(value) || /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(value);
 }, '身份证格式不正确！');
+$.validator.imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
+$.validator.addMethod('checkImageExt', function (value, element) {
+    if (value == null || value == "")
+        return true;
+    if (!RegExp("\.(" + $.validator.imgType.join("|") + ")$", "i").test(value.toLowerCase())) {
+         return false;
+    }
+    return true;
+}, "图片类型必须是" + $.validator.imgType.join("，") + "中的一种");

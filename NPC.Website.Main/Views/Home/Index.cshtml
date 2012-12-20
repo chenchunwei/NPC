@@ -1,0 +1,538 @@
+﻿@model NPC.Application.MianModels.Homes.IndexModel 
+@{
+    ViewBag.Title = "@Model.Unit.Name";
+}
+<div class="main1">
+    <div class="focus">
+        <div id="ifocus">
+            <div id="ifocus_pic">
+                <div id="ifocus_piclist" style="left: 0; top: 0;">
+                    <ul>
+                        @{
+                            var index = 0;
+                        }
+                        @foreach (var nodeRecord in Model.WheelBroadcastPicsOfTopLeft)
+                        {
+                            <li id="@("p" + index)" @(index == 0 ? Html.Raw("class=\"current\"") : Html.Raw(""))>
+                                <a href="@nodeRecord.RecordLink" target="_blank">
+                                    <img src="/Manage/Attachments/@nodeRecord.SecondImage" alt="@nodeRecord.FirstTitle" /></a> </li>
+                            index++;
+                        }
+                    </ul>
+                </div>
+                <div id="ifocus_opdiv">
+                </div>
+                <div id="ifocus_tx">
+                    <ul>
+                        @{
+                            var indexTxt = 0;
+                        }
+                        @foreach (var nodeRecord in Model.WheelBroadcastPicsOfTopLeft)
+                        {
+                            <li  @(indexTxt == 0 ? Html.Raw("class=\"current\"") : Html.Raw("class=\"normal\""))>@nodeRecord.FirstTitle</li>
+                            indexTxt++;
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div id="ifocus_btn">
+                <ul>
+                    @{
+                        var indexBtn = 0;
+                    }
+                    @foreach (var nodeRecord in Model.WheelBroadcastPicsOfTopLeft)
+                    {
+                        <li id="p@("p" + indexBtn)" @(indexBtn == 0 ? Html.Raw("class=\"current\"") : Html.Raw(""))>
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" /></li>
+                        indexBtn++;
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="news">
+        <div class="title">
+            <div class="title-name">
+                @if (Model.NewsNode != null)
+                {@(Model.NewsNode.Name.Trim())}
+            </div>
+            <div class="more">
+                @if (Model.NewsNode != null)
+                {
+                    if (Model.NewsNode.OuterCategoryId.HasValue)
+                    {
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多 >></a>                                                 
+                    }
+                }
+            </div>
+        </div>
+        @foreach (var nodeRecord in Model.News)
+        {
+            <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+        }
+    </ul>
+</div>
+<div class="banner2">
+    @if (Model.FirstFullColumn != null)
+    {
+        <a href="@Model.FirstFullColumn.RecordLink" target="_blank">
+            <img src="/Manage/Attachments/@Model.FirstFullColumn.FirstImage" alt="@Model.FirstFullColumn.FirstTitle" title="@Model.FirstFullColumn.FirstTitle"/></a>
+    }
+</div>
+<div class="main2">
+    <div class="left">
+        <ul class="note">
+            <div class="title">
+                <div class="title-name">
+                    @if (Model.NoticesNode != null)
+                    {@(Model.NoticesNode.Name.Trim())}
+                </div>
+                <div class="more">
+                    @if (Model.NoticesNode != null)
+                    {
+                        if (Model.NoticesNode.OuterCategoryId.HasValue)
+                        {
+                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NoticesNode.OuterCategoryId">更多 >></a>                                                 
+                        }
+                    }
+                </div>
+            </div>
+            @foreach (var nodeRecord in Model.Notices)
+            {
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+            }
+        </ul>
+        <div class="director">
+            <div class="title">
+                <div class="title-name">
+                    主 任
+                </div>
+            </div>
+            <div class="pic">
+                <img src="img/hushuiliang.jpg" alt="胡水良" title="胡水良">
+            </div>
+            <p>
+                胡水良
+            </p>
+        </div>
+        <div class="director" style="height: 140px;">
+            <div class="title">
+                <div class="title-name">
+                    副主任
+                </div>
+            </div>
+            <ul class="pic-slide">
+                <div id="slideshow" rel="auto-play">
+                    <a href="#" target="_blank">
+                        <img src="img/liuyaoming.jpg" /><div class="word">
+                            刘耀明
+                        </div>
+                    </a>
+                </div>
+            </ul>
+        </div>
+        <div class="committee">
+            <div class="title">
+                <div class="title-name">
+                    委 员
+                </div>
+            </div>
+            <div class="committee-content">
+                <ul>
+                    <li>方 方</li>
+                    <li>叶金华 </li>
+                    <li>朱学俊 </li>
+                    <li>朱洪宝</li>
+                    <li>刘中源</li>
+                    <li>刘 平 </li>
+                    <li>李 明</li>
+                </ul>
+                <ul>
+                    <li>严周萍</li>
+                    <li>沈伟强 </li>
+                    <li>沈跃田</li>
+                    <li>张远方</li>
+                    <li>张洪琪 </li>
+                    <li>张祥林</li>
+                    <li>陆为民</li>
+                </ul>
+                <ul>
+                    <li>金在良</li>
+                    <li>金导耕 </li>
+                    <li>周盛专</li>
+                    <li>黄德荣</li>
+                    <li>蒋美玲</li>
+                    <li>程灵坚</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="middle-main">
+            <div class="leaders-word">
+                <div class="title">
+                    <div class="title-name">
+                        @if (Model.LeaderSpeechsNode != null)
+                        {@(Model.LeaderSpeechsNode.Name.Trim())}
+                    </div>
+                    <div class="more">
+                        @if (Model.LeaderSpeechsNode != null)
+                        {
+                            if (Model.LeaderSpeechsNode.OuterCategoryId.HasValue)
+                            {
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.LeaderSpeechsNode.OuterCategoryId">更多 >></a>                                                 
+                            }
+                        }
+                    </div>
+                </div>
+                <ul>
+                    @foreach (var nodeRecord in Model.LeaderSpeechs)
+                    {
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                    }
+                </ul>
+                <div class="vidieo">
+                    <object width="225" height="145">
+                        <param name="movie" value="http://share.vrs.sohu.com/261845/v.swf&autoplay=false"></param>
+                        <param name="allowFullScreen" value="true"></param>
+                        <param name="allowscriptaccess" value="always"></param>
+                        <param name="wmode" value="Transparent"></param>
+                        <embed width="225" height="145" wmode="Transparent" allowfullscreen="true" allowscriptaccess="always"
+                            quality="high" src="http://share.vrs.sohu.com/261845/v.swf&autoplay=false" type="application/x-shockwave-flash" /></embed>
+                    </object>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            <div class="basic">
+                <div class="title">
+                    <div class="title-name">
+                        @if (Model.SuperviseWindowNode != null)
+                        {@(Model.SuperviseWindowNode.Name.Trim())}
+                    </div>
+                    <div class="more">
+                        @if (Model.SuperviseWindowNode != null)
+                        {
+                            if (Model.SuperviseWindowNode.OuterCategoryId.HasValue)
+                            {
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseWindowNode.OuterCategoryId">更多 >></a>                                                 
+                            }
+                        }
+                    </div>
+                </div>
+                <ul>
+                    @foreach (var nodeRecord in Model.SuperviseWindow)
+                    {
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="basic">
+                <div class="title">
+                    <div class="title-name">
+                        @if (Model.NpcWorksNode != null)
+                        {@(Model.NpcWorksNode.Name.Trim())}
+                    </div>
+                    <div class="more">
+                        @if (Model.NpcWorksNode != null)
+                        {
+                            if (Model.NpcWorksNode.OuterCategoryId.HasValue)
+                            {
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">更多 >></a>                                                 
+                            }
+                        }
+                    </div>
+                </div>
+                <ul>
+                    @foreach (var nodeRecord in Model.NpcWorks)
+                    {
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="middle-bottom">
+            <div class="block">
+                <div class="title">
+                    <div class="title-name">
+                        @if (Model.SelfImprovementNode != null)
+                        {@(Model.SelfImprovementNode.Name.Trim())}
+                    </div>
+                    <div class="more">
+                        @if (Model.SelfImprovementNode != null)
+                        {
+                            if (Model.SelfImprovementNode.OuterCategoryId.HasValue)
+                            {
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SelfImprovementNode.OuterCategoryId">更多 >></a>                                                 
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <ul>
+                    @foreach (var nodeRecord in Model.SelfImprovement)
+                    {
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="block" style="margin-right: 0px;">
+                <div class="title">
+                    <div class="title-name">
+                        @if (Model.BasicsNode != null)
+                        {@(Model.BasicsNode.Name.Trim())}
+                    </div>
+                    <div class="more">
+                        @if (Model.BasicsNode != null)
+                        {
+                            if (Model.BasicsNode.OuterCategoryId.HasValue)
+                            {
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.BasicsNode.OuterCategoryId">更多 >></a>                                                 
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <ul>
+                    @foreach (var nodeRecord in Model.Basics)
+                    {
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="advice">
+            <img src="img/advice.jpg" alt="意见建议在线提交" title="意见建议在线提交">
+        </div>
+        <div class="login">
+            <div class="title">
+                在线互动
+            </div>
+            <div class="login-input">
+                <p>
+                    用户名
+                </p>
+                <input type="text" value="" name="用户名" />
+            </div>
+            <div class="login-input">
+                <p>
+                    密 码
+                </p>
+                <input type="password" value="" name="密码" />
+            </div>
+            <input class="button" type="button" value="登录" name="">
+        </div>
+        <div class="bookmark">
+            <div class="bookmark-box">
+                <a href="#">
+                    <img src="img/paper1.jpg" alt="人民代表报" title="人民代表报"></a> <a href="#">
+                        <img src="img/paper2.jpg" alt="平湖手机报" title="平湖手机报"></a> <a href="#">
+                            <img src="img/twitter.jpg" alt="代表微博" title="代表微博"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear">
+</div>
+<div class="main3">
+    <div class="contribute">
+        <a href="#">
+            <img src="img/news.jpg" alt="新闻投稿" title="新闻投稿"></a>
+    </div>
+    <div style="width: 792px; float: left; overflow: hidden;">
+        <ul>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        当湖街道
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        乍浦镇
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        新埭镇
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        独山港镇
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        广陈镇
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        林埭镇
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        钟埭街道
+                    </p>
+                </div>
+            </a></li>
+            <li><a href="detail-note.html">
+                <div class="view">
+                    <img src="img/pinghu1.jpg" />
+                    <p>
+                        曹桥街道
+                    </p>
+                </div>
+            </a></li>
+        </ul>
+    </div>
+</div>
+<div class="clear">
+</div>
+<div class="main4">
+    <div class="block-box">
+        <div class="title">
+            <div class="title-name">
+                @if (Model.ElectionsNode != null)
+                {@(Model.ElectionsNode.Name.Trim())}
+            </div>
+            <div class="more">
+                @if (Model.ElectionsNode != null)
+                {
+                    if (Model.ElectionsNode.OuterCategoryId.HasValue)
+                    {
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.ElectionsNode.OuterCategoryId">更多 >></a>                                                 
+                    }
+                }
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <ul>
+            @foreach (var nodeRecord in Model.Elections)
+            {
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+            }
+        </ul>
+    </div>
+    <div class="block-box">
+        <div class="title">
+            <div class="title-name">
+                @if (Model.InvestigatesNode != null)
+                {@(Model.InvestigatesNode.Name.Trim())}
+            </div>
+            <div class="more">
+                @if (Model.InvestigatesNode != null)
+                {
+                    if (Model.InvestigatesNode.OuterCategoryId.HasValue)
+                    {
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.InvestigatesNode.OuterCategoryId">更多 >></a>                                                 
+                    }
+                }
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <ul>
+            @foreach (var nodeRecord in Model.Investigates)
+            {
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+            }
+        </ul>
+    </div>
+    <div class="block-right">
+        <div class="block-right-top">
+            <div class="title">
+                <div class="title-name">
+                    代表风采
+                </div>
+                <div class="more">
+                    <a href="list-look.html">更多 >></a>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+            <ul class="elegant">
+                <li>
+                    <img src="img/scroll.jpg" alt="" title=""><div class="word2">
+                        沈水明
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="block-right-bottom">
+            <div class="title">
+                <div class="title-name">
+                    @if (Model.LinksNode != null)
+                    {@(Model.LinksNode.Name.Trim())}
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+
+            @{
+                var indexOflinkNode = 0;
+            }
+            @if (Model.LinksNode != null)
+            {
+                foreach (var linkNode in Model.LinksNode.Childrens)
+                {
+                    if (indexOflinkNode == 0)
+                    {
+                        Html.Raw("<ul>");
+                    }
+                    else if (indexOflinkNode % 3 == 0 && indexOflinkNode != Model.Links.Count)
+                    {
+                        Html.Raw("</ul><ul>");
+                    }
+                    else if (indexOflinkNode == Model.Links.Count)
+                    {
+                        Html.Raw("</ul>");
+                    }
+                    indexOflinkNode++;
+                <li>
+                    <div class="name">
+                        @linkNode.Name
+                    </div>
+                    <form>
+                        <select onclick="javascript:alert('待开发');">
+                            <option>请选择</option>
+                            @foreach (var nodeRecord in linkNode.NodeRecords)
+                            {
+                                <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
+                            }
+                        </select>
+                    </form>
+                </li>
+                }
+            }
+        </div>
+    </div>
+</div>

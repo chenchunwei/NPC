@@ -10,7 +10,7 @@ using NPC.Domain.Models.Nodes;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class NodesController : Controller
+    public class NodesController : CommonController
     {
         private readonly NodeAction _nodeAction;
         public NodesController()

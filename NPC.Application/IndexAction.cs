@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application;
+using NPC.Application.Contexts;
 using NPC.Application.MianModels;
 using NPC.Application.MianModels.Homes;
 using NPC.Domain.Models.NodeRecords;
 using NPC.Domain.Repository;
 using NPC.Query.Articles;
 
-namespace Saturday.Application
+namespace NPC.Application
 {
     public class IndexAction : BaseAction
     {
@@ -27,7 +28,7 @@ namespace Saturday.Application
         }
         private IList<NodeRecord> GetNodeRecord(Guid nodeId, int count)
         {
-            var unitId = NpcContext.CurrentUser.Unit.Id;
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
             var nodeRecords = new List<NodeRecord>();
             var node = _nodeRepository.Find(nodeId);
             if (node.OuterCategoryId.HasValue)
@@ -40,7 +41,8 @@ namespace Saturday.Application
         public IndexModel InitializeIndexModel()
         {
             var model = new IndexModel();
-            var unitId = NpcContext.CurrentUser.Unit.Id;
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
+            model.Unit = NpcMainWebContext.CurrentUnit;
             model.BasicsNode = _nodeRepository.GetSingleByCode(unitId, "Basics");
             model.DirectorsNode = _nodeRepository.GetSingleByCode(unitId, "Directors");
             model.ElectionsNode = _nodeRepository.GetSingleByCode(unitId, "Elections");
@@ -67,11 +69,11 @@ namespace Saturday.Application
             model.Links = _nodeRecordRepository.GetTopN(unitId, "Links", 6);
             model.FirstFullColumn = _nodeRecordRepository.GetTopN(unitId, "FirstFullColumn", 1).FirstOrDefault();
 
-            model.News = _nodeRecordRepository.GetTopN(unitId, "Notices", 5);
-            FillRecords(model.News, unitId, 0, 5, "Notices");
+            model.Notices = _nodeRecordRepository.GetTopN(unitId, "Notices", 5);
+            FillRecords(model.Notices, unitId, 0, 5, "Notices");
 
             model.Directors = _nodeRecordRepository.GetTopN(unitId, "Directors", 1);
-            FillRecords(model.ViceDirectors, unitId, 1, 0, "Directors");
+            FillRecords(model.Directors, unitId, 1, 0, "Directors");
 
             model.ViceDirectors = _nodeRecordRepository.GetTopN(unitId, "ViceDirectors", 10);
             FillRecords(model.ViceDirectors, unitId, 10, 0, "ViceDirectors");
@@ -80,36 +82,36 @@ namespace Saturday.Application
             FillRecords(model.Members, unitId, 0, 30, "Members");
 
             model.LeaderSpeechs = _nodeRecordRepository.GetTopN(unitId, "LeaderSpeechs", 6);
-            FillRecords(model.News, unitId, 0, 6, "LeaderSpeechs");
+            FillRecords(model.LeaderSpeechs, unitId, 0, 6, "LeaderSpeechs");
 
             model.Video = _nodeRecordRepository.GetTopN(unitId, "Video", 1).FirstOrDefault();
 
             model.SuperviseWindow = _nodeRecordRepository.GetTopN(unitId, "SuperviseWindow", 5);
-            FillRecords(model.News, unitId, 0, 5, "SuperviseWindow");
+            FillRecords(model.SuperviseWindow, unitId, 0, 5, "SuperviseWindow");
 
             model.NpcWorks = _nodeRecordRepository.GetTopN(unitId, "NpcWorks", 5);
-            FillRecords(model.News, unitId, 0, 5, "NpcWorks");
+            FillRecords(model.NpcWorks, unitId, 0, 5, "NpcWorks");
 
             model.SelfImprovement = _nodeRecordRepository.GetTopN(unitId, "SelfImprovement", 7);
-            FillRecords(model.News, unitId, 0, 7, "SelfImprovement");
+            FillRecords(model.SelfImprovement, unitId, 0, 7, "SelfImprovement");
 
             model.Basics = _nodeRecordRepository.GetTopN(unitId, "Basics", 7);
-            FillRecords(model.News, unitId, 0, 7, "Basics");
+            FillRecords(model.Basics, unitId, 0, 7, "Basics");
 
             model.Mediums = _nodeRecordRepository.GetTopN(unitId, "Mediums", 3);
-            FillRecords(model.News, unitId, 3, 0, "Mediums");
+            FillRecords(model.Mediums, unitId, 3, 0, "Mediums");
 
             model.TownPics = _nodeRecordRepository.GetTopN(unitId, "TownPics", 20);
-            FillRecords(model.News, unitId, 20, 0, "TownPics");
+            FillRecords(model.TownPics, unitId, 20, 0, "TownPics");
 
             model.Elections = _nodeRecordRepository.GetTopN(unitId, "Elections", 8);
-            FillRecords(model.News, unitId, 0, 8, "Elections");
+            FillRecords(model.Elections, unitId, 0, 8, "Elections");
 
             model.Investigates = _nodeRecordRepository.GetTopN(unitId, "Investigates", 8);
-            FillRecords(model.News, unitId, 0, 8, "Investigates");
+            FillRecords(model.Investigates, unitId, 0, 8, "Investigates");
 
             model.NpcPics = _nodeRecordRepository.GetTopN(unitId, "NpcPics", 80);
-            FillRecords(model.News, unitId, 80, 0, "NpcPics");
+            FillRecords(model.NpcPics, unitId, 80, 0, "NpcPics");
 
             return model;
         }
@@ -193,7 +195,7 @@ namespace Saturday.Application
 
         public HeaderModel InitializeHeaderModel()
         {
-            var unitId = NpcContext.CurrentUser.Unit.Id;
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
             var model = new HeaderModel();
             model.Menus = _nodeRecordRepository.GetTopN(unitId, "Menus", 15);
             model.TopBanner = _nodeRecordRepository.GetTopN(unitId, "TopBanner", 1).FirstOrDefault();

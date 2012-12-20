@@ -1,6 +1,26 @@
-﻿@model NPC.Application.ManageModels.RedirectMessageModel 
+﻿@model  NPC.Application.ManageModels.RedirectMessageModel 
 @{
     ViewBag.Title = @Model.Message;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Raw(Model.Message)
+<div class="workgroundin" style="height: 5px;">
+</div>
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示信息：</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px; min-height: 400px; *height: 400px; text-align: center; font-size: 14px; padding:40px 10px;">
+         @Html.Raw(Model.Message)
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>

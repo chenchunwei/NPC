@@ -80,7 +80,6 @@
     <Compile Include="ActionFilterAttributes\RoleFliterAttribute.cs" />
     <Compile Include="Controllers\ArticleCategoriesController.cs" />
     <Compile Include="Controllers\ArtilcesController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -991,7 +990,9 @@
     <Content Include="Scripts\xheditor-1.1.14\xheditor_skin\vista\img\wmp.gif" />
     <Content Include="Scripts\xheditor-1.1.14\xheditor_skin\vista\img\wordimg.gif" />
     <Content Include="Scripts\xheditor-1.1.14\xheditor_skin\vista\ui.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1040,6 +1041,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="AdminCenter\修改List.cshtml" />
+    <None Include="Properties\PublishProfiles\npc.pubxml" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\combobox_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data2.json" />

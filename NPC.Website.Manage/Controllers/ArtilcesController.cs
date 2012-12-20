@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Fluent.Infrastructure.Mvc;
 using Fluent.Infrastructure.Web.HttpFiles;
 using NPC.Application;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Articles;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class ArtilcesController : BaseController
+    public class ArtilcesController : CommonController
     {
         private readonly ArticleAction _articleAction;
         public ArtilcesController()
         {
             _articleAction = new ArticleAction();
         }
-        public ActionResult List(ArtilceSearchModel searchModel)
+        public ActionResult List(ArticleListModel listModel)
         {
-            searchModel.ArticleQueryItem.Pagination.PageIndex = PageIndex;
-            var model = _articleAction.InitializeArticleListModel(searchModel.ArticleQueryItem);
+            listModel.ArtilceSearchModel.ArticleQueryItem.Pagination.PageIndex = PageIndex;
+            listModel.ArtilceSearchModel.ArticleQueryItem.UnitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _articleAction.InitializeArticleListModel(listModel.ArtilceSearchModel.ArticleQueryItem);
             return View(model);
         }
 
@@ -39,7 +42,15 @@ namespace NPC.Website.Manage.Controllers
                 _articleAction.UpdateArticle(model);
             else
                 _articleAction.NewArticle(model);
-            return View(model);
+            return RedirectToMessage("文章保存成功");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public JsonResult Delete()
+        {
+            IList<Guid> ids = Request["ids"].Split(',').Select(o => new Guid(o)).ToList();
+            _articleAction.Delete(ids.ToArray());
+            return new NewtonsoftJsonResult() { Data = new { Status = "success", Message = "删除成功!" } };
         }
     }
 }

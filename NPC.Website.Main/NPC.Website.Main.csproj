@@ -21,6 +21,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,13 +68,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\UnitsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\global.css" />
+    <Content Include="css\js.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
@@ -87,6 +94,41 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="img\01.jpg" />
+    <Content Include="img\02.jpg" />
+    <Content Include="img\advice.jpg" />
+    <Content Include="img\banner.jpg" />
+    <Content Include="img\banner.swf" />
+    <Content Include="img\banner2.jpg" />
+    <Content Include="img\btn_01.jpg" />
+    <Content Include="img\btn_02.jpg" />
+    <Content Include="img\btn_slideshow.png" />
+    <Content Include="img\focus.jpg" />
+    <Content Include="img\hushuiliang.jpg" />
+    <Content Include="img\ifocus_btn_bg.gif" />
+    <Content Include="img\interval.jpg" />
+    <Content Include="img\liren.jpg" />
+    <Content Include="img\liuyaoming.jpg" />
+    <Content Include="img\news.jpg" />
+    <Content Include="img\paper1.jpg" />
+    <Content Include="img\paper2.jpg" />
+    <Content Include="img\pinghu1.jpg" />
+    <Content Include="img\scroll.jpg" />
+    <Content Include="img\scroll2.jpg" />
+    <Content Include="img\twitter.jpg" />
+    <Content Include="img\vidieo.jpg" />
+    <Content Include="jQueryBanner\jQueryBanner\images\01.jpg" />
+    <Content Include="jQueryBanner\jQueryBanner\images\02.jpg" />
+    <Content Include="jQueryBanner\jQueryBanner\images\03.jpg" />
+    <Content Include="jQueryBanner\jQueryBanner\images\btn_slideshow.png" />
+    <Content Include="jQueryBanner\jQueryBanner\index.html" />
+    <Content Include="jQueryBanner\jQueryBanner\index.jpg" />
+    <Content Include="jQueryBanner\jQueryBanner\js\jquery-1.7.2.min.js" />
+    <Content Include="jQueryBanner\jQueryBanner\js\jquery.slider.js" />
+    <Content Include="js\ifocus.js" />
+    <Content Include="js\jquery-1.7.2.min.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\jquery.slider.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -102,6 +144,39 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="img\Thumbs.db" />
+    <Content Include="jQueryBanner\jQueryBanner\images\Thumbs.db" />
+    <Content Include="jQueryBanner\jQueryBanner\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
+      <Project>{c50b79ef-2006-453d-8238-79cd7e5bbacc}</Project>
+      <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Application\NPC.Application.csproj">
+      <Project>{22c05668-41ab-46b3-81ef-72294624fbcb}</Project>
+      <Name>NPC.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
+      <Project>{bedebdbe-feb6-4a84-8170-09de9be16b8e}</Project>
+      <Name>NPC.Domain.Model.Mappings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Repository\NPC.Domain.Repository.csproj">
+      <Project>{0b9f42a2-b337-4e41-a867-1f4ed2f1f91b}</Project>
+      <Name>NPC.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6d980d7e-5872-4fa2-8a0e-db74fc6935f8}</Project>
+      <Name>NPC.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

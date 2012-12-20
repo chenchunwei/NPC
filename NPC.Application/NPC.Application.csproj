@@ -60,6 +60,7 @@
     <Compile Include="BaseAction.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
+    <Compile Include="Contexts\NpcMainWebContext.cs" />
     <Compile Include="DepartmentAction.cs" />
     <Compile Include="IndexAction.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />

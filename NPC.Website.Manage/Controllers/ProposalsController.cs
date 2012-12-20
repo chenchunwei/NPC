@@ -8,7 +8,7 @@ using NPC.Application.ManageModels.Proposals;
 
 namespace NPC.Website.Manage.Controllers
 {
-    public class ProposalsController : BaseController
+    public class ProposalsController : CommonController
     {
         private readonly ProposalAction _proposalAction;
         public ProposalsController()

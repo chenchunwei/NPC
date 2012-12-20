@@ -9,10 +9,11 @@ using Fluent.Infrastructure.Mvc;
 
 namespace NPC.Website.Manage.Controllers
 {
+    [ValidateInput(false)]
     public class CommonController : BaseController
     {
         const string Inputname = "filedata"; //表单文件域name
-        const int Maxattachsize = 8097152; // 最大上传大小，默认是2M
+        const int Maxattachsize = 58097152; // 最大上传大小， 
         private const string Upext = "txt,rar,zip,jpg,jpeg,gif,png,swf,wmv,avi,wma,mp3,mid"; // 上传扩展名
 
 
@@ -40,7 +41,7 @@ namespace NPC.Website.Manage.Controllers
             //在小校验
             if (fileBytes.Length > Maxattachsize)
             {
-                var err = "文件大小不能超过" + ((double)Maxattachsize / (1024*1024)).ToString("#0.00") + "M";
+                var err = "文件大小不能超过" + ((double)Maxattachsize / (1024 * 1024)).ToString("#0.00") + "M";
                 return new NewtonsoftJsonResult() { Data = new { err, msg = err } };
             }
             //扩展校验
@@ -82,6 +83,22 @@ namespace NPC.Website.Manage.Controllers
             if (!System.IO.Directory.Exists(HttpContext.Server.MapPath(attachDir)))
                 System.IO.Directory.CreateDirectory(HttpContext.Server.MapPath(attachDir));
             return attachDir;
+        }
+
+        protected int PageIndex
+        {
+            get
+            {
+                int pageIndex;
+                if (!string.IsNullOrEmpty(Request["p"]) && int.TryParse(Request["p"], out pageIndex))
+                    return pageIndex;
+                return 1;
+            }
+        }
+
+        public ActionResult RedirectToMessage(string message, string returnUrl = "", string textOfReturnUrl = "")
+        {
+            return new RedirectResult(Url.Action("Message", "System") + string.Format("?message={0}&returnUrl={1}&textOfReturnUrl={2}", message, returnUrl, textOfReturnUrl));
         }
     }
 }
