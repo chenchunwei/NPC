@@ -1,0 +1,27 @@
+﻿<div class="right">
+    <div class="advice">
+        <img src="@Url.Content("~/img/advice.jpg")" alt="意见建议在线提交" title="意见建议在线提交">
+    </div>
+    <div class="login">
+        <div class="title">
+            在线互动
+        </div>
+        <div class="login-input">
+            用户名<input type="text" value="" name="用户名" />
+        </div>
+        <div class="login-input">
+            密 码<input type="password" value="" name="密码" />
+        </div>
+        <input class="button" type="button" value="登录" name="">
+    </div>
+    <div class="bookmark">
+        <div class="bookmark-box">
+            @foreach (var nodeRecord in Model.Mediums)
+            {
+                <a href="@nodeRecord.RecordLink" target="_blank">
+                    <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle"></a> 
+            }
+
+        </div>
+    </div>
+</div>

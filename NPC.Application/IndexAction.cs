@@ -204,11 +204,38 @@ namespace NPC.Application
 
         public Tuple<string, string> InitializeFooterModel()
         {
-            var unitId = NpcContext.CurrentUser.Unit.Id;
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
             var nodeRecord = _nodeRecordRepository.GetTopN(unitId, "Copyright", 1).FirstOrDefault();
             if (nodeRecord == null)
                 return new Tuple<string, string>("", "");
             return new Tuple<string, string>(nodeRecord.FirstTitle, nodeRecord.SecondTitle);
+        }
+
+        public object InitializeRecordsModel(NodeRecordQueryItem queryItem)
+        {
+            var model = new RecordsModel();
+            model.NodeRecordQueryItem = queryItem;
+            model.NodeRecordQueryItem.IsShow = true;
+            model.NodeRecords = _nodeRecordRepository.Query(queryItem).ToList();
+            if (queryItem.NodeId.HasValue)
+            {
+                var node = _nodeRepository.Find(queryItem.NodeId.Value);
+                model.ListTitle = node.Name;
+            }
+            else
+            {
+                model.ListTitle = "文章列表";
+            }
+            return model;
+        }
+
+        public SideBarModel InitializeSideBarModel()
+        {
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
+            var model = new SideBarModel();
+            model.Mediums = _nodeRecordRepository.GetTopN(unitId, "Mediums", 3);
+            FillRecords(model.Mediums, unitId, 3, 0, "Mediums");
+            return model;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model NPC.Application.MianModels.Homes.IndexModel 
+﻿@using Fluent.Infrastructure.Utilities
+@model NPC.Application.MianModels.Homes.IndexModel 
 @{
     ViewBag.Title = "@Model.Unit.Name";
 }
@@ -52,10 +53,8 @@
     </div>
     <ul class="news">
         <div class="title">
-            <div class="title-name">
-                @if (Model.NewsNode != null)
-                {@(Model.NewsNode.Name.Trim())}
-            </div>
+            <div class="title-name">@if (Model.NewsNode != null)
+                                    {@(Model.NewsNode.Name.Trim())}</div>
             <div class="more">
                 @if (Model.NewsNode != null)
                 {
@@ -68,7 +67,7 @@
         </div>
         @foreach (var nodeRecord in Model.News)
         {
-            <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+            <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 32, "…")</a></li>
         }
     </ul>
 </div>
@@ -99,26 +98,35 @@
             </div>
             @foreach (var nodeRecord in Model.Notices)
             {
-                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 22, "…")</a></li>
             }
         </ul>
         <div class="director">
             <div class="title">
                 <div class="title-name">
-                    主 任
+                    @if (Model.DirectorsNode != null)
+                    {@(Model.DirectorsNode.Name.Trim())}
                 </div>
             </div>
             <div class="pic">
-                <img src="img/hushuiliang.jpg" alt="胡水良" title="胡水良">
+                @if (Model.Directors.Any())
+                {
+                    <img src="/Manage/Attachments/@Model.Directors.First().FirstImage" alt="@Model.Directors.First().FirstTitle" title="@Model.Directors.First().FirstTitle" style="width: 152px;height: 98px;" />
+                }
+
             </div>
             <p>
-                胡水良
+                @if (Model.Directors.Any())
+                {
+                    @Model.Directors.First().FirstTitle 
+                }
             </p>
         </div>
         <div class="director" style="height: 140px;">
             <div class="title">
                 <div class="title-name">
-                    副主任
+                    @if (Model.ViceDirectorsNode != null)
+                    {@(Model.ViceDirectorsNode.Name.Trim())}
                 </div>
             </div>
             <ul class="pic-slide">
@@ -134,36 +142,30 @@
         <div class="committee">
             <div class="title">
                 <div class="title-name">
-                    委 员
+                    @if (Model.MembersNode != null)
+                    {@(Model.MembersNode.Name.Trim())}
                 </div>
             </div>
             <div class="committee-content">
-                <ul>
-                    <li>方 方</li>
-                    <li>叶金华 </li>
-                    <li>朱学俊 </li>
-                    <li>朱洪宝</li>
-                    <li>刘中源</li>
-                    <li>刘 平 </li>
-                    <li>李 明</li>
-                </ul>
-                <ul>
-                    <li>严周萍</li>
-                    <li>沈伟强 </li>
-                    <li>沈跃田</li>
-                    <li>张远方</li>
-                    <li>张洪琪 </li>
-                    <li>张祥林</li>
-                    <li>陆为民</li>
-                </ul>
-                <ul>
-                    <li>金在良</li>
-                    <li>金导耕 </li>
-                    <li>周盛专</li>
-                    <li>黄德荣</li>
-                    <li>蒋美玲</li>
-                    <li>程灵坚</li>
-                </ul>
+                @{
+                    var indexOfMember = 0;
+                    var countOfLoop = 1;
+                }
+                @foreach (var member in Model.Members)
+                {
+                    if (indexOfMember % 7 == 0)
+                    {
+                    @Html.Raw("<ul>");
+                    }
+                    <li>@member.FirstTitle</li>
+                    if (countOfLoop == 7 || indexOfMember == Model.Members.Count - 1)
+                    {
+                    @Html.Raw("</ul>");
+                                      countOfLoop = 0;
+                    }
+                    countOfLoop++;
+                    indexOfMember++;
+                }
             </div>
         </div>
     </div>
@@ -188,18 +190,16 @@
                 <ul>
                     @foreach (var nodeRecord in Model.LeaderSpeechs)
                     {
-                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 38, "")</a></li>
                     }
                 </ul>
-                <div class="vidieo">
-                    <object width="225" height="145">
-                        <param name="movie" value="http://share.vrs.sohu.com/261845/v.swf&autoplay=false"></param>
-                        <param name="allowFullScreen" value="true"></param>
-                        <param name="allowscriptaccess" value="always"></param>
-                        <param name="wmode" value="Transparent"></param>
-                        <embed width="225" height="145" wmode="Transparent" allowfullscreen="true" allowscriptaccess="always"
-                            quality="high" src="http://share.vrs.sohu.com/261845/v.swf&autoplay=false" type="application/x-shockwave-flash" /></embed>
-                    </object>
+                <div class="vidieo" style="width: 225px; height: 145px">
+                    @if (Model.Video != null)
+                    {
+                        <a href="@Model.Video.RecordLink" target="_blank">
+                            <img src="/Manage/Attachments/@Model.Video.FirstImage" alt="@Model.Video.FirstTitle" title="@Model.Video.FirstTitle"></a>
+                    }
+
                 </div>
             </div>
             <div class="clear">
@@ -223,7 +223,7 @@
                 <ul>
                     @foreach (var nodeRecord in Model.SuperviseWindow)
                     {
-                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
                     }
                 </ul>
             </div>
@@ -246,7 +246,7 @@
                 <ul>
                     @foreach (var nodeRecord in Model.NpcWorks)
                     {
-                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
                     }
                 </ul>
             </div>
@@ -275,7 +275,7 @@
                 <ul>
                     @foreach (var nodeRecord in Model.SelfImprovement)
                     {
-                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
                     }
                 </ul>
             </div>
@@ -300,43 +300,13 @@
                 <ul>
                     @foreach (var nodeRecord in Model.Basics)
                     {
-                        <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                        <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
                     }
                 </ul>
             </div>
         </div>
     </div>
-    <div class="right">
-        <div class="advice">
-            <img src="img/advice.jpg" alt="意见建议在线提交" title="意见建议在线提交">
-        </div>
-        <div class="login">
-            <div class="title">
-                在线互动
-            </div>
-            <div class="login-input">
-                <p>
-                    用户名
-                </p>
-                <input type="text" value="" name="用户名" />
-            </div>
-            <div class="login-input">
-                <p>
-                    密 码
-                </p>
-                <input type="password" value="" name="密码" />
-            </div>
-            <input class="button" type="button" value="登录" name="">
-        </div>
-        <div class="bookmark">
-            <div class="bookmark-box">
-                <a href="#">
-                    <img src="img/paper1.jpg" alt="人民代表报" title="人民代表报"></a> <a href="#">
-                        <img src="img/paper2.jpg" alt="平湖手机报" title="平湖手机报"></a> <a href="#">
-                            <img src="img/twitter.jpg" alt="代表微博" title="代表微博"></a>
-            </div>
-        </div>
-    </div>
+    @Html.Action("SideBar", "Home")
 </div>
 <div class="clear">
 </div>
@@ -346,71 +316,22 @@
             <img src="img/news.jpg" alt="新闻投稿" title="新闻投稿"></a>
     </div>
     <div style="width: 792px; float: left; overflow: hidden;">
-        <ul>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        当湖街道
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        乍浦镇
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        新埭镇
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        独山港镇
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        广陈镇
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        林埭镇
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        钟埭街道
-                    </p>
-                </div>
-            </a></li>
-            <li><a href="detail-note.html">
-                <div class="view">
-                    <img src="img/pinghu1.jpg" />
-                    <p>
-                        曹桥街道
-                    </p>
-                </div>
-            </a></li>
+        <ul id="mycarousel" class="jcarousel-skin-ie7">
+            @foreach (var nodeRecord in Model.TownPics)
+            {
+                if (string.IsNullOrEmpty(nodeRecord.FirstImage))
+                {
+                    continue;
+                }
+                <li><a href="@nodeRecord.RecordLink">
+                    <div class="view">
+                        <img src="/Manage/Attachments/@nodeRecord.FirstImage" style="width:130px; height: 80px;"/>
+                        <p>
+                            @MyString.SubString(nodeRecord.FirstTitle, 12, "")
+                        </p>
+                    </div>
+                </a></li>
+            }
         </ul>
     </div>
 </div>
@@ -438,7 +359,7 @@
         <ul>
             @foreach (var nodeRecord in Model.Elections)
             {
-                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
             }
         </ul>
     </div>
@@ -463,28 +384,49 @@
         <ul>
             @foreach (var nodeRecord in Model.Investigates)
             {
-                <li><a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a></li>
+                <li><a href="@nodeRecord.RecordLink" target="_blank">@MyString.SubString(nodeRecord.FirstTitle, 36, "")</a></li>
             }
         </ul>
     </div>
     <div class="block-right">
         <div class="block-right-top">
             <div class="title">
+
+
                 <div class="title-name">
-                    代表风采
+                    @if (Model.NpcPicsNode != null)
+                    {@(Model.NpcPicsNode.Name.Trim())}
                 </div>
                 <div class="more">
-                    <a href="list-look.html">更多 >></a>
+                    @if (Model.NpcPicsNode != null)
+                    {
+                        if (Model.NpcPicsNode.OuterCategoryId.HasValue)
+                        {
+                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcPicsNode.OuterCategoryId">更多 >></a>                                                 
+                        }
+                    }
                 </div>
             </div>
             <div class="clear">
             </div>
-            <ul class="elegant">
-                <li>
-                    <img src="img/scroll.jpg" alt="" title=""><div class="word2">
-                        沈水明
-                    </div>
-                </li>
+
+            <ul id="elegant" class="elegant jcarousel-skin-tango">
+                @foreach (var nodeRecord in Model.NpcPics)
+                {
+                    if (string.IsNullOrEmpty(nodeRecord.FirstImage))
+                    {
+                        continue;
+                    }
+                    <li>
+                        <a href="@nodeRecord.RecordLink" target="_blank">
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle"/>
+                            <div class="word2">
+                                @MyString.SubString(nodeRecord.FirstTitle, 16, "")
+                            </div>
+                        </a>
+
+                    </li>
+                }
             </ul>
         </div>
         <div class="block-right-bottom">
@@ -499,30 +441,22 @@
 
             @{
                 var indexOflinkNode = 0;
+                var countOfLink = 1;
             }
             @if (Model.LinksNode != null)
             {
                 foreach (var linkNode in Model.LinksNode.Childrens)
                 {
-                    if (indexOflinkNode == 0)
+                    if (indexOflinkNode % 3 == 0)
                     {
-                        Html.Raw("<ul>");
+                @Html.Raw("<ul>");
                     }
-                    else if (indexOflinkNode % 3 == 0 && indexOflinkNode != Model.Links.Count)
-                    {
-                        Html.Raw("</ul><ul>");
-                    }
-                    else if (indexOflinkNode == Model.Links.Count)
-                    {
-                        Html.Raw("</ul>");
-                    }
-                    indexOflinkNode++;
                 <li>
                     <div class="name">
                         @linkNode.Name
                     </div>
                     <form>
-                        <select onclick="javascript:alert('待开发');">
+                        <select onchange="javascript:if(this.value!=''){window.open(this.value);}">
                             <option>请选择</option>
                             @foreach (var nodeRecord in linkNode.NodeRecords)
                             {
@@ -531,7 +465,16 @@
                         </select>
                     </form>
                 </li>
+                            if (countOfLink == 3 || countOfLink == Model.Links.Count - 1)
+                            {
+                @Html.Raw("</ul>");
+                                  countOfLink = 0;
+                            }
+
+                            indexOflinkNode++;
+                            countOfLink++;
                 }
+
             }
         </div>
     </div>

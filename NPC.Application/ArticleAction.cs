@@ -29,6 +29,8 @@ namespace NPC.Application
             model.FormData.Content = article.Content;
             model.FormData.Title = article.Title;
             model.FormData.UrlOfCoverImage = article.UrlOfCoverImage;
+            model.FormData.Author = article.Author;
+            model.FormData.IsShow = article.IsShow;
             return model;
         }
 
@@ -42,8 +44,10 @@ namespace NPC.Application
             article.HitCount = 0;
             article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
             article.Title = model.FormData.Title;
-            article.Unit = NpcContext.CurrentUser.Unit;
-            article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            article.Author = model.FormData.Author;
+            article.IsShow = model.FormData.IsShow;
+            if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
+                article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
             article.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _articleRepository.Save(article);
         }
@@ -60,8 +64,10 @@ namespace NPC.Application
             article.HitCount = 0;
             article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
             article.Title = model.FormData.Title;
-            article.Unit = NpcContext.CurrentUser.Unit;
-            article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
+            article.Author = model.FormData.Author;
+            article.IsShow = model.FormData.IsShow;
+            if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
+                article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
             article.RecordDescription.UpdateBy(NpcContext.CurrentUser);
             _articleRepository.Save(article);
             model.Id = article.Id;

@@ -85,8 +85,8 @@ namespace NPC.Domain.Repository
             return Session.CreateSQLQuery(string.Format(@"select * from (select top {0} a1.* from Articles a1 join ArticleCategories ac1 on a1.ArticleCategoryId=ac1.Id  
                 where a1.ArticleCategoryId=:ArticleCategoryId and a1.IsDelete=0 and a1.UrlOfCoverImage is not Null and a1.IsShow=1 and ac1.UnitId=:UnitId Order by a1.DateOfCreate Desc) as t1 
                 union 
-                select * from (select top {1} * from Articles a2 join ArticleCategories ac2 on a2.ArticleCategoryId=ac2.Id  where a2.Id not in 
-                (select top {0} a3.Id from Articles a3 join ArticleCategories ac3 join a3.ArticleCategoryId=ac3.Id where a3.ArticleCategoryId=:ArticleCategoryId 
+                select * from (select top {1} a2.* from Articles a2 join ArticleCategories ac2 on a2.ArticleCategoryId=ac2.Id  where a2.Id not in 
+                (select top {0} a3.Id from Articles a3 join ArticleCategories ac3 on a3.ArticleCategoryId=ac3.Id where a3.ArticleCategoryId=:ArticleCategoryId 
                 and a3.IsDelete=0 and a3.IsShow=1 and ac3.UnitId=:UnitId  ) and a2.IsDelete=0 and a2.IsShow=1 Order by a2.DateOfCreate Desc) as t2", picTopN, normalTopN))
                 .AddEntity(typeof(Article))
                 .SetGuid("UnitId", unitId)
@@ -97,7 +97,7 @@ namespace NPC.Domain.Repository
         public IList<Article> GetTopN(Guid unitId, Guid categoryId, int topN)
         {
             return Session.CreateSQLQuery(string.Format(@"select top {0} * from Articles a join ArticleCategories ac on a.ArticleCategoryId=ac.Id 
-                where a.ArticleCategoryId=:ArticleCategoryId and a.IsDelete=0  and a.IsShow=1 Order by a.DateOfCreate Desc", topN))
+                where a.ArticleCategoryId=:ArticleCategoryId and a.IsDelete=0  and a.IsShow=1 and ac.UnitId=:UnitId  Order by a.DateOfCreate Desc", topN))
                 .AddEntity(typeof(Article))
                 .SetGuid("UnitId", unitId)
                 .SetGuid("ArticleCategoryId", categoryId)
@@ -108,7 +108,7 @@ namespace NPC.Domain.Repository
         {
             return Session.CreateSQLQuery(string.Format(@"select top {0} * from Articles a join ArticleCategories ac on a.ArticleCategoryId=ac.Id 
                 where a.ArticleCategoryId=:ArticleCategoryId 
-                and a.IsDelete=0 and a.UrlOfCoverImage is not Null and a.IsShow=1 Order by a.DateOfCreate Desc", topN))
+                and a.IsDelete=0 and a.UrlOfCoverImage is not Null and a.IsShow=1 and ac.UnitId=:UnitId Order by a.DateOfCreate Desc", topN))
                 .AddEntity(typeof(Article))
                 .SetGuid("UnitId", unitId)
                 .SetGuid("ArticleCategoryId", categoryId)

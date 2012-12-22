@@ -3,50 +3,19 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>平湖人大互动平台</title>
-    <link href="css/global.css" type="text/css" rel="stylesheet">
-    <link href="css/js.css" type="text/css" rel="stylesheet">
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/ifocus.js" type="text/javascript"></script>
+    <link href="@Url.Content("~/css/global.css")" type="text/css" rel="stylesheet">
+    <link href="@Url.Content("~/css/js.css")" type="text/css" rel="stylesheet"/>
+    <script src="@Url.Content("~/js/jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>
 </head>
 <body>
-    <div class="top">
-        <div class="banner">
-            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
-                width="998" height="170">
-                <param name="movie" value="/images/logo.swf">
-                <param name="quality" value="high">
-                <param name="wmode" value="Opaque">
-                <embed src="img/banner.swf" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
-                    type="application/x-shockwave-flash" width="998" height="170">
-            </object>
-        </div>
-        <div class="menu">
-            <ul>
-                <li><a href="index.html">首 页</a></li>
-                <li><a href="list-intro.html">人大概况 </a></li>
-                <li><a href="list-3th.html">人大三会 </a></li>
-                <li><a href="list-bref.html">人大要闻 </a></li>
-                <li><a href="list-advice.html">议案建议 </a></li>
-                <li><a href="list-leader.html">领导讲话 </a></li>
-                <li><a href="list-work.html">代表工作 </a></li>
-                <li><a href="list-look.html">代表风采 </a></li>
-                <li><a href="list-basic.html">基层人大</a></li>
-                <li><a href="list-supervise.html">监督之窗 </a></li>
-                <li><a href="list-invest.html">调查研究 </a></li>
-                <li><a href="list-rule.html">规章制度 </a></li>
-                <li><a href="list-vote.html">选举任免 </a></li>
-                <li><a href="list-build.html">自身建设 </a></li>
-                <li style="background: none;"><a href="list-paper.html">手机报</a></li>
-            </ul>
-        </div>
-    </div>
+  
+    @Html.Action("Header", "Home")
     <div class="layout">
         @RenderBody()
     </div>
     <div class="clear">
     </div>
-    <div class="footer">
-        电话:0573-85060737 邮箱地址:rendaban@pinghu.gov.cn
-    </div>
+    @Html.Action("Footer", "Home")
 </body>
 </html>

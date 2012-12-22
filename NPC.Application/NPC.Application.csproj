@@ -90,7 +90,9 @@
     <Compile Include="MianModels\Homes\DetailModel.cs" />
     <Compile Include="MianModels\Homes\IndexModel.cs" />
     <Compile Include="MianModels\Homes\ListModel.cs" />
+    <Compile Include="MianModels\Homes\RecordsModel.cs" />
     <Compile Include="MianModels\PagerModel.cs" />
+    <Compile Include="MianModels\SideBarModel.cs" />
     <Compile Include="NodeAction.cs" />
     <Compile Include="NodeRecordAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

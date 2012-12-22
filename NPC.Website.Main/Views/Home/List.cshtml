@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "List";
+}
+@using NPC.Application.MianModels
+@model NPC.Application.MianModels.Homes.ListModel
+<div class="main2">
+    @Html.Action("SideBar", "Home")
+    <div class="list-right">
+        <div class="title">
+            <div class="title-name">@Model.ListTitle</div>
+        </div>
+        <div class="clear"></div>
+        <ul>
+            @foreach (var article in Model.Articles)
+            { 
+                <li><a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.Title</a></li>
+            }
+        </ul>
+        @Html.Partial("_Pager", new PagerModel { Pagination = Model.ArticleQueryItem.Pagination })
+    </div>
+</div>

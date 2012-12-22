@@ -1,0 +1,19 @@
+﻿@model   NPC.Application.MianModels.PagerModel
+<div class="page">
+    @if (!Model.Pagination.IsFirstpage)
+    {
+        <a href="@Model.PageUrl(Model.Pagination.PageIndex - 1)">下一页 </a> 
+    }
+    @if (!Model.Pagination.IsLastPage)
+    {
+        <a href="@Model.PageUrl(Model.Pagination.PageIndex + 1)">下一页 </a> 
+    }
+    @if (!Model.Pagination.IsFirstpage)
+    {
+        <a href="@Model.PageUrl(1)">首页</a>
+    }
+    @if (Model.Pagination.TotalPage > 0)
+    {
+        @Html.Raw("共" + Model.Pagination.TotalPage + "页 &nbsp;&nbsp; ")
+    }
+</div>
