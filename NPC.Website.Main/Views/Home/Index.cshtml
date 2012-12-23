@@ -137,12 +137,12 @@
                     {@(Model.ViceDirectorsNode.Name.Trim())}
                 </div>
             </div>
-            <ul class="pic-slide jcarousel-skin-viceDirectors" id="viceDirectors">
+            <ul class="pic-slide jcarousel-skin-viceDirectors" id="viceDirectors" style="height: 110px;margin-top: 2px;">
                 @foreach (var nodeRecord in Model.ViceDirectors)
                 {
                     <li>
-                        <a href="#" target="_blank">
-                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" style="width: 152px;height: 98px;" class="Directors" />
+                        <a href="@nodeRecord.RecordLink" target="_blank">
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" style="width: 152px;height: 98px;" class="Directors" />@*<div class="word">@nodeRecord.FirstTitle</div>*@
 
                         </a>
                     </li>
@@ -509,7 +509,7 @@
         });
         jQuery('#viceDirectors').jcarousel({
             scroll: 1,
-            auto: 5,
+            auto: 8,
             wrap: 'circular'
             //initCallback: mycarousel_initCallback
         });
