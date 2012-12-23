@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 /*index*/
 body{margin:0 auto;width:998px;color:#464646;font-size:12px;}
@@ -46,7 +46,8 @@ ul{margin:0px;padding:0px;}
 .layout .main2 .left .director .pic{text-align: center;margin:8px auto 3px auto;width:152px;height:98px;border:1px solid #ccc;}
 .layout .main2 .left .director .pic-slide{list-style: none;}
 .layout .main2 .left .director p{text-align: center;margin:0px auto 5px auto;}
-.layout .main2 .left .director .pic-slide{width:152px;height:98px;border:1px solid #ccc;text-align: center;margin:8px auto;}
+.layout .main2 .left .director .pic-slide{width:152px;height:108px;text-align: center;margin:8px 15px; }
+.layout .main2 .left .director .pic-slide li{ border:1px solid #ccc;text-align: center;margin:15px auto;}
 .layout .main2 .left .committee{height:176px;width:194px;border:1px solid #ccc;float:left;clear:both;overflow:hidden;}
 .layout .main2 .left .committee .title{border-bottom:1px solid #ccc;background:#cc0000;padding:5px 13px;}
 .layout .main2 .left .committee .title-name{font-weight:bold;display:inline;color:#fff;}
@@ -112,8 +113,7 @@ ul{margin:0px;padding:0px;}
 .layout .main4 .block-right .block-right-top .title .title-name{color:#fff;background:#cc0000;font-weight:bold;padding:0px 25px;float:left;display:block;}
 .layout .main4 .block-right .block-right-top .title .more{float:left;margin-left:199px;*margin-left:197px;display:inline;margin-right:9px;}
 .layout .main4 .block-right .block-right-top .elegant{padding:8px 30px;list-style: none;}
-.layout .main4 .block-right .block-right-top .elegant li{display:inline;position:relative;}
-.layout .main4 .block-right .block-right-top .elegant img{width:291px;height:130px;}
+.layout .main4 .block-right .block-right-top .elegant li{display:inline;position:relative;text-align: center;margin: 8px auto 3px auto;border: 1px solid #CCC;}
 .layout .main4 .block-right .block-right-bottom{border:1px solid #ccc;border-top:none;width:352px;height:111px;overflow:hidden;}
 .layout .main4 .block-right .block-right-bottom .title {border-bottom:1px solid #ccc;border-left:3px solid #740000;float:left;line-height:24px;background:#cc0000;width:350px;}
 .layout .main4 .block-right .block-right-bottom .title .title-name{color:#fff;font-weight:bold;padding:0px 15px;float:left;}

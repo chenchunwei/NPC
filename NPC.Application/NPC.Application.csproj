@@ -63,6 +63,10 @@
     <Compile Include="Contexts\NpcMainWebContext.cs" />
     <Compile Include="DepartmentAction.cs" />
     <Compile Include="IndexAction.cs" />
+    <Compile Include="MainTownModels\FooterModel.cs" />
+    <Compile Include="MainTownModels\HeaderModel.cs" />
+    <Compile Include="MainTownModels\Homes\IndexModel.cs" />
+    <Compile Include="ManageHomeAction.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
     <Compile Include="ManageModels\Articles\ArticleEditModel.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentListModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
+    <Compile Include="ManageModels\LoginModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModelFormData.cs" />
     <Compile Include="ManageModels\NodeRecords\NodeRecordListModel.cs" />
@@ -91,7 +96,7 @@
     <Compile Include="MianModels\Homes\IndexModel.cs" />
     <Compile Include="MianModels\Homes\ListModel.cs" />
     <Compile Include="MianModels\Homes\RecordsModel.cs" />
-    <Compile Include="MianModels\PagerModel.cs" />
+    <Compile Include="CommonModels\PagerModel.cs" />
     <Compile Include="MianModels\SideBarModel.cs" />
     <Compile Include="NodeAction.cs" />
     <Compile Include="NodeRecordAction.cs" />

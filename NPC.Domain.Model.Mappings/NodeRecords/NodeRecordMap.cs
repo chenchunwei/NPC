@@ -12,10 +12,10 @@ namespace NPC.Domain.Model.Mappings.NodeRecords
        public NodeRecordMap()
        {
            Id(o => o.Id).GeneratedBy.GuidComb();
-           Map(o => o.FirstContent);
+           Map(o => o.FirstContent).CustomType("StringClob").CustomSqlType("varchar(max)"); ;
            Map(o => o.FirstImage);
            Map(o => o.FirstTitle);
-           Map(o => o.SecondContent);
+           Map(o => o.SecondContent).CustomType("StringClob").CustomSqlType("varchar(max)"); ;
            Map(o => o.SecondImage);
            Map(o => o.SecondTitle);
            Map(o => o.IsShow);

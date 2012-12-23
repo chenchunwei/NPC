@@ -69,19 +69,12 @@ namespace NPC.Application
                 ParentUint = model.Id.HasValue ? _unitRepository.Find(model.Id.Value) : null
             };
             _unitRepository.Save(unit);
-            var department = new Department()
-            {
-                Name = "人民代表大会",
-                Unit = unit
-            };
-            _departmentRepository.Save(department);
             var user = new User()
             {
                 Account = "admin",
                 Name = "管理员",
                 Pwd = MD5Utility.GetMD5HashCode("admin"),
-                Unit = unit,
-                Department = department
+                Unit = unit
             };
             _userRepository.Save(user);
         }

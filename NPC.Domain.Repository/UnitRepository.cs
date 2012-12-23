@@ -26,5 +26,10 @@ namespace NPC.Domain.Repository
                 .SetParameterList("ids", unitIds)
                 .List<Unit>();
         }
+        public IEnumerable<Unit> GetAllUnits()
+        {
+            return Session.CreateQuery("from Unit Where RecordDescription.IsDelete=0")
+             .List<Unit>();
+        }
     }
 }

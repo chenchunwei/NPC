@@ -82,6 +82,9 @@
     <Content Include="Content\css\skin2\next-horizontal.gif" />
     <Content Include="Content\css\skin2\prev-horizontal.gif" />
     <Content Include="Content\css\skin2\skin2.css" />
+    <Content Include="Content\css\skin3\next-horizontal.gif" />
+    <Content Include="Content\css\skin3\prev-horizontal.gif" />
+    <Content Include="Content\css\skin3\skin.css" />
     <Content Include="Content\next-horizontal.gif" />
     <Content Include="Content\prev-horizontal.gif" />
     <Content Include="css\global.css" />
@@ -117,6 +120,7 @@
     <Content Include="img\interval.jpg" />
     <Content Include="img\liren.jpg" />
     <Content Include="img\liuyaoming.jpg" />
+    <Content Include="img\logo.jpg" />
     <Content Include="img\news.jpg" />
     <Content Include="img\paper1.jpg" />
     <Content Include="img\paper2.jpg" />
@@ -137,6 +141,7 @@
     <Content Include="js\jquery-1.7.2.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.slider.js" />
+    <Content Include="Scripts\jquery.ae.image.resize.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

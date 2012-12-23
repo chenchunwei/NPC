@@ -1,54 +1,79 @@
-ï»¿@{
+@{
     Layout = null;
 }
+@model NPC.Application.ManageModels.LoginModel 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>å¹³æ¹–äººå¤§åœ¨çº¿ç³»ç»Ÿç®¡ç†å¹³å°</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>Æ½ºşÈË´óÔÚÏßÏµÍ³¹ÜÀíÆ½Ì¨</title>
     <link href="@Url.Content("~/Content/login.css")" type="text/css" rel="stylesheet" />
 </head>
 <body>
+     
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")" language="javascript"></script>
     <form action="?urlReferrer=@(Url.Encode(ViewBag.Referrer))&cmd=login" method="POST" style="margin: 0; padding: 0" id="loginForm">
-    <div class="login_content">
-        <div class="center">
-            <div class="logo">
-            </div>
-            <div class="name_code">
-                <label for="usernameID">
-                    ç”¨æˆ·å</label>
-                <p id="accountErr" style="display: none">
-                    ç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼</p>
-                <input align="absmiddle" name="account" type="text" id="account" />
-            </div>
-            <div class="name_code">
-                <label for="usernameID">
-                    å¯† &nbsp ç 
-                </label>
-                <p id="passwordErr" style="display: none">
-                    å¯†ç ä¸èƒ½ä¸ºç©º ï¼</p>
-                <input align="absmiddle" name="password" type="password" id="password" />
-            </div>
-            <div class="clear">
-            </div>
-            @if (!string.IsNullOrEmpty(ViewBag.Message))
-            {
-                <div class="login_error">
-                    @ViewBag.Message
+        <div class="login_content">
+            <div class="center">
+                <div class="logo">
                 </div>
-            }
-            <div class="login_btn">
-                @*<a href="#" class="f_code" style="font-color:white">å¿˜è®°å¯†ç </a>*@ <a href="javascript:login()">
-                    ç™» å½•</a></div>
+                <div class="name_code">
+                    <label for="unitId">
+                        ×é&nbsp;&nbsp;Ö¯</label>
+                    <p id="unitErr" style="display: none">
+                        ÇëÑ¡Ôñ×éÖ¯£¡
+                    </p>
+                    <select id="unitId" name="extension" align="absmiddle" class="select">
+                        <option value="">ÇëÑ¡Ôñ×éÖ¯</option>
+                        @foreach (var unit in Model.UnitOptions)
+                        {
+                            <option value="@unit.Key">@unit.Value</option>
+                            
+                        }
+                    </select>
+                </div>
+                <div class="name_code">
+                    <label for="account">
+                        ÓÃ»§Ãû</label>
+                    <p id="accountErr" style="display: none">
+                        ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡
+                    </p>
+                    <input align="absmiddle" name="account" type="text" id="account" />
+                </div>
+                <div class="name_code">
+                    <label for="usernameID">
+                        ÃÜ&nbsp;&nbsp;Âë
+                    </label>
+                    <p id="passwordErr" style="display: none">
+                        ÃÜÂë²»ÄÜÎª¿Õ £¡
+                    </p>
+                    <input align="absmiddle" name="password" type="password" id="password" />
+                </div>
+                <div class="clear">
+                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="login_error">
+                        @ViewBag.Message
+                    </div>
+                }
+                <div class="login_btn">
+                    @*<a href="#" class="f_code" style="font-color:white">Íü¼ÇÃÜÂë</a>*@ <a href="javascript:login()">µÇ Â¼</a>
+                </div>
+            </div>
+            <div class="right">
+            </div>
         </div>
-        <div class="right">
-        </div>
-    </div>
     </form>
     <script type="text/javascript">
         function login() {
             var account = document.getElementById("account").value;
             var password = document.getElementById("password").value;
+            var unitIdVal = $("#unitId").val();
+            if (unitIdVal.length == 0) {
+                document.getElementById("unitErr").style.display = '';
+                return;
+            }
             if (account.length == 0) {
                 document.getElementById("accountErr").style.display = '';
                 return;

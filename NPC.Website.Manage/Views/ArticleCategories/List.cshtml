@@ -97,12 +97,10 @@
             $("#newWin").window("close");
         });
         $("#newTopNode").click(function () {
-            $("#Id").val();
-            $('#newWin').window('open');
-            $("#newForm")[0].reset();
+            append(true);
         });
         $("#newNode").click(function () {
-            append();
+            append(false);
         });
     });
     function onContextMenu(e, row) {
@@ -113,12 +111,13 @@
             top: e.pageY
         });
     }
-    function append() {
+    function append(isTop) {
         var node = $('#treegrid').treegrid('getSelected');
-        if (node != null) {
+        if (node != null && !isTop) {
             $("#Id").val(node.id);
         }
         $('#newWin').window('open');
+        $("#newForm")[0].reset();
     }
     function remove() {
         var node = $('#treegrid').treegrid('getSelected');

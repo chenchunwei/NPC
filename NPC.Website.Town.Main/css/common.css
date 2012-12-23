@@ -1,0 +1,155 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+body,h1, h2, h3, th, ul, ol, li, dl, dd, dt, label, div, span {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color:#646464;
+	line-height:160%;
+}
+p {
+	line-height:22px;
+	padding:0;
+	text-indent:2em;}
+ul, li {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+ol{
+	background-image:url(../img/dot_green.gif);
+	background-repeat: no-repeat;
+	background-position: left center;
+	text-indent:15px;
+	margin-left:20px;
+}
+img{ border:0;}
+h1,h2,h3,h4,h5,h6{ padding:0; margin:0;}
+/*--------font------------------------*/
+A:link {
+	color:#005a86;
+	text-decoration: none;
+}
+A:visited {
+	color: #005a86;
+	text-decoration: none;
+}
+A:active {
+	color: #005a86;
+	text-decoration: none;
+}
+A:hover {
+	color: #be0000;
+	text-decoration: underline;
+
+}
+.red {
+	color:#990000;
+	font-size: 20px;
+	font-weight: bold;
+	line-height:180%;
+}
+.red14 {
+	color:#990000;
+	font-size:14px;
+	font-weight:bold;
+}
+.fontgreen {
+	color:#009900;
+	font-size:14px;
+	font-weight:bold;
+}
+.fontgreen12 {
+	color:#009900;
+	font-size:12px;
+	font-weight:bold;
+}
+.font_b {
+	font-weight:bold;
+}
+.blue {
+	color:#2d80b6;
+}
+.menu {
+	color:#0053a5;
+	font-size:14px;
+}
+.yellow {
+	color:#FF6600;
+	font-weight:bold;
+}
+.blue_b {
+	color:#1d63c3;
+	font-weight:bold;
+	font-size:14px;
+}
+.black_b {
+	color:#000;
+	font-weight:bold;
+	font-size:14px;
+}
+.font14b{font-size:14px; font-weight:bold;}
+.white14b {
+	color:white;
+	font-size:14px;
+	font-weight:bold;
+}
+.white {
+	color:#ffffff;
+}
+A.white:link {
+	COLOR: #ffffff;
+	TEXT-DECORATION: none
+}
+A.white:active {
+	COLOR: #ffffff;
+	TEXT-DECORATION: none
+}
+A.white:visited {
+	COLOR: #ffffff;
+	TEXT-DECORATION: none;
+}
+A.white:hover {
+	COLOR: #ffffff;
+	TEXT-DECORATION: underline;
+}
+.font12{ color:#333; font-size:12px; line-height:180%;}
+.red12{ color:#900; font-size:12px;}
+/*--------input------------------------*/
+
+input {	border: 1px solid #999;
+	color: #000000;
+}
+input.radio {
+	background: transparent;
+	border: 0px;
+}
+input.checkbox {
+	background: transparent;
+	border: 0px;
+}
+textarea {
+	border: 1px solid #999;
+	color: #000000;
+	padding:5px;
+}
+form {
+	padding:1px; margin:4px;
+}
+select {
+	background: #F4F8FD;
+	border:1px solid #4b6286;
+	color: #000000;
+	position:relative;
+	top:-2px;
+	left:-1px;
+	height:20px;
+	overflow: visible;
+}
+input.button {
+	border:1px solid #1f78bf;
+	height:20px;
+}
+
+.form_btn{ background-color:#060; color:#FFF; font-weight:bold; border: solid #360 1px;}

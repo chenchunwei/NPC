@@ -17,21 +17,30 @@ namespace NPC.Application
         {
             _userRepository = new UserRepository();
         }
-        public UserInHttpMoudle Authencation(string account, string password)
+        public UserInHttpMoudle Authencation(string account, string password, string extension)
         {
-            var user = _userRepository.FindByAccount(account);
+            if (string.IsNullOrEmpty(extension))
+                return null;
+            var unitId = Guid.Parse(extension);
+            var user = _userRepository.FindByAccount(account, unitId);
             return new User() { Account = user.Account, Pwd = user.Pwd, Id = user.Id };
         }
 
-        public UserInHttpMoudle GetAuthencationUser(string account, string password)
+        public UserInHttpMoudle GetAuthencationUser(string account, string password, string extension)
         {
-            var user = _userRepository.FindByAccountAndPwd(account, password);
+            if (string.IsNullOrEmpty(extension))
+                return null;
+            var unitId = Guid.Parse(extension);
+            var user = _userRepository.FindByAccountAndPwd(account, password, unitId);
             return new User() { Account = user.Account, Pwd = user.Pwd, Id = user.Id };
         }
 
-        public UserInHttpMoudle GetAuthencationUser(string account)
+        public UserInHttpMoudle GetAuthencationUser(string account, string extension)
         {
-            var user = _userRepository.FindByAccount(account);
+            if (string.IsNullOrEmpty(extension))
+                return null;
+            var unitId = Guid.Parse(extension);
+            var user = _userRepository.FindByAccount(account, unitId);
             return new User() { Account = user.Account, Pwd = user.Pwd, Id = user.Id };
         }
     }

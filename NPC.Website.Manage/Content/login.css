@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 body{ background:#a9c4e8;color: #464646;font-family: "微软雅黑",Helvetica,Arial,sans-serif;font-size: 12px; line-height: 18px;margin: 0px;}
 .login_content{ background: url(images/center_bg.jpg) center no-repeat scroll ; height: 100%; min-height:595px; position: relative;}
@@ -6,8 +6,9 @@ body{ background:#a9c4e8;color: #464646;font-family: "微软雅黑",Helvetica,Ar
 .logo{background:url(images/logo.jpg) 50% 50% no-repeat;width:382px;height:46px;}
 .right{background:url(images/corner.jpg) top right ;width:186px;height:221px;float:right;}
 .name_code{color:#447a9a;height:24px;line-height:24px;font-size:24px;vertical-align: middle;margin-top:20px;float:left;}
-.name_code label{float:left;font-size:14px;line-height:14px;vertical-align:middle;width:66px;}
+.name_code label{float:left;font-size:14px;line-height:28px;vertical-align:middle;width:66px;}
 .name_code input{float:left;width: 290px;height:22px;line-height:20px;font-size:12px;border: 1px solid #79a8bd;padding:2px;vertical-align: middle;}
+.name_code .select{float:left;width: 290px;height:28px;line-height:28px;font-size:12px;border: 1px solid #79a8bd;padding:2px;vertical-align: middle;}
 .name_code p{float:right;color:#fff;font-size:12px;height:22px;margin: auto auto 7px 7px; }
 .clear{clear:both;}
 

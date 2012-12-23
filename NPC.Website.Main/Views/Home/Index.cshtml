@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "@Model.Unit.Name";
 }
+<link href="@Url.Content("~/content/css/skin1/skin.css")" type="text/css" rel="stylesheet">
+<link href="@Url.Content("~/content/css/skin2/skin2.css")" type="text/css" rel="stylesheet">
+<link href="@Url.Content("~/content/css/skin3/skin.css")" type="text/css" rel="stylesheet">
+<script src="@Url.Content("~/Scripts/jquery.jcarousel.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ae.image.resize.min.js")" type="text/javascript"></script>
 <div class="main1">
     <div class="focus">
         <div id="ifocus">
@@ -53,8 +58,10 @@
     </div>
     <ul class="news">
         <div class="title">
-            <div class="title-name">@if (Model.NewsNode != null)
-                                    {@(Model.NewsNode.Name.Trim())}</div>
+            <div class="title-name" style="width: 60px; float: left; overflow: hi;">
+                @if (Model.NewsNode != null)
+                {@(Model.NewsNode.Name.Trim())}
+            </div>
             <div class="more">
                 @if (Model.NewsNode != null)
                 {
@@ -111,7 +118,7 @@
             <div class="pic">
                 @if (Model.Directors.Any())
                 {
-                    <img src="/Manage/Attachments/@Model.Directors.First().FirstImage" alt="@Model.Directors.First().FirstTitle" title="@Model.Directors.First().FirstTitle" style="width: 152px;height: 98px;" />
+                    <img src="/Manage/Attachments/@Model.Directors.First().FirstImage" alt="@Model.Directors.First().FirstTitle" title="@Model.Directors.First().FirstTitle" style="width: 152px;height: 98px;" class="Directors" />
                 }
 
             </div>
@@ -122,6 +129,7 @@
                 }
             </p>
         </div>
+
         <div class="director" style="height: 140px;">
             <div class="title">
                 <div class="title-name">
@@ -129,16 +137,19 @@
                     {@(Model.ViceDirectorsNode.Name.Trim())}
                 </div>
             </div>
-            <ul class="pic-slide">
-                <div id="slideshow" rel="auto-play">
-                    <a href="#" target="_blank">
-                        <img src="img/liuyaoming.jpg" /><div class="word">
-                            刘耀明
-                        </div>
-                    </a>
-                </div>
+            <ul class="pic-slide jcarousel-skin-viceDirectors" id="viceDirectors">
+                @foreach (var nodeRecord in Model.ViceDirectors)
+                {
+                    <li>
+                        <a href="#" target="_blank">
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" style="width: 152px;height: 98px;" class="Directors" />
+
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
+
         <div class="committee">
             <div class="title">
                 <div class="title-name">
@@ -419,7 +430,7 @@
                     }
                     <li>
                         <a href="@nodeRecord.RecordLink" target="_blank">
-                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle"/>
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" class="NpcPics"/>
                             <div class="word2">
                                 @MyString.SubString(nodeRecord.FirstTitle, 16, "")
                             </div>
@@ -456,7 +467,7 @@
                         @linkNode.Name
                     </div>
                     <form>
-                        <select onchange="javascript:if(this.value!=''){window.open(this.value);}">
+                        <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
                             <option>请选择</option>
                             @foreach (var nodeRecord in linkNode.NodeRecords)
                             {
@@ -479,3 +490,43 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $(".Directors").aeImageResize({ width: 152, height: 98 });
+    });
+    $(function () {
+        $(".NpcPics").aeImageResize({ width: 290, height: 130 });
+    });
+    jQuery(document).ready(function () {
+        jQuery('#elegant').jcarousel({
+            scroll: 1,
+            wrap: 'circular'
+        });
+        jQuery('#mycarousel').jcarousel({
+            auto: 3,
+            wrap: 'circular',
+            initCallback: mycarousel_initCallback
+        });
+        jQuery('#viceDirectors').jcarousel({
+            scroll: 1,
+            auto: 5,
+            wrap: 'circular'
+            //initCallback: mycarousel_initCallback
+        });
+    });
+
+    function mycarousel_initCallback(carousel) {
+        carousel.buttonNext.bind('click', function () {
+            carousel.startAuto(0);
+        });
+        carousel.buttonPrev.bind('click', function () {
+            carousel.startAuto(0);
+        });
+        carousel.clip.hover(function () {
+            carousel.stopAuto();
+        }, function () {
+            carousel.startAuto();
+        });
+    };
+
+</script>

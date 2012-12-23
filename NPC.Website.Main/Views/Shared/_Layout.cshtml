@@ -7,9 +7,15 @@
     <link href="@Url.Content("~/css/js.css")" type="text/css" rel="stylesheet"/>
     <script src="@Url.Content("~/js/jquery.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ae.image.resize.min.js")" type="text/javascript"></script>
 </head>
 <body>
-  
+    <script type="text/JavaScript">
+        function MM_jumpMenu(targ, selObj, restore) {
+            eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value + "'");
+            if (restore) selObj.selectedIndex = 0;
+        }
+    </script>
     @Html.Action("Header", "Home")
     <div class="layout">
         @RenderBody()

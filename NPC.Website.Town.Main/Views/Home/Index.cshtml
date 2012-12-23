@@ -1,0 +1,660 @@
+﻿@using Fluent.Infrastructure.Utilities
+@model  NPC.Application.MainTownModels.Homes.IndexModel 
+@{
+    ViewBag.Title = @Model.Unit.Name;
+}
+<tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="10">
+            <tbody>
+                <tr>
+                    <td valign="top" width="169">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td bgcolor="#AF0001">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                        @if (Model.ChairmansModuleNode != null)
+                                                        {
+                                                            @Html.Raw(Model.ChairmansModuleNode.Name)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw("主席团人员");
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" class="leftTop" height="229" align="left">
+                                                        <ul>
+                                                            @if (Model.ChairmansNode != null)
+                                                            {
+                                                                <li>&nbsp;&nbsp;&nbsp;
+                                                                    
+                                                                    <font color="#be0000"><b>@Model.ChairmansNode.Name：</b></font>
+                                                                    @if (Model.Chairmans.Any())
+                                                                    {
+                                                                        @Html.Raw("&nbsp; &nbsp;" + Model.Chairmans.First().FirstTitle) 
+                                                                    }
+
+                                                                </li>
+                                                            }
+
+                                                            @if (Model.ViceChairmanNode != null)
+                                                            {
+                                                                <li>&nbsp;
+                                                                    <font color="#be0000"><b>@Model.ViceChairmanNode.Name：</b></font>
+                                                                    @foreach (var viceChairman in Model.ViceChairmans)
+                                                                    {
+                                                                        @Html.Raw("&nbsp; &nbsp;" + viceChairman.FirstTitle) 
+                                                                    }
+                                                                </li>
+                                                            }
+                                                            @if (Model.ChairmanMembersNode != null)
+                                                            {
+                                                                <li>&nbsp;<font color="#be0000"><b>@Model.ChairmanMembersNode.Name：</b></font>&nbsp;&nbsp;&nbsp; 
+                                                            </li>
+                                                            }
+                                                            @{
+                                                                var indexOfChairmanMembers = 0;
+                                                                var countOfChairmanMembers = 1;
+                                                            }
+                                                            @foreach (var chariman in Model.ChairmanMembers)
+                                                            {
+                                                                if (indexOfChairmanMembers % 2 == 0)
+                                                                {
+                                                                @Html.Raw("<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                                                                }
+                                                                @Html.Raw("&nbsp; &nbsp;" + chariman.FirstTitle)
+                                                                if (countOfChairmanMembers == 2)
+                                                                {
+                                                                @Html.Raw("</li>")
+                                                                    countOfChairmanMembers = 0;
+                                                                }
+                                                                indexOfChairmanMembers++;
+                                                                countOfChairmanMembers++;
+                                                            }
+                                                        </ul>
+                                                        <br>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </td>
+                    <td width="577" valign="top">
+                        <div id="announcement">
+                            <marquee direction="left" behavior="scoll" onmouseover="this.stop()" onmouseout="this.start()">
+                                @if (Model.LatestAttentionsNode != null)
+                                {
+                                    <b>@Model.LatestAttentionsNode.Name：</b>
+                                    foreach (var nodeRecord in Model.LatestAttentions)
+                                    {
+                                        <a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a>
+                                @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;")
+                                    }
+                                }
+                            </marquee>
+                        </div>
+                        <table width="99%" border="0" cellpadding="0" cellspacing="0" bgcolor="#AF0001">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="37%" align="left" class="toplink">&nbsp;</td>
+                                                                    <td width="63%" align="left" class="toplink">&nbsp;
+                                                                        @if (Model.NewsNode != null)
+                                                                        {
+                                                                            @Model.NewsNode.Name
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.Raw("新闻")
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <div id="picNews">
+                                                                            <div>
+                                                                                图片轮播
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td align="left" valign="top">
+                                                                        <div id="hotList">
+
+                                                                            <div class="newslist">
+                                                                                <ul>
+                                                                                    @foreach (var nodeRecord in Model.News)
+                                                                                    {
+                                                                                        <li>
+                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                    }
+                                                                                </ul>
+                                                                                @if (Model.NewsNode != null && Model.NewsNode.OuterCategoryId.HasValue)
+                                                                                {
+                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                }
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td width="184" valign="top">
+                        <form action="/Home/List" method="get">
+                            <input name="keyword" type="text" size="15" maxlength="10">
+                            <input type="submit" value="查询">
+                        </form>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td bgcolor="#AF0001">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                        @if (Model.NoticesNode != null)
+                                                        {
+                                                            @Html.Raw(Model.NoticesNode.Name)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.Raw("公告通知")
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" height="207" valign="top" align="center">
+                                                        <marquee direction="up" behavior="scoll" onmouseover="this.stop()" onmouseout="this.start()">
+                                                             <div id="hotList">
+                                                                       <ul>
+                                                                           @foreach (var nodeRecord in Model.Notices)
+                                                                           {
+                                                                               <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                           }
+                                                                       </ul>
+                                                            </div>
+                                                        </marquee>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td bgcolor="#AF0001">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                        @(Model.StudySectionNode != null ? Html.Raw(Model.StudySectionNode.Name) : Html.Raw("学习园地"))
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td bgcolor="#FFFFFF" class="newslist0" align="left" height="448" valign="top">
+                                                        @if (Model.StudyMaterialsNode != null)
+                                                        {
+                                                            @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;") 
+                                                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.StudyMaterialsNode.OuterCategoryId" target="_blank">
+                                                                <font color="#be0000"><b> @Model.StudyMaterialsNode.Name</b></font>
+                                                            </a>
+                                                            
+                                                            <ul>
+                                                                @foreach (var nodeRecord in Model.StudyMaterials)
+                                                                {
+                                                                    <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                }
+                                                            </ul>
+                                                        }
+
+
+
+                                                        @if (Model.ReferFilesNode != null)
+                                                        {
+                                                            @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;") 
+                                                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.ReferFilesNode.OuterCategoryId" target="_blank">
+                                                                <font color="#be0000"><b> @Model.ReferFilesNode.Name</b></font>
+                                                            </a>
+                                                            
+                                                            <ul>
+                                                                @foreach (var nodeRecord in Model.ReferFiles)
+                                                                {
+                                                                    <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                }
+                                                            </ul>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td valign="top">
+                        <table width="99%" border="0" cellpadding="0" cellspacing="0" bgcolor="#AF0001">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="70%" align="center" valign="top" bgcolor="#FFFFFF" height="127">
+                                                        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left" valign="middle" class="toplink">标题</td>
+                                                                    <td align="left" valign="middle" class="toplink">发表时间</td>
+                                                                    <td align="left" valign="middle" class="toplink">发布人</td>
+                                                                    <td align="left" valign="middle" class="toplink">状态</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </td>
+                                                    <td width="30%" align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
+                                                        <a href="http://ldrd.pinghu.gov.cn/feedback.asp" target="_blank">
+                                                            <img src="img/btn_fbjjjj.jpg" width="108" height="25" border="0"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" bgcolor="#FFFFFF">
+                                                        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="75%" valign="top">
+                                                                        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td align="left" valign="middle" class="toplink">议案建议公开</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left">
+                                                                                        <div id="div">
+
+                                                                                            <div class="newslist">
+                                                                                                <ul>
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=199">关于要求中心幼儿园加快搬迁进度的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=197">关于要求在林埭主干道安装路灯的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=193">关于要求虹林公路同心花苑路口安装探头的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=191">关于要求对联村公路进行硬化的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=190">关于要求对徐家埭村薛家桥至徐东方向的康庄道路进行维修的建议</a></li>
+
+                                                                                                </ul>
+                                                                                                <div align="right"><a href="http://ldrd.pinghu.gov.cn/category.asp?catid=126">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left" valign="middle" class="toplink">议案建议办理</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td align="left">
+                                                                                        <div id="div">
+
+                                                                                            <div class="newslist">
+                                                                                                <ul>
+
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=161">关于要求对祥中新桥进行改造的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=160">关于要求到原陈堰村部通公交车的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=159">关于要求公交车站点延伸到老富庄村部的建议</a></li>
+
+                                                                                                    <li>
+                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=158">加快林埭工业园区道路亮化的建议</a></li>
+
+                                                                                                </ul>
+                                                                                                <div align="right"><a href="http://ldrd.pinghu.gov.cn/category.asp?catid=127">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
+                                                        <a href="http://211.140.23.203/renda/HX_LOGIN.php" target="_blank">
+                                                            <img src="img/btn_rdtdl.jpg" width="108" height="25" border="0"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td valign="top">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td bgcolor="#AF0001">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                        @(Model.HalfMonthlyTalkingsNode != null ? Html.Raw(Model.HalfMonthlyTalkingsNode.Name) : Html.Raw("手机半月谈"))
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
+                                                        <div id="hotList">
+
+                                                            <div class="newslist">
+                                                                <ul>
+                                                                    @foreach (var nodeRecord in Model.HalfMonthlyTalkings)
+                                                                    {
+                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                    }
+                                                                </ul>
+                                                                @if (Model.HalfMonthlyTalkingsNode != null && Model.HalfMonthlyTalkingsNode.OuterCategoryId.HasValue)
+                                                                {
+                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.HalfMonthlyTalkingsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                }
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td bgcolor="#AF0001">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                        @(Model.RegulationsNode != null ? Html.Raw(Model.RegulationsNode.Name) : Html.Raw("规章制度"))
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
+                                                        <div id="hotList">
+
+                                                            <div class="newslist">
+                                                                <ul>
+                                                                    @foreach (var nodeRecord in Model.Regulations)
+                                                                    {
+                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                    }
+                                                                </ul>
+                                                                @if (Model.RegulationsNode != null && Model.RegulationsNode.OuterCategoryId.HasValue)
+                                                                {
+                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.RegulationsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="10">
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        <table width="100%" border="0" cellspacing="8" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td valign="top" width="16%">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#AF0001">
+                                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                        @(Model.NavigationsNode != null ? Html.Raw(Model.NavigationsNode.Name) : Html.Raw("导航栏"))
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF" class="leftTop" valign="top" height="239">
+                                                                        @if (Model.DownloadOfNpcExes.Any())
+                                                                        {
+                                                                            var record = Model.DownloadOfNpcExes.First();
+                                                                            <a href="@record.RecordLink" target="_blank">
+                                                                                <img border="0" src="/Manage/Attachments/@record.FirstImage"/>
+                                                                            </a>
+                                                                        }
+                                                                        @if (Model.NavigationsNode != null)
+                                                                        {
+                                                                            foreach (var node in Model.NavigationsNode.Childrens)
+                                                                            {
+                                                                                <form>
+                                                                            <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
+                                                                                <option selected="" value="">----@node.Name----</option>
+                                                                                 @foreach (var nodeRecord in node.NodeRecords)
+                                                                                 {
+                                                                                   <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
+                                                                                 }                                    
+                                                                            </select></form>
+                                                                            }
+
+                                                                        }
+                                                                        <br>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td valign="top" width="34%">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#AF0001">
+                                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                        @(Model.SuperviseNode != null ? Html.Raw(Model.SuperviseNode.Name) : Html.Raw("监督工作"))
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
+                                                                        <div id="hotList">
+
+                                                                            <div class="newslist">
+                                                                                <ul>
+                                                                                    @foreach (var nodeRecord in Model.Supervises)
+                                                                                    {
+                                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                    }
+                                                                                </ul>
+                                                                                @if (Model.SuperviseNode != null && Model.SuperviseNode.OuterCategoryId.HasValue)
+                                                                                {
+                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td valign="top" width="34%">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#AF0001">
+                                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                        @(Model.NpcWorksNode != null ? Html.Raw(Model.NpcWorksNode.Name) : Html.Raw("代表工作"))
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
+                                                                        <div id="hotList">
+
+                                                                            <div class="newslist">
+                                                                                <ul>
+                                                                                    @foreach (var nodeRecord in Model.NpcWorks)
+                                                                                    {
+                                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                    }
+                                                                                </ul>
+                                                                                @if (Model.NpcWorksNode != null && Model.NpcWorksNode.OuterCategoryId.HasValue)
+                                                                                {
+                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td valign="top" width="16%">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#AF0001">
+                                                        <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle"> @(Model.MembersNode != null ? Html.Raw(Model.MembersNode.Name) : Html.Raw("代表名单"))</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td bgcolor="#FFFFFF" class="leftTop" height="239">
+                                                                       @if (Model.Members.Any())
+                                                                       {
+                                                                           @Html.Raw(Model.Members.First().FirstContent)
+                                                                       }
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">
+                        <table width="99%" border="0" cellpadding="0" cellspacing="0" bgcolor="#AF0001">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="left" class="toplink">@(Model.BottomPicsRollingNode != null ? Html.Raw(Model.BottomPicsRollingNode.Name) : Html.Raw("滚动图片"))</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>//滚动图片栏
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

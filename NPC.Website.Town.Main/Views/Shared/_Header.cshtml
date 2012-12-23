@@ -1,0 +1,26 @@
+﻿@model   NPC.Application.MainTownModels.HeaderModel 
+<tr style="background: url(@Url.Content("~/img/toptitle.jpg")) no-repeat; width: 990px; height: 244px;">
+    <td style="text-align: center; font-size: 48px; font-weight: bold; font-family: 微软雅黑; color: #ffff00;">@Model.Unit.Name</td>
+</tr>
+<tr>
+    <td>
+        <div id="nav">
+            <ul>
+                @{
+                    var countOfMenu = 1; 
+                }
+                @foreach (var nodeRecord in Model.Menus)
+                {
+                    <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                    if (countOfMenu != Model.Menus.Count)
+                    {
+                        <li><img src="@Url.Content("~/img/nav_sp.jpg")"/></li>
+                    }
+                     
+                    countOfMenu++;
+                }
+            </ul>
+        </div>
+    </td>
+</tr>
+

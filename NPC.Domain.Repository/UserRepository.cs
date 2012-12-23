@@ -20,22 +20,25 @@ namespace NPC.Domain.Repository
               .SetParameterList("ids", ids).List<User>();
         }
 
-        public  User FindByAccount(string account)
+        public  User FindByAccount(string account,Guid unitId)
         {
             if (string.IsNullOrEmpty(account))
                 throw new ArgumentNullException(account);
             //HACK:添加Account字段
-            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account").AddEntity(typeof(User)).SetString("account", account.Trim()).UniqueResult<User>();
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and UnitId=:UnitId").AddEntity(typeof(User))
+                .SetGuid("UnitId", unitId)
+                .SetString("account", account.Trim()).UniqueResult<User>();
         }
 
-        public User FindByAccountAndPwd(string account,string pwd)
+        public User FindByAccountAndPwd(string account,string pwd,Guid unitId)
         {
             if (string.IsNullOrEmpty(account))
                 throw new ArgumentNullException(account);
             if (string.IsNullOrEmpty(pwd))
                 throw new ArgumentNullException(pwd);
             //HACK:添加Account字段
-            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and Pwd=:Pwd").AddEntity(typeof(User))
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and Pwd=:Pwd and UnitId=:UnitId").AddEntity(typeof(User))
+                .SetGuid("UnitId", unitId)
                 .SetString("account", account.Trim())
                 .SetString("Pwd", pwd.Trim())
                 .UniqueResult<User>();

@@ -55,7 +55,7 @@
                             <th width="120px;">节点名称：
                             </th>
                             <td>
-                                <input id="FormData_Name" name="FormData.Name" type="text" maxlength="20" />
+                                <input id="FormData_Name" name="FormData.Name" type="text" maxlength="40" />
                                 <input id="Id" name="Id" type="hidden" />
                             </td>
                         </tr>
@@ -63,7 +63,7 @@
                             <th width="120px;">节点编码：
                             </th>
                             <td>
-                                <input id="FormData_Code" name="FormData.Code" type="text" maxlength="20" />
+                                <input id="FormData_Code" name="FormData.Code" type="text" maxlength="40" />
                             </td>
                         </tr>
                     </table>
@@ -315,12 +315,10 @@
             }
         });
         $("#newTopNode").click(function () {
-            $("#Id").val();
-            $('#newWin').window('open');
-            $("#newForm")[0].reset();
+            append(true);
         });
         $("#newNode").click(function () {
-            append();
+            append(false);
         });
     });
     function onContextMenu(e, row) {
@@ -332,12 +330,13 @@
         });
     }
 
-    function append() {
+    function append(isTop) {
         var node = $('#treegrid').treegrid('getSelected');
-        if (node != null) {
+        if (node != null && !isTop) {
             $("#Id").val(node.id);
         }
         $('#newWin').window('open');
+        $("#newForm")[0].reset();
     }
     function remove() {
         var node = $('#treegrid').treegrid('getSelected');
@@ -357,117 +356,117 @@ function addOperator(val, row) {
     return '<a href="javascript:setRelete(\'' + row.id + '\')">设置关联</a>&nbsp;\
              <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
              <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
-    }
-    function setMark(id) {
-        $("#NodeId4Mark").val(id);
-        var row = $("#treegrid").treegrid("find", id);
-        var nodeRecordMark = row["nodeRecordMark"];
-        $("#newSettingForm")[0].reset();
-        if (nodeRecordMark != null) {
-            //链接地址
-            if (!nodeRecordMark.IsRecordLinkHidden) {
-                $("#IsRecordLinkHidden").removeAttr("checked");
-            } else {
-                $("#IsRecordLinkHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsRecordLinkRequired) {
-                $("#IsRecordLinkRequired").removeAttr("checked");
-            } else {
-                $("#IsRecordLinkRequired").attr("checked", "checked");
-            }
-            $("#RecordLinkTitle").val(nodeRecordMark.RecordLinkTitle);
-            $("#RecordLinkTip").val(nodeRecordMark.RecordLinkTip);
-            //第一标题
-            if (!nodeRecordMark.IsFirstTitleHidden) {
-                $("#IsFirstTitleHidden").removeAttr("checked");
-            } else {
-                $("#IsFirstTitleHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsFirstTitleRequired) {
-                $("#IsFirstTitleRequired").removeAttr("checked");
-            } else {
-                $("#IsFirstTitleRequired").attr("checked", "checked");
-            }
-            $("#FisrtTitleTitle").val(nodeRecordMark.FisrtTitleTitle);
-            $("#FirstTitleTip").val(nodeRecordMark.FirstTitleTip);
-
-            //第二标题
-            if (!nodeRecordMark.IsSecondTitleHidden) {
-                $("#IsSecondTitleHidden").removeAttr("checked");
-            } else {
-                $("#IsSecondTitleHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsSecondTitleRequired) {
-                $("#IsSecondTitleRequired").removeAttr("checked");
-            } else {
-                $("#IsSecondTitleRequired").attr("checked", "checked");
-            }
-            $("#SecondTitleTitle").val(nodeRecordMark.SecondTitleTitle);
-            $("#SecondTitleTip").val(nodeRecordMark.SecondTitleTip);
-
-            //第一内容
-            if (!nodeRecordMark.IsFirstContentHidden) {
-                $("#IsFirstContentHidden").removeAttr("checked");
-            } else {
-                $("#IsFirstContentHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsFirstContentRequired) {
-                $("#IsFirstContentRequired").removeAttr("checked");
-            } else {
-                $("#IsFirstContentRequired").attr("checked", "checked");
-            }
-            $("#FirstContentTitle").val(nodeRecordMark.FirstContentTitle);
-            $("#FirstContentTip").val(nodeRecordMark.FirstContentTip);
-
-            //第二内容
-            if (!nodeRecordMark.IsSecondContentHidden) {
-                $("#IsSecondContentHidden").removeAttr("checked");
-            } else {
-                $("#IsSecondContentHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsSecondContentRequired) {
-                $("#IsSecondContentRequired").removeAttr("checked");
-            } else {
-                $("#IsSecondContentRequired").attr("checked", "checked");
-            }
-            $("#SecondContentTitle").val(nodeRecordMark.SecondContentTitle);
-            $("#SecondContentTip").val(nodeRecordMark.SecondContentTip);
-
-            //第一图片
-            if (!nodeRecordMark.IsFirstImageHidden) {
-                $("#IsFirstImageHidden").removeAttr("checked");
-            } else {
-                $("#IsFirstImageHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsFirstImageRequired) {
-                $("#IsFirstImageRequired").removeAttr("checked");
-            } else {
-                $("#IsFirstImageRequired").attr("checked", "checked");
-            }
-            $("#FirstImageTitle").val(nodeRecordMark.FirstImageTitle);
-            $("#FirstImageTip").val(nodeRecordMark.FirstImageTip);
-
-            //第二图片
-            if (!nodeRecordMark.IsSecondImageHidden) {
-                $("#IsSecondImageHidden").removeAttr("checked");
-            } else {
-                $("#IsSecondImageHidden").attr("checked", "checked");
-            }
-            if (!nodeRecordMark.IsSecondImageRequired) {
-                $("#IsSecondImageRequired").removeAttr("checked");
-            } else {
-                $("#IsSecondImageRequired").attr("checked", "checked");
-            }
-            $("#SecondImageTitle").val(nodeRecordMark.SecondImageTitle);
-            $("#SecondImageTip").val(nodeRecordMark.SecondImageTip);
+}
+function setMark(id) {
+    $("#NodeId4Mark").val(id);
+    var row = $("#treegrid").treegrid("find", id);
+    var nodeRecordMark = row["nodeRecordMark"];
+    $("#newSettingForm")[0].reset();
+    if (nodeRecordMark != null) {
+        //链接地址
+        if (!nodeRecordMark.IsRecordLinkHidden) {
+            $("#IsRecordLinkHidden").removeAttr("checked");
+        } else {
+            $("#IsRecordLinkHidden").attr("checked", "checked");
         }
-        $('#settingMarkWin').window('open');
+        if (!nodeRecordMark.IsRecordLinkRequired) {
+            $("#IsRecordLinkRequired").removeAttr("checked");
+        } else {
+            $("#IsRecordLinkRequired").attr("checked", "checked");
+        }
+        $("#RecordLinkTitle").val(nodeRecordMark.RecordLinkTitle);
+        $("#RecordLinkTip").val(nodeRecordMark.RecordLinkTip);
+        //第一标题
+        if (!nodeRecordMark.IsFirstTitleHidden) {
+            $("#IsFirstTitleHidden").removeAttr("checked");
+        } else {
+            $("#IsFirstTitleHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsFirstTitleRequired) {
+            $("#IsFirstTitleRequired").removeAttr("checked");
+        } else {
+            $("#IsFirstTitleRequired").attr("checked", "checked");
+        }
+        $("#FisrtTitleTitle").val(nodeRecordMark.FisrtTitleTitle);
+        $("#FirstTitleTip").val(nodeRecordMark.FirstTitleTip);
+
+        //第二标题
+        if (!nodeRecordMark.IsSecondTitleHidden) {
+            $("#IsSecondTitleHidden").removeAttr("checked");
+        } else {
+            $("#IsSecondTitleHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsSecondTitleRequired) {
+            $("#IsSecondTitleRequired").removeAttr("checked");
+        } else {
+            $("#IsSecondTitleRequired").attr("checked", "checked");
+        }
+        $("#SecondTitleTitle").val(nodeRecordMark.SecondTitleTitle);
+        $("#SecondTitleTip").val(nodeRecordMark.SecondTitleTip);
+
+        //第一内容
+        if (!nodeRecordMark.IsFirstContentHidden) {
+            $("#IsFirstContentHidden").removeAttr("checked");
+        } else {
+            $("#IsFirstContentHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsFirstContentRequired) {
+            $("#IsFirstContentRequired").removeAttr("checked");
+        } else {
+            $("#IsFirstContentRequired").attr("checked", "checked");
+        }
+        $("#FirstContentTitle").val(nodeRecordMark.FirstContentTitle);
+        $("#FirstContentTip").val(nodeRecordMark.FirstContentTip);
+
+        //第二内容
+        if (!nodeRecordMark.IsSecondContentHidden) {
+            $("#IsSecondContentHidden").removeAttr("checked");
+        } else {
+            $("#IsSecondContentHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsSecondContentRequired) {
+            $("#IsSecondContentRequired").removeAttr("checked");
+        } else {
+            $("#IsSecondContentRequired").attr("checked", "checked");
+        }
+        $("#SecondContentTitle").val(nodeRecordMark.SecondContentTitle);
+        $("#SecondContentTip").val(nodeRecordMark.SecondContentTip);
+
+        //第一图片
+        if (!nodeRecordMark.IsFirstImageHidden) {
+            $("#IsFirstImageHidden").removeAttr("checked");
+        } else {
+            $("#IsFirstImageHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsFirstImageRequired) {
+            $("#IsFirstImageRequired").removeAttr("checked");
+        } else {
+            $("#IsFirstImageRequired").attr("checked", "checked");
+        }
+        $("#FirstImageTitle").val(nodeRecordMark.FirstImageTitle);
+        $("#FirstImageTip").val(nodeRecordMark.FirstImageTip);
+
+        //第二图片
+        if (!nodeRecordMark.IsSecondImageHidden) {
+            $("#IsSecondImageHidden").removeAttr("checked");
+        } else {
+            $("#IsSecondImageHidden").attr("checked", "checked");
+        }
+        if (!nodeRecordMark.IsSecondImageRequired) {
+            $("#IsSecondImageRequired").removeAttr("checked");
+        } else {
+            $("#IsSecondImageRequired").attr("checked", "checked");
+        }
+        $("#SecondImageTitle").val(nodeRecordMark.SecondImageTitle);
+        $("#SecondImageTip").val(nodeRecordMark.SecondImageTip);
     }
-    function setRelete(id) {
-        $("#NodeId").val(id);
-        var row = $("#treegrid").treegrid("find", id);
-        $('#relateWin').window('open');
-        $("#ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
+    $('#settingMarkWin').window('open');
+}
+function setRelete(id) {
+    $("#NodeId").val(id);
+    var row = $("#treegrid").treegrid("find", id);
+    $('#relateWin').window('open');
+    $("#ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
         $('#ArticleCategoryId').combotree('setValue', row.categoryId);
     }
     $("#newForm").submit(function () {
@@ -485,19 +484,19 @@ function addOperator(val, row) {
     });
         $("#newRelateForm").submit(function () {
             $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
-            data = evalJson(data);
-            if (data.status == "success") {
-                $("#treegrid").treegrid('reload', $("#Id").val());
-                $("#relateWin").window("close");
-                showSlide("关联设置成功!", 3000);
-            } else {
-                msgHidden("提示信息", data.message, "error");
-            }
+                data = evalJson(data);
+                if (data.status == "success") {
+                    $("#treegrid").treegrid('reload', $("#Id").val());
+                    $("#relateWin").window("close");
+                    showSlide("关联设置成功!", 3000);
+                } else {
+                    msgHidden("提示信息", data.message, "error");
+                }
+            });
+            return false;
         });
-        return false;
-    });
-    $("#newSettingForm").submit(function () {
-        $.post('@Url.Action("SettingNode", "Nodes")', utility.formSerialize($("#newSettingForm")), function (data) {
+        $("#newSettingForm").submit(function () {
+            $.post('@Url.Action("SettingNode", "Nodes")', utility.formSerialize($("#newSettingForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
                 $("#treegrid").treegrid('reload', $("#Id").val());
