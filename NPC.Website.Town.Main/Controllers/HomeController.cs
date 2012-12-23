@@ -42,10 +42,10 @@ namespace NPC.Website.Town.Main.Controllers
             var model = _indexAction.InitializeListModel(viewModel.ArticleQueryItem);
             return View(model);
         }
-        public ActionResult SideBar()
+        public ActionResult RightBar()
         {
-            var model = _indexAction.InitializeSideBarModel();
-            return PartialView("_SideBar", model);
+            var model = _indexAction.InitializeRightBarModel();
+            return PartialView("_RightBar", model);
         }
 
         public ActionResult Records(RecordsModel recordsModel)

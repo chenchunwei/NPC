@@ -154,11 +154,16 @@
     <Content Include="jQueryBanner\jQueryBanner\js\jquery-1.7.2.min.js" />
     <Content Include="jQueryBanner\jQueryBanner\js\jquery.slider.js" />
     <Content Include="js\ifocus.js" />
+    <Content Include="js\jquery-1.4a2.min.js" />
     <Content Include="js\jquery-1.7.2.min.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\jquery.KinSlideshow-1.1.js" />
+    <Content Include="js\jquery.KinSlideshow-1.2.1.min.js" />
     <Content Include="js\jquery.slider.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jquery.ae.image.resize.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
+    <Content Include="Scripts\jquery.marquee.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -217,7 +222,7 @@
     <None Include="Properties\PublishProfiles\NPCMain.pubxml" />
     <Content Include="Views\Home\List.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
-    <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Shared\_RightBar.cshtml" />
     <Content Include="Views\Home\Records.cshtml" />
   </ItemGroup>
   <PropertyGroup>

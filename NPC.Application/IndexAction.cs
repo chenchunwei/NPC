@@ -45,8 +45,6 @@ namespace NPC.Application
             var unitId = NpcMainWebContext.CurrentUnit.Id;
             model.Unit = NpcMainWebContext.CurrentUnit;
             model.BottomPicsRollingNode = _nodeRepository.GetSingleByCode(unitId, "BottomPicsRolling");
-            model.ChairmanMembersNode = _nodeRepository.GetSingleByCode(unitId, "ChairmanMembers");
-            model.ChairmansNode = _nodeRepository.GetSingleByCode(unitId, "Chairmans");
             model.LatestAttentionsNode = _nodeRepository.GetSingleByCode(unitId, "LatestAttentionNode");
             model.ChairmansModuleNode = _nodeRepository.GetSingleByCode(unitId, "ChairmansModule");
             model.DealedProposalsNode = _nodeRepository.GetSingleByCode(unitId, "DealedProposals");
@@ -61,7 +59,6 @@ namespace NPC.Application
             model.StudyMaterialsNode = _nodeRepository.GetSingleByCode(unitId, "StudyMaterials");
             model.StudySectionNode = _nodeRepository.GetSingleByCode(unitId, "StudySection");
             model.SuperviseNode = _nodeRepository.GetSingleByCode(unitId, "Supervise");
-            model.ViceChairmanNode = _nodeRepository.GetSingleByCode(unitId, "ViceChairman");
             model.MembersNode = _nodeRepository.GetSingleByCode(unitId, "Members");
 
             model.LatestAttentions = _nodeRecordRepository.GetTopN(unitId, "LatestAttentions", 8);
@@ -72,12 +69,8 @@ namespace NPC.Application
             model.BottomPicsRolling = _nodeRecordRepository.GetTopN(unitId, "BottomPicsRolling", 20);
             FillRecords(model.BottomPicsRolling, unitId, 20, 0, "BottomPicsRolling");
 
-            model.ChairmanMembers = _nodeRecordRepository.GetTopN(unitId, "ChairmanMembers", 10);
-            FillRecords(model.ChairmanMembers, unitId, 0, 10, "ChairmanMembers");
-
-            model.Chairmans = _nodeRecordRepository.GetTopN(unitId, "Chairmans", 10);
-            FillRecords(model.Chairmans, unitId, 0, 1, "Chairmans");
-
+            model.ChairmansModules = _nodeRecordRepository.GetTopN(unitId, "ChairmansModule", 10);
+            FillRecords(model.ChairmansModules, unitId, 0, 10, "ChairmansModule");
 
             model.DealedProposals = _nodeRecordRepository.GetTopN(unitId, "DealedProposals", 4);
             FillRecords(model.DealedProposals, unitId, 0, 4, "DealedProposals");
@@ -88,8 +81,11 @@ namespace NPC.Application
             model.News = _nodeRecordRepository.GetTopN(unitId, "News", 8);
             FillRecords(model.News, unitId, 0, 8, "News");
 
-            model.Notices = _nodeRecordRepository.GetTopN(unitId, "Notices", 8);
-            FillRecords(model.Notices, unitId, 0, 8, "Notices");
+            model.PicNews = _nodeRecordRepository.GetTopN(unitId, "PicNews", 4);
+            FillRecords(model.PicNews, unitId, 0, 4, "PicNews");
+
+            model.Notices = _nodeRecordRepository.GetTopN(unitId, "Notices", 18);
+            FillRecords(model.Notices, unitId, 0, 18, "Notices");
 
             model.NpcWorks = _nodeRecordRepository.GetTopN(unitId, "NpcWorks", 8);
             FillRecords(model.NpcWorks, unitId, 0, 8, "NpcWorks");
@@ -109,15 +105,12 @@ namespace NPC.Application
             model.Supervises = _nodeRecordRepository.GetTopN(unitId, "Supervises", 8);
             FillRecords(model.Supervises, unitId, 0, 8, "Supervises");
 
-            model.ViceChairmans = _nodeRecordRepository.GetTopN(unitId, "ViceChairman", 18);
-            FillRecords(model.ViceChairmans, unitId, 0, 18, "ViceChairman");
-
             model.MembersNode = _nodeRepository.GetSingleByCode(unitId, "Members");
             model.Members = _nodeRecordRepository.GetTopN(unitId, "Members", 1);
             FillRecords(model.Members, unitId, 0, 1, "Members");
 
             model.Video = _nodeRecordRepository.GetTopN(unitId, "Video", 1).FirstOrDefault();
-            
+
             return model;
         }
 
@@ -220,13 +213,15 @@ namespace NPC.Application
             var articles = _articleRepository.GetTopNWithPic(unitId, node.OuterCategoryId.Value, needPicN, needNormalN).ToList();
             foreach (var article in articles)
             {
-                nodeRecords.Add(new NodeRecord()
+                var record = new NodeRecord()
                 {
                     FirstTitle = article.Title,
                     RecordLink = "/Home/Detail?Id=" + article.Id,
                     FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content)),
                     FirstImage = article.UrlOfCoverImage
-                });
+                };
+                record.RecordDescription.DateOfCreate = article.RecordDescription.DateOfCreate;
+                nodeRecords.Add(record);
             }
         }
 
@@ -246,7 +241,8 @@ namespace NPC.Application
                 nodeRecord.FirstTitle = article.Title;
                 nodeRecord.RecordLink = "/Home/Detail?Id=" + article.Id;
                 nodeRecord.FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content));
-                nodeRecord.FirstImage = "/Manage/Attachments/" + article.UrlOfCoverImage;
+                nodeRecord.FirstImage = ApplicationConst.ImagePath + article.UrlOfCoverImage;
+                nodeRecord.RecordDescription.DateOfCreate = article.RecordDescription.DateOfCreate;
                 return nodeRecord;
             }
             return null;
@@ -262,6 +258,7 @@ namespace NPC.Application
         public ListModel InitializeListModel(ArticleQueryItem queryItem)
         {
             var model = new ListModel();
+            queryItem.UnitId = NpcMainWebContext.CurrentUnit.Id;
             model.ArticleQueryItem = queryItem;
             model.ArticleQueryItem.IsShow = true;
             model.Articles = _articleRepository.Query(queryItem).ToList();
@@ -337,6 +334,16 @@ namespace NPC.Application
             var model = new FooterModel();
             model.CopyRight = _nodeRecordRepository.GetTopN(unitId, "CopyRight", 1).FirstOrDefault();
             return model;
-         }
+        }
+
+        public object InitializeRightBarModel()
+        {
+            var unitId = NpcMainWebContext.CurrentUnit.Id;
+            var model = new RightBarModel();
+            model.PublicProposals = _nodeRecordRepository.GetTopN(unitId, "PublicProposals", 8);
+            FillRecords(model.PublicProposals, unitId, 0, 8, "PublicProposals");
+            model.PublicProposalsNode = _nodeRepository.GetSingleByCode(unitId, "PublicProposals");
+            return model;
+        }
     }
 }

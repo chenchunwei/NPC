@@ -1,8 +1,12 @@
 ﻿@using Fluent.Infrastructure.Utilities
+@using NPC.Application
 @model  NPC.Application.MainTownModels.Homes.IndexModel 
 @{
     ViewBag.Title = @Model.Unit.Name;
 }
+<link href="@Url.Content("~/content/css/skin2/skin2.css")" type="text/css" rel="stylesheet">
+<script src="@Url.Content("~/Scripts/jquery.jcarousel.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/jquery.KinSlideshow-1.2.1.min.js")" type="text/javascript"></script>
 <tr>
     <td>
         <table width="100%" border="0" cellspacing="0" cellpadding="10">
@@ -16,7 +20,7 @@
                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                             <tbody>
                                                 <tr>
-                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                         @if (Model.ChairmansModuleNode != null)
                                                         {
                                                             @Html.Raw(Model.ChairmansModuleNode.Name)
@@ -30,56 +34,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td bgcolor="#FFFFFF" class="leftTop" height="229" align="left">
-                                                        <ul>
-                                                            @if (Model.ChairmansNode != null)
-                                                            {
-                                                                <li>&nbsp;&nbsp;&nbsp;
-                                                                    
-                                                                    <font color="#be0000"><b>@Model.ChairmansNode.Name：</b></font>
-                                                                    @if (Model.Chairmans.Any())
-                                                                    {
-                                                                        @Html.Raw("&nbsp; &nbsp;" + Model.Chairmans.First().FirstTitle) 
-                                                                    }
-
-                                                                </li>
-                                                            }
-
-                                                            @if (Model.ViceChairmanNode != null)
-                                                            {
-                                                                <li>&nbsp;
-                                                                    <font color="#be0000"><b>@Model.ViceChairmanNode.Name：</b></font>
-                                                                    @foreach (var viceChairman in Model.ViceChairmans)
-                                                                    {
-                                                                        @Html.Raw("&nbsp; &nbsp;" + viceChairman.FirstTitle) 
-                                                                    }
-                                                                </li>
-                                                            }
-                                                            @if (Model.ChairmanMembersNode != null)
-                                                            {
-                                                                <li>&nbsp;<font color="#be0000"><b>@Model.ChairmanMembersNode.Name：</b></font>&nbsp;&nbsp;&nbsp; 
-                                                            </li>
-                                                            }
-                                                            @{
-                                                                var indexOfChairmanMembers = 0;
-                                                                var countOfChairmanMembers = 1;
-                                                            }
-                                                            @foreach (var chariman in Model.ChairmanMembers)
-                                                            {
-                                                                if (indexOfChairmanMembers % 2 == 0)
-                                                                {
-                                                                @Html.Raw("<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-                                                                }
-                                                                @Html.Raw("&nbsp; &nbsp;" + chariman.FirstTitle)
-                                                                if (countOfChairmanMembers == 2)
-                                                                {
-                                                                @Html.Raw("</li>")
-                                                                    countOfChairmanMembers = 0;
-                                                                }
-                                                                indexOfChairmanMembers++;
-                                                                countOfChairmanMembers++;
-                                                            }
-                                                        </ul>
-                                                        <br>
+                                                        @if (Model.ChairmansModules.Any())
+                                                        {
+                                                            @Html.Raw(Model.ChairmansModules.First().FirstContent)
+                                                        }
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -130,8 +88,12 @@
                                                                 <tr>
                                                                     <td valign="top">
                                                                         <div id="picNews">
-                                                                            <div>
-                                                                                图片轮播
+                                                                            <div id="KinSlideshow" style="visibility: hidden;">
+                                                                                @foreach (var nodeRecord in Model.PicNews)
+                                                                                {
+                                                                                    <a href="@nodeRecord.RecordLink" target="_blank">
+                                                                                        <img src="@(ApplicationConst.ImagePath + nodeRecord.FirstImage)" alt="" width="260" height="200" /></a>
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -168,7 +130,7 @@
                     </td>
                     <td width="184" valign="top">
                         <form action="/Home/List" method="get">
-                            <input name="keyword" type="text" size="15" maxlength="10">
+                            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10">
                             <input type="submit" value="查询">
                         </form>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -178,7 +140,7 @@
                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                             <tbody>
                                                 <tr>
-                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                         @if (Model.NoticesNode != null)
                                                         {
                                                             @Html.Raw(Model.NoticesNode.Name)
@@ -187,21 +149,18 @@
                                                         {
                                                             @Html.Raw("公告通知")
                                                         }
-
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td bgcolor="#FFFFFF" height="207" valign="top" align="center">
-                                                        <marquee direction="up" behavior="scoll" onmouseover="this.stop()" onmouseout="this.start()">
-                                                             <div id="hotList">
-                                                                       <ul>
-                                                                           @foreach (var nodeRecord in Model.Notices)
-                                                                           {
-                                                                               <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
-                                                                           }
-                                                                       </ul>
-                                                            </div>
-                                                        </marquee>
+                                                        <div id="notices" style="height: 220px; overflow: hidden">
+                                                            <ul>
+                                                                @foreach (var nodeRecord in Model.Notices)
+                                                                {
+                                                                    <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                }
+                                                            </ul>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -221,7 +180,7 @@
                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                             <tbody>
                                                 <tr>
-                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                         @(Model.StudySectionNode != null ? Html.Raw(Model.StudySectionNode.Name) : Html.Raw("学习园地"))
                                                     </td>
                                                 </tr>
@@ -292,7 +251,7 @@
                                                     </td>
                                                     <td width="30%" align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
                                                         <a href="http://ldrd.pinghu.gov.cn/feedback.asp" target="_blank">
-                                                            <img src="img/btn_fbjjjj.jpg" width="108" height="25" border="0"></a></td>
+                                                            <img src="@Url.Content("~/img/btn_fbjjjj.jpg")" width="108" height="25" border="0"></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td valign="top" bgcolor="#FFFFFF">
@@ -303,7 +262,9 @@
                                                                         <table width="100%" border="0" cellpadding="2" cellspacing="2">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td align="left" valign="middle" class="toplink">议案建议公开</td>
+                                                                                    <td align="left" valign="middle" class="toplink">
+                                                                                        @(Model.PublicProposalsNode != null ? Html.Raw(Model.PublicProposalsNode.Name) : Html.Raw("议案建议公开"))
+                                                                                    </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left">
@@ -311,30 +272,25 @@
 
                                                                                             <div class="newslist">
                                                                                                 <ul>
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=199">关于要求中心幼儿园加快搬迁进度的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=197">关于要求在林埭主干道安装路灯的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=193">关于要求虹林公路同心花苑路口安装探头的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=191">关于要求对联村公路进行硬化的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=126&id=190">关于要求对徐家埭村薛家桥至徐东方向的康庄道路进行维修的建议</a></li>
-
+                                                                                                    @foreach (var nodeRecord in Model.PublicProposals)
+                                                                                                    {
+                                                                                                        <li>
+                                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                                    }
                                                                                                 </ul>
-                                                                                                <div align="right"><a href="http://ldrd.pinghu.gov.cn/category.asp?catid=126">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                @if (Model.PublicProposalsNode != null && Model.PublicProposalsNode.OuterCategoryId.HasValue)
+                                                                                                {
+                                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.PublicProposalsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                }
                                                                                             </div>
 
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td align="left" valign="middle" class="toplink">议案建议办理</td>
+                                                                                    <td align="left" valign="middle" class="toplink">
+                                                                                        @(Model.DealedProposalsNode != null ? Html.Raw(Model.DealedProposalsNode.Name) : Html.Raw("议案建议办理"))
+                                                                                    </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="left">
@@ -342,22 +298,16 @@
 
                                                                                             <div class="newslist">
                                                                                                 <ul>
-
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=161">关于要求对祥中新桥进行改造的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=160">关于要求到原陈堰村部通公交车的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=159">关于要求公交车站点延伸到老富庄村部的建议</a></li>
-
-                                                                                                    <li>
-                                                                                                        <a href="http://ldrd.pinghu.gov.cn/Item.asp?catid=127&id=158">加快林埭工业园区道路亮化的建议</a></li>
-
+                                                                                                    @foreach (var nodeRecord in Model.DealedProposals)
+                                                                                                    {
+                                                                                                        <li>
+                                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                                    }
                                                                                                 </ul>
-                                                                                                <div align="right"><a href="http://ldrd.pinghu.gov.cn/category.asp?catid=127">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                @if (Model.DealedProposalsNode != null && Model.DealedProposalsNode.OuterCategoryId.HasValue)
+                                                                                                {
+                                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.DealedProposalsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                }
                                                                                             </div>
 
                                                                                         </div>
@@ -372,7 +322,7 @@
                                                     </td>
                                                     <td align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
                                                         <a href="http://211.140.23.203/renda/HX_LOGIN.php" target="_blank">
-                                                            <img src="img/btn_rdtdl.jpg" width="108" height="25" border="0"></a></td>
+                                                            <img src="@Url.Content("~/img/btn_rdtdl.jpg")" width="108" height="25" border="0"></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -389,7 +339,7 @@
                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                             <tbody>
                                                 <tr>
-                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                         @(Model.HalfMonthlyTalkingsNode != null ? Html.Raw(Model.HalfMonthlyTalkingsNode.Name) : Html.Raw("手机半月谈"))
                                                     </td>
                                                 </tr>
@@ -429,7 +379,7 @@
                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                             <tbody>
                                                 <tr>
-                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                         @(Model.RegulationsNode != null ? Html.Raw(Model.RegulationsNode.Name) : Html.Raw("规章制度"))
                                                     </td>
                                                 </tr>
@@ -462,7 +412,6 @@
                 </tr>
             </tbody>
         </table>
-
         <table width="100%" border="0" cellspacing="0" cellpadding="10">
             <tbody>
                 <tr>
@@ -478,7 +427,7 @@
                                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                                         @(Model.NavigationsNode != null ? Html.Raw(Model.NavigationsNode.Name) : Html.Raw("导航栏"))
                                                                     </td>
                                                                 </tr>
@@ -495,14 +444,15 @@
                                                                         {
                                                                             foreach (var node in Model.NavigationsNode.Childrens)
                                                                             {
-                                                                                <form>
-                                                                            <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
-                                                                                <option selected="" value="">----@node.Name----</option>
-                                                                                 @foreach (var nodeRecord in node.NodeRecords)
-                                                                                 {
-                                                                                   <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
-                                                                                 }                                    
-                                                                            </select></form>
+                                                                            <form>
+                                                                                <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
+                                                                                    <option selected="" value="">----@node.Name----</option>
+                                                                                    @foreach (var nodeRecord in node.NodeRecords)
+                                                                                    {
+                                                                                        <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
+                                                                                    }
+                                                                                </select>
+                                                                            </form>
                                                                             }
 
                                                                         }
@@ -524,7 +474,7 @@
                                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                                         @(Model.SuperviseNode != null ? Html.Raw(Model.SuperviseNode.Name) : Html.Raw("监督工作"))
                                                                     </td>
                                                                 </tr>
@@ -562,7 +512,7 @@
                                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle">
+                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">
                                                                         @(Model.NpcWorksNode != null ? Html.Raw(Model.NpcWorksNode.Name) : Html.Raw("代表工作"))
                                                                     </td>
                                                                 </tr>
@@ -600,14 +550,14 @@
                                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td height="49" align="center" valign="middle" background="img/boxbg.jpg" bgcolor="#FFFFFF" class="boxtitle"> @(Model.MembersNode != null ? Html.Raw(Model.MembersNode.Name) : Html.Raw("代表名单"))</td>
+                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">@(Model.MembersNode != null ? Html.Raw(Model.MembersNode.Name) : Html.Raw("代表名单"))</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td bgcolor="#FFFFFF" class="leftTop" height="239">
-                                                                       @if (Model.Members.Any())
-                                                                       {
-                                                                           @Html.Raw(Model.Members.First().FirstContent)
-                                                                       }
+                                                                        @if (Model.Members.Any())
+                                                                        {
+                                                                            @Html.Raw(Model.Members.First().FirstContent)
+                                                                        }
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -638,8 +588,24 @@
                                                                     <td align="left" class="toplink">@(Model.BottomPicsRollingNode != null ? Html.Raw(Model.BottomPicsRollingNode.Name) : Html.Raw("滚动图片"))</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>//滚动图片栏
-
+                                                                    <td>
+                                                                        <ul id="mycarousel" class="scroll-img jcarousel-skin-ie7" style="width: 950px; height: 200px; overflow: hidden">
+                                                                            @foreach (var nodeRecord in Model.BottomPicsRolling)
+                                                                            {
+                                                                                if (string.IsNullOrEmpty(nodeRecord.FirstImage))
+                                                                                {
+                                                                                    continue;
+                                                                                }
+                                                                                <li><a href="@nodeRecord.RecordLink">
+                                                                                    <div class="view">
+                                                                                        <img src="@(ApplicationConst.ImagePath + nodeRecord.FirstImage)" style="width:240px; height: 170px;" alt="@nodeRecord.FirstTitle"/>
+                                                                                        <p style="margin-top: -2px;">
+                                                                                            @MyString.SubString(nodeRecord.FirstTitle, 24, "")
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </a></li>
+                                                                            }
+                                                                        </ul>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -658,3 +624,34 @@
         </table>
     </td>
 </tr>
+<script type="text/javascript">
+    $("#notices").myScroll({
+        speed: 80,
+        rowHeight: 19
+    });
+    $(function () {
+        $("#KinSlideshow").KinSlideshow();
+    });
+    jQuery(document).ready(function () {
+        jQuery('#mycarousel').jcarousel({
+            auto: 3,
+            wrap: 'circular',
+            initCallback: mycarousel_initCallback
+        });
+    });
+
+    function mycarousel_initCallback(carousel) {
+        carousel.buttonNext.bind('click', function () {
+            carousel.startAuto(0);
+        });
+        carousel.buttonPrev.bind('click', function () {
+            carousel.startAuto(0);
+        });
+        carousel.clip.hover(function () {
+            carousel.stopAuto();
+        }, function () {
+            carousel.startAuto();
+        });
+    };
+
+</script>

@@ -3,19 +3,38 @@
 }
 @using NPC.Application.MianModels
 @model NPC.Application.MianModels.Homes.ListModel
-<div class="main2">
-    @Html.Action("SideBar", "Home")
-    <div class="list-right">
-        <div class="title">
-            <div class="title-name">@Model.ListTitle</div>
+<tr>
+    <td bgcolor="#FFFFFF" align="left">
+
+        <div id="mainContent">
+            <div id="pageList">
+                <div id="title">@Model.ListTitle</div>
+
+                <div class="newslist3">
+                    <ul>
+                        @{
+                            var index = 0;
+                        }
+                        @foreach (var article in Model.Articles)
+                        {
+                            <li>
+                                <a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.Title</a>
+                                [@article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")]
+                            </li>
+                             
+                            if (index % 5 == 0 && index > 0)
+                            {
+                            <div class="list_line"></div>
+                            }
+                            index++;
+                        }
+                    </ul>
+                </div>
+                @Html.Partial("_Pager", new PagerModel { Pagination = Model.ArticleQueryItem.Pagination })
+
+            </div>
+            @Html.Action("RightBar", "Home")
+            <div class="clearfloat"></div>
         </div>
-        <div class="clear"></div>
-        <ul>
-            @foreach (var article in Model.Articles)
-            { 
-                <li><a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.Title</a></li>
-            }
-        </ul>
-        @Html.Partial("_Pager", new PagerModel { Pagination = Model.ArticleQueryItem.Pagination })
-    </div>
-</div>
+    </td>
+</tr>

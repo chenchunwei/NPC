@@ -12,9 +12,6 @@ namespace NPC.Application.MainTownModels.Homes
     {
         public IndexModel()
         {
-            Chairmans = new List<NodeRecord>();
-            ViceChairmans = new List<NodeRecord>();
-            ChairmanMembers = new List<NodeRecord>();
             News = new List<NodeRecord>();
             Notices = new List<NodeRecord>();
             StudyMaterials = new List<NodeRecord>();
@@ -29,19 +26,17 @@ namespace NPC.Application.MainTownModels.Homes
             DownloadOfNpcExes=new List<NodeRecord>();
             WheelBroadcastPicsOfTopLeft=new List<NodeRecord>();
             Members=new List<NodeRecord>();
+            PicNews=new List<NodeRecord>();
         }
 
         public Unit Unit { get; set; }
         public Node ChairmansModuleNode { get; set; }
-        public Node ViceChairmanNode { get; set; }
-        public Node ChairmanMembersNode { get; set; }
-        public Node ChairmansNode { get; set; }
 
-        public IList<NodeRecord> Chairmans { get; set; }
-        public IList<NodeRecord> ViceChairmans { get; set; }
-        public IList<NodeRecord> ChairmanMembers { get; set; }
+        public IList<NodeRecord> ChairmansModules { get; set; }
 
         public NodeRecord Video { get; set; }
+
+        public IList<NodeRecord> PicNews { get; set; }
 
         public Node NewsNode { get; set; }
         public IList<NodeRecord> News { get; set; }

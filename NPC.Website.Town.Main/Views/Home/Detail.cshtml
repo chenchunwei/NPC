@@ -3,28 +3,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model NPC.Application.MianModels.Homes.DetailModel
-<div class="main2">
-    @Html.Action("SideBar", "Home")
-    <div class="detail-right">
-        <div class="title">
-            <div class="title-name">
-               @Model.Article.ArticleCategory.CategoryName
+<tr>
+    <td bgcolor="#FFFFFF" align="left">
+        <div id="clearfloat"></div>
+        <div id="mainContent">
+            <div id="showBox">
+                <div class="show_title">
+                    <h1>@Model.Article.Title</h1>
+                </div>
+                <div class="show_time">
+                    日期：@Model.Article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd") &nbsp;&nbsp;&nbsp;&nbsp; 
+                </div>
+                <div class="show_txt">
+                    @Html.Raw(Model.Article.Content)
+                </div>
             </div>
+            @Html.Action("RightBar", "Home")
         </div>
-        <div class="clear">
-        </div>
-        <div class="detail-content">
-            <h1> @Model.Article.Title</h1>
-            <div class="time">
-                @Model.Article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")
-            </div>
-            <p>
-                @Html.Raw(Model.Article.Content)
-            </p>
-        </div>
-        <div class="page">
-             <a href="@Url.Action("List", "Home")?ArticleQueryItem.CategoryId=@Model.Article.ArticleCategory.Id">
-                返回[@Model.Article.ArticleCategory.CategoryName]列表</a>
-        </div>
-    </div>
-</div>
+        <div class="clearfloat"></div>
+    </td>
+</tr>

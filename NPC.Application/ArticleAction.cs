@@ -76,6 +76,7 @@ namespace NPC.Application
         public ArticleListModel InitializeArticleListModel(ArticleQueryItem queryItem)
         {
             var model = new ArticleListModel();
+            queryItem.UnitId = NpcContext.CurrentUser.Unit.Id;
             model.ArtilceSearchModel.ArticleQueryItem = queryItem;
             model.Articles = _articleRepository.Query(queryItem);
             return model;

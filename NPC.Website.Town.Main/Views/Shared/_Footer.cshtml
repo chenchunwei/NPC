@@ -1,11 +1,14 @@
 ﻿@model  NPC.Application.MainTownModels.FooterModel
 <tr>
+    <td style="background: url(@Url.Content("~/img/foot.jpg")); width: 990px; height: 68px;">
+        <ul class="footer">
+            @if (Model.CopyRight != null)
+            {
+                <li><span style="color: #fff;">@Model.CopyRight.FirstTitle</span><span style="margin-left: 100px;">@Model.CopyRight.SecondTitle</span></li>
+                <li style="text-align: center;">@Model.CopyRight.FirstContent</li>
+            }
+        </ul>
     <td>
-        @if (Model.CopyRight != null)
-        {
-
-        }
-    </td>
 </tr>
 
 

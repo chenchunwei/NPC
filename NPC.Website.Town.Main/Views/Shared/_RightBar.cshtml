@@ -1,0 +1,41 @@
+﻿@model NPC.Application.MainTownModels.RightBarModel 
+<div id="pageRight">
+    <div class="boxBorder">
+        <div>
+            <a href="http://ldrd.pinghu.gov.cn/item.asp?catid=103&id=45#">
+                <img src="@Url.Content("~/img/title_tian2.jpg")" width="250" height="26" /></a>
+        </div>
+
+        <div class="newslist">
+            <ul>
+                @foreach (var nodeRecord in Model.PublicProposals)
+                {
+                    <li>
+                        <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                }
+            </ul>
+            @if (Model.PublicProposalsNode != null && Model.PublicProposalsNode.OuterCategoryId.HasValue)
+            {
+                <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.PublicProposalsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+            }
+        </div>
+    </div>
+    @*<div class="boxBorder">
+        <div>
+            <a href="http://ldrd.pinghu.gov.cn/item.asp?catid=103&id=45#">
+                <img src="img/title_jsyj2.jpg"></a>
+        </div>
+
+        <div class="newslist">
+            <ul>
+            </ul>
+            <div align="right"><a href="http://ldrd.pinghu.gov.cn/category.asp?catid=128">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+        </div>
+
+
+        <div id="btn_jjyj">
+            <a href="http://ldrd.pinghu.gov.cn/feedback.asp">
+                <img src="img/btn_fbjjjj.jpg" border="0"></a>
+        </div>
+    </div>*@
+</div>

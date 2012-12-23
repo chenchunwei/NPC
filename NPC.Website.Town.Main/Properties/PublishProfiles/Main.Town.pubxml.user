@@ -14,10 +14,10 @@
       <publishTime>10/02/2012 12:25:56</publishTime>
     </File>
     <File Include="bin/Fluent.Infrastructure.dll">
-      <publishTime>12/23/2012 15:52:53</publishTime>
+      <publishTime>12/24/2012 00:20:06</publishTime>
     </File>
     <File Include="bin/Fluent.Infrastructure.Web.dll">
-      <publishTime>12/23/2012 15:52:53</publishTime>
+      <publishTime>12/24/2012 00:20:07</publishTime>
     </File>
     <File Include="bin/FluentNHibernate.dll">
       <publishTime>10/02/2012 12:25:58</publishTime>
@@ -35,19 +35,19 @@
       <publishTime>10/02/2012 12:25:48</publishTime>
     </File>
     <File Include="bin/NPC.Application.dll">
-      <publishTime>12/23/2012 16:37:16</publishTime>
+      <publishTime>12/24/2012 00:20:08</publishTime>
     </File>
     <File Include="bin/NPC.Domain.dll">
-      <publishTime>12/23/2012 15:52:54</publishTime>
+      <publishTime>12/24/2012 00:20:07</publishTime>
     </File>
     <File Include="bin/NPC.Domain.Model.Mappings.dll">
-      <publishTime>12/23/2012 15:52:54</publishTime>
+      <publishTime>12/24/2012 00:20:07</publishTime>
     </File>
     <File Include="bin/NPC.Domain.Repository.dll">
-      <publishTime>12/23/2012 15:52:54</publishTime>
+      <publishTime>12/24/2012 00:20:08</publishTime>
     </File>
     <File Include="bin/NPC.Website.Town.Main.dll">
-      <publishTime>12/23/2012 16:37:16</publishTime>
+      <publishTime>12/24/2012 00:20:10</publishTime>
     </File>
     <File Include="Content/css/skin1/next-horizontal.png">
       <publishTime>12/22/2012 00:47:38</publishTime>
@@ -65,7 +65,7 @@
       <publishTime>12/22/2012 00:47:38</publishTime>
     </File>
     <File Include="Content/css/skin2/skin2.css">
-      <publishTime>12/22/2012 00:47:38</publishTime>
+      <publishTime>12/24/2012 00:16:43</publishTime>
     </File>
     <File Include="Content/next-horizontal.gif">
       <publishTime>12/22/2012 00:47:38</publishTime>
@@ -119,16 +119,16 @@
       <publishTime>11/04/2012 18:37:27</publishTime>
     </File>
     <File Include="css/common.css">
-      <publishTime>12/23/2012 13:02:01</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="css/global.css">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="css/js.css">
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="css/layout.css">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/22/2012 19:01:50</publishTime>
@@ -152,7 +152,7 @@
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/boxbg.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_01.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -161,22 +161,22 @@
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/btn_close.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_download.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_fbjjjj.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_gotop.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_printer.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_rdtdl.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/btn_slideshow.png">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -185,7 +185,7 @@
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/foot.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/hushuiliang.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -206,22 +206,22 @@
       <publishTime>12/22/2012 17:39:31</publishTime>
     </File>
     <File Include="img/nav.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/nav_sp.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/news.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/news1.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/news2.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/news3.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/paper1.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -230,7 +230,7 @@
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/picnews.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/pinghu1.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -242,16 +242,16 @@
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="img/Thumbs.db">
-      <publishTime>12/20/2012 22:28:57</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/title_jsyj2.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/title_tian2.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/toptitle.jpg">
-      <publishTime>12/23/2012 13:02:03</publishTime>
+      <publishTime>12/23/2012 21:45:37</publishTime>
     </File>
     <File Include="img/twitter.jpg">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -292,11 +292,20 @@
     <File Include="js/ifocus.js">
       <publishTime>12/22/2012 11:22:26</publishTime>
     </File>
+    <File Include="js/jquery-1.4a2.min.js">
+      <publishTime>12/23/2012 21:45:32</publishTime>
+    </File>
     <File Include="js/jquery-1.7.2.min.js">
       <publishTime>12/20/2012 22:28:57</publishTime>
     </File>
     <File Include="js/jquery.js">
       <publishTime>12/20/2012 22:28:57</publishTime>
+    </File>
+    <File Include="js/jquery.KinSlideshow-1.1.js">
+      <publishTime>12/23/2012 21:45:32</publishTime>
+    </File>
+    <File Include="js/jquery.KinSlideshow-1.2.1.min.js">
+      <publishTime>12/23/2012 21:45:32</publishTime>
     </File>
     <File Include="js/jquery.slider.js">
       <publishTime>12/20/2012 22:28:57</publishTime>
@@ -304,20 +313,26 @@
     <File Include="log4net.config">
       <publishTime>12/22/2012 19:03:16</publishTime>
     </File>
+    <File Include="Scripts/jquery-1.8.0.min.js">
+      <publishTime>12/23/2012 21:03:59</publishTime>
+    </File>
     <File Include="Scripts/jquery.ae.image.resize.min.js">
       <publishTime>12/22/2012 23:47:00</publishTime>
     </File>
     <File Include="Scripts/jquery.jcarousel.min.js">
       <publishTime>11/29/2012 23:01:14</publishTime>
     </File>
+    <File Include="Scripts/jquery.marquee.min.js">
+      <publishTime>12/23/2012 21:28:11</publishTime>
+    </File>
     <File Include="Views/Home/Detail.cshtml">
-      <publishTime>12/22/2012 13:53:03</publishTime>
+      <publishTime>12/23/2012 18:42:41</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/23/2012 15:21:53</publishTime>
+      <publishTime>12/24/2012 00:19:58</publishTime>
     </File>
     <File Include="Views/Home/List.cshtml">
-      <publishTime>12/22/2012 13:56:44</publishTime>
+      <publishTime>12/23/2012 19:01:34</publishTime>
     </File>
     <File Include="Views/Home/Records.cshtml">
       <publishTime>12/22/2012 14:18:24</publishTime>
@@ -326,16 +341,19 @@
       <publishTime>11/04/2012 18:37:27</publishTime>
     </File>
     <File Include="Views/Shared/_Footer.cshtml">
-      <publishTime>12/23/2012 13:07:59</publishTime>
+      <publishTime>12/23/2012 21:52:10</publishTime>
     </File>
     <File Include="Views/Shared/_Header.cshtml">
       <publishTime>12/23/2012 13:13:15</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/23/2012 13:08:33</publishTime>
+      <publishTime>12/24/2012 00:03:59</publishTime>
     </File>
     <File Include="Views/Shared/_Pager.cshtml">
-      <publishTime>12/22/2012 00:37:31</publishTime>
+      <publishTime>12/23/2012 19:02:08</publishTime>
+    </File>
+    <File Include="Views/Shared/_RightBar.cshtml">
+      <publishTime>12/23/2012 18:46:56</publishTime>
     </File>
     <File Include="Views/Shared/_SideBar.cshtml">
       <publishTime>12/22/2012 13:46:18</publishTime>
@@ -347,7 +365,7 @@
       <publishTime>11/04/2012 18:37:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/23/2012 16:37:17</publishTime>
+      <publishTime>12/24/2012 00:20:12</publishTime>
     </File>
   </ItemGroup>
 </Project>

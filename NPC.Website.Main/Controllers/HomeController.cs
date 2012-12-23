@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NPC.Application;
+using NPC.Application.Contexts;
 using NPC.Application.MianModels.Homes;
 
 namespace NPC.Website.Main.Controllers
@@ -38,6 +39,7 @@ namespace NPC.Website.Main.Controllers
         }
         public ActionResult List(ListModel viewModel)
         {
+            viewModel.ArticleQueryItem.UnitId = NpcMainWebContext.CurrentUnit.Id;
             viewModel.ArticleQueryItem.Pagination.PageIndex = PageIndex;
             var model = _indexAction.InitializeListModel(viewModel.ArticleQueryItem);
             return View(model);

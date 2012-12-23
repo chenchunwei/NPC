@@ -66,6 +66,7 @@
     <Compile Include="MainTownModels\FooterModel.cs" />
     <Compile Include="MainTownModels\HeaderModel.cs" />
     <Compile Include="MainTownModels\Homes\IndexModel.cs" />
+    <Compile Include="MainTownModels\RightBarModel.cs" />
     <Compile Include="ManageHomeAction.cs" />
     <Compile Include="ManageModels\ArticleCategories\EditArticleCategoryModel.cs" />
     <Compile Include="ManageModels\ArticleCategories\ArticleCategoryTreeModel.cs" />
