@@ -22,6 +22,7 @@ namespace NPC.Website.Manage.Controllers
         }
         public ActionResult Index()
         {
+            ViewBag.SessionId = Session.SessionID;
             return View();
         }
 

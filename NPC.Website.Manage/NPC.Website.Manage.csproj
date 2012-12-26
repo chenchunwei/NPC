@@ -666,6 +666,14 @@
     <Content Include="Scripts\jquery.validator.extension.js" />
     <Content Include="Scripts\showpage.src.js" />
     <Content Include="Scripts\jquery.json-2.4.min.txt" />
+    <Content Include="Scripts\swfupload\handlers\handlersSample.js" />
+    <Content Include="Scripts\swfupload\handlers\fileprogress.js" />
+    <Content Include="Scripts\swfupload\handlers\handlers.js" />
+    <Content Include="Scripts\swfupload\handlers\swfupload.queue.js" />
+    <Content Include="Scripts\swfupload\swfupload.js" />
+    <Content Include="Scripts\swfupload\swfupload.swf" />
+    <Content Include="Scripts\swfupload\swfuploadbutton.swf" />
+    <Content Include="Scripts\swfupload\XPButtonUploadText_61x22.png" />
     <Content Include="Scripts\utility.js" />
     <Content Include="Scripts\xheditor-1.1.14\CHANGE.txt" />
     <Content Include="Scripts\xheditor-1.1.14\demos\common.css" />
@@ -1085,6 +1093,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_ManageMenus.cshtml" />
+    <Content Include="Views\NpcMmses\EditNpcMms.cshtml" />
+    <Content Include="Views\NpcSmses\EditSms.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

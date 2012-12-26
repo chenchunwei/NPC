@@ -63,7 +63,17 @@
     <Compile Include="Models\NodeRecords\NodeRecord.cs" />
     <Compile Include="Models\NodeRecords\NodeRecordQueryItem.cs" />
     <Compile Include="Models\Nodes\Node.cs" />
+    <Compile Include="Models\NpcMmses\LayoutType.cs" />
+    <Compile Include="Models\NpcMmses\NpcMms.cs" />
+    <Compile Include="Models\NpcMmses\NpcMmsContent.cs" />
+    <Compile Include="Models\NpcMmses\NpcMmsReceiver.cs" />
+    <Compile Include="Models\NpcSmses\NpcSms.cs" />
+    <Compile Include="Models\NpcSmses\SignatureType.cs" />
+    <Compile Include="Models\NpcSmses\SmsType.cs" />
     <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\PhoneBooks\PhoneBook.cs" />
+    <Compile Include="Models\PhoneBooks\PhoneBookRecord.cs" />
+    <Compile Include="Models\PhoneBooks\PhoneBookType.cs" />
     <Compile Include="Models\Proposals\Proposal.cs" />
     <Compile Include="Models\Proposals\ProposalType.cs" />
     <Compile Include="Models\QueryItemBase.cs" />

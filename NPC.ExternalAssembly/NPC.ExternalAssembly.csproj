@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</ProjectGuid>
+    <ProjectGuid>{EA953792-BEFE-4BDA-AE6D-1DB01F0C4F4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NPC.Domain.Repository</RootNamespace>
-    <AssemblyName>NPC.Domain.Repository</AssemblyName>
+    <RootNamespace>NPC.ExternalAssembly</RootNamespace>
+    <AssemblyName>NPC.ExternalAssembly</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Infrastructure\ExternalAssembly\Nhibernate\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,36 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleCategoryRepository.cs" />
-    <Compile Include="ArticleRepository.cs" />
-    <Compile Include="FlowNodeInstanceRepository.cs" />
-    <Compile Include="DepartmentRepository.cs" />
-    <Compile Include="FlowRepository.cs" />
-    <Compile Include="FlowTypeRepository.cs" />
-    <Compile Include="NestSqlBuilder.cs" />
-    <Compile Include="NodeRecordRepository.cs" />
-    <Compile Include="NodeRepository.cs" />
-    <Compile Include="NpcMmsRepository.cs" />
-    <Compile Include="NpcSmsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProposalRepository.cs" />
-    <Compile Include="TaskRepository.cs" />
-    <Compile Include="UnitRepository.cs" />
-    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure.Web\Fluent.Infrastructure.Web.csproj">
-      <Project>{9456CEB8-232E-43C1-BDF4-E44EF9841F5F}</Project>
-      <Name>Fluent.Infrastructure.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
-      <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
-      <Name>Fluent.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
-      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
-      <Name>NPC.Domain</Name>
-    </ProjectReference>
+    <Content Include="OpenMas\OpenMasClient.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

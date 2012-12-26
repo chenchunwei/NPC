@@ -1,0 +1,198 @@
+﻿@using System.ComponentModel
+@using NPC.Application.Contexts
+@{
+    ViewBag.Title = "发起议案建议";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model NPC.Application.ManageModels.Proposals.EditProposalModel
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")"></script>
+<form method="post" action="" id="mainForm" style="margin: 0px;">
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示：发起新的议案或建议</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <li class="buttonon" id="selectUser">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                <div>
+                                    添加更多发起人</div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 150px;">
+                        发起人：
+                    </th>
+                    <td id="originators">
+                        <li class="buttonon">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    @Model.CurrentUser.Name
+                                </div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 标题：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.Title)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 类型：
+                    </th>
+                    <td>
+                        @Html.DropDownListFor(o => o.FormData.ProposalType,
+                            new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
+                            .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 提案内容：
+                    </th>
+                    <td>
+                        <textarea name="FormData.Content" id="FormData_Content" cols="170" rows="30" width="99%" 
+                                      class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    提交数据</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<div id="wins" style="display: none;">
+    <div id="selectWin" class="easyui-window" title="请选择发起人" style="width: 750px; height: 500px;
+        background-color: #EFEFEF; display: none;" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+        <div class="easyui-layout" data-options="fit:true">
+            <div region="center" border="false" style="background-color: #EFEFEF; overflow: hidden;">
+                <iframe src="" height="100%" width="100%" style="border: none; overflow-y: scroll;">
+                </iframe>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
+                <a id="btnAddSelect" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    添加并继续</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel"
+                        href="javascript:void(0)">完成并关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var selectedUsers = [];
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "FormData.Title": "required",
+                "FormData.Content": "required",
+                "FormData.ProposalType": "required"
+            },
+            messages: {
+                "FormData.Title": "请输提案标题",
+                "FormData.Content": "请填写提案内容",
+                "FormData.ProposalType": "请选择类型"
+            }
+        });
+        $("#submitBtn").click(function () {
+            $("#mainForm").submit();
+        });
+
+        $('#wins,#selectWin').show();
+        $("#selectUser").click(function () {
+            $('#selectWin').window('open');
+            $("#selectWin iframe").attr('src', '@Url.Action("SelectUser", "Users")');
+        });
+        $("#btnAddSelect").click(function () {
+            handerSelected();
+        });
+        $("#btnCompletedSelect").click(function () {
+            handerSelected();
+            $('#selectWin').window('close');
+        });
+    });
+
+    function removeUser(id) {
+        $("#user" + id).parent().parent().remove();
+    }
+
+    function handerSelected() {
+        var selects = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
+        var filterSelects = [];
+        for (var key in selects) {
+            if (selects[key].type != 2)
+                continue;
+            filterSelects.push(selects[key]);
+        }
+        if (filterSelects.length == 0) {
+            msgShow("请选择具体的人员", "请选择具体的人员", "");
+            return;
+        }
+        $.post('@Url.Action("ParseSelectedToUsers", "Users")', { 'selectedJson': $.toJSON(filterSelects) },
+                function (data) {
+                    $(evalJson(data)).each(function (index, row) {
+                        if ($.inArray(row.id, selectedUsers) >= 0 || row.id == '@Model.CurrentUser.Id') {
+                            return;
+                        }
+                        selectedUsers.push(row.id);
+                        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+                            <div class="hc_left"></div><div class="hc_center">\
+                            <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
+                            <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                            </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
+                    });
+                }
+            );
+    }
+</script>

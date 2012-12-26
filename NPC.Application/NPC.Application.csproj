@@ -85,6 +85,8 @@
     <Compile Include="ManageModels\Nodes\NodeListModel.cs" />
     <Compile Include="ManageModels\Nodes\NodeTreeModel.cs" />
     <Compile Include="ManageModels\Nodes\RelateNodeModel.cs" />
+    <Compile Include="ManageModels\NpcMmses\EditNpcMmsContentModel.cs" />
+    <Compile Include="ManageModels\NpcMmses\EditNpcMmsModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />
     <Compile Include="ManageModels\RedirectMessageModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
