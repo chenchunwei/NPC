@@ -66,13 +66,12 @@
                         <div class="tabbj_right">
                         </div>
                     </li>
-
                 </ul>
             </div>
         </div>
     </div>
     <div id="content" style="background: #E6EAF3 url(@Url.Content("~/Content/Images/wrapper_rightbj.jpg")) right top no-repeat;
-  zoom: 1;overflow: hidden; min-height: 700px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 zoom: 1;overflow: hidden; min-height: 700px;">
         <div class="sidecontent">
             <div class="title">
                 <img src="@Url.Content("~/Content/images/quickmenu_title.jpg")" alt="" />
@@ -80,37 +79,54 @@
             <div class="grouplevel">
                 文章管理
             </div>
-
-
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                onclick="window.location.href='@Url.Action("List", "Artilces")'" style="cursor: pointer;">
+                     onclick="window.location.href='@Url.Action("List", "Artilces")'" style="cursor: pointer;">
                 文章查看
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditArticle", "Artilces")'">
+                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditArticle", "Artilces")'">
                 发布新文章
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "ArticleCategories")'">
+                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "ArticleCategories")'">
                 文章分类查看
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditProposal", "Proposals")'">
+                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditProposal", "Proposals")'">
                 发起提案建议
+            </div>
+            <div class="grouplevel">
+                手机报管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                 onclick="window.location.href='@Url.Action("EditNpcMms", "NpcMmses")'" style="cursor: pointer;">
+                编写手机报彩信
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                 onclick="window.location.href='@Url.Action("List", "NpcMmses")'" style="cursor: pointer;">
+                查看彩信库
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                 onclick="window.location.href='@Url.Action("List", "NpcMmsSends")'" style="cursor: pointer;">
+                查看已发送彩信
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                 onclick="window.location.href='@Url.Action("EditOpenMasConfig", "OpenMasConfigs")'" style="cursor: pointer;">
+                OpenMas服务配置
             </div>
             <div class="grouplevel">
                 网站管理
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 onclick="window.location.href='@Url.Action("List", "Nodes")'" style="cursor: pointer;">
+                     onclick="window.location.href='@Url.Action("List", "Nodes")'" style="cursor: pointer;">
                 网站模块管理
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 onclick="window.location.href='@Url.Action("EditNodeRecord", "NodeRecords")'" style="cursor: pointer;">
+                     onclick="window.location.href='@Url.Action("EditNodeRecord", "NodeRecords")'" style="cursor: pointer;">
                 添加定制记录
             </div>
             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 onclick="window.location.href='@Url.Action("List", "NodeRecords")'" style="cursor: pointer;">
+                     onclick="window.location.href='@Url.Action("List", "NodeRecords")'" style="cursor: pointer;">
                 定制记录查看
             </div>
             @Html.Action("ManageMenus", "Home")

@@ -1,198 +1,547 @@
-﻿@using System.ComponentModel
-@using NPC.Application.Contexts
-@{
-    ViewBag.Title = "发起议案建议";
+﻿@{
+    ViewBag.Title = "管理首页";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model NPC.Application.ManageModels.Proposals.EditProposalModel
-<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")"></script>
-<form method="post" action="" id="mainForm" style="margin: 0px;">
+<script src="@Url.Content("~/Scripts/artTemplate/template.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/app/frame.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/artTemplate/extensions/template-syntax.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/plupload/plupload.full.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/CSS/frame.css")"/>
+<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+<script id="frameTmpl" type="text/html">
+    <div class="frameContainer" id="frame{index}" >
+        <div class="frameWapper frameShadow " onclick="selected({index})">
+            <div class="frameCancel" onclick="remove(event,{index})">删除</div>
+            <div class="frameNumber">{orderSort}</div>
+            <div class="frame frameBorder">
+                {if positionStyle==0}
+                {if img!='' }{include 'picTmpl'}{/if}
+                {include 'txtTmpl'}
+                {else}
+                {include 'txtTmpl'}
+                {if img!=''}{include 'picTmpl'}{/if}
+                {/if}
+            </div>
+            <div class="bottomOper" >
+                 <span >时长:{timeDuring}秒</span>
+                {if img!=''} | <span onclick="updateFrameImg({index},'')">删图片</span>{/if}
+                {if txt!=''} | <span onclick="updateFrameTxt({index},'')">删文字</span>{/if}
+                {if voice!=''} | <span onclick="updateFrameVoice({index},'')">删音乐</span>{/if}
+            </div>
+           
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+</script>
+<script id="picTmpl" type="text/html">
+    <div class="{$getClassName('img',txt,img)}">
+      <img src="{img}{$getImgThumbParams(txt,img)}" />
+    </div>
+</script>
+<script id="txtTmpl" type="text/html">
+    <div class="{$getClassName('txt',txt,img)}">
+        {txt}
+    </div>
+</script>
+<script id="orderSortTmpl" type="text/html">
+    {if list.length>0}
+    <select id="orderSort">
+        {each list as value index}
+        <option value="{value}">在第{value}帖之后</option>
+        {/each}
+    </select>
+    {/if}
+</script>
+<script type="text/javascript">
+    template.helper('$unescape', (function () {
+        var badChars = /&(?![\w#]+;)|[<>"']/g;
+        var map = {
+            "\r": "<br/>",
+            "\r\n": "<br/>",
+            ' ': "&nbsp;"
+        };
+        var fn = function (s) {
+            return map[s];
+        };
+        return function (content) {
+            if (typeof content === 'string')
+                for (var key in map) {
+                    content.replace(key, fn(key));
+                }
+            return content;
+        };
+    })());
+    template.helper('$getClassName', (function () {
+        return function (type, txt, img) {
+            if (type == "img") {
+                if (txt == '' && img != '')
+                    return "framePicFull";
+                return "framePic";
+            }
+            if (type == "txt") {
+                if (txt != '' && img == '')
+                    return "frameTxtFull";
+                return "frameTxt";
+            }
+        };
+    })());
+    template.helper('$getImgThumbParams', (function () {
+        return function (txt, img) {
+            if (txt == '' && img != '')
+                return "?params=170x260x1x1xffffff.jpg";
+            return "?params=170x120x1x1xffffff.jpg";
+        };
+    })());
+</script>
+<div class="workgroundin" style="height: 5px;">
+</div>
 <div class="main_content">
     <div class="main_search">
         <div class="mc_search">
             <div class="pic">
                 <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
             <div class="font">
-                提示：发起新的议案或建议</div>
+                提示：彩信每帧大小不能超过100K!</div>
         </div>
     </div>
     <div class="row">
-        <div class="treeBody" style="padding-top: 5px;">
-            <div class="tipsOrange">
-                <div class="icon">
+        <form id="mainForm" action="" method="POST" style="margin: 0">
+        <div class="rightContent">
+            <div style="float: left; width: 500px; padding-left: 10px; border: 1px solid #A3B2D1;
+                padding: 10px; margin: 10px;">
+                <div class="tipsOrange">
+                    <div class="icon">
+                    </div>
+                    <div class="font">
+                        提示：带<span style="color: red;">*</span>号为必填项！</div>
                 </div>
-                <div class="font">
-                    提示：带<span style="color: red;">*</span>号为必填项！</div>
-            </div>
-            <table class="fromTable" width="100%">
-                <tr>
-                    <th>
-                    </th>
-                    <td>
-                        <li class="buttonon" id="selectUser">
-                            <div class="hc_left">
+                <table class="fromTable" width="100%">
+                    <tr>
+                        <th style="width: 100px;">
+                            <span style="color: red;">*</span> 彩信标题：
+                        </th>
+                        <td>
+                            <input type="text" value="" name="FormData.Title" style="width: 250px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            <span style="color: red;">*</span> 排版：
+                        </th>
+                        <td>
+                            <input type="radio" value="0" name="LayoutType" checked="checked" />图片在上，文字在下<input
+                                type="radio" value="1" name="LayoutType" />文字在上，图片在下
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            新增：
+                        </th>
+                        <td>
+                            <div id="orderSortContainer" style="float: left; line-height: 30px; padding-top: 4px;">
                             </div>
-                            <div class="hc_center">
-                                <div>
-                                    <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
-                                <div>
-                                    添加更多发起人</div>
-                            </div>
-                            <div class="hc_right">
-                            </div>
-                        </li>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 150px;">
-                        发起人：
-                    </th>
-                    <td id="originators">
-                        <li class="buttonon">
-                            <div class="hc_left">
-                            </div>
-                            <div class="hc_center">
-                                <div>
-                                    @Model.CurrentUser.Name
+                            <li class="buttonon" id="newFrame">
+                                <div class="hc_left">
+                                </div>
+                                <div class="hc_center">
+                                    <div>
+                                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                    <div>
+                                        新增帧</div>
+                                </div>
+                                <div class="hc_right">
+                                </div>
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            <span style="color: red;">*</span> 当前帧播放：
+                        </th>
+                        <td>
+                            <input type="text" name="timeDuring" id="timeDuring" value="5" onblur="updateTimeDuring()" />秒
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            图片：
+                        </th>
+                        <td>
+                            <div id="container">
+                                <div id="filelist">
+                                </div>
+                                <li class="buttonon" id="pickfiles">
+                                    <div class="hc_left">
+                                    </div>
+                                    <div class="hc_center">
+                                        <div>
+                                            <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                        <div>
+                                            上传图片</div>
+                                    </div>
+                                    <div class="hc_right">
+                                    </div>
+                                </li>
+                                <div style="float: left">
+                                    支持gif/png/jpg格式
                                 </div>
                             </div>
-                            <div class="hc_right">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            铃声：
+                        </th>
+                        <td>
+                            <div id="voiceContainer">
+                                <div id="voicefilelist">
+                                </div>
+                                <li class="buttonon" id="voicepickfiles">
+                                    <div class="hc_left">
+                                    </div>
+                                    <div class="hc_center">
+                                        <div>
+                                            <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                        <div>
+                                            设置铃声</div>
+                                    </div>
+                                    <div class="hc_right">
+                                    </div>
+                                </li>
+                                <div style="float: left">
+                                    支持mid/amr格式
+                                </div>
                             </div>
-                        </li>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <span style="color: red;">*</span> 标题：
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(o => o.FormData.Title)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <span style="color: red;">*</span> 类型：
-                    </th>
-                    <td>
-                        @Html.DropDownListFor(o => o.FormData.ProposalType,
-                            new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
-                            .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <span style="color: red;">*</span> 提案内容：
-                    </th>
-                    <td>
-                        <textarea name="FormData.Content" id="FormData_Content" cols="170" rows="30" width="99%" 
-                                      class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="wrapper_btn">
-                            <div class="btn" id="submitBtn">
-                                <div class="fbb_left">
-                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
-                                <div class="fbb_center">
-                                    提交数据</div>
-                                <div class="fbb_right">
-                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            文本：
+                        </th>
+                        <td>
+                            <div style="float: left;">
+                                <textarea rows="12" cols="60" id="txt"></textarea></div>
+                            <div class="clr">
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                            <li class="buttonon" id="updateTxt">
+                                <div class="hc_left">
+                                </div>
+                                <div class="hc_center">
+                                    <div>
+                                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                    <div>
+                                        更新文本</div>
+                                </div>
+                                <div class="hc_right">
+                                </div>
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                            定时发送：
+                        </th>
+                        <td>
+                            <input id="timeOfExpectSend" name="FormData.TimeOfExpectSend" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                                class="Wdate" style="width: 150px;" /><span>&nbsp;不填写表示立即发送</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">
+                        </th>
+                        <td>
+                            <li class="buttonoff" id="save">
+                                <div class="hc_left">
+                                </div>
+                                <div class="hc_center">
+                                    <div>
+                                        保存彩信</div>
+                                </div>
+                                <div class="hc_right">
+                                </div>
+                            </li>
+                            <li class="buttonoff" id="saveAndSend">
+                                <div class="hc_left">
+                                </div>
+                                <div class="hc_center">
+                                    <div>
+                                        保存并发送</div>
+                                </div>
+                                <div class="hc_right">
+                                </div>
+                            </li>
+                            <input type="hidden" name="FormData.Frames" id="frames" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="clr">
+                </div>
+            </div>
+            <div style="float: left; width: 450px; padding-left: 10px; height: 700px; overflow: auto;
+                padding-top: 10px;">
+                <div id="frameContainers">
+                </div>
+                <div class="clr">
+                </div>
+            </div>
+            <div class="clr">
+            </div>
         </div>
         <div class="footBar">
             <div class="fb_content">
             </div>
         </div>
-    </div>
-</div>
-</form>
-<div id="wins" style="display: none;">
-    <div id="selectWin" class="easyui-window" title="请选择发起人" style="width: 750px; height: 500px;
-        background-color: #EFEFEF; display: none;" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
-        <div class="easyui-layout" data-options="fit:true">
-            <div region="center" border="false" style="background-color: #EFEFEF; overflow: hidden;">
-                <iframe src="" height="100%" width="100%" style="border: none; overflow-y: scroll;">
-                </iframe>
-            </div>
-            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
-                <a id="btnAddSelect" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
-                    添加并继续</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel"
-                        href="javascript:void(0)">完成并关闭</a>
-            </div>
+        <div class="clr">
         </div>
+        </form>
     </div>
 </div>
 <script type="text/javascript">
-    var selectedUsers = [];
+    var FrameView = {};
+    FrameView.addTrigger = function (frame, beforeFrame) {
+        FrameView.createNewFrameHtml(frame, beforeFrame);
+    };
+    FrameView.updateTrigger = function (frame) {
+        FrameView.updateFrameHtml(frame);
+    };
+    FrameView.removeTrigger = function (frame) {
+        FrameView.removeFrameHtml(frame);
+    };
+    FrameView.updateFrameHtml = function (frame) {
+        var html = template.render("frameTmpl", frame);
+        $("#frame" + frame.index).replaceWith(html);
+    };
+    FrameView.removeFrameHtml = function (frame) {
+        if (frame.index == currentSelectedIndex) {
+            if (frameContainer.frames.length > 0) {
+                currentSelectedIndex = frameContainer.getFrameByOrderSort(1).index;
+            }
+        }
+        $("#frame" + frame.index).remove();
+        selected(currentSelectedIndex);
+        refreshOptions();
+    };
+    FrameView.createNewFrameHtml = function (frame, afterFrame) {
+        var html = template.render("frameTmpl", frame);
+        if (afterFrame != null) {
+            var target = $("#frame" + afterFrame.index);
+            $(target).after(html);
+        } else {
+            $("#frameContainers").append(html);
+        }
+        refreshOptions();
+    };
+
+    var frameContainer;
     $(function () {
+        frameContainer = new FrameContainer();
+        frameContainer.frameAddListeners.push(FrameView);
+        frameContainer.frameUpdateListeners.push(FrameView);
+        frameContainer.frameRemoveListeners.push(FrameView);
+        var newFrame = new FrameInfo();
+        frameContainer.addFrame(newFrame);
+        selected(newFrame.index);
+        $("#newFrame").click(function () {
+            var cOrderSort = $("#orderSort").val();
+            var target = new FrameInfo();
+            target.positionStyle = currentPositionStyle;
+            if (cOrderSort == '')
+                frameContainer.addFrame(target);
+            else {
+                frameContainer.addFrame(target, cOrderSort);
+            }
+            selected(target.index);
+        });
+        $("input[name=LayoutType]").click(function () {
+            var chkVal = $(this).val();
+            if (currentPositionStyle != chkVal)
+                updateFramePicPosition(chkVal);
+        });
+        $("#updateTxt").click(function () {
+            updateFrameTxt(currentSelectedIndex, $("#txt").val());
+        });
+        initialPlUpload();
+        $("#saveAndSend").click(function () {
+            var isHaveVal = false;
+            $.each(frameContainer.frames, function (i, o) {
+                if (o.txt != '' || o.img != '') {
+                    $("#frames").val(frameContainer.serializeFrames());
+                    isHaveVal = true;
+                    return false;
+                }
+            });
+            if (!isHaveVal)
+                $("#frames").val('');
+            $("#mainForm").submit();
+           
+        });
+
         $("#mainForm").validate({
             ignore: "",
             rules: {
                 "FormData.Title": "required",
-                "FormData.Content": "required",
-                "FormData.ProposalType": "required"
+                "FormData.Frames": "required"
             },
             messages: {
-                "FormData.Title": "请输提案标题",
-                "FormData.Content": "请填写提案内容",
-                "FormData.ProposalType": "请选择类型"
+                "FormData.Title": "请填写彩信标题",
+                "FormData.Frames": "彩信没有任务内容,不能保存或发送！"
             }
         });
-        $("#submitBtn").click(function () {
-            $("#mainForm").submit();
-        });
-
-        $('#wins,#selectWin').show();
-        $("#selectUser").click(function () {
-            $('#selectWin').window('open');
-            $("#selectWin iframe").attr('src', '@Url.Action("SelectUser", "Users")');
-        });
-        $("#btnAddSelect").click(function () {
-            handerSelected();
-        });
-        $("#btnCompletedSelect").click(function () {
-            handerSelected();
-            $('#selectWin').window('close');
-        });
     });
+    var currentSelectedIndex = 0;
+    var currentPositionStyle = 0;
 
-    function removeUser(id) {
-        $("#user" + id).parent().parent().remove();
+    function initialPlUpload() {
+        var uploaderOfPic = new plupload.Uploader({
+            runtimes: 'browserplus,html5,flash,gears,silverlight,',
+            browse_button: 'pickfiles',
+            container: 'container',
+            max_file_size: '100kb',
+            file_data_name: 'uploaderFile',
+            url: '@Url.Action("PlUpload", "Common")',
+            flash_swf_url: '@Url.Content("~/Scripts/plupload/plupload.flash.swf")',
+            silverlight_xap_url: '@Url.Content("~/Scripts/plupload/plupload.silverlight.xap")',
+            filters: [
+                { title: "已选择的图片", extensions: "jpg,gif,png"}]
+        });
+        uploaderOfPic.init();
+        uploaderOfPic.bind('FilesAdded', function (up, files) {
+            $('#filelist').html('<div id="' + files[files.length - 1].id + '">文件：' + files[files.length - 1].name + ' (' + plupload.formatSize(files[files.length - 1].size) + ') <b></b>' + '</div>');
+            up.refresh();
+            up.start();
+        });
+        uploaderOfPic.bind('UploadProgress', function (up, file) {
+            $('#' + file.id + " b").html(file.percent + "%");
+        });
+        uploaderOfPic.bind('Error', function (up, err) {
+            if (err.code == "-600")
+                $('#filelist').html('<div style="color:red">图片大小超出限制!</div>');
+            if (err.code == "-601")
+                $('#filelist').html('<div style="color:red">文件类型不正确，请选择jpg,gif,png格式图片!</div>');
+            up.refresh();
+        });
+        uploaderOfPic.bind('FileUploaded', function (up, file, data) {
+            var dataObject = eval('(' + data.response + ')');
+            if (dataObject.status == "success") {
+                updateFrameImg(currentSelectedIndex, dataObject.fileName);
+            }
+            else {
+                alert(dataObject.msg);
+            }
+            $('#' + file.id + " b").html("100%");
+        });
+
+        var uploaderOfVoice = new plupload.Uploader({
+            runtimes: 'browserplus,html5,flash,gears,silverlight,',
+            browse_button: 'voicepickfiles',
+            container: 'voiceContainer',
+            max_file_size: '100kb',
+            file_data_name: 'uploaderFile',
+            url: '@Url.Action("PlUpload", "Common")',
+            flash_swf_url: '@Url.Content("~/Scripts/plupload/plupload.flash.swf")',
+            silverlight_xap_url: '@Url.Content("~/Scripts/plupload/plupload.silverlight.xap")',
+            filters: [
+                { title: "已选择的铃声", extensions: "mid,amr"}]
+        });
+        uploaderOfVoice.init();
+        uploaderOfVoice.bind('FilesAdded', function (up, files) {
+            $('#voicefilelist').html('<div id="' + files[files.length - 1].id + '">文件：' + files[files.length - 1].name + ' (' + plupload.formatSize(files[files.length - 1].size) + ') <b></b>' + '</div>');
+            up.refresh();
+            up.start();
+        });
+        uploaderOfVoice.bind('UploadProgress', function (up, file) {
+            $('#' + file.id + " b").html(file.percent + "%");
+        });
+        uploaderOfVoice.bind('Error', function (up, err) {
+            if (err.code == "-600")
+                $('#voicefilelist').html('<div style="color:red">铃声大小超出限制!</div>');
+            if (err.code == "-601")
+                $('#voicefilelist').html('<div style="color:red">文件类型不正确，请选择mid,amr格式铃声!</div>');
+            up.refresh();
+        });
+        uploaderOfVoice.bind('FileUploaded', function (up, file, data) {
+            var dataObject = eval('(' + data.response + ')');
+            if (dataObject.status == "success") {
+                updateFrameVoice(currentSelectedIndex, dataObject.fileName);
+            }
+            else {
+                alert(dataObject.msg);
+            }
+            $('#' + file.id + " b").html("100%");
+        });
     }
-
-    function handerSelected() {
-        var selects = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
-        var filterSelects = [];
-        for (var key in selects) {
-            if (selects[key].type != 2)
-                continue;
-            filterSelects.push(selects[key]);
-        }
-        if (filterSelects.length == 0) {
-            msgShow("请选择具体的人员", "请选择具体的人员", "");
+    function remove(event, index) {
+        if (frameContainer.frames.length == 1) {
+            alert("至少保留一帧信息");
             return;
         }
-        $.post('@Url.Action("ParseSelectedToUsers", "Users")', { 'selectedJson': $.toJSON(filterSelects) },
-                function (data) {
-                    $(evalJson(data)).each(function (index, row) {
-                        if ($.inArray(row.id, selectedUsers) >= 0 || row.id == '@Model.CurrentUser.Id') {
-                            return;
-                        }
-                        selectedUsers.push(row.id);
-                        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
-                            <div class="hc_left"></div><div class="hc_center">\
-                            <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
-                            <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
-                            </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
-                    });
-                }
-            );
+        if (confirm('确认删除该帧？'))
+        { frameContainer.removeFrame(index); }
+        event = window.event || event;
+        if (!event) { return; }
+        try {
+            event.preventDefault();
+            event.stopPropagation();
+        } catch (ex) {
+        }
+        event.cancelBubble = true;
+        event.returnValue = false;
+    }
+    function selected(index) {
+        var targetFrame;
+        currentSelectedIndex = index;
+        $.each(frameContainer.frames, function (i, o) {
+            if (o.index == index) {
+                targetFrame = o;
+                $("#txt").val(o.txt);
+                $("#timeDuring").val(o.timeDuring);
+                $("#frame" + o.index).addClass("frameSelect");
+            } else {
+                $("#frame" + o.index).removeClass("frameSelect");
+            }
+        });
+    }
+    function refreshOptions() {
+        var container = $("#orderSortContainer");
+        var arr = [];
+        for (var i = 0; i < frameContainer.frames.length; i++)
+            arr.push(i + 1);
+        container.html(template.render("orderSortTmpl", { list: arr }));
+        $("#orderSort").val(arr.length);
+    }
+    function updateFrameImg(index, img) {
+        var target = frameContainer.getFrameByIndex(index);
+        target.img = img;
+        frameContainer.onFrameUpdate(target);
+        selected(index);
+    }
+    function updateFrameTxt(index, txt) {
+        var target = frameContainer.getFrameByIndex(index);
+        target.txt = txt;
+        frameContainer.onFrameUpdate(target);
+        selected(index);
+    }
+    function updateFramePicPosition(positionStyle) {
+        currentPositionStyle = positionStyle;
+        $.each(frameContainer.frames, function (i, o) {
+            o.positionStyle = positionStyle;
+            frameContainer.onFrameUpdate(o);
+        });
+        selected(currentSelectedIndex);
+    }
+    function updateFrameVoice(index, voice) {
+        var target = frameContainer.getFrameByIndex(index);
+        target.voice = voice;
+        frameContainer.onFrameUpdate(target);
+        selected(index);
+    }
+    function updateTimeDuring() {
+        var target = frameContainer.getFrameByIndex(currentSelectedIndex);
+        target.timeDuring = $("#timeDuring").val();
+        frameContainer.onFrameUpdate(target);
+        selected(currentSelectedIndex);
     }
 </script>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NPC.Query.Articles;
+using NPC.Domain.Models.Articles;
 
 namespace NPC.Application.ManageModels.Articles
 {

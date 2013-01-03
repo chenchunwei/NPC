@@ -19,7 +19,7 @@ namespace NPC.Domain.Model.Mappings.Nodes
             Map(o => o.OuterCategoryId);
             References(o => o.ParentNode).Column("ParentNodeId");
             HasMany(o => o.Childrens).KeyColumn("ParentNodeId");
-            HasMany(o => o.NodeRecords).KeyColumn("BelongsToNodeId");
+            HasMany(o => o.NodeRecords).KeyColumn("BelongsToNodeId").Where("IsDelete=0");
             References(o => o.Unit).Column("UnitId");
             Component(o => o.RecordDescription);
             Component(o => o.NodeRecordMark);

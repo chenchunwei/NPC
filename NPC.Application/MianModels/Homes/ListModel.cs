@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NPC.Domain.Models.Articles;
-using NPC.Query.Articles;
 
 namespace NPC.Application.MianModels.Homes
 {

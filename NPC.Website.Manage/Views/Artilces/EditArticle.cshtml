@@ -40,15 +40,15 @@
                         <span style="color: red;">*</span> 新闻标题：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Title, new { style = "width:380px;",maxlength=75 })
+                        @Html.TextBoxFor(o => o.FormData.Title, new { style = "width:380px;", maxlength = 75 })
                     </td>
                 </tr>
                 <tr>
                     <th>
-                         作者：
+                        作者：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Author, new { style = "width:380px;",maxlength=25 })
+                        @Html.TextBoxFor(o => o.FormData.Author, new { style = "width:380px;", maxlength = 25 })
                     </td>
                 </tr>
                 <tr>
@@ -128,9 +128,6 @@
                 "FormData.Title": "请输入文章标题",
                 "FormData.Content": "请填写文章内容"
             }
-        });
-        $("#submitBtn").click(function () {
-            $("#mainForm").submit();
         });
         $("#submitBtn").click(function () {
             $("#mainForm").submit();

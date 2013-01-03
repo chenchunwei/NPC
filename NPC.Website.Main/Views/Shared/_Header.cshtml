@@ -11,16 +11,55 @@
         </object>
     </div>
     <div class="menu">
-        <ul>
-            @{
+        <ul id="sddm">
+            @if (Model.Menus.Any())
+            {
+                @Html.Raw(Model.Menus.First().FirstContent)
+            }
+         
+           
+@*  @{
                 var indexOfMenu = 0; 
             }
             @foreach (var nodeRecord in Model.Menus)
             {
-                <li @Html.Raw((indexOfMenu == Model.Menus.Count - 1) ? "style=\"background: none;\"" : "")><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                if (indexOfMenu > 7)
+                {
+                    break;
+                }
+                <li @Html.Raw((indexOfMenu == Model.Menus.Count - 1) ? "style=\"background: none;\"" : "")>
+                    <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
                 indexOfMenu++;
-            }
-
+            }*@
         </ul>
+    </div>
+    <div class="search-area">
+        <div class="search">
+            <form action="/Home/List" method="get">
+            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10">
+            <input type="submit" value="搜索">
+            </form>
+        </div>
+        <div class="date" style="line-height: 38px;">
+            @{
+                Func<DayOfWeek, string> dayOfWeek = (o) =>
+                {
+                    switch (o)
+                    {
+                        case DayOfWeek.Monday: return "星期一";
+                        case DayOfWeek.Tuesday: return "星期二";
+                        case DayOfWeek.Wednesday: return "星期三";
+                        case DayOfWeek.Thursday: return "星期四";
+                        case DayOfWeek.Friday: return "星期五";
+                        case DayOfWeek.Saturday: return "星期六";
+                        case DayOfWeek.Sunday: return "星期日";
+                        default: return "";
+                    }
+                };
+           
+            }
+            @DateTime.Now.ToString("yyyy年MM月dd日")&nbsp; @(dayOfWeek(DateTime.Now.DayOfWeek))
+            2012年12月28日 星期五
+        </div>
     </div>
 </div>

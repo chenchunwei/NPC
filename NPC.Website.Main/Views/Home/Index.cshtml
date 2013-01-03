@@ -125,7 +125,7 @@
             <p>
                 @if (Model.Directors.Any())
                 {
-                    @Model.Directors.First().FirstTitle 
+                    @Html.Raw(Model.Directors.First().FirstTitle) 
                 }
             </p>
         </div>
@@ -168,7 +168,7 @@
                     {
                     @Html.Raw("<ul>");
                     }
-                    <li>@member.FirstTitle</li>
+                    <li> @Html.Raw(member.FirstTitle)</li>
                     if (countOfLoop == 7 || indexOfMember == Model.Members.Count - 1)
                     {
                     @Html.Raw("</ul>");

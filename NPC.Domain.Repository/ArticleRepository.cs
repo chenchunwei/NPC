@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using NPC.Domain.Models.Articles;
-using NPC.Query.Articles;
 
 namespace NPC.Domain.Repository
 {
@@ -14,7 +13,7 @@ namespace NPC.Domain.Repository
         private readonly NestSqlBuilder _nestSqlBuilder = new NestSqlBuilder();
 
         #region 分页查询
-        public IList<Article> Query(ArticleQueryItem queryItem)
+        public IList<Article> Query(NPC.Domain.Models.Articles.ArticleQueryItem queryItem)
         {
             var queryReturns = FormatQuery(queryItem);
             var tempString = queryReturns.Item1;
@@ -34,7 +33,7 @@ namespace NPC.Domain.Repository
             return query.AddEntity(typeof(Article)).List<Article>();
         }
 
-        private static Tuple<string, Hashtable> FormatQuery(ArticleQueryItem queryItem)
+        private static Tuple<string, Hashtable> FormatQuery(NPC.Domain.Models.Articles.ArticleQueryItem queryItem)
         {
             //表区域
             var stringBuilder = new StringBuilder("Select {0} From Articles a ");

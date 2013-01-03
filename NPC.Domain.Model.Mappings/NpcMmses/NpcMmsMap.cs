@@ -13,9 +13,9 @@ namespace NPC.Domain.Model.Mappings.NpcMmses
        {
            Id(o => o.Id).GeneratedBy.GuidComb(); 
            Map(o => o.ByteSize);
-           HasMany(o => o.NpcMmsReceivers).KeyColumn("NpcMmsId");
-           Map(o => o.TimeOfExceptSend);
+           HasMany(o => o.NpcMmsContents).KeyColumn("NpcMmsId").Cascade.All();
            Component(o => o.RecordDescription);
+           References(o => o.Unit).Column("UnitId");
            Map(o => o.Title);
            Table("NpcMmses");
        }

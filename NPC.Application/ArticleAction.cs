@@ -6,7 +6,6 @@ using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Articles;
 using NPC.Domain.Models.Articles;
 using NPC.Domain.Repository;
-using NPC.Query.Articles;
 
 namespace NPC.Application
 {

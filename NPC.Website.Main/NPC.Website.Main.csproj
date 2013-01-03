@@ -141,6 +141,7 @@
     <Content Include="js\jquery-1.7.2.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.slider.js" />
+    <Content Include="js\nav.js" />
     <Content Include="Scripts\jquery.ae.image.resize.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Web.config" />

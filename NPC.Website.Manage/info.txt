@@ -1,0 +1,1 @@
+﻿    <add key="AttachmentsPath" value="D:\Git\NPC\NPC.Website.Manage" />

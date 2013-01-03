@@ -101,7 +101,7 @@ namespace NPC.Website.Manage.Controllers
         {
             return new RedirectResult(Url.Action("Message", "System") + string.Format("?message={0}&returnUrl={1}&textOfReturnUrl={2}", message, returnUrl, textOfReturnUrl));
         }
-
+        #region SwfUpload
         public ActionResult SwfUpload()
         {
             System.Drawing.Image thumbnailImage = null;
@@ -177,7 +177,7 @@ namespace NPC.Website.Manage.Controllers
                     Session["file_info"] = thumbnails;
                 }
                 thumbnails.Add(thumb);
-                finalImage.Save("c:\\aa.jpg",System.Drawing.Imaging.ImageFormat.Jpeg);
+                finalImage.Save("c:\\aa.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 Response.StatusCode = 200;
                 Response.Write(thumbnailID);
             }
@@ -199,6 +199,45 @@ namespace NPC.Website.Manage.Controllers
             }
             return new ContentResult();
         }
+        #endregion
+
+        #region plUpload
+        public JsonResult PlUpload()
+        {
+            HttpPostedFileBase upload = Request.Files["uploaderFile"];
+            if (upload == null)
+                return new NewtonsoftJsonResult()
+                {
+                    Data = new { status = "error", msg = "不存在上传文件！" }
+                };
+
+            var attachDir = HttpContext.Server.MapPath(CreateFolder4PlUpload());
+            FileInfo fileInfo = new FileInfo(upload.FileName);
+            var name = Guid.NewGuid() + fileInfo.Extension;
+            var fileName = Path.Combine(attachDir, name);
+            upload.SaveAs(fileName);
+            var relativeFileName = CreateRelativePath(name);
+
+            return new NewtonsoftJsonResult()
+            {
+                Data = new { status = "success", msg = "上传成功！", fileName = relativeFileName }
+            };
+        }
+        private string CreateFolder4PlUpload()
+        {
+            var attachDir = "Attachments/";
+            attachDir = System.IO.Path.Combine(HostingEnvironment.ApplicationHost.GetVirtualPath(), attachDir);
+            if (!System.IO.Directory.Exists(HttpContext.Server.MapPath(attachDir)))
+                System.IO.Directory.CreateDirectory(HttpContext.Server.MapPath(attachDir));
+            return attachDir;
+        }
+        private string CreateRelativePath(string fileName)
+        {
+            var attachDir = "Attachments/";
+            attachDir = System.IO.Path.Combine(HostingEnvironment.ApplicationHost.GetVirtualPath(), attachDir, fileName);
+            return attachDir;
+        }
+        #endregion
     }
 
     public class Thumbnail

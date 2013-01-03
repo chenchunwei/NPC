@@ -65,8 +65,10 @@
     <Compile Include="Nodes\NodeRecordMarkMap.cs" />
     <Compile Include="NpcMmses\NpcMmsContentMap.cs" />
     <Compile Include="NpcMmses\NpcMmsMap.cs" />
-    <Compile Include="NpcMmses\NpcMmsReceiverMap.cs" />
+    <Compile Include="NpcMmsSends\NpcMmsReceiverMap.cs" />
+    <Compile Include="NpcMmsSends\NpcMmsSendMap.cs" />
     <Compile Include="NpcSmses\NpcSmsMap.cs" />
+    <Compile Include="OpenMasConfigs\OpenMasConfigMap.cs" />
     <Compile Include="PhoneBooks\PhoneBookRecordMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposals\ProposalMap.cs" />

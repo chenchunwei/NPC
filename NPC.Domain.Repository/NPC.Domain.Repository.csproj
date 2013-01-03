@@ -54,7 +54,9 @@
     <Compile Include="NodeRecordRepository.cs" />
     <Compile Include="NodeRepository.cs" />
     <Compile Include="NpcMmsRepository.cs" />
+    <Compile Include="NpcMmsSendRepository.cs" />
     <Compile Include="NpcSmsRepository.cs" />
+    <Compile Include="OpenMasConfigRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalRepository.cs" />
     <Compile Include="TaskRepository.cs" />

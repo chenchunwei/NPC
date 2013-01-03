@@ -8,9 +8,9 @@ using NPC.Application.Contexts;
 using NPC.Application.MainTownModels;
 using NPC.Application.MianModels;
 using NPC.Application.MianModels.Homes;
+using NPC.Domain.Models.Articles;
 using NPC.Domain.Models.NodeRecords;
 using NPC.Domain.Repository;
-using NPC.Query.Articles;
 using HeaderModel = NPC.Application.MianModels.HeaderModel;
 
 namespace NPC.Application
@@ -277,7 +277,7 @@ namespace NPC.Application
         {
             var unitId = NpcMainWebContext.CurrentUnit.Id;
             var model = new HeaderModel();
-            model.Menus = _nodeRecordRepository.GetTopN(unitId, "Menus", 15);
+            model.Menus = _nodeRecordRepository.GetTopN(unitId, "PopMenus", 1);
             model.TopBanner = _nodeRecordRepository.GetTopN(unitId, "TopBanner", 1).FirstOrDefault();
             return model;
         }

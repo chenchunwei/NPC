@@ -20,6 +20,11 @@ namespace NPC.Website.Manage.Controllers
             var model = _manageHomeAction.InitializeLoginModel();
             return View(model);
         }
+        public ActionResult R()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.SessionId = Session.SessionID;
@@ -32,5 +37,6 @@ namespace NPC.Website.Manage.Controllers
                 return new EmptyResult();
             return PartialView("_ManageMenus");
         }
+
     }
 }

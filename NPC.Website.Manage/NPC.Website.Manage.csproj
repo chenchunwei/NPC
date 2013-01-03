@@ -48,6 +48,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Infrastructure\ExternalAssembly\Log4net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Infrastructure\ExternalAssembly\JSON.NET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Infrastructure\ExternalAssembly\Nhibernate\NHibernate.dll</HintPath>
@@ -82,9 +86,13 @@
     <Compile Include="Controllers\ArtilcesController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\ExtensionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NodeRecordsController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
+    <Compile Include="Controllers\NpcMmsesController.cs" />
+    <Compile Include="Controllers\NpcMmsSendsController.cs" />
+    <Compile Include="Controllers\OpenMasConfigsController.cs" />
     <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
@@ -170,6 +178,7 @@
     <Content Include="Content\CSS\customIcon.css" />
     <Content Include="Content\CSS\reset.css" />
     <Content Include="Content\CSS\style.css" />
+    <Content Include="Content\CSS\frame.css" />
     <Content Include="Content\Images\057.gif" />
     <Content Include="Content\Images\057.jpg" />
     <Content Include="Content\Images\087.gif" />
@@ -269,6 +278,50 @@
     <Content Include="Content\Images\wrapper_rightbj.jpg" />
     <Content Include="Content\login.css" />
     <Content Include="Global.asax" />
+    <Content Include="info.txt" />
+    <Content Include="Scripts\app\frame.js" />
+    <Content Include="Scripts\artTemplate\extensions\index.html" />
+    <Content Include="Scripts\artTemplate\extensions\template-syntax.js" />
+    <Content Include="Scripts\artTemplate\extensions\template-syntax.min.js" />
+    <Content Include="Scripts\artTemplate\extensions\test\index.html" />
+    <Content Include="Scripts\artTemplate\extensions\test\test-syntax-debug.html" />
+    <Content Include="Scripts\artTemplate\extensions\test\test-syntax-helper.html" />
+    <Content Include="Scripts\artTemplate\extensions\test\test-syntax.html" />
+    <Content Include="Scripts\artTemplate\index.html" />
+    <Content Include="Scripts\artTemplate\seajs\transport-extensions.js" />
+    <Content Include="Scripts\artTemplate\seajs\transport.js" />
+    <Content Include="Scripts\artTemplate\template.js" />
+    <Content Include="Scripts\artTemplate\template.min.js" />
+    <Content Include="Scripts\artTemplate\test\index.html" />
+    <Content Include="Scripts\artTemplate\test\js\baidu.template.js" />
+    <Content Include="Scripts\artTemplate\test\js\beautify.js" />
+    <Content Include="Scripts\artTemplate\test\js\doT.js" />
+    <Content Include="Scripts\artTemplate\test\js\easytemplate.js" />
+    <Content Include="Scripts\artTemplate\test\js\handlebars.js" />
+    <Content Include="Scripts\artTemplate\test\js\highcharts.js" />
+    <Content Include="Scripts\artTemplate\test\js\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\artTemplate\test\js\jquery.tmpl.js" />
+    <Content Include="Scripts\artTemplate\test\js\juicer.js" />
+    <Content Include="Scripts\artTemplate\test\js\kissy.js" />
+    <Content Include="Scripts\artTemplate\test\js\mustache.js" />
+    <Content Include="Scripts\artTemplate\test\js\template.js" />
+    <Content Include="Scripts\artTemplate\test\js\tmpl.js" />
+    <Content Include="Scripts\artTemplate\test\test-all.html" />
+    <Content Include="Scripts\artTemplate\test\test-compile-demo.html" />
+    <Content Include="Scripts\artTemplate\test\test-compile.html" />
+    <Content Include="Scripts\artTemplate\test\test-debug.html" />
+    <Content Include="Scripts\artTemplate\test\test-helper.html" />
+    <Content Include="Scripts\artTemplate\test\test-include.html" />
+    <Content Include="Scripts\artTemplate\test\test-print.html" />
+    <Content Include="Scripts\artTemplate\test\test-speed.html" />
+    <Content Include="Scripts\artTemplate\test\test-tag.html" />
+    <Content Include="Scripts\artTemplate\test\test-tmpl.html" />
+    <Content Include="Scripts\artTemplate\test\test-undefined.html" />
+    <Content Include="Scripts\artTemplate\test\test.html" />
+    <Content Include="Scripts\artTemplate\tools\combine.html" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery-1.7.2.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-easyui-1.3.1\demo\accordion.html" />
     <Content Include="Scripts\jquery-easyui-1.3.1\demo\calendar.html" />
     <Content Include="Scripts\jquery-easyui-1.3.1\demo\combo.html" />
@@ -664,6 +717,86 @@
     <Content Include="Scripts\jquery.marquee.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validator.extension.js" />
+    <Content Include="Scripts\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\dateselect.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\glass-bg.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\hd-sprite.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\left-btn.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\left-btn2.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\right-btn.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\ext\right-btn2.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\plupload\custom.html" />
+    <Content Include="Scripts\plupload\i18n\cs.js" />
+    <Content Include="Scripts\plupload\i18n\da.js" />
+    <Content Include="Scripts\plupload\i18n\de.js" />
+    <Content Include="Scripts\plupload\i18n\el.js" />
+    <Content Include="Scripts\plupload\i18n\es.js" />
+    <Content Include="Scripts\plupload\i18n\et.js" />
+    <Content Include="Scripts\plupload\i18n\fa.js" />
+    <Content Include="Scripts\plupload\i18n\fi.js" />
+    <Content Include="Scripts\plupload\i18n\fr-ca.js" />
+    <Content Include="Scripts\plupload\i18n\fr.js" />
+    <Content Include="Scripts\plupload\i18n\hr.js" />
+    <Content Include="Scripts\plupload\i18n\hu.js" />
+    <Content Include="Scripts\plupload\i18n\it.js" />
+    <Content Include="Scripts\plupload\i18n\ja.js" />
+    <Content Include="Scripts\plupload\i18n\ko.js" />
+    <Content Include="Scripts\plupload\i18n\lv.js" />
+    <Content Include="Scripts\plupload\i18n\nl.js" />
+    <Content Include="Scripts\plupload\i18n\pl.js" />
+    <Content Include="Scripts\plupload\i18n\pt-br.js" />
+    <Content Include="Scripts\plupload\i18n\ro.js" />
+    <Content Include="Scripts\plupload\i18n\ru.js" />
+    <Content Include="Scripts\plupload\i18n\sr.js" />
+    <Content Include="Scripts\plupload\i18n\sv.js" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\backgrounds.gif" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\buttons-disabled.png" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\buttons.png" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\delete.gif" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\done.gif" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\error.gif" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\throbber.gif" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\img\transp50.png" />
+    <Content Include="Scripts\plupload\jquery.plupload.queue\jquery.plupload.queue.js" />
+    <Content Include="Scripts\plupload\jquery.ui.plupload\css\jquery.ui.plupload.css" />
+    <Content Include="Scripts\plupload\jquery.ui.plupload\img\plupload-bw.png" />
+    <Content Include="Scripts\plupload\jquery.ui.plupload\img\plupload.png" />
+    <Content Include="Scripts\plupload\jquery.ui.plupload\jquery.ui.plupload.js" />
+    <Content Include="Scripts\plupload\plupload.browserplus.js" />
+    <Content Include="Scripts\plupload\plupload.flash.js" />
+    <Content Include="Scripts\plupload\plupload.flash.swf" />
+    <Content Include="Scripts\plupload\plupload.full.js" />
+    <Content Include="Scripts\plupload\plupload.gears.js" />
+    <Content Include="Scripts\plupload\plupload.html4.js" />
+    <Content Include="Scripts\plupload\plupload.html5.js" />
+    <Content Include="Scripts\plupload\plupload.js" />
+    <Content Include="Scripts\plupload\plupload.silverlight.js" />
+    <Content Include="Scripts\plupload\plupload.silverlight.xap" />
     <Content Include="Scripts\showpage.src.js" />
     <Content Include="Scripts\jquery.json-2.4.min.txt" />
     <Content Include="Scripts\swfupload\handlers\handlersSample.js" />
@@ -1051,6 +1184,10 @@
     </Content>
     <Content Include="AdminCenter\修改List.cshtml" />
     <None Include="Properties\PublishProfiles\npc.pubxml" />
+    <None Include="Scripts\artTemplate\extensions\README.md" />
+    <None Include="Scripts\artTemplate\package.json" />
+    <None Include="Scripts\artTemplate\README.md" />
+    <None Include="Scripts\artTemplate\seajs\README.md" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\combobox_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data.json" />
     <None Include="Scripts\jquery-easyui-1.3.1\demo\datagrid_data2.json" />
@@ -1095,6 +1232,11 @@
     <Content Include="Views\Shared\_ManageMenus.cshtml" />
     <Content Include="Views\NpcMmses\EditNpcMms.cshtml" />
     <Content Include="Views\NpcSmses\EditSms.cshtml" />
+    <Content Include="Views\Home\NotSupport.cshtml" />
+    <Content Include="Views\Extension\NotSupport.cshtml" />
+    <Content Include="Views\NpcMmses\List.cshtml" />
+    <Content Include="Views\NpcMmsSends\List.cshtml" />
+    <Content Include="Views\OpenMasConfigs\EditOpenMasConfig.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

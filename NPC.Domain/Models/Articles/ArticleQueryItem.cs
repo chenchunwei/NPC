@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NPC.Domain.Models;
 
-namespace NPC.Query.Articles
+namespace NPC.Domain.Models.Articles
 {
     public class ArticleQueryItem : QueryItemBase
     {
