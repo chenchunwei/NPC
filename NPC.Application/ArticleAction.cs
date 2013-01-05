@@ -48,6 +48,7 @@ namespace NPC.Application
             if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
                 article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
             article.RecordDescription.CreateBy(NpcContext.CurrentUser);
+            article.Unit = NpcContext.CurrentUser.Unit;
             _articleRepository.Save(article);
         }
 

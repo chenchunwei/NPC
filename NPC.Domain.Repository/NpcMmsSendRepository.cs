@@ -59,11 +59,10 @@ namespace NPC.Domain.Repository
         #endregion
 
         #region 查询待发送的信息
-        public IList<NpcMmsSend> GetNpcMmsSendsWaitingSend(DateTime dateTime)
+        public IList<NpcMmsSend> GetNpcMmsSendsWaitingSend()
         {
             return Session.CreateSQLQuery("Select * from NpcMmsSends where SendStatus=0 and IsDelete=0 ")
                        .AddEntity(typeof (NpcMmsSend))
-                       .SetDateTime("dateTime", dateTime)
                        .List<NpcMmsSend>();
         }
         #endregion

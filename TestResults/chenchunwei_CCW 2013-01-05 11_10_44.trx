@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="198c7671-73d3-4010-a37a-3fdb303a0d9e" name="chenchunwei@CCW 2013-01-05 11:10:44" runUser="ccw\chenchunwei" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="c9e6bbad-69e8-4eea-aa37-424d9f39c967">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="chenchunwei_CCW 2013-01-05 11_10_44">
+      <DeploymentItem filename="D:\Git\Infrastructure\ExternalAssembly\Quartz.Net\Quartz.dll" />
+      <DeploymentItem filename="D:\Git\NPC\NPC.Domain\bin\Debug\NPC.Domain.dll" />
+      <DeploymentItem filename="D:\Git\NPC\NPC.Domain.Model.Mappings\bin\Debug\NPC.Domain.Model.Mappings.dll" />
+      <DeploymentItem filename="D:\Git\NPC\Npc.Message.Job\bin\Debug\Npc.Message.Job.dll" />
+      <DeploymentItem filename="D:\Git\NPC\NPC.Domain.Repository\bin\Debug\NPC.Domain.Repository.dll" />
+      <DeploymentItem filename="D:\Git\NPC\NPC.Application\bin\Debug\NPC.Application.dll" />
+      <DeploymentItem filename="D:\Git\Infrastructure\Fluent.Infrastructure\bin\Debug\Fluent.Infrastructure.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-01-05T11:10:44.7411063+08:00" queuing="2013-01-05T11:10:46.3107447+08:00" start="2013-01-05T11:10:46.3797906+08:00" finish="2013-01-05T11:10:46.9360227+08:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestMmsJob" storage="d:\git\npc\npc.message.job.tests\bin\debug\npc.message.job.tests.dll" id="048ca9bc-605a-73e4-dd7b-a8dc92492a22">
+      <Execution id="ebcc2a44-e3cb-42e2-97e7-356c3ef40d94" />
+      <TestMethod codeBase="D:/Git/NPC/Npc.Message.Job.Tests/bin/Debug/Npc.Message.Job.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Npc.Message.Job.Tests.MmsJobTests, Npc.Message.Job.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMmsJob" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="048ca9bc-605a-73e4-dd7b-a8dc92492a22" executionId="ebcc2a44-e3cb-42e2-97e7-356c3ef40d94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="ebcc2a44-e3cb-42e2-97e7-356c3ef40d94" testId="048ca9bc-605a-73e4-dd7b-a8dc92492a22" testName="TestMmsJob" computerName="CCW" duration="00:00:00.1961053" startTime="2013-01-05T11:10:46.4399697+08:00" endTime="2013-01-05T11:10:46.9014392+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebcc2a44-e3cb-42e2-97e7-356c3ef40d94">
+      <Output>
+        <DebugTrace>no configuration section &lt;common/logging&gt; found - suppressing logging output
+</DebugTrace>
+        <ErrorInfo>
+          <Message>Test method Npc.Message.Job.Tests.MmsJobTests.TestMmsJob threw exception: 
+System.ArgumentException: Job class must implement the Job interface.</Message>
+          <StackTrace>    在 Quartz.Impl.JobDetailImpl.set_JobType(Type value) 位置 c:\Work\OpenSource\quartznet\src\Quartz\Impl\JobDetailImpl.cs:行号 243
+   在 Quartz.Impl.JobDetailImpl..ctor(String name, String group, Type jobType) 位置 c:\Work\OpenSource\quartznet\src\Quartz\Impl\JobDetailImpl.cs:行号 102
+   在 Npc.Message.Job.Tests.MmsJobTests.TestMmsJob() 位置 D:\Git\NPC\Npc.Message.Job.Tests\MmsJobTests.cs:行号 23
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

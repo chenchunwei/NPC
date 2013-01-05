@@ -2,6 +2,7 @@
     ViewBag.Title = "管理首页";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model NPC.Application.ManageModels.NpcMmses.EditNpcMmsModel
 <script src="@Url.Content("~/Scripts/artTemplate/template.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/app/frame.js")" type="text/javascript"></script>
@@ -9,7 +10,6 @@
 <script src="@Url.Content("~/Scripts/plupload/plupload.full.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/CSS/frame.css")"/>
-<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
 <script id="frameTmpl" type="text/html">
     <div class="frameContainer" id="frame{index}" >
         <div class="frameWapper frameShadow " onclick="selected({index})">
@@ -104,7 +104,7 @@
             <div class="pic">
                 <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
             <div class="font">
-                提示：彩信每帧大小不能超过100K!</div>
+                提示：彩信总大小不能超过100K!</div>
         </div>
     </div>
     <div class="row">
@@ -162,7 +162,7 @@
                             <span style="color: red;">*</span> 当前帧播放：
                         </th>
                         <td>
-                            <input type="text" name="timeDuring" id="timeDuring" value="5" onblur="updateTimeDuring()" />秒
+                            <input type="text" name="timeDuring" id="timeDuring" value="10" onblur="updateTimeDuring()" />秒
                         </td>
                     </tr>
                     <tr>
@@ -226,34 +226,13 @@
                                 <textarea rows="12" cols="60" id="txt"></textarea></div>
                             <div class="clr">
                             </div>
-                            <li class="buttonon" id="updateTxt">
-                                <div class="hc_left">
-                                </div>
-                                <div class="hc_center">
-                                    <div>
-                                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
-                                    <div>
-                                        更新文本</div>
-                                </div>
-                                <div class="hc_right">
-                                </div>
-                            </li>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="width: 100px;">
-                            定时发送：
-                        </th>
-                        <td>
-                            <input id="timeOfExpectSend" name="FormData.TimeOfExpectSend" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-                                class="Wdate" style="width: 150px;" /><span>&nbsp;不填写表示立即发送</span>
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 100px;">
                         </th>
                         <td>
-                            <li class="buttonoff" id="save">
+                            <li class="buttonoff" id="saveBtn">
                                 <div class="hc_left">
                                 </div>
                                 <div class="hc_center">
@@ -296,6 +275,7 @@
         </div>
         <div class="clr">
         </div>
+        <input type="hidden" value="" id="IsSend" name="IsSend" />
         </form>
     </div>
 </div>
@@ -363,22 +343,18 @@
         $("#updateTxt").click(function () {
             updateFrameTxt(currentSelectedIndex, $("#txt").val());
         });
+        $("#txt").bind("blur", function () {
+            updateFrameTxt(currentSelectedIndex, $(this).val());
+        });
         initialPlUpload();
         $("#saveAndSend").click(function () {
-            var isHaveVal = false;
-            $.each(frameContainer.frames, function (i, o) {
-                if (o.txt != '' || o.img != '') {
-                    $("#frames").val(frameContainer.serializeFrames());
-                    isHaveVal = true;
-                    return false;
-                }
-            });
-            if (!isHaveVal)
-                $("#frames").val('');
-            $("#mainForm").submit();
-           
+            $("#IsSend").val("True");
+            submit();
         });
-
+        $("#saveBtn").click(function () {
+            $("#IsSend").val("False");
+            submit();
+        });
         $("#mainForm").validate({
             ignore: "",
             rules: {
@@ -394,6 +370,19 @@
     var currentSelectedIndex = 0;
     var currentPositionStyle = 0;
 
+    function submit() {
+        var isHaveVal = false;
+        $.each(frameContainer.frames, function (i, o) {
+            if (o.txt != '' || o.img != '') {
+                $("#frames").val(frameContainer.serializeFrames());
+                isHaveVal = true;
+                return false;
+            }
+        });
+        if (!isHaveVal)
+            $("#frames").val('');
+        $("#mainForm").submit();
+    }
     function initialPlUpload() {
         var uploaderOfPic = new plupload.Uploader({
             runtimes: 'browserplus,html5,flash,gears,silverlight,',
@@ -521,6 +510,7 @@
     function updateFrameTxt(index, txt) {
         var target = frameContainer.getFrameByIndex(index);
         target.txt = txt;
+        target.txtSize = utility.length(txt);
         frameContainer.onFrameUpdate(target);
         selected(index);
     }

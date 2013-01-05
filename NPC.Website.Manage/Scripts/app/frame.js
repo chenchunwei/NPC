@@ -117,11 +117,14 @@ FrameContainer.prototype = {
 var FrameInfo = DefineClass();
 FrameInfo.prototype = {
     img: '',
+    imgSize: 0,
     txt: '',
+    txtSize: 0,
     type: 0,
     voice: '',
+    voiceSize: 0,
     orderSort: 0,
     id: 0,
     positionStyle: 0,
-    timeDuring: 5
+    timeDuring: 10
 };

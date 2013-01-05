@@ -12,7 +12,7 @@ namespace NPC.Website.Manage.Controllers
 {
     public class NpcMmsSendsController : CommonController
     {
-        private NpcMmsSendAction _npcMmsSendAction;
+        private readonly NpcMmsSendAction _npcMmsSendAction;
         public NpcMmsSendsController()
         {
             _npcMmsSendAction = new NpcMmsSendAction();
@@ -34,5 +34,18 @@ namespace NPC.Website.Manage.Controllers
             return new NewtonsoftJsonResult() { Data = new { Status = "success", Message = "删除成功!" } };
         }
 
+        public ActionResult EditNpcMmsSend(Guid npcMmsId)
+        {
+            var model = _npcMmsSendAction.InitializeEditNpcMmsSendModel(npcMmsId);
+            return View(model);
+        }
+        [HttpPost, ActionName("EditNpcMmsSend")]
+
+        public ActionResult EditNpcMmsSendPost(EditNpcMmsSendModel model)
+        {
+            model.Receivers = model.ReceiversStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            _npcMmsSendAction.Send(model);
+            return RedirectToMessage("发送成功！");
+        }
     }
 }

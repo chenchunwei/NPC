@@ -92,6 +92,7 @@
     <Compile Include="ManageModels\NpcMmses\EditNpcMmsModel.cs" />
     <Compile Include="ManageModels\NpcMmses\NpcMmsListModel.cs" />
     <Compile Include="ManageModels\NpcMmses\NpcMmsSearchModel.cs" />
+    <Compile Include="ManageModels\NpcMmsSends\EditNpcMmsSendModel.cs" />
     <Compile Include="ManageModels\NpcMmsSends\NpcMmsSendListModel.cs" />
     <Compile Include="ManageModels\NpcMmsSends\NpcMmsSendSearchModel.cs" />
     <Compile Include="ManageModels\OpenMasConfigs\EditOpenMasConfigModel.cs" />

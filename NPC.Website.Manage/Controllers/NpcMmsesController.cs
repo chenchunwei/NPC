@@ -26,19 +26,17 @@ namespace NPC.Website.Manage.Controllers
         public ActionResult EditNpcMmsPost(EditNpcMmsModel model)
         {
             model.FrameSerializers = JsonConvert.DeserializeObject<IList<FrameSerializer>>(model.FormData.Frames);
-            if (model.FormData.NpcMmsDraftId == null)
-            {
-                _npcMmsAction.NewNpcMms(model);
-                return RedirectToMessage("手机报彩信保存成功");
-            }
-            return View();
+            var npcMms = _npcMmsAction.NewNpcMms(model);
+            if (model.IsSend)
+                return RedirectToAction("EditNpcMmsSend", "NpcMmsSends", new { npcMmsId = npcMms.Id });
+            return RedirectToMessage("手机报彩信保存成功");
         }
 
         public ActionResult List(NpcMmsListModel listModel)
         {
             listModel.NpcMmsSearchModel.NpcMmsQueryItem.Pagination.PageIndex = PageIndex;
             listModel.NpcMmsSearchModel.NpcMmsQueryItem.UnitId = new NpcContext().CurrentUser.Unit.Id;
-            var model = _npcMmsAction.InitializeNpcMmsListModel(listModel.NpcMmsSearchModel.NpcMmsQueryItem );
+            var model = _npcMmsAction.InitializeNpcMmsListModel(listModel.NpcMmsSearchModel.NpcMmsQueryItem);
             return View(model);
         }
 

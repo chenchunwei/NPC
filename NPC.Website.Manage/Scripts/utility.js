@@ -10,6 +10,9 @@ utility.formSerialize = function (form) {
     });
     return o;
 };
+utility.length = function (txt) {
+    return txt.replace(/[^\u0000-\u00ff]/g, "aa").length
+};
 // 弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
 function msgShow(title, msgString, msgType) {
     $.messager.alert(title, msgString, msgType);
@@ -62,6 +65,7 @@ $.validator.setDefaults({
         error.appendTo($(element).parent());
     }
 });
+
 //0全选 1取消  2反选
 controller.batchOfChk = function (chkSelector, status) {
     $(chkSelector).each(function (i, o) {

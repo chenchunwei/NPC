@@ -15,6 +15,7 @@ namespace NPC.Application.ManageModels.NpcMmses
             FrameSerializers = new List<FrameSerializer>();
         }
 
+        public bool IsSend { get; set; }
         public int ByteSize { get; set; }
         public int FrameCount { get; set; }
         public EditNpcMmsModelFormData FormData { get; set; }
@@ -23,15 +24,8 @@ namespace NPC.Application.ManageModels.NpcMmses
 
     public class EditNpcMmsModelFormData
     {
-        public EditNpcMmsModelFormData()
-        {
-            TelNums = new List<string>();
-        }
         public string Title { get; set; }
-        public IList<string> TelNums { get; set; }
         public string Frames { get; set; }
-        public Guid? NpcMmsDraftId { get; set; }
-        public DateTime? TimeOfExceptSend { get; set; }
         public LayoutType LayoutType { get; set; }
     }
     [DataContract]

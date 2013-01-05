@@ -12,7 +12,7 @@ namespace NPC.Domain.Model.Mappings.NpcMmsSends
         public NpcMmsSendMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
-            HasMany(o => o.NpcMmsReceivers).KeyColumn("NpcMmsId");
+            HasMany(o => o.NpcMmsReceivers).KeyColumn("NpcMmsSendId").Cascade.All();
             Component(o => o.RecordDescription);
             Map(o => o.Title);
             Map(o => o.Extension);

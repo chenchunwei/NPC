@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "发送彩信";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model NPC.Application.ManageModels.NpcMmsSends.EditNpcMmsSendModel 
+<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示：彩信总大小不能超过100K!</div>
+        </div>
+    </div>
+    <div class="row">
+        <form id="mainForm" action="" method="POST" style="margin: 0">
+        <div class="rightContent">
+            <div class="workgroundin" style="height: 5px;">
+            </div>
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 200px;">
+                        待发送的彩信：
+                    </th>
+                    <td>
+                        @Model.NpcMms.Title
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        总帧数：
+                    </th>
+                    <td>
+                        @Model.NpcMms.NpcMmsContents.Count
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 彩信标题：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.SendTitle, new { style = "width: 350px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 接收人：
+                    </th>
+                    <td>
+                        <textarea rows="12" cols="60" id="ReceiversStr" name="ReceiversStr"></textarea>&nbsp;填写手机号码，多个号码以","号隔开
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 定时发送：
+                    </th>
+                    <td>
+                        <input id="TimeOfExpectSend" name="TimeOfExpectSend" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                            class="Wdate" style="width: 150px;" /><span>&nbsp;不填写表示立即发送</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <li class="buttonoff" id="sendBtn">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    发送</div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                    </td>
+                </tr>
+            </table>
+            <div class="clr">
+            </div>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+        <div class="clr">
+        </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#sendBtn").click(function () {
+            $("#mainForm").submit();
+        });
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "SendTitle": "required",
+                "ReceviersStr": "required"
+            },
+            messages: {
+                "SendTitle": "必填项",
+                "ReceviersStr": "必填项"
+            }
+        });
+    });
+</script>

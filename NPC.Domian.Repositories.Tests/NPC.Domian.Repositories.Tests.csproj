@@ -57,6 +57,7 @@
     <Compile Include="FlowNodeInstanceServiceTests.cs" />
     <Compile Include="FlowServiceTests.cs" />
     <Compile Include="FlowTypeRepositoryTests.cs" />
+    <Compile Include="NpcMmsSendRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitRepositoryTests.cs" />
   </ItemGroup>

@@ -15,7 +15,7 @@ namespace NPC.Domain.Model.Mappings.NpcMmsSends
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.DealStatus);
             Map(o => o.MessageId);
-            References(o => o.NpcMmsSend).Column("NpcMmsId");
+            References(o => o.NpcMmsSend).Column("NpcMmsSendId");
             Map(o => o.SendStatus);
             Map(o => o.TelNum);
             Table("NpcMmsReceivers");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -30,11 +31,30 @@ namespace NPC.Website.Manage
             );
 
         }
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            var error = Server.GetLastError();
+            if (error == null) return;
+            var errorMessage = new StringBuilder();
+            errorMessage.AppendLine(Request.Url.ToString());
+            errorMessage.AppendLine(error.TargetSite.ToString());
+            errorMessage.AppendLine(error.Message);
+            errorMessage.AppendLine(error.ToString());
+            errorMessage.AppendLine(error.StackTrace);
+            var loggerFactory = new DefaultLoggerFactory();
+            loggerFactory.GetLogger().InfoFormat(errorMessage.ToString());
+            var url = UrlHelper
+                .GenerateUrl("Default", "Message", "System", null,
+                RouteTable.Routes, HttpContext.Current.Request.RequestContext, false);
+            HttpContext.Current.Response.Redirect(url + "?Message=" + error.Message, true);
+        }
 
         protected void Application_Start()
         {
-            new DefaultLoggerFactory().GetLogger().Info("日志已启动");
+            var loggerFactory = new DefaultLoggerFactory();
+            loggerFactory.GetLogger().InfoFormat("日志已启动！");
             AreaRegistration.RegisterAllAreas();
+
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);

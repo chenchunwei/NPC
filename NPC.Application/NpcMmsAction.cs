@@ -16,7 +16,7 @@ namespace NPC.Application
         {
             _npcMmsRepository = new NpcMmsRepository();
         }
-        public void NewNpcMms(EditNpcMmsModel model)
+        public NpcMms NewNpcMms(EditNpcMmsModel model)
         {
             var trans = TransactionManager.BeginTransaction();
             var attachmentsPath = System.Configuration.ConfigurationManager.AppSettings["AttachmentsPath"];
@@ -42,6 +42,7 @@ namespace NPC.Application
                 });
                 _npcMmsRepository.Save(npcMms);
                 trans.Commit();
+                return npcMms;
             }
             catch (Exception)
             {
