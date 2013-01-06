@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NPC.Application;
 using NPC.Application.Contexts;
+using NPC.Application.ManageModels;
 using NPC.Application.MianModels.Homes;
 
 namespace NPC.Website.Main.Controllers
@@ -54,6 +55,10 @@ namespace NPC.Website.Main.Controllers
         {
             recordsModel.NodeRecordQueryItem.Pagination.PageIndex = PageIndex;
             var model = _indexAction.InitializeRecordsModel(recordsModel.NodeRecordQueryItem);
+            return View(model);
+        }
+        public ActionResult Message(RedirectMessageModel model)
+        {
             return View(model);
         }
     }

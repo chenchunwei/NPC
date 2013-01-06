@@ -63,13 +63,14 @@ namespace NPC.Application
                 foreach (var receiver in model.Receivers)
                 {
                     newNpcMmsSend.NpcMmsReceivers.Add(new NpcMmsReceiver()
-                                                          {
-                                                              TelNum = receiver
-                                                          });
+                    {
+                        TelNum = receiver
+                    });
 
                 }
                 newNpcMmsSend.TimeOfExceptSend = model.TimeOfExpectSend;
                 newNpcMmsSend.Title = model.SendTitle;
+                newNpcMmsSend.Unit = NpcContext.CurrentUser.Unit;
                 trans.Begin();
                 _npcMmsSendRepository.Save(newNpcMmsSend);
                 trans.Commit();

@@ -61,13 +61,27 @@
     <Compile Include="FlowTypes\FlowTypeDataFieldMap.cs" />
     <Compile Include="FlowTypes\FlowTypeMap.cs" />
     <Compile Include="NodeRecords\NodeRecordMap.cs" />
-    <Compile Include="Nodes\NodeMap.cs" />
-    <Compile Include="Nodes\NodeRecordMarkMap.cs" />
-    <Compile Include="NpcMmses\NpcMmsContentMap.cs" />
-    <Compile Include="NpcMmses\NpcMmsMap.cs" />
-    <Compile Include="NpcMmsSends\NpcMmsReceiverMap.cs" />
-    <Compile Include="NpcMmsSends\NpcMmsSendMap.cs" />
-    <Compile Include="NpcSmses\NpcSmsMap.cs" />
+    <Compile Include="Nodes\NodeMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nodes\NodeRecordMarkMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NpcMmses\NpcMmsContentMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NpcMmses\NpcMmsMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NpcMmsSends\NpcMmsReceiverMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NpcMmsSends\NpcMmsSendMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NpcSmses\NpcSmsMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="OpenMasConfigs\OpenMasConfigMap.cs" />
     <Compile Include="PhoneBooks\PhoneBookRecordMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -46,7 +46,8 @@ namespace NPC.Website.Manage
             var url = UrlHelper
                 .GenerateUrl("Default", "Message", "System", null,
                 RouteTable.Routes, HttpContext.Current.Request.RequestContext, false);
-            HttpContext.Current.Response.Redirect(url + "?Message=" + error.Message, true);
+            if (!string.Equals(Request.RawUrl, url, StringComparison.CurrentCultureIgnoreCase))
+                HttpContext.Current.Response.Redirect(url + "?Message=" + error.Message, true);
         }
 
         protected void Application_Start()
