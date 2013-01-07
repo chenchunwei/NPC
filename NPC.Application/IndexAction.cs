@@ -58,7 +58,7 @@ namespace NPC.Application
             model.RegulationsNode = _nodeRepository.GetSingleByCode(unitId, "Regulations");
             model.StudyMaterialsNode = _nodeRepository.GetSingleByCode(unitId, "StudyMaterials");
             model.StudySectionNode = _nodeRepository.GetSingleByCode(unitId, "StudySection");
-            model.SuperviseNode = _nodeRepository.GetSingleByCode(unitId, "Supervise");
+            model.SuperviseNode = _nodeRepository.GetSingleByCode(unitId, "Supervises");
             model.MembersNode = _nodeRepository.GetSingleByCode(unitId, "Members");
 
             model.LatestAttentions = _nodeRecordRepository.GetTopN(unitId, "LatestAttentions", 8);

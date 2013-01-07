@@ -41,7 +41,7 @@ namespace NPC.Application.Services
             }
         }
 
-        private void SingleSend(NpcMmsSend npcMmsSend)
+        public void SingleSend(NpcMmsSend npcMmsSend)
         {
             var trans = TransactionManager.BeginTransaction();
             trans.Begin();
@@ -69,24 +69,28 @@ namespace NPC.Application.Services
                         if (textContent != null)
                             mmsBuilder.AddContent(textContent);
                     }
-                    if(voiceContent!=null)
+                    if (voiceContent != null)
                         mmsBuilder.AddContent(voiceContent);
-                 
+
                 }
                 var mmsXml = mmsBuilder.BuildContentToXml();
                 var mms = new Mms(config.MasService);
+                string messageId;
                 if (npcMmsSend.TimeOfExceptSend == null)
                 {
-                    mms.SendMessage(new[] { "15906690647" }, npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd);
+                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd);
                 }
                 else
                 {
-                    mms.SendMessage(new[] { "15906690647" }, npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd, npcMmsSend.TimeOfExceptSend.Value);
+                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd, npcMmsSend.TimeOfExceptSend.Value);
                 }
                 #endregion
                 npcMmsSend.SendStatus = SendStatus.Done;
+                npcMmsSend.MessageId = messageId;
                 _npcMmsSendRepository.Save(npcMmsSend);
                 trans.Commit();
+                _logger.ErrorFormat("npcMmsSendId={0}发送成功,返回MessageId:{1}", npcMmsSend.Id, messageId);
+
             }
             catch (Exception exception)
             {

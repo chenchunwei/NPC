@@ -234,10 +234,12 @@ namespace NPC.Website.Manage.Controllers
         private string CreateRelativePath(string fileName)
         {
             var attachDir = "Attachments/";
-            attachDir = System.IO.Path.Combine(HostingEnvironment.ApplicationHost.GetVirtualPath(), attachDir, fileName);
+            attachDir = System.IO.Path.Combine(attachDir, fileName);
             return attachDir;
         }
         #endregion
+
+       
     }
 
     public class Thumbnail

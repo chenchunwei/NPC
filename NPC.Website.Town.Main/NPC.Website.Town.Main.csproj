@@ -224,6 +224,7 @@
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Shared\_RightBar.cshtml" />
     <Content Include="Views\Home\Records.cshtml" />
+    <Content Include="Views\Home\Message.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

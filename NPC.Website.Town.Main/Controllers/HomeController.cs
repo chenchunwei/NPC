@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NPC.Application;
+using NPC.Application.ManageModels;
 using NPC.Application.MianModels.Homes;
 
 namespace NPC.Website.Town.Main.Controllers
@@ -39,6 +40,7 @@ namespace NPC.Website.Town.Main.Controllers
         public ActionResult List(ListModel viewModel)
         {
             viewModel.ArticleQueryItem.Pagination.PageIndex = PageIndex;
+            viewModel.ArticleQueryItem.UnitId = UnitId;
             var model = _indexAction.InitializeListModel(viewModel.ArticleQueryItem);
             return View(model);
         }
@@ -51,7 +53,13 @@ namespace NPC.Website.Town.Main.Controllers
         public ActionResult Records(RecordsModel recordsModel)
         {
             recordsModel.NodeRecordQueryItem.Pagination.PageIndex = PageIndex;
+            recordsModel.NodeRecordQueryItem.UnitId = UnitId;
             var model = _indexAction.InitializeRecordsModel(recordsModel.NodeRecordQueryItem);
+            return View(model);
+        }
+
+        public ActionResult Message(RedirectMessageModel model)
+        {
             return View(model);
         }
     }

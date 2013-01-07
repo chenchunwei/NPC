@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using NPC.Application.ManageModels.NpcMmsSends;
+using NPC.Application.Services;
 using NPC.Domain.Models.NpcMmsSends;
 using NPC.Domain.Repository;
 
@@ -55,10 +56,9 @@ namespace NPC.Application
                 throw new ArgumentException("接收人未指定");
             }
             var trans = TransactionManager.BeginTransaction();
+            var newNpcMmsSend = new NpcMmsSend();
             try
             {
-
-                var newNpcMmsSend = new NpcMmsSend();
                 newNpcMmsSend.NpcMms = _npcMmsRepository.Find(model.NpcMmsId);
                 foreach (var receiver in model.Receivers)
                 {
@@ -66,7 +66,6 @@ namespace NPC.Application
                     {
                         TelNum = receiver
                     });
-
                 }
                 newNpcMmsSend.TimeOfExceptSend = model.TimeOfExpectSend;
                 newNpcMmsSend.Title = model.SendTitle;
@@ -79,6 +78,20 @@ namespace NPC.Application
             {
                 trans.Rollback();
                 throw;
+            }
+            SendMms(newNpcMmsSend);
+        }
+
+        private void SendMms(NpcMmsSend npcMmsSend)
+        {
+            var npcMmsSendService = new NpcMmsSendService();
+            try
+            {
+                npcMmsSendService.SingleSend(npcMmsSend);
+            }
+            catch (Exception exception)
+            {
+                Logger.ErrorFormat("发送npcMmsSendId={0}时错误：{1}", npcMmsSend.Id, exception);
             }
         }
     }

@@ -2,6 +2,7 @@
     ViewBag.Title = "文章列表";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Fluent.Infrastructure.Utilities
 @model NPC.Application.ManageModels.NpcMmsSends.NpcMmsSendListModel
 <div class="workgroundin">
     <ul class="head_content">
@@ -41,6 +42,8 @@
         <div class="span_2">
             发送时间</div>
         <div class="span_2">
+            推送状态</div>
+        <div class="span_2">
             创建时间</div>
         <div class="span_4">
         </div>
@@ -65,6 +68,8 @@
                 </div>
                 <div class="span_2">
                     @(row.TimeOfExceptSend.HasValue ? row.TimeOfExceptSend.Value.ToString("yyyy-MM-dd HH:mm:ss") : row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd HH:mm:ss"))</div>
+                <div class="span_2">
+                   @(EnumHelper.GetDescription(row.SendStatus))</div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">

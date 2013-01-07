@@ -8,7 +8,7 @@ namespace NPC.Domain.Models.NpcMmsSends
 {
     public enum SendStatus
     {
-        [Description("默认")]
+        [Description("未处理")]
         Default = 0,
         [Description("已处理")]
         Done = 1,

@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.NpcMmsSends
             Map(o => o.Extension);
             Map(o => o.SendStatus).CustomType<SendStatus>();
             Map(o => o.TimeOfExceptSend);
+            Map(o => o.MessageId);
             References(o => o.Unit).Column("UnitId");
             References(o => o.NpcMms).Column("NpcMmsId");
             Table("NpcMmsSends");
