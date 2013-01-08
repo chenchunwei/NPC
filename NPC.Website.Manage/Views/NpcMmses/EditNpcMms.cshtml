@@ -9,6 +9,7 @@
 <script src="@Url.Content("~/Scripts/app/frame.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/artTemplate/extensions/template-syntax.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/plupload/plupload.full.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/common/jquery.keyfilter-1.7.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/CSS/frame.css")"/>
 <script id="frameTmpl" type="text/html">
@@ -125,7 +126,7 @@
                             <span style="color: red;">*</span> 彩信标题：
                         </th>
                         <td>
-                            <input type="text" value="" name="FormData.Title" style="width: 250px;" />
+                            <input type="text" value="" name="FormData.Title" style="width: 250px;" maxlength="50" />
                         </td>
                     </tr>
                     <tr>
@@ -163,7 +164,7 @@
                             <span style="color: red;">*</span> 当前帧播放：
                         </th>
                         <td>
-                            <input type="text" name="timeDuring" id="timeDuring" value="10" onblur="updateTimeDuring()" />秒
+                            <input type="text" name="timeDuring" id="timeDuring"  maxlength="10"  value="10" onblur="updateTimeDuring()" class="mask-int" />秒
                         </td>
                     </tr>
                     <tr>
@@ -224,7 +225,7 @@
                         </th>
                         <td>
                             <div style="float: left;">
-                                <textarea rows="12" cols="60" id="txt"></textarea></div>
+                                <textarea rows="12" cols="60" id="txt" maxlength="400"></textarea></div>
                             <div class="clr">
                             </div>
                         </td>
@@ -367,7 +368,7 @@
                 "FormData.Frames": "彩信没有任务内容,不能保存或发送！"
             }
         });
-    });
+     });
     var currentSelectedIndex = 0;
     var currentPositionStyle = 0;
 
@@ -379,6 +380,7 @@
                 isHaveVal = true;
                 return false;
             }
+            return true;
         });
         if (!isHaveVal)
             $("#frames").val('');
