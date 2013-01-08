@@ -93,6 +93,7 @@
     <Compile Include="Controllers\NpcMmsesController.cs" />
     <Compile Include="Controllers\NpcMmsSendsController.cs" />
     <Compile Include="Controllers\OpenMasConfigsController.cs" />
+    <Compile Include="Controllers\PhoneBooksController.cs" />
     <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
@@ -319,6 +320,11 @@
     <Content Include="Scripts\artTemplate\test\test-undefined.html" />
     <Content Include="Scripts\artTemplate\test\test.html" />
     <Content Include="Scripts\artTemplate\tools\combine.html" />
+    <Content Include="Scripts\common\jquery.keyfilter-1.7.deom.txt" />
+    <Content Include="Scripts\common\jquery.keyfilter-1.7.min.js" />
+    <Content Include="Scripts\common\jquery.maskedinput-1.3.min.js" />
+    <Content Include="Scripts\common\jquery.watermark.htm" />
+    <Content Include="Scripts\common\jquery.watermark.min.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
@@ -1238,6 +1244,8 @@
     <Content Include="Views\NpcMmsSends\List.cshtml" />
     <Content Include="Views\OpenMasConfigs\EditOpenMasConfig.cshtml" />
     <Content Include="Views\NpcMmsSends\EditNpcMmsSend.cshtml" />
+    <Content Include="Views\PhoneBooks\EditPhoneBook.cshtml" />
+    <Content Include="Views\PhoneBooks\PhoneBookRecordList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

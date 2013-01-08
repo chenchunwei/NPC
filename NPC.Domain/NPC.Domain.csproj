@@ -77,7 +77,9 @@
     <Compile Include="Models\OpenMasConfigs\OpenMasConfig.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBook.cs" />
+    <Compile Include="Models\PhoneBooks\PhoneBookQueryItem.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBookRecord.cs" />
+    <Compile Include="Models\PhoneBooks\PhoneBookRecordQueryItem.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBookType.cs" />
     <Compile Include="Models\Proposals\Proposal.cs" />
     <Compile Include="Models\Proposals\ProposalType.cs" />

@@ -53,6 +53,12 @@
         </div>
     </div>
     <div class="row">
+         @if (!Model.NpcMmsSends.Any())
+        {
+            <div class="noRowline">
+                未找符合条件的相关记录信息！
+            </div>
+        }
         @foreach (var row in Model.NpcMmsSends)
         {
             <div class="rowline">
@@ -60,7 +66,7 @@
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
                     <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
-                        删除</a></div>
+                                                                                            删除</a></div>
                 <div class="span_3">
                     @row.Title</div>
                 <div class="span_2">
@@ -69,7 +75,7 @@
                 <div class="span_2">
                     @(row.TimeOfExceptSend.HasValue ? row.TimeOfExceptSend.Value.ToString("yyyy-MM-dd HH:mm:ss") : row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd HH:mm:ss"))</div>
                 <div class="span_2">
-                   @(EnumHelper.GetDescription(row.SendStatus))</div>
+                    @(EnumHelper.GetDescription(row.SendStatus))</div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">

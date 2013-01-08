@@ -61,6 +61,12 @@
         </div>
     </div>
     <div class="row">
+        @if (!Model.Articles.Any())
+        {
+            <div class="noRowline">
+                未找符合条件的相关记录信息！
+            </div>
+        }
         @foreach (var row in Model.Articles)
         {
             <div class="rowline">
@@ -68,7 +74,7 @@
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
                     <a href="@Url.Action("EditArticle", "Artilces")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
-                        删除</a></div>
+                                                                                             删除</a></div>
                 <div class="span_3">
                     @row.Title</div>
                 <div class="span_3" style="text-align: center">

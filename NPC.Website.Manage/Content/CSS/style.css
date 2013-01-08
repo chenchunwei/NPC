@@ -92,9 +92,9 @@
 
 .topline { margin-right: 8px; height: 23px; line-height: 23px; overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB; background: url(../Images/topline_bj.gif) 0 0 repeat-x; }
 .topline div { float: left; overflow: hidden; border-left: 1px solid #FFFFFF; border-right: 1px solid #DCE2ED; }
-
+.noRowline{padding-left: 30px ; height: 60px; line-height: 60px; overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB;  background: #F7F6FC ; }
 .row { margin-right: 8px; overflow: hidden; }
-.rowline , .rowline_c { height: 24px; line-height: 24px; overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB;  background: red url(../Images/row_bj.gif) 0 0 repeat-x; }
+.rowline , .rowline_c { height: 24px; line-height: 24px; overflow: hidden; color: #666666; border-left: 1px solid #BAC5DB;  background: #BAC5DB url(../Images/row_bj.gif) 0 0 repeat-x; }
 .rowline { background: url(../Images/row_bj.gif) 0 0 repeat-x; }
 .rowline_c { background: url(../Images/row_bj2.gif) 0 0 repeat-x; }
 .row .span_2 , .row .span_3 , .row .span_4 , .row .span_5 , .row .span_6 , .row .span_7 , .row .span_8 , .row .span_9{ float: left; height: 24px; line-height: 24px; padding: 0 5px; display: inline; overflow: hidden; border-left: 1px solid #FFFFFF; border-right: 1px solid #DCE2ED; }

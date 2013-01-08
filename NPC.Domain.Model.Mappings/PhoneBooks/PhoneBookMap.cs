@@ -7,16 +7,17 @@ using NPC.Domain.Models.PhoneBooks;
 
 namespace NPC.Domain.Model.Mappings.PhoneBooks
 {
-    public class PhoneBookRecordMap : ClassMap<PhoneBookRecord>
+    public class PhoneBookMap : ClassMap<PhoneBook>
     {
-        public PhoneBookRecordMap()
+        public PhoneBookMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
-            Map(o => o.Mobile);
             Map(o => o.Name);
-            References(o => o.PhoneBook).Column("PhoneBookId");
+            Map(o => o.PhoneBookType).CustomType<PhoneBookType>();
+            References(o => o.Unit).Column("UnitId");
             Component(o => o.RecordDescription);
-            Table("PhoneBookRecords");
+            References(o => o.User).Column("UserId");
+            Table("PhoneBooks");
         }
     }
 }

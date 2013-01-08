@@ -2,10 +2,10 @@
     ViewBag.Title = "节点记录列表管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model  NPC.Application.ManageModels.NodeRecords.NodeRecordListModel 
+@model  NPC.Application.ManageModels.PhoneBooks.PhoneBookRecordListModel 
 <div class="workgroundin">
     <ul class="head_content">
-        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新记录", "newRecordBtn", "icon_3.gif", true))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新联系人", "newRecordBtn", "icon_3.gif", true))
         @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
     </ul>
 </div>
@@ -19,17 +19,27 @@
         <div class="s1">
         </div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.NodeRecordSearchModel.NodeRecordQueryItem.NodeId, new { style = "width:200px;" })
+            @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId, new { style = "width:200px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
         </div>
         <div class="s1">
             <select>
-                <option>标题</option>
+                <option>联系人</option>
             </select></div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.NodeRecordSearchModel.NodeRecordQueryItem.Keyword)
+            @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Name)
+        </div>
+        <div class="font">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+        <div class="s1">
+            <select>
+                <option>号码</option>
+            </select></div>
+        <div class="i1">
+            @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Mobile)
         </div>
         @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
     </div>
@@ -42,19 +52,13 @@
         <div class="span_2">
             操作</div>
         <div class="span_5">
-            标题一</div>
+            姓名</div>
         <div class="span_3">
-            所属节点名</div>
+            号码</div>
         <div class="span_5">
-            链接</div>
+            电话簿</div>
         <div class="span_2">
-            是否发布</div>
-        <div class="span_2">
-            图片一</div>
-        <div class="span_2">
-            图片二</div>
-        <div class="span_2">
-            发布时间</div>
+            加入时间</div>
         <div class="span_4">
         </div>
         <div class="span_4">
@@ -63,13 +67,13 @@
         </div>
     </div>
     <div class="row">
-        @if (!Model.NodeRecords.Any())
+        @if (!Model.PhoneBookRecords.Any())
         {
             <div class="noRowline">
                 未找符合条件的相关记录信息！
             </div>
         }
-        @foreach (var row in Model.NodeRecords)
+        @foreach (var row in Model.PhoneBookRecords)
         {
             <div class="rowline">
                 <div class="span_1">
@@ -78,25 +82,17 @@
                     <a href="@Url.Action("EditNodeRecord", "NodeRecords")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_5">
-                    <a href="@row.RecordLink" target="_blank">@row.FirstTitle</a>
+                    @row.Name
                 </div>
                 <div class="span_3" style="text-align: center">
-                    @row.BelongsToNode.Name
+                    @row.Mobile
                 </div>
                 <div class="span_5">
-                    @row.RecordLink
+                    @row.PhoneBook.Name
                 </div>
                 <div class="span_2">
-                    @(row.IsShow ? "是" : "否")
+                    @(row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd"))
                 </div>
-                <div class="span_2">
-                    @Html.Raw((!string.IsNullOrEmpty(row.FirstImage) ? "<a href=\"/Manage/Attachments/" + row.FirstImage + "\" target=\"_blank\">看图</a>" : "无"))
-                </div>
-                <div class="span_2">
-                    @Html.Raw((!string.IsNullOrEmpty(row.SecondImage) ? "<a href=\"/Manage/Attachments/" + row.SecondImage + "\" target=\"_blank\">看图</a>" : "无"))
-                </div>
-                <div class="span_2">
-                    @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">
                 </div>
                 <div class="span_4">
@@ -116,9 +112,9 @@
                     <script type="text/javascript">
                         var pg = new showPages('pg');
                         pg.argName = 'p';  //定义参数名(可选,缺省为page)
-                        pg.newPage = @Model.NodeRecordSearchModel.NodeRecordQueryItem.Pagination.PageIndex;
-                        pg.count =  @Model.NodeRecordSearchModel.NodeRecordQueryItem.Pagination.TotalRecordsCount;
-                        pg.pageCount = @Model.NodeRecordSearchModel.NodeRecordQueryItem.Pagination.TotalPage;
+                        pg.newPage = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.PageIndex;
+                        pg.count =  @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalRecordsCount;
+                        pg.pageCount = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalPage;
                         pg.printHtml(1);    //显示
                     </script>
                 </div>
@@ -127,9 +123,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#NodeRecordSearchModel_NodeRecordQueryItem_NodeId").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false });
-    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeId').combotree('setValue', '@Model.NodeRecordSearchModel.NodeRecordQueryItem.NodeId');
-    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeId').next().children().first().css("padding", "0px");
+    $("#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false });
+    $('#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId').combotree('setValue', '@Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId');
+    $('#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId').next().children().first().css("padding", "0px");
     var urlOfDel = '@Url.Action("Delete", "NodeRecords")';
     function singleDel(id) {
         var delIds = [];

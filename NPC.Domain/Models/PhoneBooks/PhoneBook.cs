@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Domain;
 using Fluent.Infrastructure.Web.HttpMoudles;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.Units;
 using UserInModel= NPC.Domain.Models.Users.User;
 namespace NPC.Domain.Models.PhoneBooks
 {
-    public class PhoneBook 
+    public class PhoneBook :IAggregateRoot
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
