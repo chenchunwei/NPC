@@ -7,10 +7,15 @@ using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
 using NPC.Domain.Models.NpcMmsSends;
+using NPC.Domain.Models.NpcMmses;
 using NPC.Domain.Models.OpenMasConfigs;
 using NPC.Domain.Repository;
+using Npc.OpenMas;
+using Npc.OpenMas.OmsHelper;
 using OpenMas;
 using log4net;
+using RegionInfo = Npc.OpenMas.OmsHelper.RegionInfo;
+using TextInfo = Npc.OpenMas.OmsHelper.TextInfo;
 
 namespace NPC.Application.Services
 {
@@ -48,31 +53,53 @@ namespace NPC.Application.Services
             var mmsBuilder = new MmsBuilder();
             try
             {
+                var parList = new List<ParInfo>();
                 var config = GetConfigOfUnit(npcMmsSend.Unit.Id);
                 #region 创建彩信
+
                 foreach (var content in npcMmsSend.NpcMms.NpcMmsContents)
                 {
+                    var parInfo = new ParInfo();
+                    parInfo.Dur = content.DueTime + "s";
                     var textContent = GetTextContent(content.Content);
                     var picContent = GetMediaContent(content.UrlOfPic, MediaType.Pic);
                     var voiceContent = GetMediaContent(content.UrlOfVoice, MediaType.Voice);
-                    if (content.LayoutType == Domain.Models.NpcMmses.LayoutType.PicBottom)
+
+                    if (content.LayoutType == LayoutType.PicBottom)
                     {
                         if (textContent != null)
+                        {
                             mmsBuilder.AddContent(textContent);
+                            parInfo.Text = new TextInfo { Src = textContent.ContentId, Region = "text" };
+                        }
                         if (picContent != null)
+                        {
                             mmsBuilder.AddContent(picContent);
+                            parInfo.Img = new ImgInfo { Src = picContent.ContentId, Region = "image" };
+                        }
                     }
                     else
                     {
                         if (picContent != null)
+                        {
                             mmsBuilder.AddContent(picContent);
+                            parInfo.Img = new ImgInfo { Src = picContent.ContentId, Region = "image" };
+                        }
                         if (textContent != null)
+                        {
                             mmsBuilder.AddContent(textContent);
+                            parInfo.Text = new TextInfo { Src = textContent.ContentId, Region = "text" };
+                        }
                     }
                     if (voiceContent != null)
+                    {
+                        parInfo.Audio = new AudioInfo { Src = voiceContent.ContentId };
                         mmsBuilder.AddContent(voiceContent);
-
+                    }
+                    parList.Add(parInfo);
                 }
+                var smil = CommonUtil.BuilderSmil(GetLayoutInfo(npcMmsSend.NpcMms.LayoutType, "image", "text"), parList);
+                //mmsBuilder.AddContent(GetSmilContent(smil));
                 var mmsXml = mmsBuilder.BuildContentToXml();
                 var mms = new Mms(config.MasService);
                 string messageId;
@@ -90,7 +117,6 @@ namespace NPC.Application.Services
                 _npcMmsSendRepository.Save(npcMmsSend);
                 trans.Commit();
                 _logger.ErrorFormat("npcMmsSendId={0}发送成功,返回MessageId:{1}", npcMmsSend.Id, messageId);
-
             }
             catch (Exception exception)
             {
@@ -98,7 +124,44 @@ namespace NPC.Application.Services
                 trans.Rollback();
                 throw;
             }
+
         }
+
+        #region GetLayoutInfo
+        private LayoutInfo GetLayoutInfo(LayoutType layoutType, string imageRegionName, string textRegionName)
+        {
+            var layoutInfo = new LayoutInfo();
+            var layout = new LayoutInfo();
+            layout.Rootlayout = new RootlayoutInfo("128", "128", string.Empty);
+            if (layoutType == LayoutType.PicBottom)
+            {
+                var text = new RegionInfo { Id = textRegionName, Left = "0", Top = "70%", Height = "30%", Width = "128", Fit = FitType.Scroll };
+                var image = new RegionInfo { Id = imageRegionName, Left = "0", Top = "0", Height = "70%", Width = "128", Fit = FitType.Meet };
+                layout.RegionList.Add(text);
+                layout.RegionList.Add(image);
+            }
+            else
+            {
+                var image = new RegionInfo { Id = imageRegionName, Left = "0", Top = "30%", Height = "70%", Width = "128", Fit = FitType.Meet };
+                var text = new RegionInfo { Id = textRegionName, Left = "0", Top = "0", Height = "30%", Width = "128", Fit = FitType.Scroll };
+                layout.RegionList.Add(image);
+                layout.RegionList.Add(text);
+            }
+            return layoutInfo;
+        }
+        #endregion
+
+        #region GetSmilContent
+        private MmsContent GetSmilContent(string smilStr)
+        {
+            var smilContent = MmsContent.CreateFromstring(smilStr);
+            var simlName = Guid.NewGuid().ToString().Replace("-", "") + ".smil";
+            smilContent.ContentId = simlName;
+            smilContent.ContentLocation = simlName;
+            smilContent.ContentType = MmsConst.SMIL;
+            return smilContent;
+        }
+        #endregion
 
         #region GetTextContent
         private MmsContent GetTextContent(string text)

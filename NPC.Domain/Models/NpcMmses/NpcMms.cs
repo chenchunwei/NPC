@@ -22,6 +22,7 @@ namespace NPC.Domain.Models.NpcMmses
         public virtual int ByteSize { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual LayoutType LayoutType { get; set; }
 
     }
 }

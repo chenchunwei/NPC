@@ -16,6 +16,7 @@ namespace NPC.Domain.Model.Mappings.NpcMmses
            HasMany(o => o.NpcMmsContents).KeyColumn("NpcMmsId").Cascade.All();
            Component(o => o.RecordDescription);
            References(o => o.Unit).Column("UnitId");
+           Map(o => o.LayoutType).CustomType<LayoutType>();
            Map(o => o.Title);
            Table("NpcMmses");
        }

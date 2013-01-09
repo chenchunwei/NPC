@@ -37,6 +37,7 @@ namespace NPC.Application
                         UrlOfPic = frame.Image,
                         UrlOfVoice = frame.Voice
                     };
+                    npcMms.LayoutType = model.FormData.LayoutType;
                     content.ByteSize = content.CalculateSize(attachmentsPath);
                     npcMms.NpcMmsContents.Add(content);
                 });

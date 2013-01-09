@@ -26,6 +26,5 @@ namespace NPC.Domain.Models.NpcMmsSends
         public virtual string Extension { get; set; }
         public virtual string MessageId { get; set; }
         public virtual SendStatus SendStatus { get; set; }
-
     }
 }
