@@ -99,7 +99,7 @@ namespace NPC.Application.Services
                     parList.Add(parInfo);
                 }
                 var smil = CommonUtil.BuilderSmil(GetLayoutInfo(npcMmsSend.NpcMms.LayoutType, "image", "text"), parList);
-                //mmsBuilder.AddContent(GetSmilContent(smil));
+                mmsBuilder.AddContent(GetSmilContent(smil));
                 var mmsXml = mmsBuilder.BuildContentToXml();
                 var mms = new Mms(config.MasService);
                 string messageId;
@@ -130,7 +130,6 @@ namespace NPC.Application.Services
         #region GetLayoutInfo
         private LayoutInfo GetLayoutInfo(LayoutType layoutType, string imageRegionName, string textRegionName)
         {
-            var layoutInfo = new LayoutInfo();
             var layout = new LayoutInfo();
             layout.Rootlayout = new RootlayoutInfo("128", "128", string.Empty);
             if (layoutType == LayoutType.PicBottom)
@@ -147,7 +146,7 @@ namespace NPC.Application.Services
                 layout.RegionList.Add(image);
                 layout.RegionList.Add(text);
             }
-            return layoutInfo;
+            return layout;
         }
         #endregion
 

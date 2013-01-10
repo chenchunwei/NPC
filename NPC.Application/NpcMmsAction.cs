@@ -28,6 +28,12 @@ namespace NPC.Application
                 npcMms.RecordDescription.CreateBy(NpcContext.CurrentUser);
                 model.FrameSerializers.ToList().ForEach(frame =>
                 {
+                    if (string.IsNullOrEmpty(frame.Image) &&
+                        string.IsNullOrEmpty(frame.Image) &&
+                        string.IsNullOrEmpty(frame.Voice))
+                    {
+                        return;
+                    }
                     var content = new NpcMmsContent()
                     {
                         Content = frame.Text,

@@ -176,3 +176,4 @@
 .hasTooler ul{ background:#FAFAFA ;height: 31px;margin-right: 8px;border-bottom: 1px solid #BAC5DB}
 .hasTooler li { float: left; height: 25px;padding: 3px 0 3px 5px; margin-right: 3px; display: inline; }
 .contentleftBorder{border-left: 1px solid #BAC5DB;}
+form table th{text-align: right;padding: 0 2px 0 0;font: 12px normal;font-family: Verdana, 宋体, 黑体;line-height: 26px;}

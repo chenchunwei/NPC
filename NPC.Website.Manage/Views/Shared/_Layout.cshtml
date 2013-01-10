@@ -20,7 +20,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/utility.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validator.extension.js")"></script>
 </head>
-<body style="background: #E6EAF3 url(@Url.Content("~/Content/Images/body_bg.jpg")) repeat left top;">
+<body style="background: #E6EAF3 url(@Url.Content("~/Content/Images/body_bg.jpg")) repeat left top;min-width: 1000px;">
     <div class="header">
         <div class="container">
             <div class="quit">
@@ -137,7 +137,7 @@
                 <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" />
             </div>
         </div>
-        <div class="workground">
+        <div class="workground"  >
             @RenderBody()
         </div>
     </div>

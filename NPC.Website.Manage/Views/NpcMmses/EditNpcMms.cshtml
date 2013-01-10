@@ -134,8 +134,8 @@
                             <span style="color: red;">*</span> 排版：
                         </th>
                         <td>
-                            <input type="radio" value="0" name="LayoutType" checked="checked" />图片在上，文字在下<input
-                                type="radio" value="1" name="LayoutType" />文字在上，图片在下
+                            <input type="radio" value="0" name="FormData.LayoutType" checked="checked" />图片在上，文字在下<input
+                                type="radio" value="1" name="FormData.LayoutType" />文字在上，图片在下
                         </td>
                     </tr>
                     <tr>
@@ -337,7 +337,7 @@
             }
             selected(target.index);
         });
-        $("input[name=LayoutType]").click(function () {
+        $("input[name='FormData.LayoutType']").click(function () {
             var chkVal = $(this).val();
             if (currentPositionStyle != chkVal)
                 updateFramePicPosition(chkVal);

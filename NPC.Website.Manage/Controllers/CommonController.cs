@@ -6,7 +6,10 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using Fluent.Infrastructure.Log;
 using Fluent.Infrastructure.Mvc;
+using log4net;
+using log4net.Core;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -16,8 +19,12 @@ namespace NPC.Website.Manage.Controllers
         const string Inputname = "filedata"; //表单文件域name
         const int Maxattachsize = 58097152; // 最大上传大小， 
         private const string Upext = "txt,rar,zip,jpg,jpeg,gif,png,swf,wmv,avi,wma,mp3,mid"; // 上传扩展名
-
-
+        protected ILog Logger;
+        
+        public CommonController()
+        {
+            Logger = new DefaultLoggerFactory().GetLogger();
+        }
         public JsonResult Upload()
         {
             var immediate = Request.QueryString["immediate"];//立即上传模式，仅为演示用

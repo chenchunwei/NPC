@@ -84,7 +84,7 @@
                         <span style="color: red;">*</span> 文章内容：
                     </th>
                     <td>
-                        <textarea name="FormData.Content" id="FormData_Content" cols="170" rows="30" width="99%" 
+                        <textarea name="FormData.Content" id="FormData_Content" cols="130" rows="30" width="80%" 
                                       class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
                     </td>
                 </tr>
@@ -111,6 +111,7 @@
     </div>
 </div>
 </form>
+
 <script type="text/javascript">
     $(function () {
         $("#FormData_ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
@@ -132,6 +133,5 @@
         $("#submitBtn").click(function () {
             $("#mainForm").submit();
         });
-        $("#FormData_CoverImg").uploadPreview({ width: 200, height: 200, imgDiv: "#imgDiv", imgType: ["bmp", "gif", "png", "jpg"] });
     });
 </script>

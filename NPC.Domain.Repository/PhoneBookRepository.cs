@@ -10,7 +10,9 @@ namespace NPC.Domain.Repository
 {
     public class PhoneBookRepository : AbstractNhibernateRepository<Guid, PhoneBook>
     {
-       
-
+       public IList<PhoneBook> GetAll(Guid unitId)
+       {
+           return Session.CreateQuery("from PhoneBook where RecordDescription.IsDelete=0 and Unit.Id=:unitId").SetGuid("unitId", unitId).List<PhoneBook>();
+       }
     }
 }

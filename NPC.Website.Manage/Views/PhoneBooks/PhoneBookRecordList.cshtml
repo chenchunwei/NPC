@@ -6,6 +6,7 @@
 <div class="workgroundin">
     <ul class="head_content">
         @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新联系人", "newRecordBtn", "icon_3.gif", true))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新电话簿", "newPhoneBookBtn", "icon_3.gif", true))
         @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
     </ul>
 </div>
@@ -19,7 +20,8 @@
         <div class="s1">
         </div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId, new { style = "width:200px;" })
+            @Html.DropDownListFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId, new[] { new SelectListItem() { Text = "选择通讯簿", Value = "" }, }.Union(
+                     Model.PhoneBookRecordSearchModel.PhoneBookOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })), new { style = "width:200px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -79,8 +81,8 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="@Url.Action("EditNodeRecord", "NodeRecords")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
-                        删除</a></div>
+                    <a href="javascript:;" onclick="editRecord('@row.PhoneBook.Id','@row.Name','@row.Mobile')">
+                        编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">删除</a></div>
                 <div class="span_5">
                     @row.Name
                 </div>
@@ -122,37 +124,147 @@
         </div>
     </div>
 </div>
+<div id="wins" style="display: none;">
+    <div id="newWin" class="easyui-window" title="添加新分类" style="width: 400px; height: 220px;
+        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+        <div class="easyui-layout" data-options="fit:true">
+            <form id="newForm" action="@Url.Action("EditPhoneBookRecord", "PhoneBooks")" method="post" style="margin:0">
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table>
+                    <tr>
+                        <th width="120px;">
+                            所属电话簿：
+                        </th>
+                        <td>
+                            <select id="PhoneBookId" name="PhoneBookId">
+                                <option value="">选择通讯簿</option>
+                                @foreach (var phoneBook in Model.PhoneBookRecordSearchModel.PhoneBookOptions)
+                                {
+                                    <option value="@phoneBook.Key">@phoneBook.Value</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="120px;">
+                            联系人：
+                        </th>
+                        <td>
+                            <input id="ContactName" name="ContactName" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="120px;">
+                            联系号码：
+                        </th>
+                        <td>
+                            <input id="Mobile" name="Mobile" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        取消</a>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div id="newPhoneBookWin" class="easyui-window" title="添加新分类" style="width: 400px;
+        height: 150px; background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+        <div class="easyui-layout" data-options="fit:true">
+            <form id="newPhoneBookForm" action="@Url.Action("EditPhoneBook", "PhoneBooks")" method="post"  style="margin:0">
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table>
+                    <tr>
+                        <th width="120px;">
+                            电话簿名称：
+                        </th>
+                        <td>
+                            <input id="PhoneBookName" name="PhoneBookName" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitNewPhoneBook" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelNewPhoneBook" class="easyui-linkbutton" icon="icon-cancel"
+                        href="javascript:void(0)">取消</a>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-    $("#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false });
-    $('#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId').combotree('setValue', '@Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId');
-    $('#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId').next().children().first().css("padding", "0px");
     var urlOfDel = '@Url.Action("Delete", "NodeRecords")';
     function singleDel(id) {
         var delIds = [];
         delIds.push(id);
         controller.del(urlOfDel, delIds);
     }
-
-    $("#chkAllBtn").click(function () {
-        controller.batchOfChk("input[name=ids]", 1);
-    });
-    $("#unChkAllBtn").click(function () {
-        controller.batchOfChk("input[name=ids]", 0);
-    });
-    $("#invertBtn").click(function () {
-        controller.batchOfChk("input[name=ids]", 2);
-    });
-    $("#topChk").click(function () {
-        var result = $(this).attr("checked") ? 1 : 0;
-        controller.batchOfChk("input[name=ids]", result);
-    });
-    $("#newRecordBtn").click(function () {
-        window.location.href = '@Url.Action("EditNodeRecord", "NodeRecords")';
-    });
-    $("#batchDelBtn").click(function () {
-        controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
-    });
-    $("#searchBtn").click(function () {
-        $("#searchForm").submit();
+    function editRecord(phoneBookId, name, mobile) {
+        $("#newForm")[0].reset();
+        $("#PhoneBookId").val(phoneBookId);
+        $("#ContactName").val(name);
+        $("#Mobile").val(mobile);
+        $('#newWin').window('open');
+    }
+    $(function () {
+        $("#chkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 1);
+        });
+        $("#unChkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 0);
+        });
+        $("#invertBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 2);
+        });
+        $("#topChk").click(function () {
+            var result = $(this).attr("checked") ? 1 : 0;
+            controller.batchOfChk("input[name=ids]", result);
+        });
+        $("#newForm").validate({
+            ignore: "",
+            rules: {
+                "PhoneBookId": "required",
+                "ContactName": "required",
+                "Mobile": "required"
+            },
+            messages: {
+                "PhoneBookId": "请选择电话簿",
+                "ContactName": "必填项",
+                "Mobile": "必填项"
+            }
+        });
+        $("#batchDelBtn").click(function () {
+            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+        });
+        $("#searchBtn").click(function () {
+            $("#searchForm").submit();
+        });
+        $("#newRecordBtn").click(function () {
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+        });
+        $("#wins,#newWin,#newPhoneBookWin").show();
+        $("#btnSubmitNew").click(function () {
+            $("#newForm").submit();
+        });
+        $("#btnCancelNew").click(function () {
+            $("#newWin").window("close");
+        });
+        $("#newPhoneBookBtn").click(function () {
+            $('#newPhoneBookWin').window('open');
+            $("#newPhoneBookForm")[0].reset();
+        });
+        $("#btnSubmitNewPhoneBook").click(function () {
+            $("#newPhoneBookForm").submit();
+        });
+        $("#btnCancelNewPhoneBook").click(function () {
+            $("#newPhoneBookWin").window("close");
+        });
     });
 </script>

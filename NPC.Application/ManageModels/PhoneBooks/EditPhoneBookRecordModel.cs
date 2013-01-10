@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NPC.Domain.Models.Units;
 
 namespace NPC.Application.ManageModels.PhoneBooks
 {
-    public class EditPhoneBookModel
+    public class EditPhoneBookRecordModel
     {
         public Guid? Id { get; set; }
-        public string PhoneBookName { get; set; }
-        public Unit Unit { get; set; }
+        public Guid PhoneBookId { get; set; }
+        public string ContactName { get; set; }
+        public string Moblie { get; set; }
     }
 }

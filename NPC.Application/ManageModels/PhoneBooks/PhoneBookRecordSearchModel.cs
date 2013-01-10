@@ -11,7 +11,9 @@ namespace NPC.Application.ManageModels.PhoneBooks
         public PhoneBookRecordSearchModel()
         {
             PhoneBookRecordQueryItem = new PhoneBookRecordQueryItem();
+            PhoneBookOptions=new Dictionary<string, string>();
         }
+        public Dictionary<string, string> PhoneBookOptions { get; set; }
         public PhoneBookRecordQueryItem PhoneBookRecordQueryItem { get; set; }
     }
 }

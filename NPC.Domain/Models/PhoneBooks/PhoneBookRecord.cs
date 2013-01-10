@@ -9,6 +9,10 @@ namespace NPC.Domain.Models.PhoneBooks
 {
     public class PhoneBookRecord : IAggregateRoot
     {
+        public PhoneBookRecord()
+        {
+            RecordDescription = new RecordDescription();
+        }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string Mobile { get; set; }

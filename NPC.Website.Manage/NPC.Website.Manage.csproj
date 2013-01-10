@@ -1244,7 +1244,6 @@
     <Content Include="Views\NpcMmsSends\List.cshtml" />
     <Content Include="Views\OpenMasConfigs\EditOpenMasConfig.cshtml" />
     <Content Include="Views\NpcMmsSends\EditNpcMmsSend.cshtml" />
-    <Content Include="Views\PhoneBooks\EditPhoneBook.cshtml" />
     <Content Include="Views\PhoneBooks\PhoneBookRecordList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
