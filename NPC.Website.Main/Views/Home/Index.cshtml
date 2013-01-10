@@ -21,7 +21,8 @@
                         {
                             <li id="@("p" + index)" @(index == 0 ? Html.Raw("class=\"current\"") : Html.Raw(""))>
                                 <a href="@nodeRecord.RecordLink" target="_blank">
-                                    <img src="/Manage/Attachments/@nodeRecord.SecondImage" alt="@nodeRecord.FirstTitle" /></a> </li>
+                                    <img src="/Manage/Attachments/@nodeRecord.SecondImage" alt="@nodeRecord.FirstTitle" /></a>
+                            </li>
                             index++;
                         }
                     </ul>
@@ -67,7 +68,8 @@
                 {
                     if (Model.NewsNode.OuterCategoryId.HasValue)
                     {
-                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多 >></a>                                                 
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多
+                        >></a>                                                 
                     }
                 }
             </div>
@@ -98,7 +100,8 @@
                     {
                         if (Model.NoticesNode.OuterCategoryId.HasValue)
                         {
-                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NoticesNode.OuterCategoryId">更多 >></a>                                                 
+                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NoticesNode.OuterCategoryId">
+                            更多 >></a>                                                 
                         }
                     }
                 </div>
@@ -120,7 +123,6 @@
                 {
                     <img src="/Manage/Attachments/@Model.Directors.First().FirstImage" alt="@Model.Directors.First().FirstTitle" title="@Model.Directors.First().FirstTitle" style="width: 152px;height: 98px;" class="Directors" />
                 }
-
             </div>
             <p>
                 @if (Model.Directors.Any())
@@ -129,7 +131,6 @@
                 }
             </p>
         </div>
-
         <div class="director" style="height: 140px;">
             <div class="title">
                 <div class="title-name">
@@ -137,19 +138,16 @@
                     {@(Model.ViceDirectorsNode.Name.Trim())}
                 </div>
             </div>
-            <ul class="pic-slide jcarousel-skin-viceDirectors" id="viceDirectors" style="height: 110px;margin-top: 2px;">
+            <ul class="pic-slide jcarousel-skin-viceDirectors" id="viceDirectors" style="height: 110px;
+                margin-top: 2px;">
                 @foreach (var nodeRecord in Model.ViceDirectors)
                 {
-                    <li>
-                        <a href="@nodeRecord.RecordLink" target="_blank">
-                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" style="width: 152px;height: 98px;" class="Directors" />@*<div class="word">@nodeRecord.FirstTitle</div>*@
-
-                        </a>
-                    </li>
+                    <li><a href="@nodeRecord.RecordLink" target="_blank">
+                        <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" style="width: 152px;height: 98px;" class="Directors" />@*<div class="word">@nodeRecord.FirstTitle</div>*@
+                    </a></li>
                 }
             </ul>
         </div>
-
         <div class="committee">
             <div class="title">
                 <div class="title-name">
@@ -168,7 +166,7 @@
                     {
                     @Html.Raw("<ul>");
                     }
-                    <li> @Html.Raw(member.FirstTitle)</li>
+                    <li>@Html.Raw(member.FirstTitle)</li>
                     if (countOfLoop == 7 || indexOfMember == Model.Members.Count - 1)
                     {
                     @Html.Raw("</ul>");
@@ -193,7 +191,8 @@
                         {
                             if (Model.LeaderSpeechsNode.OuterCategoryId.HasValue)
                             {
-                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.LeaderSpeechsNode.OuterCategoryId">更多 >></a>                                                 
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.LeaderSpeechsNode.OuterCategoryId">
+                                更多 >></a>                                                 
                             }
                         }
                     </div>
@@ -210,7 +209,6 @@
                         <a href="@Model.Video.RecordLink" target="_blank">
                             <img src="/Manage/Attachments/@Model.Video.FirstImage" alt="@Model.Video.FirstTitle" title="@Model.Video.FirstTitle"></a>
                     }
-
                 </div>
             </div>
             <div class="clear">
@@ -226,7 +224,8 @@
                         {
                             if (Model.SuperviseWindowNode.OuterCategoryId.HasValue)
                             {
-                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseWindowNode.OuterCategoryId">更多 >></a>                                                 
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseWindowNode.OuterCategoryId">
+                                更多 >></a>                                                 
                             }
                         }
                     </div>
@@ -249,7 +248,8 @@
                         {
                             if (Model.NpcWorksNode.OuterCategoryId.HasValue)
                             {
-                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">更多 >></a>                                                 
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">
+                                更多 >></a>                                                 
                             }
                         }
                     </div>
@@ -276,7 +276,8 @@
                         {
                             if (Model.SelfImprovementNode.OuterCategoryId.HasValue)
                             {
-                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SelfImprovementNode.OuterCategoryId">更多 >></a>                                                 
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SelfImprovementNode.OuterCategoryId">
+                                更多 >></a>                                                 
                             }
                         }
                     </div>
@@ -301,7 +302,8 @@
                         {
                             if (Model.BasicsNode.OuterCategoryId.HasValue)
                             {
-                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.BasicsNode.OuterCategoryId">更多 >></a>                                                 
+                            <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.BasicsNode.OuterCategoryId">更多
+                                >></a>                                                 
                             }
                         }
                     </div>
@@ -360,7 +362,8 @@
                 {
                     if (Model.ElectionsNode.OuterCategoryId.HasValue)
                     {
-                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.ElectionsNode.OuterCategoryId">更多 >></a>                                                 
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.ElectionsNode.OuterCategoryId">
+                        更多 >></a>                                                 
                     }
                 }
             </div>
@@ -385,7 +388,8 @@
                 {
                     if (Model.InvestigatesNode.OuterCategoryId.HasValue)
                     {
-                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.InvestigatesNode.OuterCategoryId">更多 >></a>                                                 
+                    <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.InvestigatesNode.OuterCategoryId">
+                        更多 >></a>                                                 
                     }
                 }
             </div>
@@ -402,8 +406,6 @@
     <div class="block-right">
         <div class="block-right-top">
             <div class="title">
-
-
                 <div class="title-name">
                     @if (Model.NpcPicsNode != null)
                     {@(Model.NpcPicsNode.Name.Trim())}
@@ -413,14 +415,14 @@
                     {
                         if (Model.NpcPicsNode.OuterCategoryId.HasValue)
                         {
-                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcPicsNode.OuterCategoryId">更多 >></a>                                                 
+                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcPicsNode.OuterCategoryId">
+                            更多 >></a>                                                 
                         }
                     }
                 </div>
             </div>
             <div class="clear">
             </div>
-
             <ul id="elegant" class="elegant jcarousel-skin-tango">
                 @foreach (var nodeRecord in Model.NpcPics)
                 {
@@ -428,15 +430,12 @@
                     {
                         continue;
                     }
-                    <li>
-                        <a href="@nodeRecord.RecordLink" target="_blank">
-                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" class="NpcPics"/>
-                            <div class="word2">
-                                @MyString.SubString(nodeRecord.FirstTitle, 16, "")
-                            </div>
-                        </a>
-
-                    </li>
+                    <li><a href="@nodeRecord.RecordLink" target="_blank">
+                        <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" class="NpcPics"/>
+                        <div class="word2">
+                            @MyString.SubString(nodeRecord.FirstTitle, 16, "")
+                        </div>
+                    </a></li>
                 }
             </ul>
         </div>
@@ -449,7 +448,6 @@
             </div>
             <div class="clear">
             </div>
-
             @{
                 var indexOflinkNode = 0;
                 var countOfLink = 1;
@@ -467,23 +465,23 @@
                         @linkNode.Name
                     </div>
                     <form>
-                        <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
-                            <option>请选择</option>
-                            @foreach (var nodeRecord in linkNode.NodeRecords)
-                            {
-                                <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
-                            }
-                        </select>
+                    <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
+                        <option>请选择</option>
+                        @foreach (var nodeRecord in linkNode.NodeRecords)
+                        {
+                            <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
+                        }
+                    </select>
                     </form>
                 </li>
-                            if (countOfLink == 3 || countOfLink == Model.Links.Count - 1)
-                            {
+                        if (countOfLink == 3 || countOfLink == Model.Links.Count - 1)
+                        {
                 @Html.Raw("</ul>");
                                   countOfLink = 0;
-                            }
+                        }
 
-                            indexOflinkNode++;
-                            countOfLink++;
+                        indexOflinkNode++;
+                        countOfLink++;
                 }
 
             }
@@ -491,13 +489,8 @@
     </div>
 </div>
 <script type="text/javascript">
+
     $(function () {
-        $(".Directors").aeImageResize({ width: 152, height: 98 });
-    });
-    $(function () {
-        $(".NpcPics").aeImageResize({ width: 290, height: 130 });
-    });
-    jQuery(document).ready(function () {
         jQuery('#elegant').jcarousel({
             scroll: 1,
             wrap: 'circular'
@@ -513,6 +506,9 @@
             wrap: 'circular'
             //initCallback: mycarousel_initCallback
         });
+
+        $(".NpcPics").aeImageResize({ width: 290, height: 130 });
+        $(".Directors").aeImageResize({ width: 152, height: 98 });
     });
 
     function mycarousel_initCallback(carousel) {
@@ -527,6 +523,6 @@
         }, function () {
             carousel.startAuto();
         });
-    };
-
+    }
 </script>
+<script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>
