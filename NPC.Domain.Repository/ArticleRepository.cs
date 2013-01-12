@@ -33,7 +33,7 @@ namespace NPC.Domain.Repository
             return query.AddEntity(typeof(Article)).List<Article>();
         }
 
-        private static Tuple<string, Hashtable> FormatQuery(NPC.Domain.Models.Articles.ArticleQueryItem queryItem)
+        private static Tuple<string, Hashtable> FormatQuery(ArticleQueryItem queryItem)
         {
             //表区域
             var stringBuilder = new StringBuilder("Select {0} From Articles a ");
@@ -50,6 +50,16 @@ namespace NPC.Domain.Repository
             {
                 stringBuilder.Append("And a.IsShow =:IsShow ");
                 parameters.Add("IsShow", queryItem.IsShow.Value);
+            }
+            if (queryItem.CategoryIds.Any())
+            {
+                stringBuilder.Append("And a.ArticleCategoryId in (:CategoryIds) ");
+                parameters.Add("CategoryIds", queryItem.CategoryIds);
+            }
+            if (queryItem.CategoryIdLike.HasValue)
+            {
+                stringBuilder.Append("And a.Path like :CategoryIdLike ");
+                parameters.Add("CategoryIdLike", "%" + queryItem.CategoryIdLike.Value + "%");
             }
             if (queryItem.CategoryId.HasValue)
             {

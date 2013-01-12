@@ -61,6 +61,16 @@ namespace NPC.Domain.Repository
                 stringBuilder.Append("And n.UnitId = :UnitId ");
                 parameters.Add("UnitId", queryItem.UnitId.Value);
             }
+            if (queryItem.NodeIds.Any())
+            {
+                stringBuilder.Append("And nr.BelongsToNodeId in (:NodeIds) ");
+                parameters.Add("NodeIds", queryItem.NodeIds);
+            }
+            if (queryItem.NodeIdLike.HasValue)
+            {
+                stringBuilder.Append("And n.Path like :NodeIdLike ");
+                parameters.Add("NodeIdLike", "%" + queryItem.NodeIdLike.Value + "%");
+            }
             stringBuilder.Append("And nr.IsDelete=0 ");
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);

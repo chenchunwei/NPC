@@ -11,10 +11,13 @@ namespace NPC.Domain.Models.Articles
         public ArticleQueryItem()
         {
             Pagination = new Pagination();
+            CategoryIds=new List<Guid>();
         }
         public bool? IsShow { get; set; }
         public string Keyword { get; set; }
         public Guid? CategoryId { get; set; }
+        public IList<Guid> CategoryIds { get; set; }
+        public Guid? CategoryIdLike { get; set; }
         public Guid? UnitId { get; set; }
     }
 }
