@@ -62,6 +62,7 @@
     <Compile Include="ArticleAction.cs" />
     <Compile Include="ArticleCategoryAction.cs" />
     <Compile Include="BaseAction.cs" />
+    <Compile Include="Common\AppConfig.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Contexts\NpcContext.cs" />
     <Compile Include="Contexts\NpcMainWebContext.cs" />

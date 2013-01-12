@@ -7,26 +7,28 @@ using Fluent.Infrastructure.Mvc;
 using NPC.Application;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.NpcMmses;
+using NPC.Domain.Models.NpcMmses;
 using Newtonsoft.Json;
 
 namespace NPC.Website.Manage.Controllers
 {
     public class NpcMmsesController : CommonController
     {
-        private NpcMmsAction _npcMmsAction;
+        private readonly NpcMmsAction _npcMmsAction;
         public NpcMmsesController()
         {
             _npcMmsAction = new NpcMmsAction();
         }
-        public ActionResult EditNpcMms()
+        public ActionResult EditNpcMms(Guid? id)
         {
-            return View();
+            var model = _npcMmsAction.InitializeEditNpcMmsModel(id);
+            return View(model);
         }
         [HttpPost, ActionName("EditNpcMms")]
         public ActionResult EditNpcMmsPost(EditNpcMmsModel model)
         {
             model.FrameSerializers = JsonConvert.DeserializeObject<IList<FrameSerializer>>(model.FormData.Frames);
-            var npcMms = _npcMmsAction.NewNpcMms(model);
+            var npcMms = model.Id.HasValue ? _npcMmsAction.UpdateNpcMms(model) : _npcMmsAction.NewNpcMms(model);
             if (model.IsSend)
                 return RedirectToAction("EditNpcMmsSend", "NpcMmsSends", new { npcMmsId = npcMms.Id });
             return RedirectToMessage("手机报彩信保存成功");

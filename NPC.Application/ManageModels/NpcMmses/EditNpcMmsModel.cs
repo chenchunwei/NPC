@@ -15,6 +15,7 @@ namespace NPC.Application.ManageModels.NpcMmses
             FrameSerializers = new List<FrameSerializer>();
         }
 
+        public Guid? Id { get; set; }
         public bool IsSend { get; set; }
         public int ByteSize { get; set; }
         public int FrameCount { get; set; }
@@ -31,6 +32,8 @@ namespace NPC.Application.ManageModels.NpcMmses
     [DataContract]
     public class FrameSerializer
     {
+        [DataMember(Name = "id")]
+        public Guid? Id { get; set; }
         [DataMember(Name = "img")]
         public string Image { get; set; }
         [DataMember(Name = "txt")]

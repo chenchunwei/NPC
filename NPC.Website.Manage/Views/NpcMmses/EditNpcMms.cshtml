@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using System.Web.Hosting
+@using NPC.Domain.Models.NpcMmses
 @model NPC.Application.ManageModels.NpcMmses.EditNpcMmsModel
 <script src="@Url.Content("~/Scripts/artTemplate/template.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")" type="text/javascript"></script>
@@ -15,7 +16,7 @@
 <script id="frameTmpl" type="text/html">
     <div class="frameContainer" id="frame{index}" >
         <div class="frameWapper frameShadow " onclick="selected({index})">
-            <div class="frameCancel" onclick="remove(event,{index})">删除</div>
+            <div class="frameCancel" onclick="removeFrame(event,{index})">删除</div>
             <div class="frameNumber">{orderSort}</div>
             <div class="frame frameBorder">
                 {if positionStyle==0}
@@ -126,7 +127,7 @@
                             <span style="color: red;">*</span> 彩信标题：
                         </th>
                         <td>
-                            <input type="text" value="" name="FormData.Title" style="width: 250px;" maxlength="50" />
+                            @Html.TextBoxFor(o => o.FormData.Title, new { style = "width: 250px;", maxlength = "50" })
                         </td>
                     </tr>
                     <tr>
@@ -134,8 +135,9 @@
                             <span style="color: red;">*</span> 排版：
                         </th>
                         <td>
-                            <input type="radio" value="0" name="FormData.LayoutType" checked="checked" />图片在上，文字在下<input
-                                type="radio" value="1" name="FormData.LayoutType" />文字在上，图片在下
+                            
+                            <input type="radio" value="0" name="FormData.LayoutType" checked="checked" @Html.Raw(Model.FormData.LayoutType==LayoutType.PicTop?"checked=\"checked\"":"") />图片在上，文字在下
+                            <input type="radio" value="1" name="FormData.LayoutType" @Html.Raw(Model.FormData.LayoutType==LayoutType.PicBottom?"checked=\"checked\"":"")/>文字在上，图片在下
                         </td>
                     </tr>
                     <tr>
@@ -164,7 +166,8 @@
                             <span style="color: red;">*</span> 当前帧播放：
                         </th>
                         <td>
-                            <input type="text" name="timeDuring" id="timeDuring"  maxlength="10"  value="10" onblur="updateTimeDuring()" class="mask-int" />秒
+                            <input type="text" name="timeDuring" id="timeDuring" maxlength="10" value="10" onblur="updateTimeDuring()"
+                                class="mask-int" />秒
                         </td>
                     </tr>
                     <tr>
@@ -323,9 +326,22 @@
         frameContainer.frameAddListeners.push(FrameView);
         frameContainer.frameUpdateListeners.push(FrameView);
         frameContainer.frameRemoveListeners.push(FrameView);
-        var newFrame = new FrameInfo();
-        frameContainer.addFrame(newFrame);
-        selected(newFrame.index);
+        @if (Model.FrameSerializers.Any())
+        {
+            foreach (var frame in Model.FrameSerializers.OrderBy(o=>o.OrderSort))
+            {
+               @Html.Raw(string.Format(@"frameContainer.addFrameWithOptions({{txt:'{0}',orderSort:{1},
+               img:'{2}',voice:'{3}',positionStyle:'{4}',index:{1},id:'{5}',timeDuring:{6}}});", frame.Text, frame.OrderSort, frame.Image,
+               frame.Voice, (int)Model.FormData.LayoutType,frame.Id,frame.TimeDuring));
+            }
+            @Html.Raw(string.Format("selected({0})", (int)Model.FrameSerializers[0].OrderSort));
+        }
+           
+        if (frameContainer.frames.length == 0) {
+            var newFrame = new FrameInfo();
+            frameContainer.addFrame(newFrame);
+            selected(newFrame.index);
+        }
         $("#newFrame").click(function () {
             var cOrderSort = $("#orderSort").val();
             var target = new FrameInfo();
@@ -368,7 +384,7 @@
                 "FormData.Frames": "彩信没有任务内容,不能保存或发送！"
             }
         });
-     });
+    });
     var currentSelectedIndex = 0;
     var currentPositionStyle = 0;
 
@@ -465,7 +481,7 @@
             $('#' + file.id + " b").html("100%");
         });
     }
-    function remove(event, index) {
+    function removeFrame(event, index) {
         if (frameContainer.frames.length == 1) {
             alert("至少保留一帧信息");
             return;

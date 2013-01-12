@@ -16,14 +16,21 @@ FrameContainer.prototype = {
     frames: [],
     currentIndex: 0,
     currentOrderSort: 0,
-    addFrameWithOptions: function (index, txt, pic, voice, positionStyle, orderSort) {
+    addFrameWithOptions: function (options) {
         var frame = new FrameInfo();
-        frame.txt = txt;
-        frame.index = orderSort;
-        frame.pic = pic;
-        frame.voice = voice;
-        frame.positionStyle = positionStyle;
-        this.frames.add(frame);
+        frame.id = options.id;
+        frame.txt = options.txt;
+        frame.index = options.orderSort;
+        frame.img = options.img;
+        frame.timeDuring = options.timeDuring;
+        frame.voice = options.voice;
+        frame.index = options.index;
+        frame.orderSort = options.orderSort;
+        frame.positionStyle = options.positionStyle;
+        this.frames.push(frame);
+        this.currentIndex++;
+        this.currentOrderSort++;
+        this.onFrameAdd(frame);
     },
     getFrameByIndex: function (index) {
         var target = null;
@@ -125,6 +132,7 @@ FrameInfo.prototype = {
     voiceSize: 0,
     orderSort: 0,
     id: 0,
+    index: 0,
     positionStyle: 0,
     timeDuring: 10
 };
