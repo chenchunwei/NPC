@@ -23,6 +23,7 @@ namespace NPC.Application.ManageModels.Articles
         public string Content { get; set; }
         public string Author { get; set; }
         public bool IsShow { get; set; }
+        public int OrderSort { get; set; }
         public Guid? ArticleCategoryId { get; set; }
     }
 }

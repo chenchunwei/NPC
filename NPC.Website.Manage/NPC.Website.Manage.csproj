@@ -177,6 +177,7 @@
     <Content Include="AdminCenter\index.html" />
     <Content Include="AdminCenter\showpage.src.js" />
     <Content Include="Content\CSS\customIcon.css" />
+    <Content Include="Content\CSS\icons.css" />
     <Content Include="Content\CSS\reset.css" />
     <Content Include="Content\CSS\style.css" />
     <Content Include="Content\CSS\frame.css" />
@@ -277,6 +278,30 @@
     <Content Include="Content\Images\wrapper_bj.jpg" />
     <Content Include="Content\Images\wrapper_rightbj.gif" />
     <Content Include="Content\Images\wrapper_rightbj.jpg" />
+    <Content Include="Content\img\cancel-off.png" />
+    <Content Include="Content\img\cancel-on.png" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\glyphicons.png" />
+    <Content Include="Content\img\glyphicons_halflings2.png" />
+    <Content Include="Content\img\opa-icons-black16.png" />
+    <Content Include="Content\img\opa-icons-black32.png" />
+    <Content Include="Content\img\opa-icons-blue16.png" />
+    <Content Include="Content\img\opa-icons-blue32.png" />
+    <Content Include="Content\img\opa-icons-color16.png" />
+    <Content Include="Content\img\opa-icons-color32.png" />
+    <Content Include="Content\img\opa-icons-darkgray16.png" />
+    <Content Include="Content\img\opa-icons-darkgray32.png" />
+    <Content Include="Content\img\opa-icons-gray16.png" />
+    <Content Include="Content\img\opa-icons-gray32.png" />
+    <Content Include="Content\img\opa-icons-green16.png" />
+    <Content Include="Content\img\opa-icons-green32.png" />
+    <Content Include="Content\img\opa-icons-orange16.png" />
+    <Content Include="Content\img\opa-icons-orange32.png" />
+    <Content Include="Content\img\opa-icons-red16.png" />
+    <Content Include="Content\img\opa-icons-red32.png" />
+    <Content Include="Content\img\opa-icons-white16.png" />
+    <Content Include="Content\img\opa-icons-white32.png" />
     <Content Include="Content\login.css" />
     <Content Include="Global.asax" />
     <Content Include="info.txt" />
@@ -323,6 +348,7 @@
     <Content Include="Scripts\common\jquery.keyfilter-1.7.deom.txt" />
     <Content Include="Scripts\common\jquery.keyfilter-1.7.min.js" />
     <Content Include="Scripts\common\jquery.maskedinput-1.3.min.js" />
+    <Content Include="Scripts\common\jquery.masker.js" />
     <Content Include="Scripts\common\jquery.watermark.htm" />
     <Content Include="Scripts\common\jquery.watermark.min.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
@@ -1245,6 +1271,7 @@
     <Content Include="Views\OpenMasConfigs\EditOpenMasConfig.cshtml" />
     <Content Include="Views\NpcMmsSends\EditNpcMmsSend.cshtml" />
     <Content Include="Views\PhoneBooks\PhoneBookRecordList.cshtml" />
+    <Content Include="Views\PhoneBooks\PhoneBookList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

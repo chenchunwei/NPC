@@ -28,10 +28,13 @@ namespace NPC.Domain.Models.Articles
         public virtual int HitCount { get; set; }
         public virtual bool IsShow { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
-        public DateTime? StartTimeOfShow { get; set; }
+        public virtual DateTime? StartTimeOfShow { get; set; }
+        public virtual bool IsTop { get; set; }
+        public virtual int OrderSort { get; set; }
+
         /// <summary>
         /// 最后显示时间
         /// </summary>
-        public DateTime? EndOfShowTime { get; set; }
+        public virtual DateTime? EndOfShowTime { get; set; }
     }
 }

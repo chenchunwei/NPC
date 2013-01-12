@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "节点记录列表管理";
+    ViewBag.Title = "通讯录管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model  NPC.Application.ManageModels.PhoneBooks.PhoneBookRecordListModel 
@@ -16,7 +16,7 @@
         <div class="pic">
             <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
         <div class="font">
-            节点：</div>
+            通讯录：</div>
         <div class="s1">
         </div>
         <div class="i1">
@@ -81,7 +81,7 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="javascript:;" onclick="editRecord('@row.PhoneBook.Id','@row.Name','@row.Mobile')">
+                    <a href="javascript:;" onclick="editRecord('@row.Id','@row.PhoneBook.Id','@row.Name','@row.Mobile')">
                         编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">删除</a></div>
                 <div class="span_5">
                     @row.Name
@@ -151,6 +151,7 @@
                         </th>
                         <td>
                             <input id="ContactName" name="ContactName" type="text" />
+                            <input id="Id" name="Id" type="hidden" />
                         </td>
                     </tr>
                     <tr>
@@ -199,17 +200,18 @@
     </div>
 </div>
 <script type="text/javascript">
-    var urlOfDel = '@Url.Action("Delete", "NodeRecords")';
+    var urlOfDel = '@Url.Action("Delete", "PhoneBooks")';
     function singleDel(id) {
         var delIds = [];
         delIds.push(id);
         controller.del(urlOfDel, delIds);
     }
-    function editRecord(phoneBookId, name, mobile) {
+    function editRecord(id, phoneBookId, name, mobile) {
         $("#newForm")[0].reset();
         $("#PhoneBookId").val(phoneBookId);
         $("#ContactName").val(name);
         $("#Mobile").val(mobile);
+        $("#Id").val(id);
         $('#newWin').window('open');
     }
     $(function () {
@@ -239,6 +241,15 @@
                 "Mobile": "必填项"
             }
         });
+        $("#newPhoneBookForm").validate({
+            ignore: "",
+            rules: {
+                "PhoneBookName": "required"
+            },
+            messages: {
+                "PhoneBookName": "必填项" 
+            }
+        });
         $("#batchDelBtn").click(function () {
             controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
         });
@@ -248,6 +259,7 @@
         $("#newRecordBtn").click(function () {
             $('#newWin').window('open');
             $("#newForm")[0].reset();
+            $("#Id").val();
         });
         $("#wins,#newWin,#newPhoneBookWin").show();
         $("#btnSubmitNew").click(function () {

@@ -20,6 +20,10 @@ namespace NPC.Domain.Model.Mappings.Articles
             Map(o => o.HitCount);
             Map(o => o.Author);
             Map(o => o.IsShow);
+            Map(o => o.StartTimeOfShow);
+            Map(o => o.EndOfShowTime);
+            Map(o => o.IsTop);
+            Map(o => o.OrderSort);
             Component(o => o.RecordDescription);
             References(o => o.ArticleCategory).Column("ArticleCategoryId");
             Table("Articles");

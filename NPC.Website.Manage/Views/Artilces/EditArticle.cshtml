@@ -5,6 +5,7 @@
 @using System.ComponentModel
 @model  NPC.Application.ManageModels.Articles.ArticleEditModel
 <script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
 <div class="workgroundin" style="height: 5px;">
 </div>
 <form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
@@ -62,6 +63,14 @@
                 </tr>
                 <tr>
                     <th>
+                        排序：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.OrderSort, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;数值越大排序超高
+                    </td>
+                </tr>
+                <tr>
+                    <th>
                         封面图片：
                     </th>
                     <td>
@@ -111,7 +120,6 @@
     </div>
 </div>
 </form>
-
 <script type="text/javascript">
     $(function () {
         $("#FormData_ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });

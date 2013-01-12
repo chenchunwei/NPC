@@ -54,6 +54,20 @@ namespace NPC.Website.Manage.Controllers
             }
             return new NewtonsoftJsonResult() { Data = new { status = "success" } };
         }
+
+        [HttpPost, ActionName("RemoveRelateNode")]
+        public JsonResult RemoveRelateNodePost(Guid id)
+        {
+            try
+            {
+                _nodeAction.RemoveRelateNode(id);
+            }
+            catch (Exception exception)
+            {
+                return new NewtonsoftJsonResult() { Data = new { status = "failure", message = exception.Message } };
+            }
+            return new NewtonsoftJsonResult() { Data = new { status = "success" } };
+        }
         [HttpPost, ActionName("SettingNode")]
         public JsonResult SettingNodePost(Guid nodeId4Mark, NodeRecordMark nodeRecordMark)
         {

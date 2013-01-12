@@ -30,25 +30,17 @@ namespace NPC.Application
             model.FormData.UrlOfCoverImage = article.UrlOfCoverImage;
             model.FormData.Author = article.Author;
             model.FormData.IsShow = article.IsShow;
+            model.FormData.OrderSort = article.OrderSort;
             return model;
         }
 
+        #region 编辑或更新文章
         public void NewArticle(ArticleEditModel model)
         {
             if (!model.FormData.ArticleCategoryId.HasValue)
                 throw new ArgumentException("model.FormData.ArticleCategoryId不能为空");
             var article = new Article();
-            article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId.Value);
-            article.Content = model.FormData.Content;
-            article.HitCount = 0;
-            article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
-            article.Title = model.FormData.Title;
-            article.Author = model.FormData.Author;
-            article.IsShow = model.FormData.IsShow;
-            if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
-                article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
-            article.RecordDescription.CreateBy(NpcContext.CurrentUser);
-            article.Unit = NpcContext.CurrentUser.Unit;
+            FillArticle(article, model);
             _articleRepository.Save(article);
         }
 
@@ -59,19 +51,29 @@ namespace NPC.Application
             if (!model.Id.HasValue)
                 throw new ArgumentException("model.Id不能为空");
             var article = _articleRepository.Find(model.Id.Value);
+            FillArticle(article, model);
+            _articleRepository.Save(article);
+            model.Id = article.Id;
+        }
+
+        private void FillArticle(Article article, ArticleEditModel model)
+        {
+            if (!model.FormData.ArticleCategoryId.HasValue)
+                throw new ArgumentException("model.FormData.ArticleCategoryId不能为空");
             article.ArticleCategory = _articleCategoryRepository.Find(model.FormData.ArticleCategoryId.Value);
             article.Content = model.FormData.Content;
             article.HitCount = 0;
             article.RecordDescription.UserOfCreate = NpcContext.CurrentUser;
             article.Title = model.FormData.Title;
             article.Author = model.FormData.Author;
+            article.OrderSort = model.FormData.OrderSort;
             article.IsShow = model.FormData.IsShow;
             if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
                 article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
-            article.RecordDescription.UpdateBy(NpcContext.CurrentUser);
-            _articleRepository.Save(article);
-            model.Id = article.Id;
+            article.RecordDescription.CreateBy(NpcContext.CurrentUser);
+            article.Unit = NpcContext.CurrentUser.Unit;
         }
+        #endregion
 
         public ArticleListModel InitializeArticleListModel(ArticleQueryItem queryItem)
         {

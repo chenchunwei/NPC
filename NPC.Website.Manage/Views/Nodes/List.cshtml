@@ -45,198 +45,237 @@
     </div>
 </div>
 <div id="wins" style="display: none;">
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px; background-color: #EFEFEF; display: none"
-        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px;
+        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditNode", "Nodes")" method="post">
-                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                    <table>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">节点名称：
-                            </th>
-                            <td>
-                                <input id="FormData_Name" name="FormData.Name" type="text" maxlength="40" />
-                                <input id="Id" name="Id" type="hidden" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">节点编码：
-                            </th>
-                            <td>
-                                <input id="FormData_Code" name="FormData.Code" type="text" maxlength="40" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                    <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
-                </div>
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            节点名称：
+                        </th>
+                        <td>
+                            <input id="FormData_Name" name="FormData.Name" type="text" maxlength="40" />
+                            <input id="Id" name="Id" type="hidden" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            节点编码：
+                        </th>
+                        <td>
+                            <input id="FormData_Code" name="FormData.Code" type="text" maxlength="40" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        取消</a>
+            </div>
             </form>
         </div>
     </div>
-    <div id="relateWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px; background-color: #EFEFEF; display: none"
-        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="relateWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px;
+        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newRelateForm" action="@Url.Action("RelateNode", "Nodes")" method="post">
-                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                    <table>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">关联到分类：
-                            </th>
-                            <td>
-                                <input id="ArticleCategoryId" name="ArticleCategoryId" type="text" style="width: 200px;" />
-                                <input id="NodeId" name="NodeId" type="hidden" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                    <a id="btnSubmitRelate" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelRelate" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
-                </div>
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            关联到分类：
+                        </th>
+                        <td>
+                            <input id="ArticleCategoryId" name="ArticleCategoryId" type="text" style="width: 200px;" />
+                            <input id="NodeId" name="NodeId" type="hidden" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitRelate" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelRelate" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        取消</a>
+            </div>
             </form>
         </div>
     </div>
     <style type="text/css">
-        #settingMarkWin td {
+        #settingMarkWin td
+        {
             padding: 0 5px;
         }
     </style>
-    <div id="settingMarkWin" class="easyui-window" title="节点自定义设置" style="width: 700px; height: 350px; background-color: #EFEFEF; display: none"
-        data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="settingMarkWin" class="easyui-window" title="节点自定义设置" style="width: 700px;
+        height: 350px; background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newSettingForm" action="@Url.Action("SettingNode", "Nodes")" method="post">
-                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                    <table cellpadding="5" cellspacing="5">
-                        <input id="NodeId4Mark" name="NodeId4Mark" type="hidden" />
-                        <tr style="line-height: 30px;">
-                            <th width="120px;" style="text-align: center">设置项
-                            </th>
-                            <td style="text-align: center">不显示
-                            </td>
-                            <td style="text-align: center">自定义标题
-                            </td>
-                            <td style="text-align: center">说明信息
-                            </td>
-                            <td style="text-align: center">是否必填
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">链接：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsRecordLinkHidden" id="IsRecordLinkHidden" />
-                            </td>
-                            <td>
-                                <input id="RecordLinkTitle" name="RecordLinkTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="RecordLinkTip" name="RecordLinkTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsRecordLinkRequired" id="IsRecordLinkRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">标题一：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstTitleHidden" id="IsFirstTitleHidden" />
-                            </td>
-                            <td>
-                                <input id="FisrtTitleTitle" name="FisrtTitleTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="FirstTitleTip" name="FirstTitleTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstTitleRequired" id="IsFirstTitleRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">标题二：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondTitleHidden" id="IsSecondTitleHidden" />
-                            </td>
-                            <td>
-                                <input id="SecondTitleTitle" name="SecondTitleTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="SecondTitleTip" name="SecondTitleTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondTitleRequired" id="IsSecondTitleRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">内容一：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstContentHidden" id="IsFirstContentHidden" />
-                            </td>
-                            <td>
-                                <input id="FirstContentTitle" name="FirstContentTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="FirstContentTip" name="FirstContentTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstContentRequired" id="IsFirstContentRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">内容二：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondContentHidden" id="IsSecondContentHidden" />
-                            </td>
-                            <td>
-                                <input id="SecondContentTitle" name="SecondContentTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="SecondContentTip" name="SecondContentTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondContentRequired" id="IsSecondContentRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">图片一：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstImageHidden" id="IsFirstImageHidden" />
-                            </td>
-                            <td>
-                                <input id="FirstImageTitle" name="FirstImageTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="FirstImageTip" name="FirstImageTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsFirstImageRequired" id="IsFirstImageRequired" />
-                            </td>
-                        </tr>
-                        <tr style="line-height: 30px;">
-                            <th width="120px;">图片二：
-                            </th>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondImageHidden" id="IsSecondImageHidden" />
-                            </td>
-                            <td>
-                                <input id="SecondImageTitle" name="SecondImageTitle" type="text" style="width: 200px;" maxlength="50" />
-                            </td>
-                            <td>
-                                <input id="SecondImageTip" name="SecondImageTip" type="text" style="width: 200px;" maxlength="100" />
-                            </td>
-                            <td>
-                                <input type="checkbox" value="True" name="IsSecondImageRequired" id="IsSecondImageRequired" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                    <a id="btnSubmitSetting" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelSetting" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
-                </div>
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table cellpadding="5" cellspacing="5">
+                    <input id="NodeId4Mark" name="NodeId4Mark" type="hidden" />
+                    <tr style="line-height: 30px;">
+                        <th width="120px;" style="text-align: center">
+                            设置项
+                        </th>
+                        <td style="text-align: center">
+                            不显示
+                        </td>
+                        <td style="text-align: center">
+                            自定义标题
+                        </td>
+                        <td style="text-align: center">
+                            说明信息
+                        </td>
+                        <td style="text-align: center">
+                            是否必填
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            链接：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsRecordLinkHidden" id="IsRecordLinkHidden" />
+                        </td>
+                        <td>
+                            <input id="RecordLinkTitle" name="RecordLinkTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="RecordLinkTip" name="RecordLinkTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsRecordLinkRequired" id="IsRecordLinkRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            标题一：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstTitleHidden" id="IsFirstTitleHidden" />
+                        </td>
+                        <td>
+                            <input id="FisrtTitleTitle" name="FisrtTitleTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="FirstTitleTip" name="FirstTitleTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstTitleRequired" id="IsFirstTitleRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            标题二：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondTitleHidden" id="IsSecondTitleHidden" />
+                        </td>
+                        <td>
+                            <input id="SecondTitleTitle" name="SecondTitleTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="SecondTitleTip" name="SecondTitleTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondTitleRequired" id="IsSecondTitleRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            内容一：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstContentHidden" id="IsFirstContentHidden" />
+                        </td>
+                        <td>
+                            <input id="FirstContentTitle" name="FirstContentTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="FirstContentTip" name="FirstContentTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstContentRequired" id="IsFirstContentRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            内容二：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondContentHidden" id="IsSecondContentHidden" />
+                        </td>
+                        <td>
+                            <input id="SecondContentTitle" name="SecondContentTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="SecondContentTip" name="SecondContentTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondContentRequired" id="IsSecondContentRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            图片一：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstImageHidden" id="IsFirstImageHidden" />
+                        </td>
+                        <td>
+                            <input id="FirstImageTitle" name="FirstImageTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="FirstImageTip" name="FirstImageTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsFirstImageRequired" id="IsFirstImageRequired" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            图片二：
+                        </th>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondImageHidden" id="IsSecondImageHidden" />
+                        </td>
+                        <td>
+                            <input id="SecondImageTitle" name="SecondImageTitle" type="text" style="width: 200px;"
+                                maxlength="50" />
+                        </td>
+                        <td>
+                            <input id="SecondImageTip" name="SecondImageTip" type="text" style="width: 200px;"
+                                maxlength="100" />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="True" name="IsSecondImageRequired" id="IsSecondImageRequired" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitSetting" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelSetting" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        取消</a>
+            </div>
             </form>
         </div>
     </div>
@@ -261,7 +300,7 @@
                     { field: 'code', title: '节点编码', width: 130, align: 'left' },
                     { field: 'id', title: '节点Id', width: 300, align: 'left' },
                     { field: 'operation', title: '设置', width: 260, align: 'left', formatter: addOperator },
-                    { field: 'categoryName', title: '关联的分类名', width: 200, align: 'left' }
+                    { field: 'categoryName', title: '关联的分类名', width: 200, align: 'left',formatter: removeRelateOperator }
                 ]],
                 onLoadSuccess: function () {
                 },
@@ -348,126 +387,143 @@
                 showSlide("删除成功!", 3000);
             } else {
                 msgShow("提示信息", "删除失败!", "error");
+            }});
+        }
+    }
+    function addOperator(val, row) {
+        return '<a href="javascript:setRelate(\'' + row.id + '\')">设置关联</a>&nbsp;\
+                 <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
+                 <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
+    }
+
+    function removeRelateOperator(val, row) {
+        if (row.categoryName == null||row.categoryName=='')
+            return "";
+       return row.categoryName+'&nbsp;<i class="icon-remove" title="取消关联" style="cursor: pointer" onclick="removeRelete(\'' + row.id + '\')"></i>';
+    }
+    function setMark(id) {
+        $("#NodeId4Mark").val(id);
+        var row = $("#treegrid").treegrid("find", id);
+        var nodeRecordMark = row["nodeRecordMark"];
+        $("#newSettingForm")[0].reset();
+        if (nodeRecordMark != null) {
+            //链接地址
+            if (!nodeRecordMark.IsRecordLinkHidden) {
+                $("#IsRecordLinkHidden").removeAttr("checked");
+            } else {
+                $("#IsRecordLinkHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsRecordLinkRequired) {
+                $("#IsRecordLinkRequired").removeAttr("checked");
+            } else {
+                $("#IsRecordLinkRequired").attr("checked", "checked");
+            }
+            $("#RecordLinkTitle").val(nodeRecordMark.RecordLinkTitle);
+            $("#RecordLinkTip").val(nodeRecordMark.RecordLinkTip);
+            //第一标题
+            if (!nodeRecordMark.IsFirstTitleHidden) {
+                $("#IsFirstTitleHidden").removeAttr("checked");
+            } else {
+                $("#IsFirstTitleHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsFirstTitleRequired) {
+                $("#IsFirstTitleRequired").removeAttr("checked");
+            } else {
+                $("#IsFirstTitleRequired").attr("checked", "checked");
+            }
+            $("#FisrtTitleTitle").val(nodeRecordMark.FisrtTitleTitle);
+            $("#FirstTitleTip").val(nodeRecordMark.FirstTitleTip);
+
+            //第二标题
+            if (!nodeRecordMark.IsSecondTitleHidden) {
+                $("#IsSecondTitleHidden").removeAttr("checked");
+            } else {
+                $("#IsSecondTitleHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsSecondTitleRequired) {
+                $("#IsSecondTitleRequired").removeAttr("checked");
+            } else {
+                $("#IsSecondTitleRequired").attr("checked", "checked");
+            }
+            $("#SecondTitleTitle").val(nodeRecordMark.SecondTitleTitle);
+            $("#SecondTitleTip").val(nodeRecordMark.SecondTitleTip);
+
+            //第一内容
+            if (!nodeRecordMark.IsFirstContentHidden) {
+                $("#IsFirstContentHidden").removeAttr("checked");
+            } else {
+                $("#IsFirstContentHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsFirstContentRequired) {
+                $("#IsFirstContentRequired").removeAttr("checked");
+            } else {
+                $("#IsFirstContentRequired").attr("checked", "checked");
+            }
+            $("#FirstContentTitle").val(nodeRecordMark.FirstContentTitle);
+            $("#FirstContentTip").val(nodeRecordMark.FirstContentTip);
+
+            //第二内容
+            if (!nodeRecordMark.IsSecondContentHidden) {
+                $("#IsSecondContentHidden").removeAttr("checked");
+            } else {
+                $("#IsSecondContentHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsSecondContentRequired) {
+                $("#IsSecondContentRequired").removeAttr("checked");
+            } else {
+                $("#IsSecondContentRequired").attr("checked", "checked");
+            }
+            $("#SecondContentTitle").val(nodeRecordMark.SecondContentTitle);
+            $("#SecondContentTip").val(nodeRecordMark.SecondContentTip);
+
+            //第一图片
+            if (!nodeRecordMark.IsFirstImageHidden) {
+                $("#IsFirstImageHidden").removeAttr("checked");
+            } else {
+                $("#IsFirstImageHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsFirstImageRequired) {
+                $("#IsFirstImageRequired").removeAttr("checked");
+            } else {
+                $("#IsFirstImageRequired").attr("checked", "checked");
+            }
+            $("#FirstImageTitle").val(nodeRecordMark.FirstImageTitle);
+            $("#FirstImageTip").val(nodeRecordMark.FirstImageTip);
+
+            //第二图片
+            if (!nodeRecordMark.IsSecondImageHidden) {
+                $("#IsSecondImageHidden").removeAttr("checked");
+            } else {
+                $("#IsSecondImageHidden").attr("checked", "checked");
+            }
+            if (!nodeRecordMark.IsSecondImageRequired) {
+                $("#IsSecondImageRequired").removeAttr("checked");
+            } else {
+                $("#IsSecondImageRequired").attr("checked", "checked");
+            }
+            $("#SecondImageTitle").val(nodeRecordMark.SecondImageTitle);
+            $("#SecondImageTip").val(nodeRecordMark.SecondImageTip);
+        }
+        $('#settingMarkWin').window('open');
+    }
+    function setRelate(id) {
+        $("#NodeId").val(id);
+        var row = $("#treegrid").treegrid("find", id);
+        $('#relateWin').window('open');
+        $("#ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
+        $('#ArticleCategoryId').combotree('setValue', row.categoryId);
+    }
+    function removeRelete(id) {
+        $.post('@Url.Action("RemoveRelateNode", "Nodes")', {"id":id}, function (data) {
+            data = evalJson(data);
+            if (data.status == "success") {
+                $("#treegrid").treegrid('reload');
+                showSlide("取消关联成功!", 3000);
+            } else {
+                msgShow("提示信息", data.message, "error");
             }
         });
-    }
-}
-function addOperator(val, row) {
-    return '<a href="javascript:setRelete(\'' + row.id + '\')">设置关联</a>&nbsp;\
-             <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
-             <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
-}
-function setMark(id) {
-    $("#NodeId4Mark").val(id);
-    var row = $("#treegrid").treegrid("find", id);
-    var nodeRecordMark = row["nodeRecordMark"];
-    $("#newSettingForm")[0].reset();
-    if (nodeRecordMark != null) {
-        //链接地址
-        if (!nodeRecordMark.IsRecordLinkHidden) {
-            $("#IsRecordLinkHidden").removeAttr("checked");
-        } else {
-            $("#IsRecordLinkHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsRecordLinkRequired) {
-            $("#IsRecordLinkRequired").removeAttr("checked");
-        } else {
-            $("#IsRecordLinkRequired").attr("checked", "checked");
-        }
-        $("#RecordLinkTitle").val(nodeRecordMark.RecordLinkTitle);
-        $("#RecordLinkTip").val(nodeRecordMark.RecordLinkTip);
-        //第一标题
-        if (!nodeRecordMark.IsFirstTitleHidden) {
-            $("#IsFirstTitleHidden").removeAttr("checked");
-        } else {
-            $("#IsFirstTitleHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsFirstTitleRequired) {
-            $("#IsFirstTitleRequired").removeAttr("checked");
-        } else {
-            $("#IsFirstTitleRequired").attr("checked", "checked");
-        }
-        $("#FisrtTitleTitle").val(nodeRecordMark.FisrtTitleTitle);
-        $("#FirstTitleTip").val(nodeRecordMark.FirstTitleTip);
-
-        //第二标题
-        if (!nodeRecordMark.IsSecondTitleHidden) {
-            $("#IsSecondTitleHidden").removeAttr("checked");
-        } else {
-            $("#IsSecondTitleHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsSecondTitleRequired) {
-            $("#IsSecondTitleRequired").removeAttr("checked");
-        } else {
-            $("#IsSecondTitleRequired").attr("checked", "checked");
-        }
-        $("#SecondTitleTitle").val(nodeRecordMark.SecondTitleTitle);
-        $("#SecondTitleTip").val(nodeRecordMark.SecondTitleTip);
-
-        //第一内容
-        if (!nodeRecordMark.IsFirstContentHidden) {
-            $("#IsFirstContentHidden").removeAttr("checked");
-        } else {
-            $("#IsFirstContentHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsFirstContentRequired) {
-            $("#IsFirstContentRequired").removeAttr("checked");
-        } else {
-            $("#IsFirstContentRequired").attr("checked", "checked");
-        }
-        $("#FirstContentTitle").val(nodeRecordMark.FirstContentTitle);
-        $("#FirstContentTip").val(nodeRecordMark.FirstContentTip);
-
-        //第二内容
-        if (!nodeRecordMark.IsSecondContentHidden) {
-            $("#IsSecondContentHidden").removeAttr("checked");
-        } else {
-            $("#IsSecondContentHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsSecondContentRequired) {
-            $("#IsSecondContentRequired").removeAttr("checked");
-        } else {
-            $("#IsSecondContentRequired").attr("checked", "checked");
-        }
-        $("#SecondContentTitle").val(nodeRecordMark.SecondContentTitle);
-        $("#SecondContentTip").val(nodeRecordMark.SecondContentTip);
-
-        //第一图片
-        if (!nodeRecordMark.IsFirstImageHidden) {
-            $("#IsFirstImageHidden").removeAttr("checked");
-        } else {
-            $("#IsFirstImageHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsFirstImageRequired) {
-            $("#IsFirstImageRequired").removeAttr("checked");
-        } else {
-            $("#IsFirstImageRequired").attr("checked", "checked");
-        }
-        $("#FirstImageTitle").val(nodeRecordMark.FirstImageTitle);
-        $("#FirstImageTip").val(nodeRecordMark.FirstImageTip);
-
-        //第二图片
-        if (!nodeRecordMark.IsSecondImageHidden) {
-            $("#IsSecondImageHidden").removeAttr("checked");
-        } else {
-            $("#IsSecondImageHidden").attr("checked", "checked");
-        }
-        if (!nodeRecordMark.IsSecondImageRequired) {
-            $("#IsSecondImageRequired").removeAttr("checked");
-        } else {
-            $("#IsSecondImageRequired").attr("checked", "checked");
-        }
-        $("#SecondImageTitle").val(nodeRecordMark.SecondImageTitle);
-        $("#SecondImageTip").val(nodeRecordMark.SecondImageTip);
-    }
-    $('#settingMarkWin').window('open');
-}
-function setRelete(id) {
-    $("#NodeId").val(id);
-    var row = $("#treegrid").treegrid("find", id);
-    $('#relateWin').window('open');
-    $("#ArticleCategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
-        $('#ArticleCategoryId').combotree('setValue', row.categoryId);
+        return false;
     }
     $("#newForm").submit(function () {
         $.post('@Url.Action("EditNode", "Nodes")', utility.formSerialize($("#newForm")), function (data) {
@@ -482,7 +538,7 @@ function setRelete(id) {
         });
         return false;
     });
-        $("#newRelateForm").submit(function () {
+    $("#newRelateForm").submit(function () {
             $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
                 data = evalJson(data);
                 if (data.status == "success") {
@@ -490,12 +546,12 @@ function setRelete(id) {
                     $("#relateWin").window("close");
                     showSlide("关联设置成功!", 3000);
                 } else {
-                    msgHidden("提示信息", data.message, "error");
+                    msgShow("提示信息", data.message, "error");
                 }
             });
             return false;
-        });
-        $("#newSettingForm").submit(function () {
+      });
+      $("#newSettingForm").submit(function () {
             $.post('@Url.Action("SettingNode", "Nodes")', utility.formSerialize($("#newSettingForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {

@@ -10,6 +10,6 @@ namespace NPC.Application.ManageModels.PhoneBooks
         public Guid? Id { get; set; }
         public Guid PhoneBookId { get; set; }
         public string ContactName { get; set; }
-        public string Moblie { get; set; }
+        public string Mobile { get; set; }
     }
 }

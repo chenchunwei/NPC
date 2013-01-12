@@ -98,6 +98,7 @@
     <Compile Include="ManageModels\OpenMasConfigs\EditOpenMasConfigModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\EditPhoneBookModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\EditPhoneBookRecordModel.cs" />
+    <Compile Include="ManageModels\PhoneBooks\PhoneBookListModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordListModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordSearchModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />

@@ -70,7 +70,7 @@ namespace NPC.Website.Manage.Controllers
                 Logger.ErrorFormat("处理数据{0}时异常：{1}", Newtonsoft.Json.JsonConvert.SerializeObject(viewModel), exception);
                 return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
             }
-         }
+        }
         #endregion
 
         #region 删除记录
@@ -80,6 +80,25 @@ namespace NPC.Website.Manage.Controllers
             IList<Guid> ids = Request["ids"].Split(',').Select(o => new Guid(o)).ToList();
             _phoneBookRecordAction.Delete(ids.ToArray());
             return new NewtonsoftJsonResult() { Data = new { Status = "success", Message = "删除成功!" } };
+        }
+        #endregion
+
+        #region 删除通讯簿
+        [HttpPost, ActionName("DeletePhoneBook")]
+        public JsonResult DeletePhoneBook()
+        {
+            IList<Guid> ids = Request["ids"].Split(',').Select(o => new Guid(o)).ToList();
+            _phoneBookRecordAction.DeletePhoneBook(ids.ToArray());
+            return new NewtonsoftJsonResult() { Data = new { Status = "success", Message = "删除成功!" } };
+        }
+        #endregion
+
+        #region 电话簿列表
+        public ActionResult PhoneBookList()
+        {
+            var unitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _phoneBookRecordAction.InitializePhoneBookListModel(unitId);
+            return View(model);
         }
         #endregion
     }

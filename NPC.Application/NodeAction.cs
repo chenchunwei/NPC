@@ -100,5 +100,12 @@ namespace NPC.Application
             node.NodeRecordMark = nodeRecordMark;
             _nodeRepository.Save(node);
         }
+
+        public void RemoveRelateNode(Guid id)
+        {
+            var node = _nodeRepository.Find(id);
+            node.OuterCategoryId = null;
+            _nodeRepository.Save(node);
+        }
     }
 }
