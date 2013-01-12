@@ -27,6 +27,7 @@ namespace NPC.Application
 
         }
         #endregion
+
         #region 转换ArticleCategory到Model
         private ArticleCategoryTreeModelComponent ConvertArticleCategoryToModel(ArticleCategory articleCategory, bool isNeedSub)
         {
@@ -59,16 +60,34 @@ namespace NPC.Application
             var articleCategory = new ArticleCategory();
             articleCategory.CategoryName = model.FormData.Name;
             articleCategory.Unit = model.Unit;
-            if (model.Id.HasValue)
+            if (model.ParentId.HasValue)
             {
-                articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.Id.Value);
+                articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.ParentId.Value);
             }
             articleCategory.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _articleCategoryRepository.Save(articleCategory);
         }
         #endregion
 
-        #region 删除 
+        #region 编辑分类
+        public void UpdateCategory(EditArticleCategoryModel model)
+        {
+            if (model.Id == null)
+            {
+                throw new ArgumentException("model.Id不能为null");
+            }
+            var articleCategory = _articleCategoryRepository.Find(model.Id.Value);
+            articleCategory.CategoryName = model.FormData.Name;
+            if (model.ParentId.HasValue)
+            {
+                articleCategory.ParentArticleCategory = _articleCategoryRepository.Find(model.ParentId.Value);
+            }
+            articleCategory.RecordDescription.UpdateBy(NpcContext.CurrentUser);
+            _articleCategoryRepository.Save(articleCategory);
+        }
+        #endregion
+
+        #region 删除
         public void Delete(Guid id)
         {
             var target = _articleCategoryRepository.Find(id);

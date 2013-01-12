@@ -9,6 +9,7 @@ namespace NPC.Application.ManageModels.ArticleCategories
     public class EditArticleCategoryModel
     {
         public Guid? Id { get; set; }
+        public Guid? ParentId { get; set; }
         public EditArticleCategoryModelFormData FormData { get; set; }
         public Unit Unit { get; set; }
     }

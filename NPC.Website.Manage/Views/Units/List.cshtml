@@ -34,18 +34,23 @@
         </div>
     </div>
 </div>
-<div id="mm" class="easyui-menu" style="width: 120px;">
-    <div onclick="append()" data-options="iconCls:'icon-add'">
-        添加新组织
-    </div>
-    <div class="menu-sep">
-    </div>
-    <div onclick="remove()" data-options="iconCls:'icon-remove'">
-        移除组织
-    </div>
-</div>
 <div id="wins" style="display: none;">
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 120px;
+    <div id="mm" class="easyui-menu" style="width: 120px;">
+        <div onclick="append()" data-options="iconCls:'icon-add'">
+            添加新组织
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="edit()" data-options="iconCls:'icon-add'">
+            编辑组织
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="remove()" data-options="iconCls:'icon-remove'">
+            移除组织
+        </div>
+    </div>
+    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 150px;
         background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditUnit", "Units")" method="post">
@@ -58,6 +63,7 @@
                         <td>
                             <input id="FormData_Name" name="FormData.Name" type="text" />
                             <input id="Id" name="Id" type="hidden" />
+                            <input id="ParentId" name="ParentId" type="hidden" />
                         </td>
                     </tr>
                 </table>
@@ -119,9 +125,19 @@
     function append() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node != null) {
-            $("#Id").val(node.id);
+            $("#ParentId").val(node.id);
         }
         $('#newWin').window('open');
+    }
+    function edit() {
+        var row = $("#treegrid").treegrid("getSelected");
+        if (row != null) {
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+            $("#ParentId").val('');
+            $("#Id").val(row.id);
+            $("#FormData_Name").val(row.name);
+        }
     }
     function remove() {
         var node = $('#treegrid').treegrid('getSelected');
@@ -149,9 +165,9 @@
         $.post('@Url.Action("EditUnit", "Units")', utility.formSerialize($("#newForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
-                $("#treegrid").treegrid('reload', $("#Id").val());
+                $("#treegrid").treegrid('reload');
                 $("#newWin").window("close");
-                showSlide("添加成功!", 3000);
+                showSlide("保存成功!", 3000);
             } else {
                 msgShow("失败信息", "添加组织失败!", "error");
             }

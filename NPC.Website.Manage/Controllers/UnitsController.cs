@@ -33,7 +33,14 @@ namespace NPC.Website.Manage.Controllers
         {
             try
             {
-                _unitAction.CreateNewUnit(model);
+                if (model.Id.HasValue)
+                {
+                    _unitAction.UpdateUnit(model);
+                }
+                else
+                {
+                    _unitAction.CreateNewUnit(model);                    
+                }
             }
             catch (Exception)
             {

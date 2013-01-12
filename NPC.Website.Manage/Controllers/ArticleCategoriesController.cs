@@ -12,7 +12,7 @@ namespace NPC.Website.Manage.Controllers
 {
     public class ArticleCategoriesController : CommonController
     {
-        private readonly ArticleCategoryAction _articleCategoryAction; 
+        private readonly ArticleCategoryAction _articleCategoryAction;
         public ArticleCategoriesController()
         {
             _articleCategoryAction = new ArticleCategoryAction();
@@ -33,8 +33,15 @@ namespace NPC.Website.Manage.Controllers
         {
             try
             {
-                model.Unit = new NpcContext().CurrentUser.Unit;
-                _articleCategoryAction.CreateNewCategory(model);
+                if (model.Id.HasValue)
+                {
+                    _articleCategoryAction.UpdateCategory(model);
+                }
+                else
+                {
+                    model.Unit = new NpcContext().CurrentUser.Unit;
+                    _articleCategoryAction.CreateNewCategory(model);
+                }
             }
             catch (Exception)
             {

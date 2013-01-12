@@ -60,23 +60,42 @@ namespace NPC.Application
         }
         #endregion
 
-        #region 创建新组织
+        #region 创建或编辑组织
         public void CreateNewUnit(EditUnitModel model)
         {
-            var unit = new Unit()
+            var trans = TransactionManager.BeginTransaction();
+            try
             {
-                Name = model.FormData.Name,
-                ParentUint = model.Id.HasValue ? _unitRepository.Find(model.Id.Value) : null
-            };
+                var unit = new Unit()
+                {
+                    Name = model.FormData.Name,
+                    ParentUint = model.ParentId.HasValue ? _unitRepository.Find(model.ParentId.Value) : null
+                };
+                _unitRepository.Save(unit);
+                var user = new User()
+                {
+                    Account = "admin",
+                    Name = "管理员",
+                    Pwd = MD5Utility.GetMD5HashCode("admin"),
+                    Unit = unit
+                };
+                _userRepository.Save(user);
+                trans.Commit();
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
+
+        public void UpdateUnit(EditUnitModel model)
+        {
+            if (model.Id == null)
+                throw new ArgumentException("id不能为null");
+            var unit = _unitRepository.Find(model.Id.Value);
+            unit.Name = model.FormData.Name;
             _unitRepository.Save(unit);
-            var user = new User()
-            {
-                Account = "admin",
-                Name = "管理员",
-                Pwd = MD5Utility.GetMD5HashCode("admin"),
-                Unit = unit
-            };
-            _userRepository.Save(user);
         }
         #endregion
 

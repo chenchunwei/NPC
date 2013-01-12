@@ -8,6 +8,7 @@ namespace NPC.Application.ManageModels.Units
     public class EditUnitModel
     {
         public Guid? Id { get; set; }
+        public Guid? ParentId { get; set; }
         public EditUnitModelFormData FormData { get; set; }
     }
 

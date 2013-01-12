@@ -34,17 +34,22 @@
         </div>
     </div>
 </div>
-<div id="mm" class="easyui-menu" style="width: 120px;">
-    <div onclick="append()" data-options="iconCls:'icon-add'">
-        添加新节点
-    </div>
-    <div class="menu-sep">
-    </div>
-    <div onclick="remove()" data-options="iconCls:'icon-remove'">
-        移除节点
-    </div>
-</div>
 <div id="wins" style="display: none;">
+    <div id="mm" class="easyui-menu" style="width: 120px;">
+        <div onclick="append()" data-options="iconCls:'icon-add'">
+            添加新节点
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="edit()" data-options="iconCls:'icon-add'">
+            编辑组织
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="remove()" data-options="iconCls:'icon-remove'">
+            移除节点
+        </div>
+    </div>
     <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 180px;
         background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
@@ -74,7 +79,8 @@
                             排序值：
                         </th>
                         <td>
-                            <input id="FormData_OrderSort" name="FormData.OrderSort" type="text" maxlength="10" class="mask-int" />&nbsp;数值大排序更前
+                            <input id="FormData_OrderSort" name="FormData.OrderSort" type="text" maxlength="10"
+                                class="mask-int" />&nbsp;数值大排序更前
                         </td>
                     </tr>
                 </table>
@@ -387,8 +393,8 @@
             $("#ParentId").val(node.id);
         }
     }
-    function edit(id) {
-        var row = $("#treegrid").treegrid("find", id);
+    function edit() {
+        var row = $("#treegrid").treegrid("getSelected");
         if (row != null) {
             $('#newWin').window('open');
             $("#newForm")[0].reset();
@@ -409,7 +415,7 @@
                     showSlide("删除成功!", 3000);
                 } else {
                     msgShow("提示信息", "删除失败!", "error");
-                } 
+                }
             });
         }
     }
