@@ -19,6 +19,7 @@ namespace NPC.Domain.Model.Mappings.NodeRecords
            Map(o => o.SecondImage);
            Map(o => o.SecondTitle);
            Map(o => o.IsShow);
+           Map(o => o.OrderSort);
            Map(o => o.RecordLink);
            References(o => o.BelongsToNode).Column("BelongsToNodeId");
            Component(o => o.RecordDescription);

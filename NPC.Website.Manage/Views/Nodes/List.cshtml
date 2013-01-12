@@ -56,8 +56,9 @@
                             节点名称：
                         </th>
                         <td>
+                            <input type="hidden" id="Id" name="Id" />
                             <input id="FormData_Name" name="FormData.Name" type="text" maxlength="40" />
-                            <input id="Id" name="Id" type="hidden" />
+                            <input id="ParentId" name="ParentId" type="hidden" />
                         </td>
                     </tr>
                     <tr style="line-height: 30px;">
@@ -66,6 +67,14 @@
                         </th>
                         <td>
                             <input id="FormData_Code" name="FormData.Code" type="text" maxlength="40" />
+                        </td>
+                    </tr>
+                    <tr style="line-height: 30px;">
+                        <th width="120px;">
+                            排序值：
+                        </th>
+                        <td>
+                            <input id="FormData_OrderSort" name="FormData.OrderSort" type="text" maxlength="10" class="mask-int" />&nbsp;数值大排序更前
                         </td>
                     </tr>
                 </table>
@@ -298,9 +307,10 @@
                     { field: 'type', hidden: true },
                     { field: 'text', title: '节点名称', width: 180, align: 'left' },
                     { field: 'code', title: '节点编码', width: 130, align: 'left' },
+                    { field: 'orderSort', title: '排序', width: 50, align: 'left' },
                     { field: 'id', title: '节点Id', width: 300, align: 'left' },
                     { field: 'operation', title: '设置', width: 260, align: 'left', formatter: addOperator },
-                    { field: 'categoryName', title: '关联的分类名', width: 200, align: 'left',formatter: removeRelateOperator }
+                    { field: 'categoryName', title: '关联的分类名', width: 200, align: 'left', formatter: removeRelateOperator }
                 ]],
                 onLoadSuccess: function () {
                 },
@@ -347,10 +357,10 @@
         $("#newRelateForm").validate({
             ignore: "",
             rules: {
-                "ArticleCategoryId": "required",
+                "ArticleCategoryId": "required"
             },
             messages: {
-                "ArticleCategoryId": "请选择关联的节点",
+                "ArticleCategoryId": "请选择关联的节点"
             }
         });
         $("#newTopNode").click(function () {
@@ -371,35 +381,49 @@
 
     function append(isTop) {
         var node = $('#treegrid').treegrid('getSelected');
-        if (node != null && !isTop) {
-            $("#Id").val(node.id);
-        }
         $('#newWin').window('open');
         $("#newForm")[0].reset();
+        if (node != null && !isTop) {
+            $("#ParentId").val(node.id);
+        }
+    }
+    function edit(id) {
+        var row = $("#treegrid").treegrid("find", id);
+        if (row != null) {
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+            $("#ParentId").val('');
+            $("#Id").val(row.id);
+            $("#FormData_Name").val(row.text);
+            $("#FormData_Code").val(row.code);
+            $("#FormData_OrderSort").val(row.orderSort);
+        }
     }
     function remove() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("Delete", "Nodes")', { "id": node.id }, function (data) {
-            data = evalJson(data);
-            if (data.status == "success") {
-                $('#treegrid').treegrid('remove', node.id);
-                showSlide("删除成功!", 3000);
-            } else {
-                msgShow("提示信息", "删除失败!", "error");
-            }});
+                data = evalJson(data);
+                if (data.status == "success") {
+                    $('#treegrid').treegrid('remove', node.id);
+                    showSlide("删除成功!", 3000);
+                } else {
+                    msgShow("提示信息", "删除失败!", "error");
+                } 
+            });
         }
     }
     function addOperator(val, row) {
-        return '<a href="javascript:setRelate(\'' + row.id + '\')">设置关联</a>&nbsp;\
-                 <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
-                 <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
+        return '<a href="javascript:edit(\'' + row.id + '\')">编辑</a>&nbsp;\
+                <a href="javascript:setRelate(\'' + row.id + '\')">设置关联</a>&nbsp;\
+                <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
+                <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
     }
 
     function removeRelateOperator(val, row) {
-        if (row.categoryName == null||row.categoryName=='')
+        if (row.categoryName == null || row.categoryName == '')
             return "";
-       return row.categoryName+'&nbsp;<i class="icon-remove" title="取消关联" style="cursor: pointer" onclick="removeRelete(\'' + row.id + '\')"></i>';
+        return row.categoryName + '&nbsp;<i class="micon micon-remove" title="取消关联" style="cursor: pointer" onclick="removeRelete(\'' + row.id + '\')"></i>';
     }
     function setMark(id) {
         $("#NodeId4Mark").val(id);
@@ -514,7 +538,7 @@
         $('#ArticleCategoryId').combotree('setValue', row.categoryId);
     }
     function removeRelete(id) {
-        $.post('@Url.Action("RemoveRelateNode", "Nodes")', {"id":id}, function (data) {
+        $.post('@Url.Action("RemoveRelateNode", "Nodes")', { "id": id }, function (data) {
             data = evalJson(data);
             if (data.status == "success") {
                 $("#treegrid").treegrid('reload');
@@ -529,9 +553,9 @@
         $.post('@Url.Action("EditNode", "Nodes")', utility.formSerialize($("#newForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
-                $("#treegrid").treegrid('reload', $("#Id").val());
+                $("#treegrid").treegrid('reload');
                 $("#newWin").window("close");
-                showSlide("添加成功!", 3000);
+                showSlide("保存成功!", 3000);
             } else {
                 msgShow("提示信息", data.message, "error");
             }
@@ -539,20 +563,20 @@
         return false;
     });
     $("#newRelateForm").submit(function () {
-            $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
-                data = evalJson(data);
-                if (data.status == "success") {
-                    $("#treegrid").treegrid('reload', $("#Id").val());
-                    $("#relateWin").window("close");
-                    showSlide("关联设置成功!", 3000);
-                } else {
-                    msgShow("提示信息", data.message, "error");
-                }
-            });
-            return false;
-      });
-      $("#newSettingForm").submit(function () {
-            $.post('@Url.Action("SettingNode", "Nodes")', utility.formSerialize($("#newSettingForm")), function (data) {
+        $.post('@Url.Action("RelateNode", "Nodes")', utility.formSerialize($("#newRelateForm")), function (data) {
+            data = evalJson(data);
+            if (data.status == "success") {
+                $("#treegrid").treegrid('reload', $("#Id").val());
+                $("#relateWin").window("close");
+                showSlide("关联设置成功!", 3000);
+            } else {
+                msgShow("提示信息", data.message, "error");
+            }
+        });
+        return false;
+    });
+    $("#newSettingForm").submit(function () {
+        $.post('@Url.Action("SettingNode", "Nodes")', utility.formSerialize($("#newSettingForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {
                 $("#treegrid").treegrid('reload', $("#Id").val());
@@ -565,3 +589,4 @@
         return false;
     });
 </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>

@@ -15,6 +15,7 @@ namespace NPC.Application.ManageModels.NodeRecords
         public string SecondImage { get; set; }
         public string RecordLink { get; set; }
         public Guid? SelectedNodeId { get; set; }
+        public int OrderSort { get; set; }
         public bool IsShow { get; set; }
     }
 }

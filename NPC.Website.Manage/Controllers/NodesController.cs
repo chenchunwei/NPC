@@ -33,7 +33,10 @@ namespace NPC.Website.Manage.Controllers
         {
             try
             {
-                _nodeAction.CreateNewNode(model);
+                if (model.Id.HasValue)
+                    _nodeAction.UpdateNode(model);
+                else
+                    _nodeAction.CreateNewNode(model);
             }
             catch (Exception exception)
             {

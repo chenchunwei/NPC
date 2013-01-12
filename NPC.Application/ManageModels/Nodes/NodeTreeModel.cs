@@ -47,5 +47,7 @@ namespace NPC.Application.ManageModels.Nodes
         public IList<NodeTreeModelComponent> Childrens = new List<NodeTreeModelComponent>();
         [DataMember(Name = "nodeRecordMark")]
         public NodeRecordMark NodeRecordMark { get; set; }
+        [DataMember(Name = "orderSort")]
+        public int OrderSort { get; set; }
     }
 }

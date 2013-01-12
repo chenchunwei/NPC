@@ -1,4 +1,5 @@
 ﻿@model NPC.Application.ManageModels.NodeRecords.EditNodeRecordModel 
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
 <table class="fromTable" width="100%">
     <tr>
         <th style="width: 220px;">
@@ -9,10 +10,18 @@
             <input type="radio" value="False" name="FormData.IsShow"  @(Model.FormData.IsShow ? "" : "checked") />&nbsp;否
         </td>
     </tr>
+    <tr>
+        <th>
+            排序值：
+        </th>
+        <td>
+            @Html.TextBoxFor(o => o.FormData.OrderSort, new { style = "width:100px;", maxlength = 10, @class = "mask-int" })&nbsp;值越大排序越前
+        </td>
+    </tr>
     @if (!Model.Node.NodeRecordMark.IsRecordLinkHidden)
     {
         <tr>
-            <th style="width: 150px;">
+            <th>
                 @Html.Raw(Model.Node.NodeRecordMark.RecordLinkTitle)：
             </th>
             <td>
@@ -52,7 +61,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 8, cols = 90, maxlength = 5000 })
+                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 18, cols = 150, maxlength = 5000 })
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTip)
             </td>
         </tr>
@@ -64,7 +73,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.SecondContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 8, cols = 90, maxlength = 5000 })
+                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 18, cols = 150, maxlength = 5000 })
                 @Html.Raw(@Model.Node.NodeRecordMark.SecondContentTip)
             </td>
         </tr>

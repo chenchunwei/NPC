@@ -41,8 +41,10 @@
             <input type="checkbox" id="topChk" /></div>
         <div class="span_2">
             操作</div>
-        <div class="span_5">
+        <div class="span_3">
             标题一</div>
+        <div class="span_4">
+            排序</div>
         <div class="span_3">
             所属节点名</div>
         <div class="span_5">
@@ -77,9 +79,11 @@
                 <div class="span_2">
                     <a href="@Url.Action("EditNodeRecord", "NodeRecords")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
-                <div class="span_5">
+                <div class="span_3">
                     <a href="@row.RecordLink" target="_blank">@row.FirstTitle</a>
                 </div>
+                <div class="span_4">
+                    @row.OrderSort</div>
                 <div class="span_3" style="text-align: center">
                     @row.BelongsToNode.Name
                 </div>

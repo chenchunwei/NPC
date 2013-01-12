@@ -18,7 +18,7 @@ namespace NPC.Domain.Repository
             var queryReturns = FormatQuery(queryItem);
             var tempString = queryReturns.Item1;
             var parameters = queryReturns.Item2;
-            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct nr.*", ""), "Order by DateOfCreate desc"));
+            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct nr.*", ""), "Order by OrderSort desc, DateOfCreate desc"));
             var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct nr.Id)", ""));
 
             SetParameters(query, parameters);
@@ -72,7 +72,7 @@ namespace NPC.Domain.Repository
         {
             return Session.CreateSQLQuery(
                     string.Format(@"select top {0} * from NodeRecords nr 
-                        where nr.BelongsToNodeId=:BelongsToNodeId and IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId", topN))
+                        where nr.BelongsToNodeId=:BelongsToNodeId and IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId Order by OrderSort desc,DateOfCreate desc", topN))
                        .AddEntity(typeof(NodeRecord))
                        .SetGuid("UnitId", unitId)
                        .SetGuid("BelongsToNodeId", nodeId)
@@ -85,7 +85,7 @@ namespace NPC.Domain.Repository
         {
             return Session.CreateSQLQuery(
                     string.Format(@"select top {0} * from NodeRecords nr join Nodes n on n.Id=nr.BelongsToNodeId 
-                        where n.Code=:code and nr.IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId", topN))
+                        where n.Code=:code and nr.IsDelete =0 and  nr.IsShow=1 and n.UnitId=:UnitId Order by nr.OrderSort desc,nr.DateOfCreate desc", topN))
                        .AddEntity(typeof(NodeRecord))
                        .SetGuid("UnitId", unitId)
                        .SetString("code", code)

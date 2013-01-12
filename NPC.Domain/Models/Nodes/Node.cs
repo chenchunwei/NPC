@@ -28,6 +28,7 @@ namespace NPC.Domain.Models.Nodes
         public virtual IList<Node> Childrens { get; set; }
         public virtual IList<NodeRecord> NodeRecords { get; set; }
         public virtual NodeRecordMark NodeRecordMark { get; set; }
+        public virtual int OrderSort { get; set; }
         public virtual Unit Unit { get; set; }
     }
 

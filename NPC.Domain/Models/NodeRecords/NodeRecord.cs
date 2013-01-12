@@ -24,6 +24,7 @@ namespace NPC.Domain.Models.NodeRecords
         public virtual string SecondContent { get; set; }
         public virtual string FirstImage { get; set; }
         public virtual string SecondImage { get; set; }
+        public virtual int OrderSort { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual Node BelongsToNode { get; set; }
         public virtual bool IsShow { get; set; }

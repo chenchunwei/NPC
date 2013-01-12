@@ -41,7 +41,8 @@ namespace NPC.Application
                 Code = node.Code,
                 CategoryName = node.OuterCategoryId.HasValue ? _articleCategoryRepository.Find(node.OuterCategoryId.Value).CategoryName : "",
                 IconCls = ApplicationConst.TreeLeafCls,
-                NodeRecordMark = node.NodeRecordMark
+                NodeRecordMark = node.NodeRecordMark,
+                OrderSort = node.OrderSort
             };
             var childrens = _nodeRepository.GetSubs(node.Id).ToList();
             if (childrens.Any())
@@ -58,22 +59,46 @@ namespace NPC.Application
         }
         #endregion
 
-        #region 添加新的分类
+        #region 添加新的节点
         public void CreateNewNode(EditNodeModel model)
         {
             var node = new Node();
             node.Name = model.FormData.Name;
             node.Code = model.FormData.Code;
-            if (_nodeRepository.IsNodeCodeRepeatInUnit(NpcContext.CurrentUser.Unit.Id, node.Code))
+            if (_nodeRepository.IsNodeCodeRepeatInUnit(NpcContext.CurrentUser.Unit.Id, node.Code, null))
             {
                 throw new ApplicationException("节点编码不能重复，请重新设置！");
             }
-            if (model.Id.HasValue)
+            if (model.ParentId.HasValue)
             {
-                node.ParentNode = _nodeRepository.Find(model.Id.Value);
+                node.ParentNode = _nodeRepository.Find(model.ParentId.Value);
             }
+            node.OrderSort = model.FormData.OrderSort;
             node.Unit = NpcContext.CurrentUser.Unit;
             node.RecordDescription.CreateBy(NpcContext.CurrentUser);
+            _nodeRepository.Save(node);
+        }
+        #endregion
+
+        #region 编辑节点
+        public void UpdateNode(EditNodeModel model)
+        {
+            if (model.Id == null)
+                throw new ApplicationException("Id不能为null");
+            var node = _nodeRepository.Find(model.Id.Value);
+            node.Name = model.FormData.Name;
+            node.Code = model.FormData.Code;
+            node.OrderSort = model.FormData.OrderSort;
+            if (_nodeRepository.IsNodeCodeRepeatInUnit(NpcContext.CurrentUser.Unit.Id, node.Code, node.Id))
+            {
+                throw new ApplicationException("节点编码不能重复，请重新设置！");
+            }
+            if (model.ParentId.HasValue)
+            {
+                node.ParentNode = _nodeRepository.Find(model.ParentId.Value);
+            }
+            node.Unit = NpcContext.CurrentUser.Unit;
+            node.RecordDescription.UpdateBy(NpcContext.CurrentUser);
             _nodeRepository.Save(node);
         }
         #endregion

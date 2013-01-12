@@ -48,6 +48,7 @@ namespace Saturday.Application
             formData.SecondTitle = nodeRecord.SecondTitle;
             formData.SecondImage = nodeRecord.SecondImage;
             formData.SecondContent = nodeRecord.SecondContent;
+            formData.OrderSort = nodeRecord.OrderSort;
             formData.RecordLink = nodeRecord.RecordLink;
         }
         #endregion
@@ -85,6 +86,7 @@ namespace Saturday.Application
             nodeRecord.RecordDescription.UserOfLasetestModify = NpcContext.CurrentUser;
             nodeRecord.RecordLink = formData.RecordLink;
             nodeRecord.IsShow = formData.IsShow;
+            nodeRecord.OrderSort = formData.OrderSort;
             if (!string.IsNullOrEmpty(formData.FirstImage))
                 nodeRecord.FirstImage = formData.FirstImage;
             if (!string.IsNullOrEmpty(formData.SecondImage))
