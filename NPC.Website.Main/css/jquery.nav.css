@@ -1,0 +1,26 @@
+@charset "utf-8";
+/*导航*/
+ul,ol,li { list-style: none;margin: 0;padding: 0;_display: inline;}
+.main_menu{_overflow:hidden}
+.main_menu a{color:#fff;height:35px;line-height:35px;display:block;}
+.main_menu li{font-size:14px;float:left;display: inline;width:130px; text-align:center;background: url(../img/interval.jpg) no-repeat right center;}
+.main_menu ul{position:absolute;background-color:#EAEBD8;border: 1px solid #cc0000;border-top:none;display:none;color: #cc0000;display: inline;}
+.main_menu li:hover{background-color:#8b0000;border:0px solid #8b0000;border-bottom:none;display: inline;}
+.main_menu li:hover a{color:#fff}
+.main_menu li.no_sub:hover{border:0px solid #8b0000;}
+.main_menu li:hover ul{display:block;}
+.main_menu li:hover ul li{font-size:12px;border:none;width:70px;float:left;color:#fff;display: inline;}
+.main_menu li:hover ul li a{color:#fff;text-decoration:none;padding:0;color:#8b0000;}
+.main_menu li:hover ul li a:hover{text-decoration:underline;color:#fff;}
+/*IE6*/
+.main_menu li.hover{background-color:#8b0000;border:0px solid #8b0000;border-bottom:none;display: inline;}
+.main_menu li.hover a{color:#fff}
+.main_menu li.no_sub.hover{border:0px solid #8b0000;}
+.main_menu li.hover ul{display:block;}
+.main_menu li.hover ul li{font-size:12px;border:none;width:70px;float:left;color:#fff; display: inline;}
+.main_menu li.hover ul li a{color:#fff;text-decoration:none;padding:0;color:#8b0000;}
+.main_menu li.hover ul li a.hover{text-decoration:underline;color:#fff;}
+.main_menu li.no_sub.hover1{border:0px solid #8b0000;display: inline;}
+/* 其他 */
+.hot{width:22px;height:12px;background:url(../images/a.png) no-repeat -111px -40px;position:absolute;right:22px;top:-9px;z-index:999}
+.new{width:22px;height:12px;background:url(../images/a.png) no-repeat -85px -40px;position:absolute;right:22px;top:-9px;z-index:999}

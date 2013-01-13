@@ -154,14 +154,6 @@ input.button {
 
 .form_btn{ background-color:#060; color:#FFF; font-weight:bold; border: solid #360 1px;}
 
-.scroll-img li{float:left;margin-right:8px;}
-.footer{padding:0px;margin:0px;}
-.footer li{padding: 5px 10px;}
-
-.code{ height:auto; padding:20px; border:1px solid #9EC9FE; background:#ECF3FD;}
-.code pre{ font-family:"Courier New";font-size:14px;}
-.info{ font-size:12px; color:#666666; font-family:Verdana; margin:20px 0 50px 0;}
-.info p{ margin:0; padding:0; line-height:22px; text-indent:40px;}
-h2.title{ margin:0; padding:0; margin-top:50px; font-size:18px; font-family:"΢���ź�",Verdana;}
-h3.title{ font-size:16px; font-family:"΢���ź�",Verdana;}
-.importInfo{ font-family:Verdana; font-size:14px;}
+.banner{width:900px;margin-left:130px;height:100px;line-height: 100px;}
+.banner span img{display: block;float: left;}
+.banner .banner-title{margin-left:15px;height:100px;line-height:100px;font-size:48px;font-weight:bold;font-family:微软雅黑;color: #ffff00;display: block;float: left;}

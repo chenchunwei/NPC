@@ -123,6 +123,7 @@
     <Content Include="img\focus.jpg" />
     <Content Include="img\foot.jpg" />
     <Content Include="img\hushuiliang.jpg" />
+    <Content Include="img\icon.png" />
     <Content Include="img\ifocus_btn_bg.gif" />
     <Content Include="img\interval.jpg" />
     <Content Include="img\liren.jpg" />

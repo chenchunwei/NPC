@@ -33,35 +33,20 @@
         }
     </div>
     <div class="menu">
-        <ul id="sddm">
+        <ul id="sddm" style="width: 800px; overflow: hidden">
             @if (Model.Menus.Any())
             {
                 @Html.Raw(Model.Menus.First().FirstContent)
             }
-         
-           
-@*  @{
-                var indexOfMenu = 0; 
-            }
-            @foreach (var nodeRecord in Model.Menus)
-            {
-                if (indexOfMenu > 7)
-                {
-                    break;
-                }
-                <li @Html.Raw((indexOfMenu == Model.Menus.Count - 1) ? "style=\"background: none;\"" : "")>
-                    <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
-                indexOfMenu++;
-            }*@
         </ul>
-    </div>
-    <div class="search-area">
-        <div class="search">
-            <form action="/Home/List" method="get">
-            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10">
-            <input type="submit" value="搜索">
+        <div style="float: left; width: 190px;">
+            <form action="/Home/List" method="get" style="margin: 0 ;_padding-top: 4px;_margin-top: 0px;">
+            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10" style="width: 120px;overflow: hidden">
+            <input type="submit" value="搜索" style="margin: 0 ;_padding-top: 3px;">
             </form>
         </div>
+    </div>
+    <div class="search-area">
         <div class="date" style="line-height: 38px;">
             @{
                 Func<DayOfWeek, string> dayOfWeek = (o) =>
@@ -85,3 +70,18 @@
         </div>
     </div>
 </div>
+@* 
+@{
+var indexOfMenu = 0; 
+}
+@foreach (var nodeRecord in Model.Menus)
+{
+    if (indexOfMenu > 7)
+    {
+        break;
+    }
+    <li @Html.Raw((indexOfMenu == Model.Menus.Count - 1) ? "style=\"background: none;\"" : "")>
+        <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+    indexOfMenu++;
+}
+*@
