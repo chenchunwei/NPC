@@ -30,6 +30,24 @@ namespace NPC.Domain.Models.Nodes
         public virtual NodeRecordMark NodeRecordMark { get; set; }
         public virtual int OrderSort { get; set; }
         public virtual Unit Unit { get; set; }
+        public virtual string Path
+        {
+            get
+            {
+                var path = string.Empty;
+                var nodes = new Stack<Node>();
+                nodes.Push(this);
+                while (nodes.Any())
+                {
+                    var o = nodes.Pop();
+                    path = string.Format("{0};{1}", o.Id, path);
+                    if (o.ParentNode != null)
+                        nodes.Push(o.ParentNode);
+                }
+                return path.TrimEnd(';');
+            }
+            set { return; }
+        }
     }
 
     public class NodeRecordMark

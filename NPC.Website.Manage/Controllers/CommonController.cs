@@ -66,7 +66,7 @@ namespace NPC.Website.Manage.Controllers
             var fullPath = System.IO.Path.Combine(folder, newFileName);
             try
             {
-                using (var fs = new System.IO.FileStream(Server.MapPath(fullPath), System.IO.FileMode.Create, System.IO.FileAccess.Write))
+                using (var fs = new FileStream(Server.MapPath(fullPath), System.IO.FileMode.Create, System.IO.FileAccess.Write))
                 {
                     fs.Write(fileBytes, 0, fileBytes.Length);
                     fs.Flush();

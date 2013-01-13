@@ -19,7 +19,7 @@
         <div class="s1">
         </div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.NodeRecordSearchModel.NodeRecordQueryItem.NodeId, new { style = "width:200px;" })
+            @Html.TextBoxFor(o => o.NodeRecordSearchModel.NodeRecordQueryItem.NodeIdLike, new { style = "width:200px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -68,7 +68,7 @@
         @if (!Model.NodeRecords.Any())
         {
             <div class="noRowline">
-                未找符合条件的相关记录信息！
+                未找到符合条件的相关记录信息！
             </div>
         }
         @foreach (var row in Model.NodeRecords)
@@ -131,9 +131,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#NodeRecordSearchModel_NodeRecordQueryItem_NodeId").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false });
-    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeId').combotree('setValue', '@Model.NodeRecordSearchModel.NodeRecordQueryItem.NodeId');
-    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeId').next().children().first().css("padding", "0px");
+    $("#NodeRecordSearchModel_NodeRecordQueryItem_NodeIdLike").combotree({ url: '@Url.Action("GetNodes", "Nodes")', cascadeCheck: false });
+    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeIdLike').combotree('setValue', '@Model.NodeRecordSearchModel.NodeRecordQueryItem.NodeIdLike');
+    $('#NodeRecordSearchModel_NodeRecordQueryItem_NodeIdLike').next().children().first().css("padding", "0px");
     var urlOfDel = '@Url.Action("Delete", "NodeRecords")';
     function singleDel(id) {
         var delIds = [];

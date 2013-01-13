@@ -58,7 +58,7 @@ namespace NPC.Domain.Repository
             }
             if (queryItem.CategoryIdLike.HasValue)
             {
-                stringBuilder.Append("And a.Path like :CategoryIdLike ");
+                stringBuilder.Append("And ac.Path like :CategoryIdLike ");
                 parameters.Add("CategoryIdLike", "%" + queryItem.CategoryIdLike.Value + "%");
             }
             if (queryItem.CategoryId.HasValue)

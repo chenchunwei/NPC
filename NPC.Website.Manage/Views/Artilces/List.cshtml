@@ -19,7 +19,7 @@
         <div class="s1">
         </div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.ArtilceSearchModel.ArticleQueryItem.CategoryId, new { style = "width:200px;" })
+            @Html.TextBoxFor(o => o.ArtilceSearchModel.ArticleQueryItem.CategoryIdLike, new { style = "width:200px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -66,7 +66,7 @@
         @if (!Model.Articles.Any())
         {
             <div class="noRowline">
-                未找符合条件的相关记录信息！
+                未找到符合条件的相关记录信息！
             </div>
         }
         @foreach (var row in Model.Articles)
@@ -124,9 +124,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#ArtilceSearchModel_ArticleQueryItem_CategoryId").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
-    $('#ArtilceSearchModel_ArticleQueryItem_CategoryId').combotree('setValue', '@Model.ArtilceSearchModel.ArticleQueryItem.CategoryId');
-    $('#ArtilceSearchModel_ArticleQueryItem_CategoryId').next().children().first().css("padding", "0px");
+    $("#ArtilceSearchModel_ArticleQueryItem_CategoryIdLike").combotree({ url: '@Url.Action("GetCategories", "ArticleCategories")', cascadeCheck: false });
+    $('#ArtilceSearchModel_ArticleQueryItem_CategoryIdLike').combotree('setValue', '@Model.ArtilceSearchModel.ArticleQueryItem.CategoryIdLike');
+    $('#ArtilceSearchModel_ArticleQueryItem_CategoryIdLike').next().children().first().css("padding", "0px");
     var urlOfDel = '@Url.Action("Delete", "Artilces")';
     function singleDel(id) {
         var delIds = [];

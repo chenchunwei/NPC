@@ -1,14 +1,36 @@
-﻿@model  NPC.Application.MianModels.HeaderModel 
+﻿@using Fluent.Infrastructure.Utilities
+@model  NPC.Application.MianModels.HeaderModel 
 <div class="top">
     <div class="banner">
-        <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
-            width="998" height="170">
-            <param name="movie" value="@Url.Content("~/img/banner.swf")">
-            <param name="quality" value="high">
-            <param name="wmode" value="Opaque">
-            <embed src="@Url.Content("~/img/banner.swf")" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
-                   type="application/x-shockwave-flash" width="998" height="170">
-        </object>
+        @if (Model.TopBanner == null || string.IsNullOrEmpty(Model.TopBanner.FirstImage))
+        {
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+                width="998" height="170">
+                <param name="movie" value="@Url.Content("~/img/banner.swf")">
+                <param name="quality" value="high">
+                <param name="wmode" value="Opaque">
+                <embed src="@Url.Content("~/img/banner.swf")" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                       type="application/x-shockwave-flash" width="998" height="170">
+            </object>
+        }
+        else
+        {
+            if (Model.TopBanner.FirstImage.EndsWith(".SWF", StringComparison.CurrentCultureIgnoreCase))
+            {
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+                width="998" height="170">
+                <param name="movie" value="@Url.Content("~/Manage/Attachments/" + @Model.TopBanner.FirstImage + "")">
+                <param name="quality" value="high">
+                <param name="wmode" value="Opaque">
+                <embed src="@Url.Content("~/Manage/Attachments/" + @Model.TopBanner.FirstImage + "")" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                       type="application/x-shockwave-flash" width="998" height="170">
+            </object>
+            }
+            else
+            {
+            <img src="@Model.TopBanner.FirstImage" alt="" width="998" height="170"/>
+            }
+        }
     </div>
     <div class="menu">
         <ul id="sddm">
@@ -59,7 +81,7 @@
            
             }
             @DateTime.Now.ToString("yyyy年MM月dd日")&nbsp; @(dayOfWeek(DateTime.Now.DayOfWeek))
-            2012年12月28日 星期五
+            农历:@Html.Raw(DateTimeUtilities.GetChineseDateTime(DateTime.Now))
         </div>
     </div>
 </div>

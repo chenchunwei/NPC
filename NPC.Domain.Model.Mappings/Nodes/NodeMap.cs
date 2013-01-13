@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.Nodes
             Map(o => o.Name);
             Map(o => o.OuterCategoryId);
             Map(o => o.OrderSort);
+            Map(o => o.Path);
             References(o => o.ParentNode).Column("ParentNodeId");
             HasMany(o => o.Childrens).KeyColumn("ParentNodeId").Where("IsDelete=0").OrderBy("OrderSort");
             HasMany(o => o.NodeRecords).KeyColumn("BelongsToNodeId").Where("IsDelete=0");
