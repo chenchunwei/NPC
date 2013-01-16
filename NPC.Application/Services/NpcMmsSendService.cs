@@ -57,7 +57,7 @@ namespace NPC.Application.Services
                 var config = GetConfigOfUnit(npcMmsSend.Unit.Id);
                 #region 创建彩信
 
-                foreach (var content in npcMmsSend.NpcMms.NpcMmsContents)
+                foreach (var content in npcMmsSend.NpcMms.NpcMmsContents.OrderBy(o=>o.OrderSort))
                 {
                     var parInfo = new ParInfo();
                     parInfo.Dur = content.DueTime + "s";

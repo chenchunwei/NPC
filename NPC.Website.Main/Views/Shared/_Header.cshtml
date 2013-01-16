@@ -1,5 +1,8 @@
 ﻿@using Fluent.Infrastructure.Utilities
 @model  NPC.Application.MianModels.HeaderModel 
+<link href="@Url.Content("~/css/js.css")" type="text/css" rel="stylesheet"/>
+<script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>    
+
 <div class="top">
     <div class="banner">
         @if (Model.TopBanner == null || string.IsNullOrEmpty(Model.TopBanner.FirstImage))
@@ -40,9 +43,10 @@
             }
         </ul>
         <div style="float: left; width: 190px;">
-            <form action="/Home/List" method="get" style="margin: 0 ;_padding-top: 4px;_margin-top: 0px;">
-            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10" style="width: 120px;overflow: hidden">
-            <input type="submit" value="搜索" style="margin: 0 ;_padding-top: 3px;">
+            <form action="/Home/List" method="get" style="margin: 0; _padding-top: 4px; _margin-top: 0px;">
+            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10" style="width: 120px;
+                overflow: hidden">
+            <input type="submit" value="搜索" style="margin: 0; _padding-top: 3px;">
             </form>
         </div>
     </div>

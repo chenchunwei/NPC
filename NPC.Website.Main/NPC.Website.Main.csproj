@@ -92,6 +92,7 @@
     <Content Include="Content\next-horizontal.gif" />
     <Content Include="Content\prev-horizontal.gif" />
     <Content Include="css\global.css" />
+    <Content Include="css\jquery.nav.css" />
     <Content Include="css\js.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -145,6 +146,7 @@
     <Content Include="js\jquery-1.7.2.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery.slider.js" />
+    <Content Include="js\jquery.nav.js" />
     <Content Include="js\nav.js" />
     <Content Include="Scripts\jquery.ae.image.resize.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />

@@ -1,11 +1,34 @@
 ﻿@{
-    ViewBag.Title = "NotSupport";
     this.Layout = null;
 }
-<h2>
-    为了系统更好的为您工作，系统不支持IE6等浏览器，我们推荐您使用以下浏览器访问系统！</h2>
-<br />
-chorm:<a href="http://chrome.google.com">http://chrome.google.com</a><br />
-火狐：<a href="http://www.firefox.com.cn/download/ ">http://www.firefox.com.cn/download/ </a><br />
-IE9：<a href="http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-9/worldwide-languages">http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-9/worldwide-languages</a><br />
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>友情提示</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="make video icons" name="description" />
+    <meta content="" name="keywords" />
+    <meta content="global" name="distribution" />
+    <link href="@Url.Content("~/Content/css/message.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="page" style="height: 800px;">
+        <div id="content" style="position: absolute; overflow: hidden; width: 99%; height: 800px;">
+            <div   style="_background: url(@Url.Content("~/Content/images/500.png")) no-repeat !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src='@Url.Content("~/Content/images/500.png")');background:none;width:389px; height:384px;position: absolute; top: 50px; left: 50px;">
+            </div>
+            <div style="position: absolute; top: 90px; left: 400px; width: 600px;">
+                <h2 style="font-size: 14px;">
+                    为了系统更好的为您工作，系统不支持<b style="color: red">IE6等浏览器</b><p>
+                    </p>
+                    我们推荐您使用以下浏览器访问系统！</h2>
+                <br />
+                chorm:<a href="http://chrome.google.com">http://chrome.google.com</a><br />
+                火狐：<a href="http://www.firefox.com.cn/download/ ">http://www.firefox.com.cn/download/
+                </a>
+                <br />
+                IE9：<a href="http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-9/worldwide-languages">http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-9/worldwide-languages</a><br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

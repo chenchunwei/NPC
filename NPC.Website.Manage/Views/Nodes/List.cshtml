@@ -314,9 +314,9 @@
                     { field: 'text', title: '节点名称', width: 180, align: 'left' },
                     { field: 'code', title: '节点编码', width: 130, align: 'left' },
                     { field: 'orderSort', title: '排序', width: 50, align: 'left' },
-                    { field: 'id', title: '节点Id', width: 300, align: 'left' },
+                    { field: 'id', title: '节点Id', width: 320, align: 'left' },
                     { field: 'operation', title: '设置', width: 260, align: 'left', formatter: addOperator },
-                    { field: 'categoryName', title: '关联的分类名', width: 200, align: 'left', formatter: removeRelateOperator }
+                    { field: 'categoryName', title: '关联的分类名', width: 160, align: 'left', formatter: removeRelateOperator }
                 ]],
                 onLoadSuccess: function () {
                 },
@@ -420,8 +420,7 @@
         }
     }
     function addOperator(val, row) {
-        return '<a href="javascript:edit(\'' + row.id + '\')">编辑</a>&nbsp;\
-                <a href="javascript:setRelate(\'' + row.id + '\')">设置关联</a>&nbsp;\
+        return '<a href="javascript:setRelate(\'' + row.id + '\')">设置关联</a>&nbsp;\
                 <a href="javascript:setMark(\'' + row.id + '\')">自定义设置</a>&nbsp;\
                 <a href="@Url.Action("EditNodeRecord", "NodeRecords")?nodeId=' + row.id + '">添加记录</a>';
     }

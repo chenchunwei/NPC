@@ -7,3 +7,18 @@
 #sddm div {position: absolute;visibility: hidden;text-align: center;margin: 0;padding:0px;background: #EAEBD8;border: 1px solid #cc0000;height:28px;line-height:28px;overflow:hidden;}
 #sddm div a {text-align: center;position: relative;display: block;float:left;margin: 0;padding: 0px 10px;height:28px;line-height:28px;text-decoration: none;background: #EAEBD8;color: #cc0000;font: 12px;}
 #sddm div a:hover {background: #cc0000;color: #FFF;text-align: center;width:90px;padding: 0px;}
+ 
+#ifocus { width:688px; height:272px;border:1px solid #DEDEDE; background:#F8F8F8;overflow: hidden}
+#ifocus_pic { display:inline; position:relative;float:left;width:570px; height:250px; overflow:hidden; margin:10px 0 0 10px; }
+#ifocus_piclist { position:absolute; }
+#ifocus_piclist li { width:570px; height:250px; overflow:hidden; display:none;}
+#ifocus_piclist img { width:570px; height:250px;}
+#ifocus_btn { display:inline; float:right; width:88px; margin:9px 9px 0 0;overflow:hidden;}
+#ifocus_btn li { width:88px; height:57px;margin:0px 9px 7px 0;cursor:pointer; opacity:0.5; -moz-opacity:0.5; filter:alpha(opacity=50); }
+#ifocus_btn img { width:75px; height:45px; margin:7px 0 0 11px; }
+#ifocus_btn .current{ background:url(../img/ifocus_btn_bg.gif) no-repeat; opacity:1; -moz-opacity:1; filter:alpha(opacity=100); }
+#ifocus_opdiv { position:absolute; left:0; bottom:0; width:570px; height:35px; background:#000; opacity:0.5; -moz-opacity:0.5; filter:alpha(opacity=50); }
+#ifocus_tx { position:absolute; left:8px; bottom:8px; color:#FFF; }
+#ifocus_tx .normal { display:none; }
+
+

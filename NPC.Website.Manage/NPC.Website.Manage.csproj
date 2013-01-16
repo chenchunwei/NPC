@@ -178,6 +178,7 @@
     <Content Include="AdminCenter\showpage.src.js" />
     <Content Include="Content\CSS\customIcon.css" />
     <Content Include="Content\CSS\icons.css" />
+    <Content Include="Content\CSS\message.css" />
     <Content Include="Content\CSS\reset.css" />
     <Content Include="Content\CSS\style.css" />
     <Content Include="Content\CSS\frame.css" />
@@ -186,6 +187,8 @@
     <Content Include="Content\Images\087.gif" />
     <Content Include="Content\Images\097.gif" />
     <Content Include="Content\Images\097.jpg" />
+    <Content Include="Content\Images\500.png" />
+    <Content Include="Content\Images\bg-pattern-plain.jpg" />
     <Content Include="Content\Images\blocks.gif" />
     <Content Include="Content\Images\car_icon.png" />
     <Content Include="Content\Images\CategorizeMenu.png" />
@@ -305,6 +308,7 @@
     <Content Include="Content\login.css" />
     <Content Include="Global.asax" />
     <Content Include="info.txt" />
+    <Content Include="Message.htm" />
     <Content Include="Scripts\app\frame.js" />
     <Content Include="Scripts\artTemplate\extensions\index.html" />
     <Content Include="Scripts\artTemplate\extensions\template-syntax.js" />
@@ -1264,7 +1268,6 @@
     <Content Include="Views\Shared\_ManageMenus.cshtml" />
     <Content Include="Views\NpcMmses\EditNpcMms.cshtml" />
     <Content Include="Views\NpcSmses\EditSms.cshtml" />
-    <Content Include="Views\Home\NotSupport.cshtml" />
     <Content Include="Views\Extension\NotSupport.cshtml" />
     <Content Include="Views\NpcMmses\List.cshtml" />
     <Content Include="Views\NpcMmsSends\List.cshtml" />

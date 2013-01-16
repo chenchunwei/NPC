@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NPC.Application.Contexts;
+using NPC.Domain.Models.Units;
 using NPC.Domain.Repository;
 
 namespace NPC.Website.Town.Main.Controllers
@@ -26,21 +27,32 @@ namespace NPC.Website.Town.Main.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.ActionDescriptor.ActionName == "Error")
+            var unit = System.Web.HttpContext.Current.Items[NpcMainWebContext.KeyOfUnit] as Unit;
+            if (unit != null)
                 return;
-            var bCookie = filterContext.HttpContext.Request.Cookies[KeyOfUnitId] != null && Guid.TryParse(filterContext.HttpContext.Request.Cookies[KeyOfUnitId].Value, out UnitId);
-            var bRequest = Guid.TryParse(filterContext.HttpContext.Request[KeyOfUnitId], out UnitId);
-            if (!bRequest && !bCookie)
+            var mappingUnitId = UnitMapping.UnitId;
+            if (mappingUnitId == null)
             {
-                 Guid.TryParse(System.Configuration.ConfigurationManager.AppSettings["DefaultUnitId"], out UnitId);
-                //filterContext.Result = new RedirectResult(Url.Action("Message","Home")+"?message="+HttpUtility.UrlEncode("未指定访问的UnitId！"));
+                if (filterContext.ActionDescriptor.ActionName == "Error")
+                    return;
+                var bCookie = filterContext.HttpContext.Request.Cookies[KeyOfUnitId] != null && Guid.TryParse(filterContext.HttpContext.Request.Cookies[KeyOfUnitId].Value, out UnitId);
+                var bRequest = Guid.TryParse(filterContext.HttpContext.Request[KeyOfUnitId], out UnitId);
+                if (!bRequest && !bCookie)
+                {
+                    Guid.TryParse(System.Configuration.ConfigurationManager.AppSettings["DefaultUnitId"], out UnitId);
+                    //filterContext.Result = new RedirectResult(Url.Action("Message","Home")+"?message="+HttpUtility.UrlEncode("未指定访问的UnitId！"));
+                }
+                var cookie = new HttpCookie(KeyOfUnitId, UnitId.ToString());
+                cookie.HttpOnly = true;
+                filterContext.RequestContext.HttpContext.Response.Cookies.Add(cookie);
             }
-            var cookie = new HttpCookie(KeyOfUnitId, UnitId.ToString());
-            cookie.HttpOnly = true;
-            filterContext.RequestContext.HttpContext.Response.Cookies.Add(cookie);
+            else
+            {
+                UnitId = mappingUnitId.Value;
+            }
 
             var unitRepository = new UnitRepository();
-            var unit = unitRepository.Find(UnitId);
+            unit = unitRepository.Find(UnitId);
             System.Web.HttpContext.Current.Items[NpcMainWebContext.KeyOfUnit] = unit;
             base.OnActionExecuting(filterContext);
         }

@@ -14,7 +14,7 @@ namespace NPC.Website.Main.Controllers
         {
             var unitRepository = new UnitRepository();
             Guid unitId;
-            var unitIdInParam = System.Web.HttpContext.Current.Request["unitId"];
+            var unitIdInParam = System.Web.HttpContext.Current.Request.QueryString["unitId"];
             if (string.IsNullOrEmpty(unitIdInParam))
             {
                 var unitIdStr = System.Configuration.ConfigurationManager.AppSettings["DefaultUnitId"];

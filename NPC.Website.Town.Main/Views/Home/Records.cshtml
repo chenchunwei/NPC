@@ -1,21 +1,37 @@
 ﻿@{
-    ViewBag.Title = "List";
+    ViewBag.Title = @Model.ListTitle;
 }
 @using NPC.Application.MianModels
 @model NPC.Application.MianModels.Homes.RecordsModel
-<div class="main2">
-    @Html.Action("SideBar", "Home")
-    <div class="list-right">
-        <div class="title">
-            <div class="title-name">@Model.ListTitle</div>
+<tr>
+    <td bgcolor="#FFFFFF" align="left">
+        <div id="mainContent">
+            <div id="pageList">
+                <div id="title">@Model.ListTitle</div>
+                <div class="newslist3">
+                    <ul>
+                        @{
+                            var index = 0;
+                        }
+                        @foreach (var record in Model.NodeRecords)
+                        { 
+                            <li><a href="@record.RecordLink" target="_blank">@record.FirstTitle</a> [@record.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")]
+                            </li>
+                             
+                            if (index % 5 == 0 && index > 0)
+                            {
+                            <div class="list_line">
+                            </div>
+                            }
+                            index++;
+                        }
+                    </ul>
+                </div>
+                @Html.Partial("_Pager", new PagerModel { Pagination = Model.NodeRecordQueryItem.Pagination })
+            </div>
+            @Html.Action("RightBar", "Home")
+            <div class="clearfloat">
+            </div>
         </div>
-        <div class="clear"></div>
-        <ul>
-            @foreach (var article in Model.NodeRecords)
-            { 
-                <li><a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.FirstTitle</a></li>
-            }
-        </ul>
-        @Html.Partial("_Pager", new PagerModel { Pagination = Model.NodeRecordQueryItem.Pagination })
-    </div>
-</div>
+    </td>
+</tr>

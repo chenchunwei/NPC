@@ -61,7 +61,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 18, cols = 150, maxlength = 5000 })
+                @Html.TextAreaFor(o => o.FormData.FirstContent, new { rows = 18, cols = 120, maxlength = 5000 })
                 @Html.Raw(Model.Node.NodeRecordMark.FirstContentTip)
             </td>
         </tr>
@@ -73,7 +73,7 @@
                 @Html.Raw(Model.Node.NodeRecordMark.SecondContentTitle)：
             </th>
             <td>
-                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 18, cols = 150, maxlength = 5000 })
+                @Html.TextAreaFor(o => o.FormData.SecondContent, new { rows = 18, cols = 120, maxlength = 5000 })
                 @Html.Raw(@Model.Node.NodeRecordMark.SecondContentTip)
             </td>
         </tr>
