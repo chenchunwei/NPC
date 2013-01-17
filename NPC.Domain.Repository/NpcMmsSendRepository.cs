@@ -62,8 +62,18 @@ namespace NPC.Domain.Repository
         public IList<NpcMmsSend> GetNpcMmsSendsWaitingSend()
         {
             return Session.CreateSQLQuery("Select * from NpcMmsSends where SendStatus=0 and IsDelete=0 ")
-                       .AddEntity(typeof (NpcMmsSend))
+                       .AddEntity(typeof(NpcMmsSend))
                        .List<NpcMmsSend>();
+        }
+        #endregion
+
+        #region 根据messageId获取彩信发送记录
+        public NpcMmsSend GetByMessageId(string messageId)
+        {
+            return Session.CreateSQLQuery("Select * from NpcMmsSends where MessageId=:messageId ")
+                      .AddEntity(typeof(NpcMmsSend))
+                      .SetString("messageId",messageId)
+                      .UniqueResult<NpcMmsSend>();
         }
         #endregion
     }

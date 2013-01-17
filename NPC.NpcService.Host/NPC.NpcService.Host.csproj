@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NPC.OpenMasCallback.Host</RootNamespace>
-    <AssemblyName>NPC.OpenMasCallback.Host</AssemblyName>
+    <RootNamespace>NPC.NpcService.Host</RootNamespace>
+    <AssemblyName>NPC.NpcService.Host</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -42,6 +42,7 @@
       <HintPath>..\..\Infrastructure\ExternalAssembly\Log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL" />
     <Reference Include="OpenMasClient">
       <HintPath>..\NPC.ExternalAssembly\OpenMas\OpenMasClient.dll</HintPath>
     </Reference>
@@ -63,12 +64,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenMasCallbackService.asmx" />
+    <Content Include="NpcService.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OpenMasCallbackService.asmx.cs">
-      <DependentUpon>OpenMasCallbackService.asmx</DependentUpon>
+    <Compile Include="NpcService.asmx.cs">
+      <DependentUpon>NpcService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="OpenMasConfig.cs" />
@@ -87,6 +88,14 @@
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{c50b79ef-2006-453d-8238-79cd7e5bbacc}</Project>
       <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Repository\NPC.Domain.Repository.csproj">
+      <Project>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</Project>
+      <Name>NPC.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
+      <Name>NPC.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

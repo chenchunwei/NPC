@@ -14,5 +14,6 @@ namespace NPC.Domain.Models.NpcMmsSends
         public virtual string MessageId { get; set; }
         public virtual string SendStatus { get; set; }
         public virtual string DealStatus { get; set; }
+        public virtual string DealResult { get; set; }
     }
 }
