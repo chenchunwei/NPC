@@ -15,14 +15,12 @@ namespace NPC.Website.Manage.Controllers
         {
             _manageHomeAction = new ManageHomeAction();
         }
-        public ActionResult Login()
+        public ActionResult Login(int status)
         {
+            if (status == 0)
+                ViewBag.Message = "用户名密码不匹配！";
             var model = _manageHomeAction.InitializeLoginModel();
             return View(model);
-        }
-        public ActionResult R()
-        {
-            return View();
         }
 
         public ActionResult Index()

@@ -19,6 +19,7 @@ namespace NPC.Domain.Models.OpenMasConfigs
         public virtual string AppPwd { get; set; }
         public virtual string AppAccount { get; set; }
         public virtual string ExtensionNo { get; set; }
+        public virtual string Signature { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual Unit Unit { get; set; }
     }

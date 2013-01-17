@@ -13,6 +13,7 @@ namespace NPC.Application.ManageModels.OpenMasConfigs
         public string AppPwd { get; set; }
         public string AppAccount { get; set; }
         public string ExtensionNo { get; set; }
+        public string Signature { get; set; }
         public Unit Unit { get; set; }
     }
 }

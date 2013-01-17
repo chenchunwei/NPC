@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fluent.Infrastructure.Utilities;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Users;
 using NPC.Domain.Models.Departments;
 using NPC.Domain.Models.Units;
@@ -121,8 +123,31 @@ namespace NPC.Application
                 users = _userRepository.GetUsers(@group.Select(o => o.Id).ToArray()).ToList();
             }
             var returns = new List<UserViewModel>();
-            users.ForEach(o => returns.Add(new UserViewModel(){Id = o.Id,Name = o.Name}));
+            users.ForEach(o => returns.Add(new UserViewModel() { Id = o.Id, Name = o.Name }));
             return returns;
         }
+
+        #region 初始化修改密码视图
+        public EditPasswordModel InitializeEditPasswordModel()
+        {
+            var model = new EditPasswordModel();
+            model.User = new NpcContext().CurrentUser;
+            return model;
+        }
+        #endregion
+
+        #region 修改密码
+        public void EditPassword(EditPasswordModel model)
+        {
+            var user = new NpcContext().CurrentUser;
+            if (user.Pwd != MD5Utility.GetMD5HashCode(model.OldPwd.Trim()))
+                throw new ArgumentException("旧密码不正确");
+            if (model.NewPwd.Trim() != model.ReNewPwd.Trim())
+                throw new ArgumentException("两次密码输入不正确");
+            user.Pwd = MD5Utility.GetMD5HashCode(model.ReNewPwd);
+            user.RecordDescription.UpdateBy(user);
+            _userRepository.Save(user);
+        }
+        #endregion
     }
 }

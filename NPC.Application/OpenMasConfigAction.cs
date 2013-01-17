@@ -27,6 +27,7 @@ namespace NPC.Application
             model.AppPwd = config.AppPwd;
             model.ExtensionNo = config.ExtensionNo;
             model.MasService = config.MasService;
+            model.Signature = config.Signature;
             return model;
         }
 
@@ -38,6 +39,7 @@ namespace NPC.Application
             config.ExtensionNo = model.ExtensionNo;
             config.MasService = model.MasService;
             config.Unit = model.Unit;
+            config.Signature = model.Signature;
             config.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _openMasConfigRepository.Save(config);
         }

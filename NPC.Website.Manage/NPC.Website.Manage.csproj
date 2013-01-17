@@ -1275,6 +1275,7 @@
     <Content Include="Views\NpcMmsSends\EditNpcMmsSend.cshtml" />
     <Content Include="Views\PhoneBooks\PhoneBookRecordList.cshtml" />
     <Content Include="Views\PhoneBooks\PhoneBookList.cshtml" />
+    <Content Include="Views\Users\EidtPassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

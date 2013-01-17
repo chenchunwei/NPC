@@ -16,6 +16,7 @@ namespace NPC.Domain.Model.Mappings.OpenMasConfigs
             Map(o => o.AppPwd);
             Map(o => o.ExtensionNo);
             Map(o => o.MasService);
+            Map(o => o.Signature);
             References(o => o.Unit).Column("UnitId");
             Component(o => o.RecordDescription);
             Table("OpenMasConfigs");

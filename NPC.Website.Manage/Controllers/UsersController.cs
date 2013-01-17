@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Fluent.Infrastructure.Mvc;
 using NPC.Application;
+using NPC.Application.ManageModels.Users;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -38,6 +39,25 @@ namespace NPC.Website.Manage.Controllers
         public JsonResult ParseSelectedToUsers(string selectedJson)
         {
             return new NewtonsoftJsonResult() { Data = _userAction.ConvertToUserList(selectedJson) };
+        }
+
+        public ActionResult EidtPassword( )
+        {
+            var model = _userAction.InitializeEditPasswordModel();
+            return View(model);
+        }
+        [HttpPost, ActionName("EidtPassword")]
+        public ActionResult EidtPasswordPost(EditPasswordModel model)
+        {
+            try
+            {
+                _userAction.EditPassword(model);
+                return RedirectToMessage("密码修改成功！");
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage("修改密码时发生错误：" + exception.Message);
+            }
         }
     }
 }

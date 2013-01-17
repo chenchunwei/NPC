@@ -107,6 +107,7 @@
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
+    <Compile Include="ManageModels\Users\EditPasswordModel.cs" />
     <Compile Include="ManageModels\Users\SelectUserOptionsModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
     <Compile Include="MianModels\HeaderModel.cs" />
