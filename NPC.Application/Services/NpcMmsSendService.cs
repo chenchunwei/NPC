@@ -56,12 +56,14 @@ namespace NPC.Application.Services
                 var parList = new List<ParInfo>();
                 var config = GetConfigOfUnit(npcMmsSend.Unit.Id);
                 #region 创建彩信
-
-                foreach (var content in npcMmsSend.NpcMms.NpcMmsContents.OrderBy(o=>o.OrderSort))
+                var count = 1;
+                foreach (var content in npcMmsSend.NpcMms.NpcMmsContents.OrderBy(o => o.OrderSort))
                 {
+                    if (npcMmsSend.NpcMms.NpcMmsContents.Count == 1&&string.IsNullOrEmpty(content.Content))
+                        content.LayoutType = LayoutType.PicTop;
                     var parInfo = new ParInfo();
                     parInfo.Dur = content.DueTime + "s";
-                    var textContent = GetTextContent(content.Content);
+                    var textContent = GetTextContent(content.Content + (count == npcMmsSend.NpcMms.NpcMmsContents.Count && !string.IsNullOrEmpty(config.Signature) ? "【" + config.Signature + "】" : string.Empty));
                     var picContent = GetMediaContent(content.UrlOfPic, MediaType.Pic);
                     var voiceContent = GetMediaContent(content.UrlOfVoice, MediaType.Voice);
 
@@ -96,6 +98,7 @@ namespace NPC.Application.Services
                         parInfo.Audio = new AudioInfo { Src = voiceContent.ContentId };
                         mmsBuilder.AddContent(voiceContent);
                     }
+                    count++;
                     parList.Add(parInfo);
                 }
                 var smil = CommonUtil.BuilderSmil(GetLayoutInfo(npcMmsSend.NpcMms.LayoutType, "image", "text"), parList);
