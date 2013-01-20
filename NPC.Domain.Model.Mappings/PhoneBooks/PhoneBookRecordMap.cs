@@ -15,6 +15,7 @@ namespace NPC.Domain.Model.Mappings.PhoneBooks
             Map(o => o.Mobile);
             Map(o => o.Name);
             References(o => o.PhoneBook).Column("PhoneBookId");
+            References(o => o.User).Column("UserId");
             Component(o => o.RecordDescription);
             Table("PhoneBookRecords");
         }

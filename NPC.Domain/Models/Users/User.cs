@@ -8,6 +8,7 @@ using Fluent.Infrastructure.Web.HttpMoudles;
 using NPC.Domain.Models.Agents;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.Departments;
+using NPC.Domain.Models.PhoneBooks;
 using NPC.Domain.Models.Units;
 
 namespace NPC.Domain.Models.Users
@@ -25,8 +26,10 @@ namespace NPC.Domain.Models.Users
         public virtual string Pwd { get; set; }
         public virtual Unit Unit { get; set; }
         public virtual Department Department { get; set; }
+        public virtual string QQ { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual bool Sex { get; set; }
         public virtual IList<Agent> Agents { get; set; }
+        public virtual PhoneBookRecord PhoneBookRecord { get; set; }
     }
 }

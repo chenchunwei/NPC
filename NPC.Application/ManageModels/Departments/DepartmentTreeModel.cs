@@ -32,7 +32,7 @@ namespace NPC.Application.ManageModels.Departments
         public string IconCls { get; set; }
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
-        [DataMember(Name = "name")]
+        [DataMember(Name = "text")]
         public string Name { get; set; }
         [DataMember(Name = "children")]
         public IList<DepartmentTreeModelComponent> Childrens { get; set; }

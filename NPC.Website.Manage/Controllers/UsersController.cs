@@ -16,6 +16,8 @@ namespace NPC.Website.Manage.Controllers
         {
             _userAction = new UserAction();
         }
+
+        #region 选择用户
         public ActionResult SelectUser()
         {
             return View();
@@ -40,8 +42,10 @@ namespace NPC.Website.Manage.Controllers
         {
             return new NewtonsoftJsonResult() { Data = _userAction.ConvertToUserList(selectedJson) };
         }
+        #endregion
 
-        public ActionResult EidtPassword( )
+        #region 修改密码
+        public ActionResult EidtPassword()
         {
             var model = _userAction.InitializeEditPasswordModel();
             return View(model);
@@ -59,5 +63,35 @@ namespace NPC.Website.Manage.Controllers
                 return RedirectToMessage("修改密码时发生错误：" + exception.Message);
             }
         }
+        #endregion
+
+        #region 添加或编辑用户
+        public ActionResult EditUser(Guid? id)
+        {
+            var model = _userAction.InitializeEditUserModel(id);
+            return View(model);
+        }
+
+        [HttpPost, ActionName("EditUser")]
+        public ActionResult EditUserPost(EditUserModel viewModel)
+        {
+            try
+            {
+                if (viewModel.Id.HasValue)
+                {
+                    _userAction.UpdateUser(viewModel);
+                }
+                else
+                {
+                    _userAction.NewUser(viewModel);
+                }
+                return RedirectToMessage("用户信息保存成功！");
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage("保存用户时发生错误：" + exception.Message);
+            }
+        }
+        #endregion
     }
 }

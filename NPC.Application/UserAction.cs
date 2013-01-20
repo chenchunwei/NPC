@@ -6,6 +6,7 @@ using Fluent.Infrastructure.Utilities;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Users;
 using NPC.Domain.Models.Departments;
+using NPC.Domain.Models.PhoneBooks;
 using NPC.Domain.Models.Units;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
@@ -19,12 +20,13 @@ namespace NPC.Application
         private readonly UnitRepository _unitRepository;
         private readonly DepartmentRepository _departmentRepository;
         private readonly UserRepository _userRepository;
-
+        private readonly PhoneBookRecordRepository _phoneBookRecordRepository;
         public UserAction()
         {
             _unitRepository = new UnitRepository();
             _departmentRepository = new DepartmentRepository();
             _userRepository = new UserRepository();
+            _phoneBookRecordRepository = new PhoneBookRecordRepository();
         }
         #endregion
 
@@ -149,5 +151,68 @@ namespace NPC.Application
             _userRepository.Save(user);
         }
         #endregion
+
+        public EditUserModel InitializeEditUserModel(Guid? id)
+        {
+            var model = new EditUserModel();
+            if (id.HasValue)
+            {
+                var user = _userRepository.Find(id.Value);
+                model.FormData.Account = user.Account;
+                model.FormData.DepartmentId = user.Department != null ? user.Department.Id : default(Guid?);
+                model.FormData.Mobile = string.Empty;
+                model.FormData.Name = user.Name;
+                model.FormData.QQ = string.Empty;
+            }
+            return model;
+        }
+
+        public void UpdateUser(EditUserModel viewModel)
+        {
+            if (viewModel.Id == null)
+                throw new ArgumentException("id不能为空");
+            var user = _userRepository.Find(viewModel.Id.Value);
+            FillUser(user, viewModel);
+            if (user.PhoneBookRecord == null)
+            {
+                var phoneBookRecord = new PhoneBookRecord();
+                phoneBookRecord.Mobile = viewModel.FormData.Mobile;
+                phoneBookRecord.Name = viewModel.FormData.Name;
+                phoneBookRecord.User = user;
+                _phoneBookRecordRepository.Save(phoneBookRecord);
+                user.PhoneBookRecord = phoneBookRecord;
+            }
+            else
+            {
+                user.PhoneBookRecord.Mobile = viewModel.FormData.Mobile;
+                user.PhoneBookRecord.Name = viewModel.FormData.Name;
+            }
+            _userRepository.Save(user);
+        }
+
+        public void NewUser(EditUserModel viewModel)
+        {
+            var user = new User();
+            user.Account = viewModel.FormData.Account;
+            FillUser(user, viewModel);
+            _userRepository.Save(user);
+            var phoneBookRecord = new PhoneBookRecord();
+            phoneBookRecord.Mobile = viewModel.FormData.Mobile;
+            phoneBookRecord.Name = viewModel.FormData.Name;
+            phoneBookRecord.User = user;
+            _phoneBookRecordRepository.Save(phoneBookRecord);
+            user.PhoneBookRecord = phoneBookRecord;
+            _userRepository.Save(user);
+        }
+
+        private void FillUser(User user, EditUserModel viewModel)
+        {
+            user.Name = viewModel.FormData.Name;
+            if (!(string.IsNullOrEmpty(viewModel.FormData.Pwd) || string.IsNullOrEmpty(viewModel.FormData.RePwd)) && viewModel.FormData.Pwd == viewModel.FormData.RePwd)
+            {
+                user.Pwd = MD5Utility.GetMD5HashCode(viewModel.FormData.Pwd);
+            }
+            user.QQ = viewModel.FormData.QQ;
+        }
     }
 }

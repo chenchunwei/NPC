@@ -78,7 +78,7 @@
             url: '@Url.Action("GetDepartments", "Departments")',
             iconCls: 'icon-redo',
             rownumbers: true,
-            treeField: 'name',
+            treeField: 'text',
             idField: 'id',
             fit: false,
             border: 0,
@@ -86,7 +86,7 @@
             title: "&nbsp;组织机构列表",
             columns: [[
             { field: 'id', hidden: true },
-            { field: 'name', title: '机构名称', width: 90, align: 'left' }
+            { field: 'text', title: '机构名称', width: 90, align: 'left' }
         ]],
             onLoadSuccess: function () {
             },

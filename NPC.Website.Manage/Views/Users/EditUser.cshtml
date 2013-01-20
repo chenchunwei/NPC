@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = Model.Id.HasValue ? "编辑用户资料" : "新增用户";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.ComponentModel
+@model  NPC.Application.ManageModels.Users.EditUserModel
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示:创建的用户将可使用帐号登录系统进行操作</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 220px;">
+                        <span style="color: red;">*</span> 部门：
+                    </th>
+                    <td>
+                        @Html.DropDownListFor(o => o.FormData.DepartmentId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 帐号：
+                    </th>
+                    <td>
+                        @if (Model.Id.HasValue)
+                        {
+                            @Html.Raw(Model.FormData.Account)
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(o => o.FormData.Account, new { style = "width:380px;", maxlength = 75 })<span>&nbsp;用于登录系统,不能与其它帐号重复</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 姓名：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.Name, new { style = "width:380px;", maxlength = 25 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 手机号码：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.Mobile, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;数值越大排序超高
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @if (Model.Id.HasValue)
+                        {
+                            <span style="color: red;">*</span>
+                        }
+                        密码：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.Pwd, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;登录密码请认真填写
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @if (Model.Id.HasValue)
+                        {
+                            <span style="color: red;">*</span>
+                        }
+                        重复密码：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.RePwd, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;重复输入密码
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    保存</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $("#FormData_DepartmentId").combotree({ url: '@Url.Action("GetDepartments", "Departments")', cascadeCheck: false });
+        $('#FormData_DepartmentId').combotree('setValue', '@(Model.FormData.DepartmentId.HasValue ? Model.FormData.DepartmentId.Value : default(Guid?))');
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "FormData.DepartmentId": "required",
+                "FormData.Account": "required",
+                "FormData.Name": "required",
+                "FormData.Mobile": "required",
+                "FormData.Pwd": "required",
+                "FormData.RePwd": "required"
+            },
+            messages: {
+                "FormData.DepartmentId": "请选择所属部门",
+                "FormData.Account": "必填项",
+                "FormData.Name": "必填项",
+                "FormData.Mobile": "必填项",
+                "FormData.Pwd": "必填项",
+                "FormData.RePwd": "必填项"
+            }
+        });
+        $("#submitBtn").click(function () {
+            if (!$("#mainForm").valid()) {
+                return false;
+            }
+            if ($("#Pwd").val() != $("#RePwd").val()) {
+                msgShow("提示信息", "两次新密码输入不一致!", "error");
+                return false;
+            }
+            $("#mainForm").submit();
+            return true;
+        });
+    });
+</script>
