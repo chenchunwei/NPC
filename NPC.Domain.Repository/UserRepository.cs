@@ -20,28 +20,48 @@ namespace NPC.Domain.Repository
               .SetParameterList("ids", ids).List<User>();
         }
 
-        public  User FindByAccount(string account,Guid unitId)
+        public User FindByAccount(string account, Guid unitId)
         {
             if (string.IsNullOrEmpty(account))
                 throw new ArgumentNullException(account);
             //HACK:添加Account字段
-            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and UnitId=:UnitId").AddEntity(typeof(User))
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and UnitId=:UnitId and u.IsDelete=0").AddEntity(typeof(User))
                 .SetGuid("UnitId", unitId)
                 .SetString("account", account.Trim()).UniqueResult<User>();
         }
 
-        public User FindByAccountAndPwd(string account,string pwd,Guid unitId)
+        public User FindByAccountAndPwd(string account, string pwd, Guid unitId)
         {
             if (string.IsNullOrEmpty(account))
                 throw new ArgumentNullException(account);
             if (string.IsNullOrEmpty(pwd))
                 throw new ArgumentNullException(pwd);
             //HACK:添加Account字段
-            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and Pwd=:Pwd and UnitId=:UnitId").AddEntity(typeof(User))
+            return Session.CreateSQLQuery("Select * from Users u Where u.Account=:account and Pwd=:Pwd and UnitId=:UnitId and u.IsDelete=0").AddEntity(typeof(User))
                 .SetGuid("UnitId", unitId)
                 .SetString("account", account.Trim())
                 .SetString("Pwd", pwd.Trim())
                 .UniqueResult<User>();
         }
+
+        public bool IsRepeatAccount(string account, Guid unitId)
+        {
+            if (string.IsNullOrEmpty(account))
+                throw new ArgumentNullException(account);
+            //HACK:添加Account字段
+            return Session.CreateSQLQuery("Select count(*) from Users u Where u.Account=:account and UnitId=:UnitId and u.IsDelete=0")
+                .SetGuid("UnitId", unitId)
+                .SetString("account", account.Trim()).UniqueResult<int>() > 0;
+        }
+
+        #region 获取所有用户
+        public IList<User> Query(UserQueryItem userQueryItem)
+        {
+            return Session.CreateSQLQuery("Select * from Users u Where UnitId=:UnitId and u.IsDelete=0")
+                .AddEntity(typeof(User))
+                .SetGuid("UnitId", userQueryItem.UnitId.Value)
+                .List<User>() ;
+        }
+        #endregion
     }
 }

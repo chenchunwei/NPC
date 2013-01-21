@@ -1,7 +1,167 @@
 ﻿@{
-    ViewBag.Title = "UserList";
+    ViewBag.Title = "用户管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model  NPC.Application.ManageModels.Users.UserListModel
+<div class="workgroundin">
+    <ul class="head_content">
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新联系人", "newRecordBtn", "icon_3.gif", true))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新通讯簿", "newPhoneBookBtn", "icon_3.gif", true))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
+    </ul>
+</div>
+<form action="" method="GET" id="searchForm">
+<div class="main_search">
+    <div class="mc_search">
+        <div class="pic">
+            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+        <div class="font">
+            通讯录：</div>
+        <div class="s1">
+        </div>
+        <div class="i1">
+            @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new[] { new SelectListItem() { Text = "选择部门", Value = "" } }, new { style = "width:200px;" })
+        </div>
+        <div class="font">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+        <div class="s1">
+            <select>
+                <option>联系人</option>
+            </select></div>
+        <div class="i1">
+            @Html.TextBoxFor(o => o.UserSearchModel.UserQueryItem.Name)
+        </div>
+        <div class="font">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+        <div class="s1">
+            <select>
+                <option>号码</option>
+            </select></div>
+        <div class="i1">
+            @Html.TextBoxFor(o => o.UserSearchModel.UserQueryItem.Mobile)
+        </div>
+        @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
+    </div>
+</div>
+</form>
+<div class="main_content">
+    <div class="topline">
+        <div class="span_1">
+            <input type="checkbox" id="topChk" /></div>
+        <div class="span_2">
+            操作</div>
+        <div class="span_5">
+            帐号</div>
+        <div class="span_5">
+            姓名</div>
+        <div class="span_3">
+            号码</div>
+        <div class="span_5">
+            QQ</div>
+        <div class="span_2">
+            加入时间</div>
+        <div class="span_4">
+        </div>
+        <div class="span_4">
+        </div>
+        <div class="span_4">
+        </div>
+    </div>
+    <div class="row">
+        @if (!Model.Users.Any())
+        {
+            <div class="noRowline">
+                未找到符合条件的相关记录信息！
+            </div>
+        }
+        @foreach (var row in Model.Users)
+        {
+            <div class="rowline">
+                <div class="span_1">
+                    <input type="checkbox" name="ids" value="@row.Id" /></div>
+                <div class="span_2">
+                    <a href="javascript:;" onclick="editRecord('@row.Id')">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                        删除</a></div>
+                <div class="span_5">
+                    @row.Account
+                </div>
+                <div class="span_5">
+                    @row.Name
+                </div>
+                <div class="span_3">
+                    @(row.PhoneBookRecord != null ? row.PhoneBookRecord.Mobile : string.Empty)
+                </div>
+                <div class="span_5">
+                    @row.QQ
+                </div>
+                <div class="span_2">
+                    @(row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd"))
+                </div>
+                <div class="span_4">
+                </div>
+                <div class="span_4">
+                </div>
+                <div class="span_4">
+                </div>
+            </div> 
+        }
+        <div class="footBar">
+            <div class="fb_content">
+                <ul class="fb_button">
+                    @Html.Partial("_LiButton", new Tuple<string, string>("全选", "chkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("取消", "unChkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("反选", "invertBtn"))
+                </ul>
+                <div class="fb_page">
+                    <script type="text/javascript">
+                        var pg = new showPages('pg');
+                        pg.argName = 'p';  //定义参数名(可选,缺省为page)
+                        pg.newPage = @Model.UserSearchModel.UserQueryItem.Pagination.PageIndex;
+                        pg.count =  @Model.UserSearchModel.UserQueryItem.Pagination.TotalRecordsCount;
+                        pg.pageCount = @Model.UserSearchModel.UserQueryItem.Pagination.TotalPage;
+                        pg.printHtml(1);    //显示
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>UserList</h2>
-
+<script type="text/javascript">
+    var urlOfDel = '@Url.Action("Delete", "PhoneBooks")';
+    function singleDel(id) {
+        var delIds = [];
+        delIds.push(id);
+        controller.del(urlOfDel, delIds);
+    }
+   
+    $(function () {
+        $("#chkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 1);
+        });
+        $("#unChkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 0);
+        });
+        $("#invertBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 2);
+        });
+        $("#topChk").click(function () {
+            var result = $(this).attr("checked") ? 1 : 0;
+            controller.batchOfChk("input[name=ids]", result);
+        });
+        
+        $("#batchDelBtn").click(function () {
+            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+        });
+        $("#searchBtn").click(function () {
+            $("#searchForm").submit();
+        });
+        $("#newRecordBtn").click(function () {
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+            $("#Id").val();
+        });
+    });
+</script>

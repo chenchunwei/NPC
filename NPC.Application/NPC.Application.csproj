@@ -109,6 +109,8 @@
     <Compile Include="ManageModels\Users\EditPasswordModel.cs" />
     <Compile Include="ManageModels\Users\EditUserModel.cs" />
     <Compile Include="ManageModels\Users\SelectUserOptionsModel.cs" />
+    <Compile Include="ManageModels\Users\UserListModel.cs" />
+    <Compile Include="ManageModels\Users\UserSearchModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
     <Compile Include="MianModels\HeaderModel.cs" />
     <Compile Include="MianModels\Homes\DetailModel.cs" />

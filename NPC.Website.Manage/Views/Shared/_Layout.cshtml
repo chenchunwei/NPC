@@ -25,7 +25,10 @@
     <div class="header">
         <div class="container">
             <div class="quit">
-                您好，[@(new NpcContext().CurrentUser.Unit.Name)]系统管理员&nbsp;&nbsp;<a href="@Url.Content("~/")?cmd=logout"><b>[退出]</b></a>
+                @{
+                    var user = new NpcContext().CurrentUser;
+                }
+                您好，[@(user.Unit.Name)]@user.Name&nbsp;&nbsp;<a href="@Url.Content("~/")?cmd=logout"><b>[退出]</b></a>
             </div>
             <div class="toplinkmenu">
                 <div class="left">
@@ -141,6 +144,10 @@
                 用户管理
             </div>
              <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                     onclick="window.location.href='@Url.Action("UserList", "Users")'" style="cursor: pointer;">
+                帐户管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                      onclick="window.location.href='@Url.Action("EditUser", "Users")'" style="cursor: pointer;">
                 添加帐号
             </div>

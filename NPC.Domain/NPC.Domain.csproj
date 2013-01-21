@@ -91,6 +91,7 @@
     <Compile Include="Models\Units\Unit.cs" />
     <Compile Include="Models\Units\UnitStatus.cs" />
     <Compile Include="Models\Users\User.cs" />
+    <Compile Include="Models\Users\UserQueryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -169,6 +169,7 @@ namespace NPC.Application
 
         public void UpdateUser(EditUserModel viewModel)
         {
+            var userInContext = NpcContext.CurrentUser;
             if (viewModel.Id == null)
                 throw new ArgumentException("id不能为空");
             var user = _userRepository.Find(viewModel.Id.Value);
@@ -179,6 +180,7 @@ namespace NPC.Application
                 phoneBookRecord.Mobile = viewModel.FormData.Mobile;
                 phoneBookRecord.Name = viewModel.FormData.Name;
                 phoneBookRecord.User = user;
+                phoneBookRecord.RecordDescription.CreateBy(userInContext);
                 _phoneBookRecordRepository.Save(phoneBookRecord);
                 user.PhoneBookRecord = phoneBookRecord;
             }
@@ -186,20 +188,30 @@ namespace NPC.Application
             {
                 user.PhoneBookRecord.Mobile = viewModel.FormData.Mobile;
                 user.PhoneBookRecord.Name = viewModel.FormData.Name;
+                user.PhoneBookRecord.RecordDescription.UpdateBy(userInContext);
+                _phoneBookRecordRepository.Save(user.PhoneBookRecord);
             }
             _userRepository.Save(user);
         }
 
         public void NewUser(EditUserModel viewModel)
         {
+            var userInContext = NpcContext.CurrentUser;
+            if (_userRepository.IsRepeatAccount(viewModel.FormData.Account, userInContext.Unit.Id))
+            {
+                throw new ArgumentException(string.Format("帐号{0}已被使用,请选择其它的帐号名", viewModel.FormData.Account));
+            }
             var user = new User();
             user.Account = viewModel.FormData.Account;
             FillUser(user, viewModel);
+            user.Unit = userInContext.Unit;
+            user.RecordDescription.CreateBy(userInContext);
             _userRepository.Save(user);
             var phoneBookRecord = new PhoneBookRecord();
             phoneBookRecord.Mobile = viewModel.FormData.Mobile;
             phoneBookRecord.Name = viewModel.FormData.Name;
             phoneBookRecord.User = user;
+            phoneBookRecord.RecordDescription.CreateBy(userInContext);
             _phoneBookRecordRepository.Save(phoneBookRecord);
             user.PhoneBookRecord = phoneBookRecord;
             _userRepository.Save(user);
@@ -213,6 +225,14 @@ namespace NPC.Application
                 user.Pwd = MD5Utility.GetMD5HashCode(viewModel.FormData.Pwd);
             }
             user.QQ = viewModel.FormData.QQ;
+            user.Department = _departmentRepository.Find(viewModel.FormData.DepartmentId.Value);
+        }
+
+        public UserListModel InitializeUserListModel(UserQueryItem userQueryItem)
+        {
+            var model = new UserListModel();
+            model.Users = _userRepository.Query(userQueryItem);
+            return model;
         }
     }
 }
