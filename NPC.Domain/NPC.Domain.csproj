@@ -53,6 +53,7 @@
     <Compile Include="Models\Departments\Department.cs" />
     <Compile Include="Models\Flows\Flow.cs" />
     <Compile Include="Models\Flows\FlowDataField.cs" />
+    <Compile Include="Models\Flows\FlowHistory.cs" />
     <Compile Include="Models\Flows\FlowStatus.cs" />
     <Compile Include="Models\FlowTypes\FlowNode.cs" />
     <Compile Include="Models\FlowTypes\FlowNodeAction.cs" />

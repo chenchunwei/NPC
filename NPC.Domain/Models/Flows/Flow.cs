@@ -17,6 +17,7 @@ namespace NPC.Domain.Models.Flows
             RecordDescription = new RecordDescription();
             FlowDataFields = new List<FlowDataField>();
             FlowNodeInstances = new List<FlowNodeInstance>();
+            FlowHistories=new List<FlowHistory>();
         }
         public virtual Guid Id { get; set; }
         public virtual string Title { get; set; }
@@ -54,5 +55,7 @@ namespace NPC.Domain.Models.Flows
                });
             });
         }
+
+        public IList<FlowHistory> FlowHistories { get; set; }
     }
 }

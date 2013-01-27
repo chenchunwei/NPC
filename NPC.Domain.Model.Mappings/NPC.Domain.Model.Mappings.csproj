@@ -54,6 +54,7 @@
     <Compile Include="Common\RecordDescriptionMap.cs" />
     <Compile Include="Departments\DepartmentMap.cs" />
     <Compile Include="Flows\FlowDataFieldMap.cs" />
+    <Compile Include="Flows\FlowHistoryMap.cs" />
     <Compile Include="Flows\FlowMap.cs" />
     <Compile Include="FlowTypes\FlowNodeActionMap.cs" />
     <Compile Include="FlowTypes\FlowNodeLineMap.cs" />

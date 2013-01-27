@@ -68,10 +68,10 @@
                         <span style="color: red;">*</span> 案由：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Title)
+                        @Html.TextBoxFor(o => o.FormData.Title, new { maxlength = 100, style = "width:350px;" })
                     </td>
                 </tr>
-                <tr>
+                @*  <tr>
                     <th>
                         <span style="color: red;">*</span> 类型：
                     </th>
@@ -80,14 +80,24 @@
                             new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
                             .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <th>
                         <span style="color: red;">*</span> 建议主体：
                     </th>
                     <td>
                         <textarea name="FormData.Content" id="FormData_Content" cols="170" rows="30" width="99%" 
-                                      class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
+                                  class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
+                    </td>
+                </tr>
+                <tr valign="middle">
+                    <th>
+                        <span style="color: red;">*</span> 注意：
+                    </th>
+                    <td>
+                        <span style="float: left; line-height: 50px;">代表提交的意见建议由word文本上传至附件中,上传附件请选择【建议主体】中的</span>
+                        <img style="float: left;margin-top: 5px;" src="@Url.Content("~/Content/Images/demo.jpg")"  alt=""/>
+                        <span style="float: left; line-height: 50px;">图标进行附件上传</span>
                     </td>
                 </tr>
                 <tr>
@@ -137,13 +147,11 @@
             ignore: "",
             rules: {
                 "FormData.Title": "required",
-                "FormData.Content": "required",
-                "FormData.ProposalType": "required"
+                "FormData.Content": "required"
             },
             messages: {
                 "FormData.Title": "请输提案标题",
-                "FormData.Content": "请填写提案内容",
-                "FormData.ProposalType": "请选择类型"
+                "FormData.Content": "请填写建议主体"
             }
         });
         $("#submitBtn").click(function () {
@@ -176,7 +184,6 @@
         var options = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
         $.post('@Url.Action("ParseSelectedToUsersByDepartments", "Users")', { 'selectedJson': $.toJSON(options) },
                 function (data) {
-                    //alert(data);
                     $(evalJson(data).users).each(function (index, row) {
                         if ($.inArray(row.id, selectedUsers) >= 0 || row.id == '@Model.CurrentUser.Id') {
                             return;
@@ -187,8 +194,8 @@
                             <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
                             <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
                             </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
-                    });
-                }
-            );
+                });
+            }
+        );
     }
 </script>

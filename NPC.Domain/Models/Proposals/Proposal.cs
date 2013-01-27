@@ -13,7 +13,7 @@ namespace NPC.Domain.Models.Proposals
     {
         public Proposal()
         {
-            RecordDescription=new RecordDescription();
+            RecordDescription = new RecordDescription();
             ProposalOriginators = new List<User>();
         }
         public virtual Guid Id { get; set; }
@@ -21,6 +21,9 @@ namespace NPC.Domain.Models.Proposals
         public virtual string Content { get; set; }
         public virtual ProposalType ProposalType { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        /// <summary>
+        /// 附议人
+        /// </summary>
         public virtual IList<User> ProposalOriginators { get; set; }
         public virtual IList<Task> Tasks { get; set; }
     }

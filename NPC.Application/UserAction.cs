@@ -267,6 +267,7 @@ namespace NPC.Application
         {
             var model = new SelectedUsersResponse();
             var queryItem = new UserQueryItem();
+            queryItem.Pagination.PageSize = 100;
             if (selectedUsersModel.CheckedAllPage)
             {
                 queryItem.DepartmentLikeId = selectedUsersModel.Where.DepartmentLikeId;
@@ -274,6 +275,8 @@ namespace NPC.Application
             }
             else
             {
+                if (!selectedUsersModel.Ids.Any())
+                    return model;
                 queryItem.Ids = selectedUsersModel.Ids;
             }
             queryItem.UnitId = selectedUsersModel.UnitId;

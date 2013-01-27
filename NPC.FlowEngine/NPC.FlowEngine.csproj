@@ -68,10 +68,6 @@
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NPC.Application\NPC.Application.csproj">
-      <Project>{22C05668-41AB-46B3-81EF-72294624FBCB}</Project>
-      <Name>NPC.Application</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
       <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>
       <Name>NPC.Domain.Model.Mappings</Name>

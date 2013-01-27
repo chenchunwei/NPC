@@ -11,7 +11,7 @@ namespace NPC.Application.ManageModels.Users
     {
         public SelectedUsersModel()
         {
-            Ids=new List<Guid>();
+            Ids = new List<Guid>();
             Where = new SelectedUsersModelWhere();
         }
         [DataMember(Name = "checkedAllPage")]

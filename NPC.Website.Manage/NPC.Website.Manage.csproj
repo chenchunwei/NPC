@@ -194,6 +194,7 @@
     <Content Include="Content\Images\CategorizeMenu.png" />
     <Content Include="Content\Images\center_bg.jpg" />
     <Content Include="Content\Images\corner.jpg" />
+    <Content Include="Content\Images\demo.jpg" />
     <Content Include="Content\Images\directory.png" />
     <Content Include="Content\Images\fbb_center.gif" />
     <Content Include="Content\Images\fbb_left.jpg" />
@@ -1207,6 +1208,10 @@
     <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
       <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
       <Name>NPC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.FlowEngine\NPC.FlowEngine.csproj">
+      <Project>{966BFAAB-80CA-4FFA-AB10-D92FF323471F}</Project>
+      <Name>NPC.FlowEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

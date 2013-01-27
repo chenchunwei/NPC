@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
-using NPC.Application.Contexts;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Models.Flows;
 using NPC.Domain.Models.Tasks;
@@ -43,6 +42,14 @@ namespace NPC.FlowEngine
                 args.ToList().ForEach(o => flow.FlowDataFields.Add(new FlowDataField { Name = o.Key, Value = o.Value }));
                 flow.RecordDescription.CreateBy(originator);
                 flow.UserOfFlowAdmin = originator;
+                var history = new FlowHistory()
+                {
+                    Comment = comment,
+                    Operator = originator.Name,
+                    Stage = "发起流程"
+                };
+                history.RecordDescription.CreateBy(originator);
+                flow.FlowHistories.Add(history);
                 _flowRepository.Save(flow);
                 trans.Commit();
             }
@@ -52,7 +59,7 @@ namespace NPC.FlowEngine
                 throw;
             }
         }
-        public void ExecuteTask(Guid taskId, string actionName, User executor, Dictionary<string, string> args = null)
+        public void ExecuteTask(Guid taskId, string actionName, User executor, Dictionary<string, string> args = null, string comment = null)
         {
             var trans = TransactionManager.BeginTransaction();
             try
@@ -65,6 +72,16 @@ namespace NPC.FlowEngine
                 flowNodeInstance.BelongsFlow.WriteDataFields(args);
                 task.Done(executor, TaskStatus.Finished);
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
+                var flow = flowNodeInstance.BelongsFlow;
+                var history = new FlowHistory()
+                {
+                    Comment = comment,
+                    Operator = actionName,
+                    Stage = flowNodeInstance.BelongsFlowNode.Name
+                };
+                history.RecordDescription.CreateBy(executor);
+                flow.FlowHistories.Add(history);
+                _flowRepository.Save(flow);
                 _taskRepository.Save(task);
                 trans.Commit();
             }
