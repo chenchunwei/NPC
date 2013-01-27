@@ -143,7 +143,11 @@
             <div class="grouplevel">
                 用户管理
             </div>
-             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "Departments")'">
+                分组管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                      onclick="window.location.href='@Url.Action("UserList", "Users")'" style="cursor: pointer;">
                 帐户管理
             </div>

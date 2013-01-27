@@ -37,21 +37,6 @@
                 </tr>
                 <tr>
                     <th>
-                        <span style="color: red;">*</span> 帐号：
-                    </th>
-                    <td>
-                        @if (Model.Id.HasValue)
-                        {
-                            @Html.Raw(Model.FormData.Account)
-                        }
-                        else
-                        {
-                            @Html.TextBoxFor(o => o.FormData.Account, new { style = "width:380px;", maxlength = 75 })<span>&nbsp;用于登录系统,不能与其它帐号重复</span>
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <th>
                         <span style="color: red;">*</span> 姓名：
                     </th>
                     <td>
@@ -63,7 +48,30 @@
                         <span style="color: red;">*</span> 手机号码：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.FormData.Mobile, new { style = "width:380px;", maxlength = 11, @class = "mask-int" })&nbsp; 
+                        @if (Model.Id.HasValue)
+                        {
+                            @Html.TextBoxFor(o => o.FormData.Mobile)
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(o => o.FormData.Mobile, new { style = "width:380px;", maxlength = 11, @class = "mask-int" })<span>&nbsp;用于登录系统,不允许重复</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> QQ：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.QQ, new { style = "width:380px;", maxlength = 18, @class = "mask-int" })&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 排序值：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.OrderSort, new { style = "width:380px;", maxlength = 18, @class = "mask-int" })<span>&nbsp;数值越大,排序越前</span>
                     </td>
                 </tr>
                 <tr>

@@ -46,7 +46,7 @@
         </div>
         <div class="menu-sep">
         </div>
-        <div onclick="remove()" data-options="iconCls:'icon-remove'">
+        <div onclick="removeNode()" data-options="iconCls:'icon-remove'">
             移除组织
         </div>
     </div>
@@ -139,7 +139,7 @@
             $("#FormData_Name").val(row.name);
         }
     }
-    function remove() {
+    function removeNode() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("DeleteUnit", "Units")', { "id": node.id }, function (data) {

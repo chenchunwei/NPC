@@ -7,6 +7,7 @@ using Fluent.Infrastructure.Mvc;
 using NPC.Application;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Users;
+using Newtonsoft.Json;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -29,27 +30,45 @@ namespace NPC.Website.Manage.Controllers
         public JsonResult GetSelectUserOptionsWithUnit(Guid? id)
         {
             var model = _userAction.InitializeSelectUserOptionsModelWithUnit(id);
-            return new NewtonsoftJsonResult() {Data = model.SelectUserOptionsRows};
+            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
         }
 
         public JsonResult GetSelectUserOptionsWithDepartment(Guid? id)
         {
             var model = _userAction.InitializeSelectUserOptionsModelWithDepartment(id);
-            return new NewtonsoftJsonResult() {Data = model.SelectUserOptionsRows};
+            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
         }
 
         public JsonResult GetSelectUserOptionsWithUser(Guid id)
         {
             var model = _userAction.InitializeSelectUserOptionsModelWithUser(id);
-            return new NewtonsoftJsonResult() {Data = model.SelectUserOptionsRows};
+            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
         }
 
         [HttpPost]
         public JsonResult ParseSelectedToUsers(string selectedJson)
         {
-            return new NewtonsoftJsonResult() {Data = _userAction.ConvertToUserList(selectedJson)};
+            return new NewtonsoftJsonResult() { Data = _userAction.ConvertToUserList(selectedJson) };
         }
 
+        #endregion
+
+        #region 选择用户(SelectUserByDepartments)
+        public ActionResult SelectUserByDepartments(UserSearchModel userSearchModel)
+        {
+            userSearchModel.UserQueryItem.Pagination.PageIndex = PageIndex;
+            userSearchModel.UserQueryItem.UnitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _userAction.InitializeSelectUserByDepartmentsModel(userSearchModel.UserQueryItem);
+            return View(model);
+        }
+
+        public JsonResult ParseSelectedToUsersByDepartments(string selectedJson)
+        {
+            var selectedUsersModel = JsonConvert.DeserializeObject<SelectedUsersModel>(selectedJson);
+            selectedUsersModel.UnitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _userAction.InitializeSelectedUsersResponse(selectedUsersModel);
+            return new NewtonsoftJsonResult() { Data = model };
+        }
         #endregion
 
         #region 修改密码
@@ -108,7 +127,6 @@ namespace NPC.Website.Manage.Controllers
         #endregion
 
         #region 用户列表
-
         public ActionResult UserList(UserSearchModel userSearchModel)
         {
             userSearchModel.UserQueryItem.Pagination.PageIndex = PageIndex;
@@ -116,7 +134,6 @@ namespace NPC.Website.Manage.Controllers
             var model = _userAction.InitializeUserListModel(userSearchModel.UserQueryItem);
             return View(model);
         }
-
         #endregion
     }
 }

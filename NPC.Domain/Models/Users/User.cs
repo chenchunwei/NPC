@@ -31,5 +31,6 @@ namespace NPC.Domain.Models.Users
         public virtual bool Sex { get; set; }
         public virtual IList<Agent> Agents { get; set; }
         public virtual PhoneBookRecord PhoneBookRecord { get; set; }
+        public virtual int OrderSort { get; set; }
     }
 }

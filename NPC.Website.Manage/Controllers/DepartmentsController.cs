@@ -33,7 +33,14 @@ namespace NPC.Website.Manage.Controllers
         {
             try
             {
-                _departmentAction.CreateNewDepartment(model);
+               if (model.Id.HasValue)
+               {
+                   _departmentAction.UpdateDepartment(model);  
+               }
+               else
+               {
+                   _departmentAction.CreateNewDepartment(model);                   
+               }
             }
             catch (Exception)
             {

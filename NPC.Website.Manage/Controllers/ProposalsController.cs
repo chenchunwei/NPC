@@ -32,7 +32,7 @@ namespace NPC.Website.Manage.Controllers
             }
             catch (Exception exception)
             {
-                return RedirectToMessage("数据保存出错!");
+                return RedirectToMessage("数据保存出错!" + exception.Message);
             }
             return RedirectToMessage("数据保存成功!");
         }

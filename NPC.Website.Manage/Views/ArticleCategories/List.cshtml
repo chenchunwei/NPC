@@ -34,43 +34,46 @@
         </div>
     </div>
 </div>
- 
 <div id="wins" style="display: none;">
     <div id="mm" class="easyui-menu" style="width: 120px;">
-    <div onclick="append()" data-options="iconCls:'icon-add'">
-        添加新节点
+        <div onclick="append()" data-options="iconCls:'icon-add'">
+            添加新节点
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="edit()" data-options="iconCls:'icon-add'">
+            编辑节点
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="removeNode()" data-options="iconCls:'icon-remove'">
+            移除节点
+        </div>
     </div>
-     <div class="menu-sep">
-    </div>
-    <div onclick="edit()" data-options="iconCls:'icon-add'">
-        编辑节点
-    </div>
-    <div class="menu-sep">
-    </div>
-    <div onclick="remove()" data-options="iconCls:'icon-remove'">
-        移除节点
-    </div>
-</div>
-    <div id="newWin" class="easyui-window" title="添加新分类" style="width: 400px; height: 150px; background-color: #EFEFEF; display: none"
-         data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+    <div id="newWin" class="easyui-window" title="添加新分类" style="width: 400px; height: 150px;
+        background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditCategory", "ArticleCategories")" method="post">
-                <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
-                    <table>
-                        <tr>
-                            <th width="120px;">分类名称：
-                            </th>
-                            <td>
-                                <input id="FormData_Name" name="FormData.Name" type="text" />
-                                <input id="Id" name="Id" type="hidden" />
-                                <input id="ParentId" name="ParentId" type="hidden" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px; background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
-                    <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
-                </div>
+            <div region="center" border="false" style="padding: 10px; background-color: #EFEFEF;">
+                <table>
+                    <tr>
+                        <th width="120px;">
+                            分类名称：
+                        </th>
+                        <td>
+                            <input id="FormData_Name" name="FormData.Name" type="text" />
+                            <input id="Id" name="Id" type="hidden" />
+                            <input id="ParentId" name="ParentId" type="hidden" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 8px;">
+                <a id="btnSubmitNew" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
+                    提交</a> <a id="btnCancelNew" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                        取消</a>
+            </div>
             </form>
         </div>
     </div>
@@ -136,40 +139,40 @@
             $("#FormData_Name").val(row.text);
         }
     }
-    function remove() {
+    function removeNode() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("Delete", "ArticleCategories")', { "id": node.id }, function (data) {
-            data = evalJson(data);
-            if (data.status == "success") {
-                $('#treegrid').treegrid('remove', node.id);
-                showSlide("删除成功!", 3000);
-            } else {
-                msgShow("提示信息", "删除失败!", "error");
-            }
-        });
+                data = evalJson(data);
+                if (data.status == "success") {
+                    $('#treegrid').treegrid('remove', node.id);
+                    showSlide("删除成功!", 3000);
+                } else {
+                    msgShow("提示信息", "删除失败!", "error");
+                }
+            });
+        }
     }
-}
-$("#newForm").validate({
-    rules: {
-        "FormData.Name": { required: true }
-    },
-    messages: {
-        "FormData.Name": { required: "必须填写分类名称" }
-    }
-});
-$("#newForm").submit(function () {
-    $.post('@Url.Action("EditCategory", "ArticleCategories")', utility.formSerialize($("#newForm")), function (data) {
-        data = evalJson(data);
-        if (data.status == "success") {
-            $("#treegrid").treegrid('reload');
-            $("#newWin").window("close");
-            showSlide("保存成功!", 3000);
-        } else {
-            msgShow("提示信息", "添加失败!", "error");
+    $("#newForm").validate({
+        rules: {
+            "FormData.Name": { required: true }
+        },
+        messages: {
+            "FormData.Name": { required: "必须填写分类名称" }
         }
     });
-    return false;
-});
+    $("#newForm").submit(function () {
+        $.post('@Url.Action("EditCategory", "ArticleCategories")', utility.formSerialize($("#newForm")), function (data) {
+            data = evalJson(data);
+            if (data.status == "success") {
+                $("#treegrid").treegrid('reload');
+                $("#newWin").window("close");
+                showSlide("保存成功!", 3000);
+            } else {
+                msgShow("提示信息", "添加失败!", "error");
+            }
+        });
+        return false;
+    });
 
 </script>

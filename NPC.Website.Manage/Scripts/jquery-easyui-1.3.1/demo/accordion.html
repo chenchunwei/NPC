@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +20,7 @@
 			});
 			idx++;
 		}
-		function remove(){
+		function removeNode(){
 			var pp = $('#aa').accordion('getSelected');
 			if (pp){
 				var index = $('#aa').accordion('getPanelIndex',pp);
@@ -39,7 +39,7 @@
 	<div style="margin: 10px 0;">
 		<a href="#" class="easyui-linkbutton" onclick="select()">Select</a>
 		<a href="#" class="easyui-linkbutton" onclick="add()">Add</a>
-		<a href="#" class="easyui-linkbutton" onclick="remove()">Remove</a>
+		<a href="#" class="easyui-linkbutton" onclick="removeNode()">Remove</a>
 	</div>
 	
 	<div id="aa" class="easyui-accordion" style="width:700px;height:300px;">

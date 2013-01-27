@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -85,7 +85,7 @@
 				}]
 			});
 		}
-		function remove(){
+		function removeNode(){
 			var node = $('#tt2').tree('getSelected');
 			$('#tt2').tree('remove', node.target);
 		}
@@ -156,7 +156,7 @@
 		<a href="#" onclick="collapseAll()">collapseAll</a>
 		<a href="#" onclick="expandAll()">expandAll</a>
 		<a href="#" onclick="append()">append</a>
-		<a href="#" onclick="remove()">remove</a>
+		<a href="#" onclick="removeNode()">remove</a>
 		<a href="#" onclick="update()">update</a>
 		<a href="#" onclick="isLeaf()">isLeaf</a>
 	</div>
@@ -177,7 +177,7 @@
 	
 	<div id="mm" class="easyui-menu" style="width:120px;">
 		<div onclick="append()" data-options="iconCls:'icon-add'">Append</div>
-		<div onclick="remove()" data-options="iconCls:'icon-remove'">Remove</div>
+		<div onclick="removeNode()" data-options="iconCls:'icon-remove'">Remove</div>
 		<div class="menu-sep"></div>
 		<div onclick="expand()">Expand</div>
 		<div onclick="collapse()">Collapse</div>

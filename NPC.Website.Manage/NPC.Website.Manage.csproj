@@ -1278,6 +1278,10 @@
     <Content Include="Views\Users\EidtPassword.cshtml" />
     <Content Include="Views\Users\UserList.cshtml" />
     <Content Include="Views\Users\EditUser.cshtml" />
+    <Content Include="Views\Proposals\ScNpcAudit.cshtml" />
+    <Content Include="Views\Proposals\GovOfficeAudit.cshtml" />
+    <Content Include="Views\Proposals\SponsorAudit.cshtml" />
+    <Content Include="Views\Users\SelectUserByDepartments.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -8,12 +8,12 @@ namespace NPC.Application.ManageModels.Departments
     public class EditDepartmentModel
     {
         public Guid? Id { get; set; }
+        public Guid? ParentId { get; set; }
         public EditDepartmentModelFormData FormData { get; set; }
     }
 
     public class EditDepartmentModelFormData
     {
-        public Guid? Id { get; set; }
         public string Name { get; set; }
     }
 }

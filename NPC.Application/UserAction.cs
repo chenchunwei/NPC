@@ -114,6 +114,7 @@ namespace NPC.Application
         }
         #endregion
 
+        #region 转换用户数据成用户列表
         public IList<UserViewModel> ConvertToUserList(string selectedJson)
         {
             var selectedComponents = JsonConvert.DeserializeObject<IList<SelectUserOptionsComponent>>(selectedJson);
@@ -128,6 +129,7 @@ namespace NPC.Application
             users.ForEach(o => returns.Add(new UserViewModel() { Id = o.Id, Name = o.Name }));
             return returns;
         }
+        #endregion
 
         #region 初始化修改密码视图
         public EditPasswordModel InitializeEditPasswordModel()
@@ -152,6 +154,7 @@ namespace NPC.Application
         }
         #endregion
 
+        #region InitializeEditUserModel
         public EditUserModel InitializeEditUserModel(Guid? id)
         {
             var model = new EditUserModel();
@@ -160,13 +163,16 @@ namespace NPC.Application
                 var user = _userRepository.Find(id.Value);
                 model.FormData.Account = user.Account;
                 model.FormData.DepartmentId = user.Department != null ? user.Department.Id : default(Guid?);
-                model.FormData.Mobile = string.Empty;
+                model.FormData.Mobile = user.PhoneBookRecord != null ? user.PhoneBookRecord.Mobile : string.Empty;
                 model.FormData.Name = user.Name;
-                model.FormData.QQ = string.Empty;
+                model.FormData.QQ = user.QQ;
+                model.FormData.OrderSort = user.OrderSort;
             }
             return model;
         }
+        #endregion
 
+        #region UpdateUser
         public void UpdateUser(EditUserModel viewModel)
         {
             var userInContext = NpcContext.CurrentUser;
@@ -186,23 +192,24 @@ namespace NPC.Application
             }
             else
             {
-                user.PhoneBookRecord.Mobile = viewModel.FormData.Mobile;
                 user.PhoneBookRecord.Name = viewModel.FormData.Name;
                 user.PhoneBookRecord.RecordDescription.UpdateBy(userInContext);
                 _phoneBookRecordRepository.Save(user.PhoneBookRecord);
             }
             _userRepository.Save(user);
         }
+        #endregion
 
+        #region NewUser
         public void NewUser(EditUserModel viewModel)
         {
             var userInContext = NpcContext.CurrentUser;
-            if (_userRepository.IsRepeatAccount(viewModel.FormData.Account, userInContext.Unit.Id))
+            if (_userRepository.IsRepeatAccount(viewModel.FormData.Mobile.Trim(), userInContext.Unit.Id))
             {
-                throw new ArgumentException(string.Format("帐号{0}已被使用,请选择其它的帐号名", viewModel.FormData.Account));
+                throw new ArgumentException(string.Format("手机{0}已被使用,请选择其它的手机号码", viewModel.FormData.Mobile));
             }
             var user = new User();
-            user.Account = viewModel.FormData.Account;
+            user.Account = viewModel.FormData.Mobile;
             FillUser(user, viewModel);
             user.Unit = userInContext.Unit;
             user.RecordDescription.CreateBy(userInContext);
@@ -216,23 +223,64 @@ namespace NPC.Application
             user.PhoneBookRecord = phoneBookRecord;
             _userRepository.Save(user);
         }
+        #endregion
 
+        #region FillUser
         private void FillUser(User user, EditUserModel viewModel)
         {
+            if (viewModel.FormData.DepartmentId == null)
+                throw new ArgumentException("所属部门不能为空");
             user.Name = viewModel.FormData.Name;
             if (!(string.IsNullOrEmpty(viewModel.FormData.Pwd) || string.IsNullOrEmpty(viewModel.FormData.RePwd)) && viewModel.FormData.Pwd == viewModel.FormData.RePwd)
             {
                 user.Pwd = MD5Utility.GetMD5HashCode(viewModel.FormData.Pwd);
             }
             user.QQ = viewModel.FormData.QQ;
+            user.OrderSort = viewModel.FormData.OrderSort;
             user.Department = _departmentRepository.Find(viewModel.FormData.DepartmentId.Value);
         }
+        #endregion
 
+        #region InitializeUserListModel
         public UserListModel InitializeUserListModel(UserQueryItem userQueryItem)
         {
             var model = new UserListModel();
             model.Users = _userRepository.Query(userQueryItem);
+            model.UserSearchModel.UserQueryItem = userQueryItem;
             return model;
         }
+        #endregion
+
+        #region 实始化选择视图InitializeSelectUserByDepartmentsModel
+        public UserListModel InitializeSelectUserByDepartmentsModel(UserQueryItem queryItem)
+        {
+            var model = new UserListModel();
+            var users = _userRepository.Query(queryItem);
+            model.Users = users;
+            model.UserSearchModel.UserQueryItem = queryItem;
+            return model;
+        }
+        #endregion
+
+        #region select users response  4 ajax
+        public SelectedUsersResponse InitializeSelectedUsersResponse(SelectedUsersModel selectedUsersModel)
+        {
+            var model = new SelectedUsersResponse();
+            var queryItem = new UserQueryItem();
+            if (selectedUsersModel.CheckedAllPage)
+            {
+                queryItem.DepartmentLikeId = selectedUsersModel.Where.DepartmentLikeId;
+                queryItem.Name = selectedUsersModel.Where.Name;
+            }
+            else
+            {
+                queryItem.Ids = selectedUsersModel.Ids;
+            }
+            queryItem.UnitId = selectedUsersModel.UnitId;
+            _userRepository.Query(queryItem).ToList().ForEach(user =>
+                model.UserViewModels.Add(new UserViewModel() { Id = user.Id, Name = user.Name }));
+            return model;
+        }
+        #endregion
     }
 }

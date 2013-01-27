@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -127,7 +127,7 @@
 				data: data
 			});
 		}
-		function remove(){
+		function removeNode(){
 			var node = $('#test').treegrid('getSelected');
 			if (node){
 				$('#test').treegrid('remove', node.code);
@@ -158,7 +158,7 @@
 	
 	<div id="mm" class="easyui-menu" style="width:120px;">
 		<div onclick="append()">Append</div>
-		<div onclick="remove()">Remove</div>
+		<div onclick="removeNode()">Remove</div>
 	</div>
 </body>
 </html>

@@ -46,7 +46,7 @@
         </div>
         <div class="menu-sep">
         </div>
-        <div onclick="remove()" data-options="iconCls:'icon-remove'">
+        <div onclick="removeNode()" data-options="iconCls:'icon-remove'">
             移除节点
         </div>
     </div>
@@ -405,7 +405,7 @@
             $("#FormData_OrderSort").val(row.orderSort);
         }
     }
-    function remove() {
+    function removeNode() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("Delete", "Nodes")', { "id": node.id }, function (data) {

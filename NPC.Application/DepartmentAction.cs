@@ -15,7 +15,7 @@ namespace NPC.Application
         {
             _departmentRepository = new DepartmentRepository();
         }
-        #region 获取树对象 
+        #region 获取树对象
         public DepartmentTreeModel InitializeDepartmentTreeModel(Guid? id)
         {
             var model = new DepartmentTreeModel();
@@ -39,20 +39,22 @@ namespace NPC.Application
             {
                 if (isNeedSub)
                 {
-    
+
                     childrens.ForEach(o => model.Childrens.Add(ConvertDepartmentToModel(o, true)));
                 }
                 model.IconCls = ApplicationConst.TreeParentNode;
                 model.State = isNeedSub ? "open" : "closed";
             }
-         
+
             return model;
         }
         #endregion
 
         public void DeleteDepartment(Guid id)
         {
-            throw new NotImplementedException();
+            var department = _departmentRepository.Find(id);
+            department.RecordDescription.Delete();
+            _departmentRepository.Save(department);
         }
 
         public void CreateNewDepartment(EditDepartmentModel model)
@@ -60,9 +62,20 @@ namespace NPC.Application
             var department = new Department();
             department.Name = model.FormData.Name;
             department.Unit = NpcContext.CurrentUser.Unit;
-            if (model.Id.HasValue)
-                department.Parent = _departmentRepository.Find(model.Id.Value);
+            if (model.ParentId.HasValue)
+                department.Parent = _departmentRepository.Find(model.ParentId.Value);
             department.RecordDescription.CreateBy(NpcContext.CurrentUser);
+            _departmentRepository.Save(department);
+        }
+
+        public void UpdateDepartment(EditDepartmentModel model)
+        {
+            if (!model.Id.HasValue)
+                throw new ArgumentException("model.id不能为null");
+            var department = _departmentRepository.Find(model.Id.Value);
+            department.Name = model.FormData.Name;
+            department.Unit = NpcContext.CurrentUser.Unit;
+            department.RecordDescription.UpdateBy(NpcContext.CurrentUser);
             _departmentRepository.Save(department);
         }
     }

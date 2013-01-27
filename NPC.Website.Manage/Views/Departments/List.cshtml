@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "机构管理";
+    ViewBag.Title = "分组管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -16,7 +16,7 @@
 </div>
 <div class="contentContainer contentleftBorder">
     <div class="hasTooler">
-         <ul>
+        <ul>
             @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新节点", "newNode", "icon_3.gif", true))
             @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加根节点", "newTopNode", "icon_3.gif", false))
         </ul>
@@ -34,18 +34,23 @@
         </div>
     </div>
 </div>
-<div id="mm" class="easyui-menu" style="width: 120px;">
-    <div onclick="append()" data-options="iconCls:'icon-add'">
-        添加新机构
-    </div>
-    <div class="menu-sep">
-    </div>
-    <div onclick="remove()" data-options="iconCls:'icon-remove'">
-        移除机构
-    </div>
-</div>
 <div id="wins" style="display: none;">
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 500px; height: 120px;
+    <div id="mm" class="easyui-menu" style="width: 120px;">
+        <div onclick="append()" data-options="iconCls:'icon-add'">
+            添加新分组
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="edit()" data-options="iconCls:'icon-add'">
+            编辑分组
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div onclick="removeNode()" data-options="iconCls:'icon-remove'">
+            移除分组
+        </div>
+    </div>
+    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 500px; height: 150px;
         background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditUnit", "Units")" method="post">
@@ -53,11 +58,12 @@
                 <table>
                     <tr>
                         <th width="120px;">
-                            机构名称：
+                            分组名称：
                         </th>
                         <td>
                             <input id="FormData_Name" name="FormData.Name" type="text" />
                             <input id="Id" name="Id" type="hidden" />
+                            <input id="ParentId" name="ParentId" type="hidden" />
                         </td>
                     </tr>
                 </table>
@@ -83,10 +89,10 @@
             fit: false,
             border: 0,
             fitColumns: true,
-            title: "&nbsp;组织机构列表",
+            title: "&nbsp;分组列表",
             columns: [[
-            { field: 'id', hidden: true },
-            { field: 'text', title: '机构名称', width: 90, align: 'left' }
+            { field: 'text', title: '分组名称', width: 90, align: 'left' },
+            { field: 'id', title: '分组Id', width: 90, align: 'left' }
         ]],
             onLoadSuccess: function () {
             },
@@ -100,12 +106,10 @@
             $("#newWin").window("close");
         });
         $("#newTopNode").click(function () {
-            $("#Id").val();
-            $('#newWin').window('open');
-            $("#newForm")[0].reset();
+            append(true);
         });
         $("#newNode").click(function () {
-            append();
+            append(false);
         });
     });
     function onContextMenu(e, row) {
@@ -116,14 +120,24 @@
             top: e.pageY
         });
     }
-    function append() {
+    function append(isTop) {
         var node = $('#treegrid').treegrid('getSelected');
-        if (node != null) {
-            $("#Id").val(node.id);
+        if (node != null && !isTop) {
+            $("#ParentId").val(node.id);
         }
         $('#newWin').window('open');
+        $("#newForm")[0].reset();
     }
-    function remove() {
+    function edit() {
+        var row = $("#treegrid").treegrid("getSelected");
+        if (row != null) {
+            $('#newWin').window('open');
+            $("#newForm")[0].reset();
+            $("#Id").val(row.id);
+            $("#FormData_Name").val(row.text);
+        }
+    }
+    function removeNode() {
         var node = $('#treegrid').treegrid('getSelected');
         if (node) {
             $.post('@Url.Action("DeleteDepartment", "Departments")', { "id": node.id }, function (data) {
@@ -146,6 +160,8 @@
         }
     });
     $("#newForm").submit(function () {
+        if (!$("#newForm").valid())
+            return false;
         $.post('@Url.Action("EditDepartment", "Departments")', utility.formSerialize($("#newForm")), function (data) {
             data = evalJson(data);
             if (data.status == "success") {

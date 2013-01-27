@@ -48,8 +48,8 @@ namespace NPC.Domain.Repository
             }
             if (!string.IsNullOrEmpty(queryItem.Mobile))
             {
-                stringBuilder.Append("And pbr.Mobile =:Mobile ");
-                parameters.Add("Mobile", queryItem.Mobile);
+                stringBuilder.Append("And pbr.Mobile like :Mobile ");
+                parameters.Add("Mobile", "%" + queryItem.Mobile + "%");
             }
             if (queryItem.PhoneBookId.HasValue)
             {

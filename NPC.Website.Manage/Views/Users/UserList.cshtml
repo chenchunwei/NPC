@@ -2,6 +2,7 @@
     ViewBag.Title = "用户管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using System.ComponentModel
 @model  NPC.Application.ManageModels.Users.UserListModel
 <div class="workgroundin">
     <ul class="head_content">
@@ -16,11 +17,11 @@
         <div class="pic">
             <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
         <div class="font">
-            通讯录：</div>
+            所属部门：</div>
         <div class="s1">
         </div>
         <div class="i1">
-            @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new[] { new SelectListItem() { Text = "选择部门", Value = "" } }, new { style = "width:200px;" })
+               @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -136,8 +137,11 @@
         delIds.push(id);
         controller.del(urlOfDel, delIds);
     }
-   
+
     $(function () {
+        $("#UserSearchModel_UserQueryItem_DepartmentLikeId").combotree({ url: '@Url.Action("GetDepartments", "Departments")', cascadeCheck: false });
+        $('#UserSearchModel_UserQueryItem_DepartmentLikeId').combotree('setValue', '@(Model.UserSearchModel.UserQueryItem.DepartmentLikeId.HasValue ? Model.UserSearchModel.UserQueryItem.DepartmentLikeId.Value : default(Guid?))');
+        $('#UserSearchModel_UserQueryItem_DepartmentLikeId').next().children().first().css("padding", "0px");
         $("#chkAllBtn").click(function () {
             controller.batchOfChk("input[name=ids]", 1);
         });

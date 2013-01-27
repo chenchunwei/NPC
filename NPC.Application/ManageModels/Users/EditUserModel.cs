@@ -27,5 +27,6 @@ namespace NPC.Application.ManageModels.Users
         public string QQ { get; set; }
         public string Pwd { get; set; }
         public string RePwd { get; set; }
+        public int OrderSort { get; set; }
     }
 }

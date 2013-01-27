@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "用户管理";
+    Layout = null;
+}
+@using System.ComponentModel
+@model  NPC.Application.ManageModels.Users.UserListModel
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>人大管理系统后台</title>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/reset.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/style.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Content/CSS/showpage.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/default/easyui.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-easyui-1.3.1/themes/icon.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.0.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/showpage.src.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-easyui-1.3.1/jquery.easyui.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-loadmask/jquery.loadmask.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <link type="text/css" href="@Url.Content("~/Content/CSS/customIcon.css")" rel="stylesheet" />
+    <link type="text/css" href="@Url.Content("~/Scripts/jquery-loadmask/jquery.loadmask.css")" rel="stylesheet" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/utility.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easyui.extension.js")"></script>
+</head>
+<body>
+    <table id="treegrid">
+        <form action="" method="GET" id="searchForm" style="margin: 0">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                所属分组：</div>
+            <div class="s1">
+            </div>
+            <div class="i1">
+                @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new BindingList<SelectListItem>(), new { style = "width:220px;" })
+            </div>
+            <div class="font">
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            </div>
+            <div class="s1">
+                <select>
+                    <option>姓名</option>
+                </select></div>
+            <div class="i1">
+                @Html.TextBoxFor(o => o.UserSearchModel.UserQueryItem.Name, new { style = "width:150px;" })
+            </div>
+            <div class="font">
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            </div>
+             
+            @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
+        </div>
+        </form>
+        <div class="topline" style="margin: 0">
+            <div class="span_1">
+                <input type="checkbox" id="topChk" /></div>
+            <div class="span_2">
+                操作</div>
+            <div class="span_5">
+                帐号</div>
+            <div class="span_5">
+                姓名</div>
+            <div class="span_3">
+                分组</div>
+            <div class="span_4">
+            </div>
+            <div class="span_4">
+            </div>
+            <div class="span_4">
+            </div>
+        </div>
+        <div class="row" style="margin-right: 0">
+            @if (!Model.Users.Any())
+            {
+                <div class="noRowline">
+                    未找到符合条件的相关记录信息！
+                </div>
+            }
+            @foreach (var row in Model.Users)
+            {
+                <div class="rowline">
+                    <div class="span_1">
+                        <input type="checkbox" name="ids" value="@row.Id" />
+                        <input type="hidden" name="checkedAllPage" id="checkedAllPage" value="0" />
+                    </div>
+                    <div class="span_2">
+                        <a href="javascript:;" onclick="editRecord('@row.Id')">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                            删除</a></div>
+                    <div class="span_5">
+                        @row.Account
+                    </div>
+                    <div class="span_5">
+                        @row.Name
+                    </div>
+                    <div class="span_3" style="text-align: center">
+                        @(row.Department != null ? row.Department.Name : string.Empty)
+                    </div>
+                    <div class="span_4">
+                    </div>
+                    <div class="span_4">
+                    </div>
+                    <div class="span_4">
+                    </div>
+                </div> 
+            }
+            <div class="footBar">
+                <div class="fb_content">
+                    <ul class="fb_button">
+                        @Html.Partial("_LiButton", new Tuple<string, string>("全选", "chkAllBtn"))
+                        @Html.Partial("_LiButton", new Tuple<string, string>("取消", "unChkAllBtn"))
+                        @Html.Partial("_LiButton", new Tuple<string, string>("反选", "invertBtn"))
+                        @Html.Partial("_LiButton", new Tuple<string, string>("全择所有页", "chkAllPageBtn"))
+                    </ul>
+                    <div class="fb_page">
+                        <script type="text/javascript">
+                        var pg = new showPages('pg');
+                        pg.argName = 'p';  //定义参数名(可选,缺省为page)
+                        pg.newPage = @Model.UserSearchModel.UserQueryItem.Pagination.PageIndex;
+                        pg.count =  @Model.UserSearchModel.UserQueryItem.Pagination.TotalRecordsCount;
+                        pg.pageCount = @Model.UserSearchModel.UserQueryItem.Pagination.TotalPage;
+                        pg.printHtml(1);    //显示
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </table>
+</body>
+<script type="text/javascript">
+    var urlOfDel = '@Url.Action("Delete", "PhoneBooks")';
+    function singleDel(id) {
+        var delIds = [];
+        delIds.push(id);
+        controller.del(urlOfDel, delIds);
+    }
+
+    $(function () {
+        $("#UserSearchModel_UserQueryItem_DepartmentLikeId").combotree({ url: '@Url.Action("GetDepartments", "Departments")', cascadeCheck: false });
+        $('#UserSearchModel_UserQueryItem_DepartmentLikeId').combotree('setValue', '@(Model.UserSearchModel.UserQueryItem.DepartmentLikeId.HasValue ? Model.UserSearchModel.UserQueryItem.DepartmentLikeId.Value : default(Guid?))');
+        $('#UserSearchModel_UserQueryItem_DepartmentLikeId').next().children().first().css("padding", "0px");
+        $("#chkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids],#topChk", 1);
+            $("#checkedAllPage").val("0");
+        });
+        $("#chkAllPageBtn").click(function () {
+            controller.batchOfChk("input[name=ids],#topChk", 1);
+            $("#checkedAllPage").val("1");
+        });
+        $("#unChkAllBtn").click(function () {
+            controller.batchOfChk("input[name=ids],#topChk", 0);
+            $("#checkedAllPage").val("0");
+        });
+        $("#invertBtn").click(function () {
+            controller.batchOfChk("input[name=ids]", 2);
+            $("#checkedAllPage").val("0");
+        });
+        $("#topChk").click(function () {
+            var result = $(this).attr("checked") ? 1 : 0;
+            controller.batchOfChk("input[name=ids]", result);
+            $("#checkedAllPage").val("0");
+        });
+
+        $("#batchDelBtn").click(function () {
+            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+        });
+        $("#searchBtn").click(function () {
+            $("#searchForm").submit();
+        });
+    });
+    var pageApi = {};
+    pageApi.selectedValues = function () {
+        var returnOptions = { ids: [], checkedAllPage: false, whereOptions: {} };
+        if ($("#checkedAllPage").val() == "1") {
+            returnOptions.checkedAllPage = true;
+            returnOptions.whereOptions.departmentLikeId = $("#UserSearchModel_UserQueryItem_DepartmentLikeId").val();
+            returnOptions.whereOptions.name = $("#UserSearchModel_UserQueryItem_Name").val();
+            return returnOptions;
+        }
+        $.each($("input[name=ids]:checked"), function (i, o) {
+            returnOptions.ids.push($(o).val());
+        });
+        return returnOptions;
+    };
+    //{ids:['',''],type:}  //type:0无，type=1 全选 type=2 全部页
+    pageApi.setValues = function (options) {
+        if (options.ids != null && options.ids.length > 0) {
+
+        }
+    };
+</script>
+</html>
