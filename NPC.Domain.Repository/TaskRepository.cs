@@ -10,5 +10,10 @@ namespace NPC.Domain.Repository
     public class TaskRepository : AbstractNhibernateRepository<Guid, Task>
     {
         private readonly NestSqlBuilder _nestSqlBuilder = new NestSqlBuilder();
+
+        public IList<Task> Query(TaskQueryItem queryItem)
+        {
+            return null;
+        }
     }
 }

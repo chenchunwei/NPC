@@ -91,7 +91,6 @@ namespace NPC.FlowEngine
                 else
                 {
                     var newInstance = DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
-
                 }
 
                 trans.Commit();

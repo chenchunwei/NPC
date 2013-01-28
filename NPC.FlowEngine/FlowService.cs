@@ -91,5 +91,10 @@ namespace NPC.FlowEngine
                 throw;
             }
         }
+
+        public IList<Task> GetTasks(Guid userId, string flowTypeName, int pageIndex = 0, int pageSize = 0)
+        {
+            return null;
+        }
     }
 }

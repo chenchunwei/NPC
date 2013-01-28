@@ -11,7 +11,7 @@ namespace NPC.Domian.Repositories.Tests
     public class FlowServiceTests
     {
         protected FlowService FlowService { get; set; }
-        protected FlowEngine.FlowEngineService FlowEngineService { get; set; }
+        protected FlowEngineService FlowEngineService { get; set; }
 
         public FlowServiceTests()
         {

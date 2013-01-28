@@ -73,7 +73,8 @@ namespace NPC.Application
                 users.ToList().ForEach(o => proposal.ProposalOriginators.Add(o));
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
-                _flowService.CreateFlowWithAssignId(proposal.Id, "Proposal", user,
+                args.Add("Auditor", user.Id.ToString());
+                _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
                 trans.Commit();

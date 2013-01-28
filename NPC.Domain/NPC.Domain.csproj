@@ -46,6 +46,7 @@
     <Compile Include="Models\Articles\Article.cs" />
     <Compile Include="Models\Articles\ArticleQueryItem.cs" />
     <Compile Include="Models\ClientNodeInstances\FlowNodeInstance.cs" />
+    <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceQueryItem.cs" />
     <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceUserState.cs" />
     <Compile Include="Models\ClientNodeInstances\ExecuteStatus.cs" />
     <Compile Include="Models\ClientNodeInstances\InstanceStatus.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Models\Flows\Flow.cs" />
     <Compile Include="Models\Flows\FlowDataField.cs" />
     <Compile Include="Models\Flows\FlowHistory.cs" />
+    <Compile Include="Models\Flows\FlowQueryItem.cs" />
     <Compile Include="Models\Flows\FlowStatus.cs" />
     <Compile Include="Models\FlowTypes\FlowNode.cs" />
     <Compile Include="Models\FlowTypes\FlowNodeAction.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Models\QueryItemBase.cs" />
     <Compile Include="Models\Tasks\Task.cs" />
     <Compile Include="Models\Tasks\TaskConst.cs" />
+    <Compile Include="Models\Tasks\TaskQueryItem.cs" />
     <Compile Include="Models\Tasks\TaskStatus.cs" />
     <Compile Include="Models\Tasks\TaskUserState.cs" />
     <Compile Include="Models\Units\Unit.cs" />
