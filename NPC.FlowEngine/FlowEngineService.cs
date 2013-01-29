@@ -150,7 +150,6 @@ namespace NPC.FlowEngine
             {
                 var user = _userRepository.Find(o);
                 task.TaskUserStates.Add(new TaskUserState { User = user });
-
             });
             task.Title = flowNodeInstance.BelongsFlow.Title;
             task.Description = flowNodeInstance.BelongsFlow.Title;

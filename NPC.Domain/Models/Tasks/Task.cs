@@ -52,7 +52,6 @@ namespace NPC.Domain.Models.Tasks
         /// 与任务关联的外部对象id
         /// </summary>
         public virtual Guid? OuterId { get; set; }
-
         /// <summary>
         /// 记录创建及修改的基本信息
         /// </summary>
@@ -63,6 +62,6 @@ namespace NPC.Domain.Models.Tasks
             var state = TaskUserStates.Single(o => o.Id == user.Id);
             state.RecordDescription.UpdateBy(user);
             state.TaskStatus = taskStatus;
-         }
+        }
     }
 }

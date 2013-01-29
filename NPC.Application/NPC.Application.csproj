@@ -114,6 +114,7 @@
     <Compile Include="ManageModels\Proposals\SponsorAuditAction.cs" />
     <Compile Include="ManageModels\Proposals\SponsorAuditModel.cs" />
     <Compile Include="ManageModels\RedirectMessageModel.cs" />
+    <Compile Include="ManageModels\Tasks\MyTasksModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
