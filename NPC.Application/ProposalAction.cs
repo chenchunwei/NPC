@@ -17,13 +17,16 @@ namespace NPC.Application
         private readonly ProposalRepository _proposalRepository;
         private readonly UserRepository _userRepository;
         private readonly FlowService _flowService;
+        private readonly FlowRepository _flowRepository;
         public ProposalAction()
         {
             _flowService = new FlowService();
             _userRepository = new UserRepository();
             _proposalRepository = new ProposalRepository();
+            _flowRepository = new FlowRepository();
         }
 
+        #region 初始化发起视图InitializeEditProposalModel
         public EditProposalModel InitializeEditProposalModel(Guid? id)
         {
             var model = new EditProposalModel();
@@ -31,7 +34,9 @@ namespace NPC.Application
             model.CurrentUser = NpcContext.CurrentUser;
             return model;
         }
+        #endregion
 
+        #region 更新议案
         public void Update(EditProposalModel model, Guid id)
         {
             var trans = TransactionManager.BeginTransaction();
@@ -55,7 +60,9 @@ namespace NPC.Application
                 throw;
             }
         }
+        #endregion
 
+        #region 创建新议案
         public void Create(EditProposalModel model)
         {
             var trans = TransactionManager.BeginTransaction();
@@ -85,5 +92,28 @@ namespace NPC.Application
                 throw;
             }
         }
+        #endregion
+
+        #region InitializeProposalListModel
+        public ProposalListModel InitializeProposalListModel(ProposalQueryItem proposalQueryItem)
+        {
+            var model = new ProposalListModel();
+            model.Proposals = _proposalRepository.Query(proposalQueryItem);
+            model.ProposalSearchModel.ProposalQueryItem = proposalQueryItem;
+            model.ProposalSearchModel.ProposalStatusesOptions = Helper.GetProposalStatusOptions();
+            return model;
+        }
+        #endregion
+
+        #region InitializeRequestViewModel
+        public RequestViewModel InitializeRequestViewModel(Guid id)
+        {
+            var model = new RequestViewModel();
+            model.Flow = _flowRepository.Find(id);
+            model.Proposal = _proposalRepository.Find(id);
+            model.Id = id;
+            return model;
+        }
+        #endregion
     }
 }

@@ -17,5 +17,17 @@ namespace NPC.Application.Common
               {"2","群众意见"}
             };
         }
+
+        public static Dictionary<string, string> GetProposalStatusOptions()
+        {
+            return new Dictionary<string, string>()
+            {
+              {"1","人大常委会审核中"},
+              {"2","市政办处理中"},
+              {"4","主办单位处理中"},
+              {"8","代表满意度回馈"},
+              {"16","完成"}
+            };
+        }
     }
 }

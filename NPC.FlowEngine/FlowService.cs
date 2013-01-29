@@ -45,7 +45,7 @@ namespace NPC.FlowEngine
                 var history = new FlowHistory()
                 {
                     Comment = comment,
-                    Operator = originator.Name,
+                    Operator = "提交流程",
                     Stage = "发起流程"
                 };
                 history.RecordDescription.CreateBy(originator);

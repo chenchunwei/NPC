@@ -3,11 +3,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using Fluent.Infrastructure.Utilities
-@model NPC.Application.ManageModels.PhoneBooks.PhoneBookListModel
+@model NPC.Application.ManageModels.Proposals.ProposalListModel
 <div class="workgroundin">
     <ul class="head_content">
-        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("新增电话簿", "newPhoneBookBtn", "icon_3.gif", true))
-        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("发起新议案", "newProposalBtn", "icon_3.gif", true))
     </ul>
 </div>
 <form action="" method="GET" id="searchForm">
@@ -31,8 +30,10 @@
             <input type="checkbox" id="topChk" /></div>
         <div class="span_2">
             操作</div>
-        <div class="span_3">
-            电话簿名称</div>
+        <div class="span_3" style="width: 510px;">
+            标题</div>
+        <div class="span_2">
+            状态</div>
         <div class="span_2">
             创建人</div>
         <div class="span_2">
@@ -45,13 +46,13 @@
         </div>
     </div>
     <div class="row">
-        @if (!Model.PhoneBooks.Any())
+        @if (!Model.Proposals.Any())
         {
             <div class="noRowline">
                 未找到符合条件的相关记录信息！
             </div>
         }
-        @foreach (var row in Model.PhoneBooks)
+        @foreach (var row in Model.Proposals)
         {
             <div class="rowline">
                 <div class="span_1">
@@ -59,10 +60,14 @@
                 <div class="span_2">
                     <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
-                <div class="span_3">
-                    @row.Name</div>
+                <div class="span_3" style="width: 500px;">
+                    @Html.ActionLink(row.Title, "RequestView", new { @id = row.Id }, new { target = "_blank" })
+                </div>
                 <div class="span_2">
-                    @(row.RecordDescription.UserOfCreate.Name)</div>
+                    @EnumHelper.GetDescription(row.ProposalStatus)
+                </div>
+                <div class="span_2">
+                    @(row.RecordDescription.UserOfCreate != null ? row.RecordDescription.UserOfCreate.Name : string.Empty)</div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">

@@ -201,6 +201,7 @@
     <Content Include="Content\Images\fbb_right.jpg" />
     <Content Include="Content\Images\fb_left.jpg" />
     <Content Include="Content\Images\fb_right.jpg" />
+    <Content Include="Content\Images\flag-16-16-red.gif" />
     <Content Include="Content\Images\footer_bj.gif" />
     <Content Include="Content\Images\footer_left.jpg" />
     <Content Include="Content\Images\footer_right.jpg" />
@@ -222,6 +223,7 @@
     <Content Include="Content\Images\headc_bj.jpg" />
     <Content Include="Content\Images\headc_right.jpg" />
     <Content Include="Content\Images\header_bj.gif" />
+    <Content Include="Content\Images\hook-12-12-green.gif" />
     <Content Include="Content\Images\icon_1.jpg" />
     <Content Include="Content\Images\icon_10.gif" />
     <Content Include="Content\Images\icon_11.gif" />
@@ -1288,6 +1290,8 @@
     <Content Include="Views\Proposals\SponsorAudit.cshtml" />
     <Content Include="Views\Users\SelectUserByDepartments.cshtml" />
     <Content Include="Views\Proposals\NpcAssessment.cshtml" />
+    <Content Include="Views\Proposals\RequestView.cshtml" />
+    <Content Include="Views\Shared\_FlowHistory.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

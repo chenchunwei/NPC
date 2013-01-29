@@ -20,6 +20,7 @@ namespace NPC.Domain.Models.Proposals
         public virtual string Title { get; set; }
         public virtual string Content { get; set; }
         public virtual ProposalType ProposalType { get; set; }
+        public virtual ProposalStatus ProposalStatus { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         /// <summary>
         /// 附议人

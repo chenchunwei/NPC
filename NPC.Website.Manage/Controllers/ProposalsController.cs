@@ -36,9 +36,18 @@ namespace NPC.Website.Manage.Controllers
             }
             return RedirectToMessage("议案提交成功!");
         }
-        public ActionResult List()
+        public ActionResult List(ProposalSearchModel searchModel)
         {
-            return View();
+            searchModel.ProposalQueryItem.Pagination.PageIndex = PageIndex;
+            var model = _proposalAction.InitializeProposalListModel(searchModel.ProposalQueryItem);
+            return View(model);
         }
+
+        public ActionResult RequestView(Guid id)
+        {
+            var model = _proposalAction.InitializeRequestViewModel(id);
+            return View(model);
+        }
+
     }
 }

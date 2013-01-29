@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.Flows
             Map(o => o.Title);
             Map(o => o.FlowStatus).CustomType<FlowStatus>();
             References(o => o.FlowType).Column("FlowTypeId");
+            HasMany(o => o.FlowNodeInstances).KeyColumn("BelongsFlowId");
             References(o => o.UserOfFlowAdmin).Column("UserIdOfFlowAdmin");
             Component(o => o.RecordDescription);
             HasMany(o => o.FlowDataFields).KeyColumn("FlowId").Cascade.All();

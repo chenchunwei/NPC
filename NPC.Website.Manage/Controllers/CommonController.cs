@@ -245,8 +245,6 @@ namespace NPC.Website.Manage.Controllers
             return attachDir;
         }
         #endregion
-
-       
     }
 
     public class Thumbnail
@@ -259,5 +257,4 @@ namespace NPC.Website.Manage.Controllers
         public string Id { get; set; }
         public byte[] Data { get; set; }
     }
-
 }

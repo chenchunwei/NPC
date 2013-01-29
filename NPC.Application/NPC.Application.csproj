@@ -102,6 +102,17 @@
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordListModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordSearchModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />
+    <Compile Include="ManageModels\Proposals\GovOfficeAuditAction.cs" />
+    <Compile Include="ManageModels\Proposals\GovOfficeAuditModel.cs" />
+    <Compile Include="ManageModels\Proposals\NpcAssessmentAction.cs" />
+    <Compile Include="ManageModels\Proposals\NpcAssessmentModel.cs" />
+    <Compile Include="ManageModels\Proposals\ProposalListModel.cs" />
+    <Compile Include="ManageModels\Proposals\ProposalSearchModel.cs" />
+    <Compile Include="ManageModels\Proposals\RequestViewModel.cs" />
+    <Compile Include="ManageModels\Proposals\ScNpcAuditAction.cs" />
+    <Compile Include="ManageModels\Proposals\ScNpcAuditModel.cs" />
+    <Compile Include="ManageModels\Proposals\SponsorAuditAction.cs" />
+    <Compile Include="ManageModels\Proposals\SponsorAuditModel.cs" />
     <Compile Include="ManageModels\RedirectMessageModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />

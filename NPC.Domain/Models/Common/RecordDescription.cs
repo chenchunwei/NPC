@@ -24,7 +24,8 @@ namespace NPC.Domain.Models.Common
         }
         public virtual void CreateBy(User operatorUser)
         {
-            UserOfLasetestModify = operatorUser;
+            DateOfCreate = DateTime.Now;
+            UserOfCreate = operatorUser;
         }
         public virtual void Delete()
         {
