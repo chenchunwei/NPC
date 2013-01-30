@@ -7,16 +7,17 @@ using NPC.Domain.Models.FlowNodeInstances;
 
 namespace NPC.Domain.Model.Mappings.FlowNodeInstances
 {
-    public class FlowNodeInstanceUserStateMap : ClassMap<FlowNodeInstanceUserState>
+    public class FlowNodeInstanceTaskMap : ClassMap<FlowNodeInstanceTask>
     {
-        public FlowNodeInstanceUserStateMap()
+        public FlowNodeInstanceTaskMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.ExecuteStatus).CustomType<ExecuteStatus>();
             References(o => o.User).Column("UserId");
             References(o => o.FlowNodeAction).Column("FlowNodeActionId");
             Component(o => o.RecordDescription);
-            Table("FlowNodeInstanceUserStates");
+            References(o => o.FlowNodeInstance).Column("FlowNodeInstanceId");
+            Table("FlowNodeInstanceTasks");
         }
     }
 }

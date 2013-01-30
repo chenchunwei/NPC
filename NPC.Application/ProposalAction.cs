@@ -18,12 +18,14 @@ namespace NPC.Application
         private readonly UserRepository _userRepository;
         private readonly FlowService _flowService;
         private readonly FlowRepository _flowRepository;
+        private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
         public ProposalAction()
         {
             _flowService = new FlowService();
             _userRepository = new UserRepository();
             _proposalRepository = new ProposalRepository();
             _flowRepository = new FlowRepository();
+            _flowNodeInstanceRepository=new FlowNodeInstanceRepository();
         }
 
         #region 初始化发起视图InitializeEditProposalModel
@@ -115,5 +117,33 @@ namespace NPC.Application
             return model;
         }
         #endregion
+
+        public ScNpcAuditModel InitializeScNpcAuditModel(Guid taskId)
+        {
+            var model = new ScNpcAuditModel();
+            model.Flow = _flowNodeInstanceRepository.Find(taskId).BelongsFlow;
+            model.Proposal = _proposalRepository.Find(model.Flow.Id);
+            model.TaskId = taskId;
+            return model;
+        }
+
+        public void ScNpcAudit(ScNpcAuditModel scNpcAuditModel)
+        {
+            var trans = TransactionManager.BeginTransaction();
+            try
+            {
+                var args = new Dictionary<string, string>();
+                args.Add("Auditor", NpcContext.CurrentUser.Id.ToString());
+                _flowService.ExecuteTask(scNpcAuditModel.TaskId,
+                  EnumHelper.GetDescription(scNpcAuditModel.Action),
+                  NpcContext.CurrentUser, args, scNpcAuditModel.Comment);
+                trans.Commit();
+            }
+            catch (Exception exception)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
     }
 }

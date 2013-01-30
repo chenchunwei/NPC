@@ -21,7 +21,7 @@ namespace NPC.Domain.Model.Mappings.FlowNodeInstances
             References(o => o.FlowNodeAction).Column("FlowNodeActionId");
             Map(o => o.TimeOfFinished);
             Map(o => o.InstanceStatus).CustomType<InstanceStatus>();
-            HasMany(o => o.FlowNodeInstanceUserStates).KeyColumn("FlowNodeInstanceId").Cascade.All();
+            HasMany(o => o.FlowNodeInstanceTasks).KeyColumn("FlowNodeInstanceId").Cascade.All();
             Component(o => o.RecordDescription);
             Table("FlowNodeInstances");
         }

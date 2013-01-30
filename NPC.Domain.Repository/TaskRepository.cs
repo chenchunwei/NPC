@@ -18,8 +18,8 @@ namespace NPC.Domain.Repository
             var queryReturns = FormatQuery(queryItem);
             var tempString = queryReturns.Item1;
             var parameters = queryReturns.Item2;
-            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct u.*", ""), "Order by DateOfCreate desc"));
-            var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct u.Id)", ""));
+            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct t.*", ""), "Order by DateOfCreate desc"));
+            var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct t.Id)", ""));
 
             SetParameters(query, parameters);
             SetParameters(queryTotalCount, parameters);

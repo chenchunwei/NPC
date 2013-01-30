@@ -15,6 +15,8 @@ namespace NPC.Website.Manage.Controllers
         {
             _proposalAction = new ProposalAction();
         }
+
+        #region 发起议案
         public ActionResult EditProposal(Guid? id)
         {
             var model = _proposalAction.InitializeEditProposalModel(id);
@@ -36,18 +38,44 @@ namespace NPC.Website.Manage.Controllers
             }
             return RedirectToMessage("议案提交成功!");
         }
+        #endregion
+
+        #region 议案列表
         public ActionResult List(ProposalSearchModel searchModel)
         {
             searchModel.ProposalQueryItem.Pagination.PageIndex = PageIndex;
             var model = _proposalAction.InitializeProposalListModel(searchModel.ProposalQueryItem);
             return View(model);
         }
+        #endregion
 
+        #region RequestView
         public ActionResult RequestView(Guid id)
         {
             var model = _proposalAction.InitializeRequestViewModel(id);
             return View(model);
         }
+        #endregion
 
+        #region ScNpcAudit
+        public ActionResult ScNpcAudit(Guid taskId)
+        {
+            var model = _proposalAction.InitializeScNpcAuditModel(taskId);
+            return View(model);
+        }
+        [HttpPost, ActionName("ScNpcAudit")]
+        public ActionResult ScNpcAuditPost(ScNpcAuditModel scNpcAuditModel)
+        {
+            try
+            {
+                _proposalAction.ScNpcAudit(scNpcAuditModel);
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
+            }
+            return RedirectToMessage("恭喜,处理完成!");
+        }
+        #endregion
     }
 }

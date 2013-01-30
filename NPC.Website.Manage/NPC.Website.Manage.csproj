@@ -96,6 +96,7 @@
     <Compile Include="Controllers\PhoneBooksController.cs" />
     <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">

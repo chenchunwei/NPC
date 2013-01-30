@@ -11,7 +11,9 @@ namespace NPC.Application.ManageModels.Tasks
         public MyTasksModel()
         {
             Tasks = new List<Task>();
+            TaskQueryItem=new TaskQueryItem();
         }
         public IList<Task> Tasks { get; set; }
+        public TaskQueryItem TaskQueryItem { get; set; }
     }
 }

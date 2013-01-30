@@ -134,7 +134,7 @@ namespace NPC.FlowEngine
             {
                 var user = _userRepository.Find(o);
 
-                newFlowInstance.FlowNodeInstanceUserStates.Add(new FlowNodeInstanceUserState() { User = user });
+                newFlowInstance.FlowNodeInstanceTasks.Add(new FlowNodeInstanceTask() { User = user });
             });
             _flowNodeInstanceRepository.Save(newFlowInstance);
             CreateTask(newFlowInstance);

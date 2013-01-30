@@ -16,13 +16,11 @@ namespace NPC.FlowEngine
         private readonly FlowRepository _flowRepository;
         private readonly FlowTypeRepository _flowTypeRepository;
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
-        private readonly TaskRepository _taskRepository;
         public FlowService()
         {
             _flowRepository = new FlowRepository();
             _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _flowTypeRepository = new FlowTypeRepository();
-            _taskRepository = new TaskRepository();
         }
 
         public void CreateFlowWithAssignId(Guid flowId, string flowName, User originator, string title, Dictionary<string, string> args = null, string comment = null)
@@ -64,13 +62,9 @@ namespace NPC.FlowEngine
             var trans = TransactionManager.BeginTransaction();
             try
             {
-                var task = _taskRepository.Find(taskId);
-                if (task.GroupName != TaskConst.FlowTaskGroup)
-                    throw new ApplicationException("该任务非流程任务");
-                var flowNodeInstance = _flowNodeInstanceRepository.Find(Guid.Parse(task.Body));
+                var flowNodeInstance = _flowNodeInstanceRepository.Find(taskId);
                 flowNodeInstance.Execute(actionName, executor);
                 flowNodeInstance.BelongsFlow.WriteDataFields(args);
-                task.Done(executor, TaskStatus.Finished);
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
                 var flow = flowNodeInstance.BelongsFlow;
                 var history = new FlowHistory()
@@ -82,7 +76,6 @@ namespace NPC.FlowEngine
                 history.RecordDescription.CreateBy(executor);
                 flow.FlowHistories.Add(history);
                 _flowRepository.Save(flow);
-                _taskRepository.Save(task);
                 trans.Commit();
             }
             catch (Exception)

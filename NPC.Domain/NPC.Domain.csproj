@@ -45,9 +45,10 @@
     <Compile Include="Models\ArticleCategories\ArticleCategory.cs" />
     <Compile Include="Models\Articles\Article.cs" />
     <Compile Include="Models\Articles\ArticleQueryItem.cs" />
+    <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceTaslQueryItem.cs" />
     <Compile Include="Models\ClientNodeInstances\FlowNodeInstance.cs" />
     <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceQueryItem.cs" />
-    <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceUserState.cs" />
+    <Compile Include="Models\ClientNodeInstances\FlowNodeInstanceTask.cs" />
     <Compile Include="Models\ClientNodeInstances\ExecuteStatus.cs" />
     <Compile Include="Models\ClientNodeInstances\InstanceStatus.cs" />
     <Compile Include="Models\Common\RecordDescription.cs" />
