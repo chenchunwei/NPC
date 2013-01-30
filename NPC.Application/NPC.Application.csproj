@@ -108,6 +108,7 @@
     <Compile Include="ManageModels\Proposals\NpcAssessmentModel.cs" />
     <Compile Include="ManageModels\Proposals\ProposalListModel.cs" />
     <Compile Include="ManageModels\Proposals\ProposalSearchModel.cs" />
+    <Compile Include="ManageModels\Proposals\ProposalTasksModel.cs" />
     <Compile Include="ManageModels\Proposals\RequestViewModel.cs" />
     <Compile Include="ManageModels\Proposals\ScNpcAuditAction.cs" />
     <Compile Include="ManageModels\Proposals\ScNpcAuditModel.cs" />

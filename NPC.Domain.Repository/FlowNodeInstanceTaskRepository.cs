@@ -13,7 +13,7 @@ namespace NPC.Domain.Repository
     {
         private readonly NestSqlBuilder _nestSqlBuilder = new NestSqlBuilder();
 
-        public IList<FlowNodeInstanceTask> Query(FlowNodeInstanceTaslQueryItem queryItem)
+        public IList<FlowNodeInstanceTask> Query(FlowNodeInstanceTaskQueryItem queryItem)
         {
             var queryReturns = FormatQuery(queryItem);
             var tempString = queryReturns.Item1;
@@ -33,7 +33,7 @@ namespace NPC.Domain.Repository
             return query.AddEntity(typeof(FlowNodeInstanceTask)).List<FlowNodeInstanceTask>();
         }
 
-        private static Tuple<string, Hashtable> FormatQuery(FlowNodeInstanceTaslQueryItem queryItem)
+        private static Tuple<string, Hashtable> FormatQuery(FlowNodeInstanceTaskQueryItem queryItem)
         {
             //表区域
             var stringBuilder = new StringBuilder("Select {0} From FlowNodeInstanceTasks fnit ");
@@ -51,7 +51,7 @@ namespace NPC.Domain.Repository
             }
             if (queryItem.UserId.HasValue)
             {
-                stringBuilder.Append("And fniu.UserId = :UserId ");
+                stringBuilder.Append("And fnit.UserId = :UserId ");
                 parameters.Add("UserId", queryItem.UserId.Value);
             }
             if (!string.IsNullOrEmpty(queryItem.NodeName))

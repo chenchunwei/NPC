@@ -77,5 +77,13 @@ namespace NPC.Website.Manage.Controllers
             return RedirectToMessage("恭喜,处理完成!");
         }
         #endregion
+
+        #region 待办任务列表
+        public ActionResult ProposalTasks()
+        {
+            var model = _proposalAction.InitializeProposalTasksModel();
+            return View(model);
+        }
+        #endregion
     }
 }

@@ -67,10 +67,24 @@ namespace NPC.Domain.Repository
                 stringBuilder.Append("And ps.ProposalStatus in (:ProposalStatus) ");
                 parameters.Add("ProposalStatus", matchStatus);
             }
-           
+
             stringBuilder.Append("And ps.IsDelete=0 ");
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);
+        }
+        #endregion
+
+        #region 根据id 集合批量获取记录
+        public IList<Proposal> Find(IList<Guid> ids)
+        {
+            if (!ids.Any())
+            {
+                return new List<Proposal>();
+            }
+            return Session.CreateSQLQuery("select * from Proposals where id in (:ids)")
+                .AddEntity(typeof(Proposal))
+                .SetParameterList("ids", ids)
+                .List<Proposal>();
         }
         #endregion
     }

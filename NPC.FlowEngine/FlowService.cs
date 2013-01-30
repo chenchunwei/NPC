@@ -16,11 +16,13 @@ namespace NPC.FlowEngine
         private readonly FlowRepository _flowRepository;
         private readonly FlowTypeRepository _flowTypeRepository;
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
+        private readonly FlowNodeInstanceTaskRepository _flowNodeInstanceTaskRepository;
         public FlowService()
         {
             _flowRepository = new FlowRepository();
             _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _flowTypeRepository = new FlowTypeRepository();
+            _flowNodeInstanceTaskRepository = new FlowNodeInstanceTaskRepository();
         }
 
         public void CreateFlowWithAssignId(Guid flowId, string flowName, User originator, string title, Dictionary<string, string> args = null, string comment = null)
@@ -62,19 +64,21 @@ namespace NPC.FlowEngine
             var trans = TransactionManager.BeginTransaction();
             try
             {
-                var flowNodeInstance = _flowNodeInstanceRepository.Find(taskId);
-                flowNodeInstance.Execute(actionName, executor);
-                flowNodeInstance.BelongsFlow.WriteDataFields(args);
-                _flowNodeInstanceRepository.Save(flowNodeInstance);
-                var flow = flowNodeInstance.BelongsFlow;
+                var flowNodeInstanceTask = _flowNodeInstanceTaskRepository.Find(taskId);
+                flowNodeInstanceTask.FlowNodeInstance.Execute(actionName, executor);
+                flowNodeInstanceTask.FlowNodeInstance.BelongsFlow.WriteDataFields(args);
+                var flow = flowNodeInstanceTask.FlowNodeInstance.BelongsFlow;
                 var history = new FlowHistory()
                 {
                     Comment = comment,
                     Operator = actionName,
-                    Stage = flowNodeInstance.BelongsFlowNode.Name
+                    Stage = flowNodeInstanceTask.FlowNodeInstance.BelongsFlowNode.Name
                 };
                 history.RecordDescription.CreateBy(executor);
                 flow.FlowHistories.Add(history);
+
+                _flowNodeInstanceRepository.Save(flowNodeInstanceTask.FlowNodeInstance);
+                _flowNodeInstanceTaskRepository.Save(flowNodeInstanceTask);
                 _flowRepository.Save(flow);
                 trans.Commit();
             }
@@ -83,11 +87,6 @@ namespace NPC.FlowEngine
                 trans.Rollback();
                 throw;
             }
-        }
-
-        public IList<Task> GetTasks(Guid userId, string flowTypeName, int pageIndex = 0, int pageSize = 0)
-        {
-            return null;
         }
     }
 }

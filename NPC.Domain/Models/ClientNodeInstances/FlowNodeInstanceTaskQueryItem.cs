@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NPC.Domain.Models.ClientNodeInstances
 {
-    public class FlowNodeInstanceTaslQueryItem : QueryItemBase
+    public class FlowNodeInstanceTaskQueryItem : QueryItemBase
     {
         public string FlowTypeName { get; set; }
         public Guid? UserId { get; set; }

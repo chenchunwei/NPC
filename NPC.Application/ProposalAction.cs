@@ -6,6 +6,7 @@ using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application.Common;
 using NPC.Application.ManageModels.Proposals;
+using NPC.Domain.Models.ClientNodeInstances;
 using NPC.Domain.Models.Proposals;
 using NPC.Domain.Repository;
 using NPC.FlowEngine;
@@ -19,6 +20,7 @@ namespace NPC.Application
         private readonly FlowService _flowService;
         private readonly FlowRepository _flowRepository;
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
+        private readonly FlowNodeInstanceTaskRepository _flowNodeInstanceTaskRepository;
         public ProposalAction()
         {
             _flowService = new FlowService();
@@ -26,6 +28,7 @@ namespace NPC.Application
             _proposalRepository = new ProposalRepository();
             _flowRepository = new FlowRepository();
             _flowNodeInstanceRepository=new FlowNodeInstanceRepository();
+            _flowNodeInstanceTaskRepository=new FlowNodeInstanceTaskRepository();
         }
 
         #region 初始化发起视图InitializeEditProposalModel
@@ -144,6 +147,17 @@ namespace NPC.Application
                 trans.Rollback();
                 throw;
             }
+        }
+
+        public ProposalTasksModel InitializeProposalTasksModel()
+        {
+            var model = new ProposalTasksModel();
+            var queryItem = new FlowNodeInstanceTaskQueryItem();
+            queryItem.UserId = NpcContext.CurrentUser.Id;
+            model.FlowNodeInstanceTasks = _flowNodeInstanceTaskRepository.Query(queryItem);
+            var ids = model.FlowNodeInstanceTasks.ToList().Select(o => o.FlowNodeInstance.BelongsFlow.Id).ToList();
+            model.Proposals = _proposalRepository.Find(ids);
+            return model;
         }
     }
 }
