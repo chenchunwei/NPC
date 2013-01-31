@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NPC.Domain.Models.Users;
+using NPC.Domain.Repository;
 
 
 namespace NPC.Application.Common
@@ -16,6 +18,11 @@ namespace NPC.Application.Common
               {"1","代表建议"},
               {"2","群众意见"}
             };
+        }
+
+        public static User GetUser(Guid userId)
+        {
+            return new UserRepository().Find(userId);
         }
 
         public static Dictionary<string, string> GetProposalStatusOptions()

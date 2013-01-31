@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NPC.Domain.Models.ClientNodeInstances;
+using NPC.Domain.Models.FlowNodeInstances;
 using NPC.Domain.Repository;
 using NPC.FlowEngine;
 
@@ -22,6 +22,7 @@ namespace NPC.Domian.Repositories.Tests
             UserRepository = new UserRepository();
             FlowNodeInstanceRepository = new FlowNodeInstanceRepository();
         }
+
         [TestMethod]
         public void TestExecuteTask()
         {

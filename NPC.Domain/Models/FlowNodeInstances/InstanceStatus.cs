@@ -9,11 +9,15 @@ namespace NPC.Domain.Models.FlowNodeInstances
     public enum InstanceStatus
     {
         [Description("运行中")]
-        Runing = 0,
+        Runing = 1,
         [Description("执行完成")]
-        ActionCompleted = 1,
+        ActionCompleted = 2,
         [Description("处理完成")]
-        Finished = 2
-
+        Finished = 4,
+        /// <summary>
+        /// 流程被设置成完成或跳转后,节点被设置成完成
+        /// </summary>
+        [Description("忽略")]
+        Ignore = 8
     }
 }

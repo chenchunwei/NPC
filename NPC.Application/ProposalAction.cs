@@ -6,7 +6,7 @@ using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application.Common;
 using NPC.Application.ManageModels.Proposals;
-using NPC.Domain.Models.ClientNodeInstances;
+using NPC.Domain.Models.FlowNodeInstances;
 using NPC.Domain.Models.Proposals;
 using NPC.Domain.Repository;
 using NPC.FlowEngine;
@@ -27,8 +27,8 @@ namespace NPC.Application
             _userRepository = new UserRepository();
             _proposalRepository = new ProposalRepository();
             _flowRepository = new FlowRepository();
-            _flowNodeInstanceRepository=new FlowNodeInstanceRepository();
-            _flowNodeInstanceTaskRepository=new FlowNodeInstanceTaskRepository();
+            _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
+            _flowNodeInstanceTaskRepository = new FlowNodeInstanceTaskRepository();
         }
 
         #region 初始化发起视图InitializeEditProposalModel
@@ -124,9 +124,16 @@ namespace NPC.Application
         public ScNpcAuditModel InitializeScNpcAuditModel(Guid taskId)
         {
             var model = new ScNpcAuditModel();
-            model.Flow = _flowNodeInstanceRepository.Find(taskId).BelongsFlow;
+            var task = _flowNodeInstanceTaskRepository.Find(taskId);
+            if (task != null && task.UserId == NpcContext.CurrentUser.Id)
+            {
+                task.TaskStatus=TaskStatus.Opend;
+                _flowNodeInstanceTaskRepository.Save(task);
+            }
+            model.Flow = task.FlowNodeInstance.BelongsFlow;
             model.Proposal = _proposalRepository.Find(model.Flow.Id);
             model.TaskId = taskId;
+
             return model;
         }
 

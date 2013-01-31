@@ -53,7 +53,6 @@ namespace NPC.FlowEngine
                 flow.FlowStatus = FlowStatus.Start;
                 flow.RecordDescription.DateOfLastestModify = DateTime.Now;
                 _flowRepository.Save(flow);
-
                 trans.Commit();
             }
             catch (Exception)
@@ -74,11 +73,13 @@ namespace NPC.FlowEngine
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                //判断流程对象是否ActionCompleted
+                if (!flowNodeInstance.TriggerCompleteRule())
+                    return;
                 var targetFlowNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
-
                 flowNodeInstance.Finished();
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
-
+                //如果不存在下一个节点表示流程完成
                 if (targetFlowNode == null)
                 {
                     Finished(flowNodeInstance.BelongsFlow);
@@ -89,9 +90,7 @@ namespace NPC.FlowEngine
                 if (targetFlowNode.IsServerNode)
                     DealServerNodeLoop(flowNodeInstance.BelongsFlow, targetFlowNode);
                 else
-                {
-                    var newInstance = DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
-                }
+                    DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
 
                 trans.Commit();
             }
@@ -106,6 +105,38 @@ namespace NPC.FlowEngine
         {
             flow.Finished();
             _flowRepository.Save(flow);
+        }
+
+        private void DealServerNodeLoop(Flow flow, FlowNode targetFlowNode)
+        {
+            var nodes = new Stack<FlowNodeInstance>();
+            var node = DealServerNode(flow, targetFlowNode);
+            if (node == null)
+            {
+                Finished(flow);
+                return;
+            }
+            nodes.Push(node);
+            while (nodes.Any())
+            {
+                //这里循环处理，主要是为了使服务器节点无延迟的即时处理，因为服务器节点仅依赖流程变量与客户无关
+                //而客户节点肯定是依赖于客户的操作来处理
+                var tempFlowNodeInstance = nodes.Pop();
+                if (!tempFlowNodeInstance.BelongsFlowNode.IsServerNode)
+                {
+                    DealClientNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
+                    return;
+                }
+                var returnNodeInstanace = DealServerNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
+                //服务端与客户端的区别，服务端的处理完之后就已经Finished了，所以直接接着处理下一个节点，
+                //如果是客户端则需要生成客户端任务，服务端则继续执行服务端的处理
+                if (returnNodeInstanace == null)
+                {
+                    Finished(flow);
+                    return;
+                }
+                nodes.Push(returnNodeInstanace);
+            }
         }
 
         private FlowNodeInstance DealServerNode(Flow flow, FlowNode targetFlowNode)
@@ -129,62 +160,9 @@ namespace NPC.FlowEngine
             var newFlowInstance = new FlowNodeInstance();
             newFlowInstance.BelongsFlow = flow;
             newFlowInstance.BelongsFlowNode = targetFlowNode;
-            var userIds = newFlowInstance.GetNodeActionUserIds();
-            userIds.ToList().ForEach(o =>
-            {
-                var user = _userRepository.Find(o);
-
-                newFlowInstance.FlowNodeInstanceTasks.Add(new FlowNodeInstanceTask() { User = user });
-            });
+            newFlowInstance.BuilderTasksAndReturnNewTasks();
             _flowNodeInstanceRepository.Save(newFlowInstance);
-            CreateTask(newFlowInstance);
             return newFlowInstance;
-        }
-
-        private void CreateTask(FlowNodeInstance flowNodeInstance)
-        {
-            //创建任务
-            var task = new Task();
-            var userIds = flowNodeInstance.GetNodeActionUserIds();
-            userIds.ToList().ForEach(o =>
-            {
-                var user = _userRepository.Find(o);
-                task.TaskUserStates.Add(new TaskUserState { User = user });
-            });
-            task.Title = flowNodeInstance.BelongsFlow.Title;
-            task.Description = flowNodeInstance.BelongsFlow.Title;
-            task.Body = flowNodeInstance.Id.ToString();
-            task.GroupName = TaskConst.FlowTaskGroup;
-            task.TypeName = TaskConst.FlowTaskType;
-            task.OuterId = flowNodeInstance.Id;
-            task.TaskProcessUrl = flowNodeInstance.BelongsFlowNode.ProcessUrl;
-            _taskRepository.Save(task);
-        }
-
-        private void DealServerNodeLoop(Flow flow, FlowNode targetFlowNode)
-        {
-            var nodes = new Stack<FlowNodeInstance>();
-            nodes.Push(DealServerNode(flow, targetFlowNode));
-            while (nodes.Any())
-            {
-                //这里循环处理，主要是为了使服务器节点无延迟的即时处理，因为服务器节点仅依赖流程变量与客户无关
-                //而客户节点肯定是依赖于客户的操作来处理
-                var tempFlowNodeInstance = nodes.Pop();
-                if (!tempFlowNodeInstance.BelongsFlowNode.IsServerNode)
-                {
-                    DealClientNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
-                    return;
-                }
-                var returnNodeInstanace = DealServerNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
-                //服务端与客户端的区别，服务端的处理完之后就已经Finished了，所以直接接着处理下一个节点，
-                //如果是客户端则需要生成客户端任务，服务端则继续执行服务端的处理
-                if (returnNodeInstanace == null)
-                {
-                    Finished(flow);
-                    return;
-                }
-                nodes.Push(returnNodeInstanace);
-            }
         }
     }
 }

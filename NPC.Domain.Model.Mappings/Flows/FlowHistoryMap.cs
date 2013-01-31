@@ -13,7 +13,7 @@ namespace NPC.Domain.Model.Mappings.Flows
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.Comment);
-            Map(o => o.Operator);
+            Map(o => o.Action);
             Map(o => o.Stage);
             Component(o => o.RecordDescription);
             Table("FlowHistories");

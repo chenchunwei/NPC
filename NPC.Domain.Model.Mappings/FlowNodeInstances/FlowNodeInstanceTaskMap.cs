@@ -12,8 +12,8 @@ namespace NPC.Domain.Model.Mappings.FlowNodeInstances
         public FlowNodeInstanceTaskMap()
         {
             Id(o => o.Id).GeneratedBy.GuidComb();
-            Map(o => o.ExecuteStatus).CustomType<ExecuteStatus>();
-            References(o => o.User).Column("UserId");
+            Map(o => o.TaskStatus).CustomType<TaskStatus>();
+            Map(o => o.UserId);
             References(o => o.FlowNodeAction).Column("FlowNodeActionId");
             Component(o => o.RecordDescription);
             References(o => o.FlowNodeInstance).Column("FlowNodeInstanceId");

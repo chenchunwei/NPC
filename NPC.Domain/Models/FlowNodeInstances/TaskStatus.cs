@@ -6,22 +6,33 @@ using System.Text;
 
 namespace NPC.Domain.Models.FlowNodeInstances
 {
-    public enum ExecuteStatus
+    [Flags]
+    public enum TaskStatus
     {
         /// <summary>
         /// 待执行
         /// </summary>
-        [Description("待执行")]
-        WaitingExecute = 0,
+        [Description("创建")]
+        Created = 1,
+        /// <summary>
+        /// 待执行
+        /// </summary>
+        [Description("已打开")]
+        Opend = 2,
+        /// <summary>
+        /// 待执行
+        /// </summary>
+        [Description("执行中")]
+        Executing = 4,
         /// <summary>
         /// 已执行
         /// </summary>
         [Description("已执行")]
-        Executed = 1,
+        Executed = 8,
         /// <summary>
         /// 忽略
         /// </summary>
         [Description("忽略")]
-        Ignore = 2
+        Ignore = 16
     }
 }

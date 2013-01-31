@@ -14,7 +14,7 @@ namespace NPC.Domain.Models.Flows
         }
         public virtual Guid Id { get; set; }
         public virtual string Stage { get; set; }
-        public virtual string Operator { get; set; }
+        public virtual string Action { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual string Comment { get; set; }
     }

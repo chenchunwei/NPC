@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using Fluent.Infrastructure.Utilities
+@using Fluent.Infrastructure.Web.Utilities
 @model NPC.Application.ManageModels.Proposals.ProposalTasksModel
 <div class="workgroundin">
 </div>
@@ -28,7 +29,7 @@
         <div class="span_2">
             操作</div>
         <div class="span_3" style="width: 510px;">
-            任务标题</div>
+            流程标题</div>
         <div class="span_2">
             状态</div>
         <div class="span_2">
@@ -58,12 +59,12 @@
                     <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_3" style="width: 500px;">
-                    <a href="@row.FlowNodeInstance.BelongsFlowNode.ProcessUrl?taskId=@row.Id">@row.FlowNodeInstance.BelongsFlow.Title</a>
+                    <a href="@(WebUtilities.GetRelativePathWithApplicationHost(row.FlowNodeInstance.BelongsFlowNode.ProcessUrl))?taskId=@row.Id">@row.FlowNodeInstance.BelongsFlow.Title</a>
                 </div>
                 <div class="span_2">
                 </div>
                 <div class="span_2">
-                    @(row.RecordDescription.UserOfCreate != null ? row.RecordDescription.UserOfCreate.Name : string.Empty)</div>
+                    @(row.FlowNodeInstance.BelongsFlow.RecordDescription.UserOfCreate != null ? row.FlowNodeInstance.BelongsFlow.RecordDescription.UserOfCreate.Name : string.Empty)</div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
                 <div class="span_4">

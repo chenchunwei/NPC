@@ -16,9 +16,9 @@ namespace NPC.Domain.Models.FlowNodeInstances
             RecordDescription = new RecordDescription();
         }
         public virtual Guid Id { get; set; }
-        public virtual User User { get; set; }
+        public virtual Guid UserId { get; set; }
         public virtual FlowNodeInstance FlowNodeInstance { get; set; }
-        public virtual ExecuteStatus ExecuteStatus { get; set; }
+        public virtual TaskStatus TaskStatus { get; set; }
         public virtual FlowNodeAction FlowNodeAction { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
     }

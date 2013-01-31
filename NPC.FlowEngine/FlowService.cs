@@ -11,6 +11,10 @@ using NPC.Domain.Repository;
 
 namespace NPC.FlowEngine
 {
+    /// <summary>
+    /// 它担当的角色，更多的像是一个Builder
+    /// 因为一个流程的流转需要几个对象有序的进行协调，而且户可以不关注这个过程中细节，这个时候它的作用很有效的解耦了几个对象
+    /// </summary>
     public class FlowService
     {
         private readonly FlowRepository _flowRepository;
@@ -45,7 +49,7 @@ namespace NPC.FlowEngine
                 var history = new FlowHistory()
                 {
                     Comment = comment,
-                    Operator = "提交流程",
+                    Action = "提交流程",
                     Stage = "发起流程"
                 };
                 history.RecordDescription.CreateBy(originator);
@@ -71,12 +75,11 @@ namespace NPC.FlowEngine
                 var history = new FlowHistory()
                 {
                     Comment = comment,
-                    Operator = actionName,
+                    Action = actionName,
                     Stage = flowNodeInstanceTask.FlowNodeInstance.BelongsFlowNode.Name
                 };
                 history.RecordDescription.CreateBy(executor);
                 flow.FlowHistories.Add(history);
-
                 _flowNodeInstanceRepository.Save(flowNodeInstanceTask.FlowNodeInstance);
                 _flowNodeInstanceTaskRepository.Save(flowNodeInstanceTask);
                 _flowRepository.Save(flow);

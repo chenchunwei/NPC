@@ -22,7 +22,7 @@ namespace NPC.Domain.Model.Mappings.Flows
             References(o => o.UserOfFlowAdmin).Column("UserIdOfFlowAdmin");
             Component(o => o.RecordDescription);
             HasMany(o => o.FlowDataFields).KeyColumn("FlowId").Cascade.All();
-            HasMany(o => o.FlowHistories).KeyColumn("FlowId").Cascade.All();
+            HasMany(o => o.FlowHistories).KeyColumn("FlowId").Cascade.All().LazyLoad();
             Table("Flows");
         }
     }

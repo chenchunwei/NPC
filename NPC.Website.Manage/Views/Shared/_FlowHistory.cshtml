@@ -1,4 +1,5 @@
-﻿@using NPC.Domain.Models.FlowNodeInstances
+﻿@using NPC.Application.Common
+@using NPC.Domain.Models.FlowNodeInstances
 @model NPC.Domain.Models.Flows.Flow
 <div class="main_search">
     <div class="mc_search">
@@ -75,31 +76,32 @@
                         @(record.RecordDescription.UserOfCreate != null ? record.RecordDescription.UserOfCreate.Name : "")
                     </td>
                     <td>
-                        <b style="color: #c30">@record.Operator</b>
+                        <b style="color: #c30">@record.Action</b>
                     </td>
                     <td>
                         @Html.Raw(record.Comment)
                     </td>
                 </tr>
             }
-            @foreach (var task in Model.FlowNodeInstances.Where(o => o.InstanceStatus == InstanceStatus.Runing))
+            @foreach (var instance in Model.FlowNodeInstances.Where(o => o.InstanceStatus == InstanceStatus.Runing))
             {
-                foreach (var user in task.FlowNodeInstanceUserStates)
+                foreach (var task in instance.FlowNodeInstanceTasks)
                 {
-                <tr>
+                <tr style="background: #F2FBDC">
                     <td>
+                        <img src="@Url.Content("~/Content/Images/loading.gif")" alt="等待执行"/>
                     </td>
                     <td>
-                        @task.BelongsFlowNode.Name
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        @user.User.Name
+                        @instance.BelongsFlowNode.Name
                     </td>
                     <td>
                         &nbsp;
+                    </td>
+                    <td>
+                        @Helper.GetUser(task.UserId).Name
+                    </td>
+                    <td>
+                        @(task.TaskStatus == TaskStatus.Opend ? "已查阅" : "尚未打开")
                     </td>
                     <td>
                         &nbsp;
