@@ -44,5 +44,12 @@ namespace NPC.Domian.Repositories.Tests
             FlowEngineService.DealFlowNodeFlowTo();
 
         }
+
+        [TestMethod]
+        public void DealFlowFlow()
+        {
+            FlowEngineService.DealFlow();
+
+        }
     }
 }

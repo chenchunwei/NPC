@@ -1,5 +1,7 @@
-﻿@using NPC.Application.Common
+﻿@using Fluent.Infrastructure.Utilities
+@using NPC.Application.Common
 @using NPC.Domain.Models.FlowNodeInstances
+@using NPC.Domain.Models.Flows
 @model NPC.Domain.Models.Flows.Flow
 <div class="main_search">
     <div class="mc_search">
@@ -79,7 +81,7 @@
                         <b style="color: #c30">@record.Action</b>
                     </td>
                     <td>
-                        @Html.Raw(record.Comment)
+                        @Html.Raw(record.Comment.ToHtml())
                     </td>
                 </tr>
             }
@@ -101,13 +103,36 @@
                         @Helper.GetUser(task.UserId).Name
                     </td>
                     <td>
-                        @(task.TaskStatus == TaskStatus.Opend ? "已查阅" : "尚未打开")
+                        @(task.IsOpened ? "已查阅" : "尚未打开")
                     </td>
                     <td>
                         &nbsp;
                     </td>
                 </tr>
                 }
+            }
+            @if (Model.FlowStatus == FlowStatus.Finished)
+            {
+                <tr style="background: #FFF3C0">
+                    <td>
+                        <img src="@Url.Content("~/Content/Images/flag-16-16-red.gif")" alt="已完成"/>
+                    </td>
+                    <td>
+                       已结束
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                         已完成
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
             }
             <tr class="footer">
                 <td colspan="6">

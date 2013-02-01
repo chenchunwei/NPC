@@ -56,5 +56,11 @@ namespace NPC.Domain.Repository
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);
         }
+
+        public IList<Flow> GetUnFinisheds()
+        {
+            return Session.CreateQuery("from Flow where IsDelete=0 and FlowStatus in (:FlowStatus)")
+              .SetParameterList("FlowStatus", new object[] { FlowStatus.Start,FlowStatus.Running }).List<Flow>();
+        }
     }
 }

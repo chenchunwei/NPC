@@ -58,7 +58,7 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                    <a href="@Url.Action("EditProposal")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_3" style="width: 500px;">
                     @Html.ActionLink(row.Title, "RequestView", new { @id = row.Id }, new { target = "_blank" })

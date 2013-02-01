@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NPC.Application;
+using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Proposals;
+using NPC.Domain.Models.Flows;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -57,6 +59,18 @@ namespace NPC.Website.Manage.Controllers
         }
         #endregion
 
+        #region RequestView
+        [HttpPost, ActionName("RequestView")]
+        public ActionResult RequestViewPost(Guid id)
+        {
+            var user = new NpcContext().CurrentUser;
+            var comment = Request["comment"];
+            var model = _proposalAction.InitializeRequestViewModel(id);
+            _proposalAction.AddComment(model.Flow, comment, user);
+            return View(model);
+        }
+        #endregion
+
         #region ScNpcAudit
         public ActionResult ScNpcAudit(Guid taskId)
         {
@@ -74,7 +88,7 @@ namespace NPC.Website.Manage.Controllers
             {
                 return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
             }
-            return RedirectToMessage("恭喜,处理完成!");
+            return RedirectToMessage("恭喜,任务处理完成，等待处理中……");
         }
         #endregion
 

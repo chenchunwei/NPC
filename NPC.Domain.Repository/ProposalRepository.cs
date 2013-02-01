@@ -59,7 +59,7 @@ namespace NPC.Domain.Repository
             {
                 status.ForEach(o =>
                 {
-                    if ((o | queryItem.ProposalStatus.Value) > 0)
+                    if ((o & queryItem.ProposalStatus.Value) > 0)
                     {
                         matchStatus.Add(o);
                     }

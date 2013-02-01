@@ -19,22 +19,37 @@ namespace NPC.FlowEngine
     {
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
         private readonly FlowRepository _flowRepository;
-        private readonly TaskRepository _taskRepository;
-        private readonly UserRepository _userRepository;
         private readonly ILog _logger;
         public FlowEngineService()
         {
             _logger = new DefaultLoggerFactory().GetLogger();
             _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _flowRepository = new FlowRepository();
-            _taskRepository = new TaskRepository();
-            _userRepository = new UserRepository();
         }
 
         public void CreateFlowNodeInstance()
         {
             var instances = _flowRepository.GetInstanceFlow();
             instances.ToList().ForEach(CreateSingleFlowNodeInstance);
+        }
+
+        public void DealFlowNodeFlowTo()
+        {
+            var flowNodeInstances = _flowNodeInstanceRepository.GetUnDeals();
+            flowNodeInstances.ToList().ForEach(DealSingleFlowNodeFlowTo);
+        }
+
+        public void DealFlow()
+        {
+            var flows = _flowRepository.GetUnFinisheds();
+            flows.ToList().ForEach(DealSingleFlowNode);
+        }
+
+        private void DealSingleFlowNode(Flow flow)
+        {
+            if (flow.IsCompleted())
+                flow.Finished();
+            _flowRepository.Save(flow);
         }
 
         private void CreateSingleFlowNodeInstance(Flow flow)
@@ -60,12 +75,6 @@ namespace NPC.FlowEngine
                 trans.Rollback();
                 throw;
             }
-        }
-
-        public void DealFlowNodeFlowTo()
-        {
-            var flowNodeInstances = _flowNodeInstanceRepository.GetUnDeals();
-            flowNodeInstances.ToList().ForEach(DealSingleFlowNodeFlowTo);
         }
 
         private void DealSingleFlowNodeFlowTo(FlowNodeInstance flowNodeInstance)

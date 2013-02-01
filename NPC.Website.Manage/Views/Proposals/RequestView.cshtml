@@ -63,7 +63,9 @@
                         备注：
                     </th>
                     <td style="padding: 5px 5px;">
-                        <textarea rows="8" cols="120" id="Comment" maxlength="400"></textarea>
+                        <form action="" method="POST" style="margin: 0" id="mainForm">
+                        <textarea rows="8" cols="120" id="Comment" name="Comment" maxlength="400"></textarea>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -88,3 +90,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "Comment": "required"
+            },
+            messages: {
+                "Comment": "请填写注释内容"
+            }
+        });
+        $("#submitBtn").click(function () {
+            $("#mainForm").submit();
+        });
+    });
+   
+</script>

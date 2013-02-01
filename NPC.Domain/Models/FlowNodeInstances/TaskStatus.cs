@@ -10,29 +10,24 @@ namespace NPC.Domain.Models.FlowNodeInstances
     public enum TaskStatus
     {
         /// <summary>
-        /// 待执行
+        /// 任务创建
         /// </summary>
         [Description("创建")]
         Created = 1,
         /// <summary>
         /// 待执行
         /// </summary>
-        [Description("已打开")]
-        Opend = 2,
-        /// <summary>
-        /// 待执行
-        /// </summary>
         [Description("执行中")]
-        Executing = 4,
+        Executing = 2,
         /// <summary>
         /// 已执行
         /// </summary>
         [Description("已执行")]
-        Executed = 8,
+        Executed = 4,
         /// <summary>
         /// 忽略
         /// </summary>
         [Description("忽略")]
-        Ignore = 16
+        Ignore = 8
     }
 }

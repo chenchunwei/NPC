@@ -77,6 +77,11 @@ namespace NPC.Domain.Models.Flows
         }
         #endregion
 
+        public virtual bool IsCompleted()
+        {
+            return FlowNodeInstances.ToList().All(nodeInstance => nodeInstance.InstanceStatus == InstanceStatus.Finished);
+        }
+
         #region 跳转到某个结点
         public virtual FlowNodeInstance Goto(string nodeName, Dictionary<string, string> args = null)
         {

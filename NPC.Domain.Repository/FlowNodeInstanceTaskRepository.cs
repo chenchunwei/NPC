@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using NPC.Domain.Models.FlowNodeInstances;
+using NPC.Domain.Models.Proposals;
 
 namespace NPC.Domain.Repository
 {
@@ -57,6 +58,25 @@ namespace NPC.Domain.Repository
             {
                 stringBuilder.Append("And fn.Name = :NodeName ");
                 parameters.Add("NodeName", queryItem.NodeName);
+            }
+            var status = new List<TaskStatus>();
+            status.Add(TaskStatus.Created);
+            status.Add(TaskStatus.Executed);
+            status.Add(TaskStatus.Executing);
+            status.Add(TaskStatus.Ignore);
+
+            var matchStatus = new List<TaskStatus>();
+            if (queryItem.TaskStatus.HasValue)
+            {
+                status.ForEach(o =>
+                {
+                    if ((o & queryItem.TaskStatus.Value) > 0)
+                    {
+                        matchStatus.Add(o);
+                    }
+                });
+                stringBuilder.Append("And fnit.TaskStatus in (:TaskStatus) ");
+                parameters.Add("TaskStatus", matchStatus);
             }
             stringBuilder.Append("And fnit.IsDelete=0 ");
             stringBuilder.Append("{1}");

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application.Common;
 using NPC.Application.ManageModels.Proposals;
 using NPC.Domain.Models.FlowNodeInstances;
+using NPC.Domain.Models.Flows;
 using NPC.Domain.Models.Proposals;
+using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
 using NPC.FlowEngine;
 
@@ -19,7 +22,6 @@ namespace NPC.Application
         private readonly UserRepository _userRepository;
         private readonly FlowService _flowService;
         private readonly FlowRepository _flowRepository;
-        private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
         private readonly FlowNodeInstanceTaskRepository _flowNodeInstanceTaskRepository;
         public ProposalAction()
         {
@@ -27,7 +29,6 @@ namespace NPC.Application
             _userRepository = new UserRepository();
             _proposalRepository = new ProposalRepository();
             _flowRepository = new FlowRepository();
-            _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _flowNodeInstanceTaskRepository = new FlowNodeInstanceTaskRepository();
         }
 
@@ -125,9 +126,9 @@ namespace NPC.Application
         {
             var model = new ScNpcAuditModel();
             var task = _flowNodeInstanceTaskRepository.Find(taskId);
-            if (task != null && task.UserId == NpcContext.CurrentUser.Id)
+            if (task != null && task.UserId == NpcContext.CurrentUser.Id && !task.IsOpened)
             {
-                task.TaskStatus=TaskStatus.Opend;
+                task.IsOpened = true;
                 _flowNodeInstanceTaskRepository.Save(task);
             }
             model.Flow = task.FlowNodeInstance.BelongsFlow;
@@ -161,10 +162,24 @@ namespace NPC.Application
             var model = new ProposalTasksModel();
             var queryItem = new FlowNodeInstanceTaskQueryItem();
             queryItem.UserId = NpcContext.CurrentUser.Id;
+            queryItem.TaskStatus = TaskStatus.Executing | TaskStatus.Created;
             model.FlowNodeInstanceTasks = _flowNodeInstanceTaskRepository.Query(queryItem);
             var ids = model.FlowNodeInstanceTasks.ToList().Select(o => o.FlowNodeInstance.BelongsFlow.Id).ToList();
             model.Proposals = _proposalRepository.Find(ids);
             return model;
+        }
+
+        public void AddComment(Flow flow, string comment, User user)
+        {
+            var history = new FlowHistory()
+            {
+                Action = "备注",
+                Comment = HttpUtility.HtmlEncode(comment),
+                Stage = "备注"
+            };
+            history.RecordDescription.CreateBy(user);
+            flow.FlowHistories.Add(history);
+            _flowRepository.Save(flow);
         }
     }
 }

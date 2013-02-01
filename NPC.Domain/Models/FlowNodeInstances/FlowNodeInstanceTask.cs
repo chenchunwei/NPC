@@ -21,5 +21,6 @@ namespace NPC.Domain.Models.FlowNodeInstances
         public virtual TaskStatus TaskStatus { get; set; }
         public virtual FlowNodeAction FlowNodeAction { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual bool IsOpened { get; set; }
     }
 }
