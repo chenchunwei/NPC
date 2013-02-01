@@ -1,6 +1,94 @@
 ﻿@{
-    ViewBag.Title = "代表反馈";
+    ViewBag.Title = @Model.Flow.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>
-    NpcAssessment</h2>
+@model NPC.Application.ManageModels.Proposals.NpcAssessmentModel 
+<div class="workgroundin" style="height: 5px;">
+</div>
+<div class="main_content">
+    @Html.Partial("_FlowHistory", Model.Flow)
+    <div class="workgroundin" style="height: 5px;">
+    </div>
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                流程详情：</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            @Html.Partial("_ProposalDetail", Model.Proposal)
+            <table class="fromTable" width="100%">
+                <tr class="header">
+                    <td colspan="2">
+                        &nbsp; &nbsp;反馈意见:
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        说明：
+                    </th>
+                    <td style="padding: 5px 5px;">
+                        <form action="" method="POST" style="margin: 0" id="mainForm">
+                        <input type="hidden" id="Action" name="Action" />
+                        <textarea rows="8" cols="120" id="Comment" name="Comment" maxlength="400" class="unSumbmitRequired"></textarea>
+                        <br />
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    满意</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                            <div class="btn" id="unSubmitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    不满意</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "Comment": "required"
+            },
+            messages: {
+                "Comment": "请输入不满意理由"
+            }
+        });
+        $("#submitBtn").click(function () {
+            $("#Action").val("Satisfy");
+            $("#mainForm")[0].submit();
+        });
+
+        $("#unSubmitBtn").click(function () {
+            if ($(".unSumbmitRequired").valid()) {
+                $("#Action").val("UnSatisfy");
+                $("#mainForm")[0].submit();
+            }
+        });
+    });
+</script>

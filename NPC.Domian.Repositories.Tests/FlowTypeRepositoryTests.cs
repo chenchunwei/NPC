@@ -33,7 +33,7 @@ namespace NPC.Domian.Repositories.Tests
             {
                 Name = "人大常委会审核",
                 ExecutorType = FlowValueType.ByDataField,
-                ExecutorValue = "Auditor",
+                ExecutorValue = "NpcAuditor",
                 IsExecutorWithArray = true,
                 IsFirstNode = true,
                 ProcessUrl = "/Proposals/ScNpcAudit"
@@ -47,7 +47,7 @@ namespace NPC.Domian.Repositories.Tests
             {
                 Name = "市政办审核",
                 ExecutorType = FlowValueType.ByDataField,
-                ExecutorValue = "Auditor",
+                ExecutorValue = "GovAuditor",
                 IsExecutorWithArray = true,
                 ProcessUrl = "/Proposals/GovOfficeAudit"
             };
@@ -60,7 +60,7 @@ namespace NPC.Domian.Repositories.Tests
             {
                 Name = "主办单位处理",
                 ExecutorType = FlowValueType.ByDataField,
-                ExecutorValue = "Auditor",
+                ExecutorValue = "Sponsor",
                 IsExecutorWithArray = true,
                 ProcessUrl = "/Proposals/SponsorAudit"
             };
@@ -73,7 +73,7 @@ namespace NPC.Domian.Repositories.Tests
             {
                 Name = "代表满意度回馈",
                 ExecutorType = FlowValueType.ByDataField,
-                ExecutorValue = "Auditor",
+                ExecutorValue = "Originator",
                 IsExecutorWithArray = true,
                 ProcessUrl = "/Proposals/NpcAssessment"
             };

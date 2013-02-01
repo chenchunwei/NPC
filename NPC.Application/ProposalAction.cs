@@ -181,7 +181,6 @@ namespace NPC.Application
             _flowRepository.Save(flow);
         }
 
-
         public GovOfficeAuditModel InitializeGovOfficeAuditModel(Guid taskId)
         {
             var unitRepository = new UnitRepository();
@@ -245,8 +244,40 @@ namespace NPC.Application
 
         public SponsorAuditModel InitializeSponsorAuditModel(Guid taskId)
         {
-            var unitRepository = new UnitRepository();
             var model = new SponsorAuditModel();
+            var task = _flowNodeInstanceTaskRepository.Find(taskId);
+            if (task != null && task.UserId == NpcContext.CurrentUser.Id && !task.IsOpened)
+            {
+                task.IsOpened = true;
+                _flowNodeInstanceTaskRepository.Save(task);
+            }
+            model.Flow = task.FlowNodeInstance.BelongsFlow;
+            model.Proposal = _proposalRepository.Find(model.Flow.Id);
+            model.TaskId = taskId;
+            return model;
+        }
+
+        public void NpcAssessment(NpcAssessmentModel npcAssessmentModel)
+        {
+            var trans = TransactionManager.BeginTransaction();
+            try
+            {
+                var args = new Dictionary<string, string>();
+                _flowService.ExecuteTask(npcAssessmentModel.TaskId,
+                      EnumHelper.GetDescription(npcAssessmentModel.Action),
+                      NpcContext.CurrentUser, args, npcAssessmentModel.Comment);
+                trans.Commit();
+            }
+            catch (Exception exception)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
+
+        public NpcAssessmentModel InitializeNpcAssessmentModel(Guid taskId)
+        {
+            var model = new NpcAssessmentModel();
             var task = _flowNodeInstanceTaskRepository.Find(taskId);
             if (task != null && task.UserId == NpcContext.CurrentUser.Id && !task.IsOpened)
             {

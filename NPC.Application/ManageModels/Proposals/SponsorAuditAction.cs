@@ -8,7 +8,7 @@ namespace NPC.Application.ManageModels.Proposals
 {
     public enum SponsorAuditAction
     {
-        [Description("提交")]
+        [Description("办结")]
         Finished = 0,
         [Description("退回市政办")]
         SendBack = 1

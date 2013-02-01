@@ -141,5 +141,26 @@ namespace NPC.Website.Manage.Controllers
             return RedirectToMessage("任务处理完成");
         }
         #endregion
+
+        #region SponsorAudit
+        public ActionResult NpcAssessment(Guid taskId)
+        {
+            var model = _proposalAction.InitializeNpcAssessmentModel(taskId);
+            return View(model);
+        }
+        [HttpPost, ActionName("NpcAssessment")]
+        public ActionResult NpcAssessmentPost(NpcAssessmentModel npcAssessmentModel)
+        {
+            try
+            {
+                _proposalAction.NpcAssessment(npcAssessmentModel);
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
+            }
+            return RedirectToMessage("任务处理完成");
+        }
+        #endregion
     }
 }
