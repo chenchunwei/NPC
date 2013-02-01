@@ -19,12 +19,14 @@ namespace NPC.FlowEngine
     {
         private readonly FlowNodeInstanceRepository _flowNodeInstanceRepository;
         private readonly FlowRepository _flowRepository;
+        private readonly FlowNodeInstanceTaskRepository _flowNodeInstanceTaskRepository;
         private readonly ILog _logger;
         public FlowEngineService()
         {
             _logger = new DefaultLoggerFactory().GetLogger();
             _flowNodeInstanceRepository = new FlowNodeInstanceRepository();
             _flowRepository = new FlowRepository();
+            _flowNodeInstanceTaskRepository = new FlowNodeInstanceTaskRepository();
         }
 
         public void CreateFlowNodeInstance()
@@ -83,23 +85,23 @@ namespace NPC.FlowEngine
             try
             {
                 //判断流程对象是否ActionCompleted
-                if (!flowNodeInstance.TriggerCompleteRule())
+                if (!flowNodeInstance.TriggerActionCompletedRule())
                     return;
-                var targetFlowNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
+                var nextNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
                 flowNodeInstance.Finished();
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
                 //如果不存在下一个节点表示流程完成
-                if (targetFlowNode == null)
+                if (nextNode == null)
                 {
                     Finished(flowNodeInstance.BelongsFlow);
                     trans.Commit();
                     return;
                 }
 
-                if (targetFlowNode.IsServerNode)
-                    DealServerNodeLoop(flowNodeInstance.BelongsFlow, targetFlowNode);
+                if (nextNode.IsServerNode)
+                    DealServerNodeLoop(flowNodeInstance.BelongsFlow, nextNode);
                 else
-                    DealClientNode(flowNodeInstance.BelongsFlow, targetFlowNode);
+                    DealClientNode(flowNodeInstance.BelongsFlow, nextNode);
 
                 trans.Commit();
             }
@@ -169,8 +171,9 @@ namespace NPC.FlowEngine
             var newFlowInstance = new FlowNodeInstance();
             newFlowInstance.BelongsFlow = flow;
             newFlowInstance.BelongsFlowNode = targetFlowNode;
-            newFlowInstance.BuilderTasksAndReturnNewTasks();
+            var newTasks = newFlowInstance.BuilderTasksAndReturnNewTasks();
             _flowNodeInstanceRepository.Save(newFlowInstance);
+            newTasks.ToList().ForEach(task => _flowNodeInstanceTaskRepository.Save(task));
             return newFlowInstance;
         }
     }

@@ -29,7 +29,13 @@ namespace NPC.Domain.Repository
         public IEnumerable<Unit> GetAllUnits()
         {
             return Session.CreateQuery("from Unit Where RecordDescription.IsDelete=0")
-             .List<Unit>();
+                .List<Unit>();
+        }
+
+        public IEnumerable<Unit> GetFlowUnits()
+        {
+            return Session.CreateQuery("from Unit Where RecordDescription.IsDelete=0 And IsFlowUint=1 And JieKouRen is not Null")
+                .List<Unit>();
         }
     }
 }

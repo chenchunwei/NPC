@@ -1,7 +1,118 @@
 ﻿@{
-    ViewBag.Title = "GovOfficeAudit";
+    ViewBag.Title = @Model.Flow.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model NPC.Application.ManageModels.Proposals.GovOfficeAuditModel 
+<div class="workgroundin" style="height: 5px;">
+</div>
+<div class="main_content">
+    @Html.Partial("_FlowHistory", Model.Flow)
+    <div class="workgroundin" style="height: 5px;">
+    </div>
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                流程详情：</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            @Html.Partial("_ProposalDetail", Model.Proposal)
+            <form action="" method="POST" style="margin: 0" id="mainForm">
+            <table class="fromTable" width="100%">
+                <tr class="header">
+                    <td colspan="2">
+                        &nbsp; &nbsp;审批意见:
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        选择主办单位：
+                    </th>
+                    <td style="padding: 5px 5px;">
+                        @Html.DropDownListFor(o => o.SponsorUnitId, new SelectListItem[] { new SelectListItem() { Text = "请选择主办单位", Value = "" } }
+                                                   .Union(Model.UnitOptions.Select(item => new SelectListItem() { Text = item.Value, Value = item.Key })), new { @class = "sumbmitRequired" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        选择协办单位：
+                    </th>
+                    <td style="padding: 5px 5px;">
+                        @Html.DropDownListFor(o => o.SubsidiaryUnitIds, new SelectListItem[] { new SelectListItem() { Text = "请选择协办单位", Value = "" } }
+                        .Union(Model.UnitOptions.Select(item => new SelectListItem() { Text = item.Value, Value = item.Key })))
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        说明：
+                    </th>
+                    <td style="padding: 5px 5px;">
+                        <input type="hidden" id="Action" name="Action" />
+                        <textarea rows="8" cols="120" id="Comment" name="Comment" maxlength="400" class="unSumbmitRequired"></textarea>
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    提交主办单位</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                            <div class="btn" id="unSubmitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    退回人大常委</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "SponsorUnitId": "required",
+                "Comment": "required",
+            },
+            messages: {
+                "SponsorUnitId": "请选择主办单位",
+                "Comment": "请输入退回理由"
+            }
+        });
+        $("#submitBtn").click(function () {
+            $("label.error").hide();
+            if ($(".sumbmitRequired").valid()) {
+                $("#Action").val("Submit");
+                $("#mainForm")[0].submit();
+            }
+        });
 
-<h2>GovOfficeAudit</h2>
-
+        $("#unSubmitBtn").click(function () {
+            $("label.error").hide();
+            if ($(".unSumbmitRequired").valid()) {
+                $("#Action").val("SendBack");
+                $("#mainForm")[0].submit();
+            }
+        });
+    });
+</script>

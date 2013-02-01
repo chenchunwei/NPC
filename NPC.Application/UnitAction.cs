@@ -76,7 +76,7 @@ namespace NPC.Application
                 {
                     Account = "admin",
                     Name = "管理员",
-                    Pwd = MD5Utility.GetMD5HashCode("admin"),
+                    Pwd = Md5Utility.GetMd5HashCode("admin"),
                     Unit = unit
                 };
                 _userRepository.Save(user);

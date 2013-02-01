@@ -23,7 +23,7 @@ namespace NPC.Application
                 return null;
             var unitId = Guid.Parse(extension);
 
-            var user = _userRepository.FindByAccountAndPwd(account, MD5Utility.GetMD5HashCode(password), unitId);
+            var user = _userRepository.FindByAccountAndPwd(account, Md5Utility.GetMd5HashCode(password), unitId);
             if (user == null)
                 return null;
             return new User() { Account = user.Account, Pwd = user.Pwd, Id = user.Id };
@@ -34,7 +34,7 @@ namespace NPC.Application
             if (string.IsNullOrEmpty(extension))
                 return null;
             var unitId = Guid.Parse(extension);
-            var user = _userRepository.FindByAccountAndPwd(account, MD5Utility.GetMD5HashCode(password), unitId);
+            var user = _userRepository.FindByAccountAndPwd(account, Md5Utility.GetMd5HashCode(password), unitId);
             if (user == null)
                 return null;
             return new User() { Account = user.Account, Pwd = user.Pwd, Id = user.Id };

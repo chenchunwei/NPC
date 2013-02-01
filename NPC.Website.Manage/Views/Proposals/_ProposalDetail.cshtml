@@ -1,0 +1,35 @@
+﻿@model  NPC.Domain.Models.Proposals.Proposal
+<table class="fromTable" width="100%">
+    <tr>
+        <th style="width: 160px;">
+            议案标题：
+        </th>
+        <td>
+            <b>@Model.Title</b>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            发起人：
+        </th>
+        <td>
+            @(Model.RecordDescription.UserOfCreate != null ? Model.RecordDescription.UserOfCreate.Name : string.Empty)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            附议人：
+        </th>
+        <td>
+            @(string.Join("/", Model.ProposalOriginators.Select(o => o.Name)))
+        </td>
+    </tr>
+    <tr>
+        <th>
+            议案主体：
+        </th>
+        <td>
+            @Html.Raw(Model.Content)
+        </td>
+    </tr>
+</table>

@@ -88,7 +88,28 @@ namespace NPC.Website.Manage.Controllers
             {
                 return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
             }
-            return RedirectToMessage("恭喜,任务处理完成，等待处理中……");
+            return RedirectToMessage("任务处理完成");
+        }
+        #endregion
+
+        #region GovOfficeAudit
+        public ActionResult GovOfficeAudit(Guid taskId)
+        {
+            var model = _proposalAction.InitializeGovOfficeAuditModel(taskId);
+            return View(model);
+        }
+        [HttpPost, ActionName("GovOfficeAudit")]
+        public ActionResult GovOfficeAuditPost(GovOfficeAuditModel govOfficeAuditModel)
+        {
+            try
+            {
+                _proposalAction.GovOfficeAudit(govOfficeAuditModel);
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
+            }
+            return RedirectToMessage("任务处理完成");
         }
         #endregion
 
@@ -97,6 +118,27 @@ namespace NPC.Website.Manage.Controllers
         {
             var model = _proposalAction.InitializeProposalTasksModel();
             return View(model);
+        }
+        #endregion
+
+        #region SponsorAudit
+        public ActionResult SponsorAudit(Guid taskId)
+        {
+            var model = _proposalAction.InitializeSponsorAuditModel(taskId);
+            return View(model);
+        }
+        [HttpPost, ActionName("SponsorAudit")]
+        public ActionResult SponsorAuditPost(SponsorAuditModel sponsorAuditModel)
+        {
+            try
+            {
+                _proposalAction.SponsorAudit(sponsorAuditModel);
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage(HttpUtility.UrlEncode(exception.Message));
+            }
+            return RedirectToMessage("任务处理完成");
         }
         #endregion
     }

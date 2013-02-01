@@ -16,7 +16,12 @@ namespace NPC.Domain.Model.Mappings.Units
             References(o => o.ParentUint).Column("ParentUintId");
             Map(o => o.Name);
             Map(o => o.Path);
+            Map(o => o.IsFlowUint);
+            Map(o => o.IsWebUint);
+            Map(o => o.UnitStatus).CustomType<UnitStatus>();
+            References(o => o.JieKouRen).Column("JieKouRenId");
             Component(o => o.RecordDescription);
+            HasMany(o => o.Departments).KeyColumn("UnitId");
             Table("Units");
         }
     }

@@ -66,7 +66,7 @@ namespace NPC.Domain.Models.Flows
             //设置所有流程实例为忽略状态
             FlowNodeInstances.ToList().ForEach(nodeInstance =>
             {
-                if (!nodeInstance.TriggerCompleteRule())
+                if (!nodeInstance.TriggerActionCompletedRule())
                 {
                     nodeInstance.Ignore();
                 }
@@ -95,7 +95,7 @@ namespace NPC.Domain.Models.Flows
             //把当前执行的节点设置成忽略状态并创建新的流程实例
             FlowNodeInstances.ToList().ForEach(nodeInstance =>
             {
-                if (!nodeInstance.TriggerCompleteRule())
+                if (!nodeInstance.TriggerActionCompletedRule())
                 {
                     nodeInstance.Ignore();
                 }
@@ -142,7 +142,7 @@ namespace NPC.Domain.Models.Flows
             //HACK:以及这里只考虑到单节点激活，不考虑并行节点等因素,后期需要改造支持并行节点以及自由节点多点触发的问题(国强提到过的多点触发，可以解决并行节点不能实现自由节点间排列组合的问题)
             //但自由组合带来的新问题是节点会可能没有约束的向着多个方法流动，无法控制流程的正常合并与结束
             var instancesInActioned = FlowNodeInstances.Single(o => o.InstanceStatus == InstanceStatus.ActionCompleted || o.BelongsFlowNode.IsServerNode && o.InstanceStatus != InstanceStatus.Finished);
-            if (instancesInActioned.TriggerCompleteRule())
+            if (instancesInActioned.TriggerActionCompletedRule())
             {
                 instancesInActioned.Finished();
                 var next = instancesInActioned.GetNextNodeTypeWhenActioned();

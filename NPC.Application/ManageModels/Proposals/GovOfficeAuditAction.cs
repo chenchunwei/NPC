@@ -8,7 +8,7 @@ namespace NPC.Application.ManageModels.Proposals
 {
     public enum GovOfficeAuditAction
     {
-        [Description("提交")]
+        [Description("提交主办单位")]
         Submit = 0,
         [Description("退回人大常委")]
         SendBack = 1

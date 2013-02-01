@@ -20,39 +20,8 @@
     </div>
     <div class="row">
         <div class="treeBody" style="padding-top: 5px;">
+            @Html.Partial("_ProposalDetail", Model.Proposal)
             <table class="fromTable" width="100%">
-                <tr>
-                    <th style="width: 160px;">
-                        议案标题：
-                    </th>
-                    <td>
-                        <b>@Model.Proposal.Title</b>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        发起人：
-                    </th>
-                    <td>
-                        @(Model.Proposal.RecordDescription.UserOfCreate.Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        附议人：
-                    </th>
-                    <td>
-                        @(string.Join("/", Model.Proposal.ProposalOriginators.Select(o => o.Name)))
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        议案主体：
-                    </th>
-                    <td>
-                        @Html.Raw(Model.Proposal.Content)
-                    </td>
-                </tr>
                 <tr class="header">
                     <td colspan="2">
                         &nbsp; &nbsp;补充说明:

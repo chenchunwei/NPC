@@ -1296,6 +1296,7 @@
     <Content Include="Views\Shared\_FlowHistory.cshtml" />
     <Content Include="Views\Tasks\MyTasks.cshtml" />
     <Content Include="Views\Proposals\ProposalTasks.cshtml" />
+    <Content Include="Views\Proposals\_ProposalDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

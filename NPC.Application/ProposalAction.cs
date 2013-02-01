@@ -86,7 +86,7 @@ namespace NPC.Application
                 users.ToList().ForEach(o => proposal.ProposalOriginators.Add(o));
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
-                args.Add("Auditor", user.Id.ToString());
+                args.Add("Originator", user.Id.ToString());
                 _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
@@ -134,7 +134,6 @@ namespace NPC.Application
             model.Flow = task.FlowNodeInstance.BelongsFlow;
             model.Proposal = _proposalRepository.Find(model.Flow.Id);
             model.TaskId = taskId;
-
             return model;
         }
 
@@ -144,7 +143,7 @@ namespace NPC.Application
             try
             {
                 var args = new Dictionary<string, string>();
-                args.Add("Auditor", NpcContext.CurrentUser.Id.ToString());
+                args.Add("NpcAuditor", NpcContext.CurrentUser.Id.ToString());
                 _flowService.ExecuteTask(scNpcAuditModel.TaskId,
                   EnumHelper.GetDescription(scNpcAuditModel.Action),
                   NpcContext.CurrentUser, args, scNpcAuditModel.Comment);
@@ -180,6 +179,84 @@ namespace NPC.Application
             history.RecordDescription.CreateBy(user);
             flow.FlowHistories.Add(history);
             _flowRepository.Save(flow);
+        }
+
+
+        public GovOfficeAuditModel InitializeGovOfficeAuditModel(Guid taskId)
+        {
+            var unitRepository = new UnitRepository();
+            var model = new GovOfficeAuditModel();
+            var task = _flowNodeInstanceTaskRepository.Find(taskId);
+            if (task != null && task.UserId == NpcContext.CurrentUser.Id && !task.IsOpened)
+            {
+                task.IsOpened = true;
+                _flowNodeInstanceTaskRepository.Save(task);
+            }
+            model.Flow = task.FlowNodeInstance.BelongsFlow;
+            model.Proposal = _proposalRepository.Find(model.Flow.Id);
+            model.TaskId = taskId;
+            unitRepository.GetFlowUnits().ToList().ForEach(unit => model.UnitOptions.Add(unit.Id.ToString(), unit.Name));
+            return model;
+        }
+
+        public void GovOfficeAudit(GovOfficeAuditModel govOfficeAuditModel)
+        {
+            if (govOfficeAuditModel.SponsorUnitId == null)
+                throw new ArgumentException("必须选择主办单位");
+            var trans = TransactionManager.BeginTransaction();
+            try
+            {
+                var unitRepository = new UnitRepository();
+                var args = new Dictionary<string, string>();
+                var sponsorUnit = unitRepository.Find(govOfficeAuditModel.SponsorUnitId.Value);
+                if (sponsorUnit.JieKouRen == null)
+                    throw new ArgumentException("对不起！" + sponsorUnit.Name + "未配置流程处理接口人");
+                args.Add("SponsorId", sponsorUnit.JieKouRen.Id.ToString());
+                _flowService.ExecuteTask(govOfficeAuditModel.TaskId,
+                      EnumHelper.GetDescription(govOfficeAuditModel.Action),
+                      NpcContext.CurrentUser, args, govOfficeAuditModel.Comment);
+                trans.Commit();
+            }
+            catch (Exception exception)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
+
+        public void SponsorAudit(SponsorAuditModel sponsorAuditModel)
+        {
+
+            var trans = TransactionManager.BeginTransaction();
+            try
+            {
+                var args = new Dictionary<string, string>();
+                _flowService.ExecuteTask(sponsorAuditModel.TaskId,
+                      EnumHelper.GetDescription(sponsorAuditModel.Action),
+                      NpcContext.CurrentUser, args, sponsorAuditModel.Comment);
+                trans.Commit();
+            }
+            catch (Exception exception)
+            {
+                trans.Rollback();
+                throw;
+            }
+        }
+
+        public SponsorAuditModel InitializeSponsorAuditModel(Guid taskId)
+        {
+            var unitRepository = new UnitRepository();
+            var model = new SponsorAuditModel();
+            var task = _flowNodeInstanceTaskRepository.Find(taskId);
+            if (task != null && task.UserId == NpcContext.CurrentUser.Id && !task.IsOpened)
+            {
+                task.IsOpened = true;
+                _flowNodeInstanceTaskRepository.Save(task);
+            }
+            model.Flow = task.FlowNodeInstance.BelongsFlow;
+            model.Proposal = _proposalRepository.Find(model.Flow.Id);
+            model.TaskId = taskId;
+            return model;
         }
     }
 }

@@ -42,7 +42,6 @@ namespace NPC.Domian.Repositories.Tests
         public void DealFlowNodeFlowTo()
         {
             FlowEngineService.DealFlowNodeFlowTo();
-
         }
 
         [TestMethod]

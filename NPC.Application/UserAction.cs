@@ -144,11 +144,11 @@ namespace NPC.Application
         public void EditPassword(EditPasswordModel model)
         {
             var user = new NpcContext().CurrentUser;
-            if (user.Pwd != MD5Utility.GetMD5HashCode(model.OldPwd.Trim()))
+            if (user.Pwd != Md5Utility.GetMd5HashCode(model.OldPwd.Trim()))
                 throw new ArgumentException("旧密码不正确");
             if (model.NewPwd.Trim() != model.ReNewPwd.Trim())
                 throw new ArgumentException("两次密码输入不正确");
-            user.Pwd = MD5Utility.GetMD5HashCode(model.ReNewPwd);
+            user.Pwd = Md5Utility.GetMd5HashCode(model.ReNewPwd);
             user.RecordDescription.UpdateBy(user);
             _userRepository.Save(user);
         }
@@ -233,7 +233,7 @@ namespace NPC.Application
             user.Name = viewModel.FormData.Name;
             if (!(string.IsNullOrEmpty(viewModel.FormData.Pwd) || string.IsNullOrEmpty(viewModel.FormData.RePwd)) && viewModel.FormData.Pwd == viewModel.FormData.RePwd)
             {
-                user.Pwd = MD5Utility.GetMD5HashCode(viewModel.FormData.Pwd);
+                user.Pwd = Md5Utility.GetMd5HashCode(viewModel.FormData.Pwd);
             }
             user.QQ = viewModel.FormData.QQ;
             user.OrderSort = viewModel.FormData.OrderSort;

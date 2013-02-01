@@ -27,9 +27,7 @@ namespace NPC.Domain.Models.Units
         public virtual UnitStatus UnitStatus { get; set; }
         public virtual User Manager { get; set; }
         public virtual bool IsWebUint { get; set; }
-        /// <summary>
-        /// 组织接口人
-        /// </summary>
+        public virtual bool IsFlowUint { get; set; }
         public virtual User JieKouRen { get; set; }
 
         public virtual string Path

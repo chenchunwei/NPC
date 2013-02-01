@@ -84,7 +84,7 @@ namespace NPC.Domain.Models.FlowNodeInstances
             //HACK:将任务节点设置完成应该是根据规则来,不应该直接就设置成完成,考虑到投票机制
             if (!BelongsFlowNode.IsServerNode)
                 throw new ApplicationException("非服务器节点，请执行Execute(string actionName, User user)");
-            TriggerCompleteRule();
+            TriggerActionCompletedRule();
         }
         #endregion
 
@@ -108,12 +108,12 @@ namespace NPC.Domain.Models.FlowNodeInstances
             //而实际上任务还没有被结束，这时另外一位处理人否决了操作，这时侯就会造成严重的歧意
             userState.FlowNodeAction = action;
             userState.RecordDescription.UpdateBy(user);
-            TriggerCompleteRule();
+            TriggerActionCompletedRule();
         }
         #endregion
 
         #region 检查完成规则
-        public virtual bool TriggerCompleteRule()
+        public virtual bool TriggerActionCompletedRule()
         {
             if (!FlowNodeInstanceTasks.Any())
             {
@@ -124,7 +124,7 @@ namespace NPC.Domain.Models.FlowNodeInstances
             if (!completedTask.Any())
                 return false;
             FlowNodeAction = completedTask.First().FlowNodeAction;
-            Finished();
+            ActionCompleted();
             return true;
         }
         #endregion
