@@ -2,6 +2,7 @@
     ViewBag.Title = @Model.Flow.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using NPC.Domain.Models.Proposals
 @model NPC.Application.ManageModels.Proposals.NpcAssessmentModel 
 <div class="workgroundin" style="height: 5px;">
 </div>
@@ -19,7 +20,8 @@
     </div>
     <div class="row">
         <div class="treeBody" style="padding-top: 5px;">
-            @Html.Partial("_ProposalDetail", Model.Proposal)
+            @Html.Partial("_ProposalDetail", Model.Proposal)<form action="" method="POST" style="margin: 0"
+            id="mainForm">
             <table class="fromTable" width="100%">
                 <tr class="header">
                     <td colspan="2">
@@ -31,7 +33,9 @@
                         满意度：
                     </th>
                     <td style="padding: 5px 5px;">
-                      &nbsp;&nbsp;  满意 &nbsp;&nbsp;基本满意&nbsp;&nbsp; 不满意 
+                        <input type="radio" value="@NpcAssessmentState.Satisfy" name="NpcAssessmentState" class="Satisfy"/>&nbsp;满意&nbsp;&nbsp;
+                        <input type="radio" value="@NpcAssessmentState.Normal" name="NpcAssessmentState" class="Satisfy"/>&nbsp;基本满意&nbsp;&nbsp;
+                        <input type="radio" value="@NpcAssessmentState.UnSatisfy" name="NpcAssessmentState" class="Satisfy"/>&nbsp;不满意
                     </td>
                 </tr>
                 <tr>
@@ -39,11 +43,9 @@
                         说明：
                     </th>
                     <td style="padding: 5px 5px;">
-                        <form action="" method="POST" style="margin: 0" id="mainForm">
                         <input type="hidden" id="Action" name="Action" />
                         <textarea rows="8" cols="120" id="Comment" name="Comment" maxlength="400" class="unSumbmitRequired"></textarea>
                         <br />
-                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -53,7 +55,7 @@
                                 <div class="fbb_left">
                                     <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
                                 <div class="fbb_center">
-                                    满意</div>
+                                    完结</div>
                                 <div class="fbb_right">
                                     <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
                             </div>
@@ -61,7 +63,7 @@
                                 <div class="fbb_left">
                                     <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
                                 <div class="fbb_center">
-                                    不满意</div>
+                                    不满意退回</div>
                                 <div class="fbb_right">
                                     <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
                             </div>
@@ -69,6 +71,7 @@
                     </td>
                 </tr>
             </table>
+            </form>
         </div>
         <div class="footBar">
             <div class="fb_content">
@@ -81,17 +84,21 @@
         $("#mainForm").validate({
             ignore: "",
             rules: {
-                "Comment": "required"
+                "Comment": "required",
+                "NpcAssessmentState": "required"
+
             },
             messages: {
-                "Comment": "请输入不满意理由"
+                "Comment": "请输入不满意理由",
+                "NpcAssessmentState": "请选择满意度"
             }
         });
         $("#submitBtn").click(function () {
-            $("#Action").val("Satisfy");
-            $("#mainForm")[0].submit();
+            if ($(".Satisfy").valid()) {
+                $("#Action").val("Satisfy");
+                $("#mainForm")[0].submit();
+            }
         });
-
         $("#unSubmitBtn").click(function () {
             if ($(".unSumbmitRequired").valid()) {
                 $("#Action").val("UnSatisfy");

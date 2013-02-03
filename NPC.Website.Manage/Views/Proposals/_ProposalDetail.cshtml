@@ -37,7 +37,18 @@
             附件：
         </th>
         <td>
-            @Html.Raw(string.IsNullOrEmpty(Model.Attachment) ? "无" : string.Format("<a href=\"{0}\"></a>", Url.Content("~/") + Model.Attachment))
+            @Html.Raw(string.IsNullOrEmpty(Model.Attachment) ? "无" : string.Format("<a href=\"{0}\">下载</a>", Url.Content("~/") + Model.Attachment))
         </td>
     </tr>
+    @if (!string.IsNullOrEmpty(Model.ReplyAttachment))
+    {
+        <tr>
+            <th>
+                处理附件：
+            </th>
+            <td>
+                @Html.Raw(string.Format("<a href=\"{0}\">下载</a>", Url.Content("~/") + Model.ReplyAttachment))&nbsp;(主办单位上传)
+            </td>
+        </tr>
+    }
 </table>
