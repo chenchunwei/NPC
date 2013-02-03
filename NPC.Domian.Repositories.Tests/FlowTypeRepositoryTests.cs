@@ -40,7 +40,7 @@ namespace NPC.Domian.Repositories.Tests
             };
            
             //第一个节点的Actions
-            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "提交" });
+            firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "提交市政办" });
             firstNode.FlowNodeActions.Add(new FlowNodeAction() { Name = "不提交" });
             //第二个节点
             var secordNode = new FlowNode()

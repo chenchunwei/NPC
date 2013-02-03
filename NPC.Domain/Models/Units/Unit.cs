@@ -29,6 +29,7 @@ namespace NPC.Domain.Models.Units
         public virtual bool IsWebUint { get; set; }
         public virtual bool IsFlowUint { get; set; }
         public virtual User JieKouRen { get; set; }
+        public virtual string AliasName { get; set; }
 
         public virtual string Path
         {

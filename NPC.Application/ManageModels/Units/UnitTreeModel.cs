@@ -31,6 +31,10 @@ namespace NPC.Application.ManageModels.Units
         public string IconCls { get; set; }
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
+        [DataMember(Name = "isWebUnit")]
+        public bool IsWebUnit { get; set; }
+        [DataMember(Name = "isFlowUnit")]
+        public bool IsFlowUnit { get; set; }
         [DataMember(Name = "name")]
         public string Name { get; set; }
         [DataMember(Name = "children")]

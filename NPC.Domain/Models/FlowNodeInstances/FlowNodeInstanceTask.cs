@@ -22,5 +22,16 @@ namespace NPC.Domain.Models.FlowNodeInstances
         public virtual FlowNodeAction FlowNodeAction { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual bool IsOpened { get; set; }
-    }
+        public virtual void ExecuteBy(FlowNodeAction action, User user)
+        {
+            TaskStatus = TaskStatus.Executed;
+            FlowNodeAction = action;
+            RecordDescription.UpdateBy(user);
+        }
+        public virtual void Ignore()
+        {
+            TaskStatus = TaskStatus.Ignore;
+            RecordDescription.UpdateBy(null);
+        }
+      }
 }

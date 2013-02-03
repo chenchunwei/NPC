@@ -8,7 +8,7 @@ namespace NPC.Application.ManageModels.Proposals
 {
     public enum ScNpcAuditAction
     {
-        [Description("提交")]
+        [Description("提交市政办")]
         Submit = 0,
         [Description("不提交")]
         UnSubmit = 1,

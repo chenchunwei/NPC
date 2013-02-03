@@ -85,6 +85,7 @@
     <Compile Include="Controllers\ArticleCategoriesController.cs" />
     <Compile Include="Controllers\ArtilcesController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\ConfigsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\ExtensionController.cs" />
     <Compile Include="Controllers\FlowController.cs" />
@@ -1297,6 +1298,7 @@
     <Content Include="Views\Tasks\MyTasks.cshtml" />
     <Content Include="Views\Proposals\ProposalTasks.cshtml" />
     <Content Include="Views\Proposals\_ProposalDetail.cshtml" />
+    <Content Include="Views\Configs\JieKouRenSettings.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1320,7 +1322,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>11389</DevelopmentServerPort>
+          <DevelopmentServerPort>20158</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

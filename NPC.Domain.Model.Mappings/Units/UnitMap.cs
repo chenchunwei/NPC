@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.Units
             Map(o => o.Path);
             Map(o => o.IsFlowUint);
             Map(o => o.IsWebUint);
+            Map(o => o.AliasName);
             Map(o => o.UnitStatus).CustomType<UnitStatus>();
             References(o => o.JieKouRen).Column("JieKouRenId");
             Component(o => o.RecordDescription);

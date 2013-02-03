@@ -50,7 +50,7 @@
             移除组织
         </div>
     </div>
-    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 400px; height: 150px;
+    <div id="newWin" class="easyui-window" title="添加新节点" style="width: 450px; height: 200px;
         background-color: #EFEFEF; display: none" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <form id="newForm" action="@Url.Action("EditUnit", "Units")" method="post">
@@ -61,9 +61,26 @@
                             组织名称：
                         </th>
                         <td>
-                            <input id="FormData_Name" name="FormData.Name" type="text" />
+                            <input id="FormData_Name" name="FormData.Name" type="text" style="width: 200px;"
+                                maxlength="150" />
                             <input id="Id" name="Id" type="hidden" />
                             <input id="ParentId" name="ParentId" type="hidden" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="120px;">
+                            是否承办单位：
+                        </th>
+                        <td>
+                            <input id="FormData_IsFlowUnit" name="FormData.IsFlowUnit" type="checkbox" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="120px;">
+                            开通网站：
+                        </th>
+                        <td>
+                            <input id="FormData_IsWebUnit" name="FormData_IsWebUnit" type="checkbox" />
                         </td>
                     </tr>
                 </table>
@@ -92,7 +109,9 @@
             title: "&nbsp;组织架构列表",
             columns: [[
             { field: 'name', title: '组织名称', width: 290, align: 'left' },
-            { field: 'id', title: 'UnitId', width: 280, align: 'left' }
+            { field: 'id', title: 'UnitId', width: 280, align: 'left' },
+            { field: 'isWebUnit', title: '开通网站', width: 80, align: 'left', formatter: convertState },
+            { field: 'isFlowUnit', title: '主办单位', width: 80, align: 'left',formatter: convertState }
         ]],
             onLoadSuccess: function () {
             },
@@ -114,6 +133,13 @@
             append();
         });
     });
+
+    function convertState(val, row) {
+        if (val)
+            return '<b style="color:#E8483F">是</b>';
+        return '否';
+    }
+
     function onContextMenu(e, row) {
         e.preventDefault();
         $(this).treegrid('select', row.id);
@@ -137,6 +163,8 @@
             $("#ParentId").val('');
             $("#Id").val(row.id);
             $("#FormData_Name").val(row.name);
+            $("#FormData_IsWebUnit").val(row.isWebUnit);
+            $("#FormData_IsFlowUnit").val(row.isFlowUnit);
         }
     }
     function removeNode() {
@@ -158,7 +186,7 @@
             "FormData.Name": { required: true }
         },
         messages: {
-            "FormData.Name": { required: "必须填写组织名称" }
+            "FormData.Name": { required: "必填项" }
         }
     });
     $("#newForm").submit(function () {

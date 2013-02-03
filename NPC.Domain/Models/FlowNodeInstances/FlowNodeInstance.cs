@@ -69,7 +69,10 @@ namespace NPC.Domain.Models.FlowNodeInstances
             }
             if (BelongsFlowNode.ExecutorType == FlowValueType.ByDataField)
             {
-                executorText = BelongsFlow.FlowDataFields.Single(o => o.Name == BelongsFlowNode.ExecutorValue).Value;
+                var executor = BelongsFlow.FlowDataFields.FirstOrDefault(o => o.Name == BelongsFlowNode.ExecutorValue);
+                if (executor == null)
+                    throw new ArgumentException(string.Format("流程变量中不存在名为‘{0}’的变量", BelongsFlowNode.ExecutorValue));
+                executorText = executor.Value;
             }
             return executorText.Split(';').Select(Guid.Parse).ToList();
         }
@@ -97,17 +100,16 @@ namespace NPC.Domain.Models.FlowNodeInstances
         /// <param name="user"></param>
         public virtual void Execute(string actionName, User user)
         {
-            var action = BelongsFlowNode.FlowNodeActions.Single(o => o.Name == actionName);
-            FlowNodeAction = action;
-            InstanceStatus = InstanceStatus.ActionCompleted;
-
-            var userState = FlowNodeInstanceTasks.Single(o => o.UserId == user.Id);
-            userState.TaskStatus = TaskStatus.Executed;
+            var action = BelongsFlowNode.FlowNodeActions.FirstOrDefault(o => o.Name == actionName);
+            if (action == null)
+                throw new ArgumentException(string.Format("节点未定义‘{0}’的action", actionName));
+            var task = FlowNodeInstanceTasks.FirstOrDefault(o => o.UserId == user.Id);
+            if (task == null)
+                throw new ArgumentException(string.Format("不存在用户‘{0}’的task", user.Id));
             //HACK:这里的代码限定了一个任务只要有一个人执行过了，就已经是Action状态了
             //还有其它任务的关闭应该谁来完成，引擎来完成的话，那么这个过程中的时间差导致的并发怎么来处理，比如一个同意了，这个应该结束了
             //而实际上任务还没有被结束，这时另外一位处理人否决了操作，这时侯就会造成严重的歧意
-            userState.FlowNodeAction = action;
-            userState.RecordDescription.UpdateBy(user);
+            task.ExecuteBy(action, user);
             TriggerActionCompletedRule();
         }
         #endregion
@@ -120,7 +122,7 @@ namespace NPC.Domain.Models.FlowNodeInstances
                 ActionCompleted();
             }
             //Hack:暂时只支持一票制,只要有一个人执行了,就作为节点值
-            var completedTask = FlowNodeInstanceTasks.Where(task => task.TaskStatus == TaskStatus.Executed);
+            var completedTask = FlowNodeInstanceTasks.Where(task => task.TaskStatus == TaskStatus.Executed).ToList();
             if (!completedTask.Any())
                 return false;
             FlowNodeAction = completedTask.First().FlowNodeAction;
@@ -133,12 +135,12 @@ namespace NPC.Domain.Models.FlowNodeInstances
         public virtual void ActionCompleted()
         {
             InstanceStatus = InstanceStatus.ActionCompleted;
-            RecordDescription.DateOfLastestModify = DateTime.Now;
+            RecordDescription.UpdateBy(null);
             //将所有任务设置成忽略
             FlowNodeInstanceTasks.ToList().ForEach(task =>
             {
                 if (task.TaskStatus != TaskStatus.Executed)
-                    task.TaskStatus = TaskStatus.Ignore;
+                    task.Ignore();
             });
         }
         #endregion
@@ -205,10 +207,10 @@ namespace NPC.Domain.Models.FlowNodeInstances
             }
             if (InstanceStatus == InstanceStatus.Runing)
                 throw new ApplicationException("节点暂未执行完毕，无法确定下一节点的路径，待节点完成后再获取信息");
-            var mathcedLine = BelongsFlowNode.FlowNodeLines.First(line => line.RuleCode == FlowNodeAction.Name);
+            var mathcedLine = BelongsFlowNode.FlowNodeLines.FirstOrDefault(line => line.RuleCode == FlowNodeAction.Name);
             if (mathcedLine == null)
-                throw new ArgumentException(string.Format("客户端节点执行时未找到Action对应的下一节点值，节点id={0}", Id));
-            return BelongsFlowNode.FlowNodeLines.First(line => line.RuleCode == FlowNodeAction.Name).ContactTo;
+                throw new ArgumentException(string.Format("客户端节点执行时未找到Action对应的下一节点，节点id={0}", Id));
+            return mathcedLine.ContactTo;
         }
         #endregion
 

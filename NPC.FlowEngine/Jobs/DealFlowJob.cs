@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Log;
 using Quartz;
-using Quartz.Impl;
 using log4net;
 
 namespace NPC.FlowEngine.Jobs
 {
-    public class FlowNodeInstanceJob : IJob
+    class DealFlowJob : IJob
     {
         private readonly ILog _logger;
         private readonly FlowEngineService _flowEngineService;
-        public FlowNodeInstanceJob()
+        public DealFlowJob()
         {
             var loggerFactory = new DefaultLoggerFactory();
             _logger = loggerFactory.GetLogger();
@@ -21,9 +20,11 @@ namespace NPC.FlowEngine.Jobs
         }
         public void Execute(IJobExecutionContext context)
         {
-            _logger.Info("流程引擎正在创建流程任务实例");
-            _flowEngineService.CreateFlowNodeInstance();
-            _logger.Info("实例创建完毕");
+            _logger.Info("流程引擎正在处理流程状态");
+            _flowEngineService.DealFlow();
+            _logger.Info("流程状态处理完毕");
         }
     }
 }
+
+ 

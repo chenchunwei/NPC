@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "接口人设置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model  NPC.Application.ManageModels.Configs.JieKouRenSettingsModel
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示：接口人负责处理指定给组织的流程信息，议案建议流程任务将指派给接口人处理!</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 220px;">
+                        <span style="color: red;">*</span> 组织别名：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.AliasName, new { style = "width:380px;", maxlength = 75 })&nbsp;用于显示在议案建议流程选项中
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 220px;">
+                        <span style="color: red;">*</span> 接口人：
+                    </th>
+                    <td>
+                        <li class="buttonon" id="selectUser">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                <div>
+                                    选择接口人</div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                        <div id="JieKouRens">
+                        </div>
+                        @Html.HiddenFor(o => o.JieKouRenId)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    保存</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<div id="wins" style="display: none;">
+    <div id="selectWin" class="easyui-window" title="请选择接口人（仅可设置一人）" style="width: 750px;
+        height: 500px; background-color: #EFEFEF; display: none;" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+        <div class="easyui-layout" data-options="fit:true">
+            <div region="center" border="false" style="background-color: #EFEFEF; overflow: hidden;">
+                <iframe src="" height="100%" width="100%" style="border: none; overflow-y: scroll;">
+                </iframe>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
+                <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">
+                    完成并关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#mainForm").validate({
+            ignore: "",
+            rules: {
+                "AliasName": "required",
+                "JieKouRenId": "required"
+            },
+            messages: {
+                "AliasName": "必填项",
+                "JieKouRenId": "请选择并指定接口人"
+            }
+        });
+        $('#wins,#selectWin').show();
+        $("#selectUser").click(function () {
+            $('#selectWin').window('open');
+            $("#selectWin iframe").attr('src', '@Url.Action("SelectUserByDepartments", "Users")');
+        });
+        $("#btnAddSelect").click(function () {
+            handerSelected();
+        });
+        $("#btnCompletedSelect").click(function () {
+            handerSelected();
+            $('#selectWin').window('close');
+        });
+        $("#submitBtn").click(function () {
+            $("#mainForm").submit();
+        });
+        @if (Model.Unit.JieKouRen != null)
+        {
+          @Html.Raw("appendLable({id:'"+Model.Unit.JieKouRen.Id+"',name:'"+Model.Unit.JieKouRen.Name+"'});")
+        }
+    });
+    function removeUser(id) {
+        $("#user" + id).parent().parent().remove();
+        $("#JieKouRenId").val('');
+    }
+    function handerSelected() {
+        var options = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
+        $.post('@Url.Action("ParseSelectedToUsersByDepartments", "Users")', { 'selectedJson': $.toJSON(options) },
+                function (data) {
+                    $(evalJson(data).users).each(function (index, row) {
+                        appendLable(row);
+                        return false;
+                    });
+                }
+        );
+    }
+    function appendLable(row) {
+        $("#originators").html('');
+        $("#JieKouRenId").val(row.id);
+        $("#JieKouRens").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+                    <div class="hc_left"></div><div class="hc_center">\
+                    <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
+                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                    </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
+    }
+</script>

@@ -55,6 +55,8 @@
     <Compile Include="FlowService.cs" />
     <Compile Include="FlowTypeService.cs" />
     <Compile Include="JobEntrance.cs" />
+    <Compile Include="Jobs\DealFlowJob.cs" />
+    <Compile Include="Jobs\DealFlowNodeFlowToJob.cs" />
     <Compile Include="Jobs\FlowNodeInstanceJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +81,15 @@
       <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
       <Name>NPC.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

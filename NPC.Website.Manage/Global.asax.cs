@@ -61,8 +61,9 @@ namespace NPC.Website.Manage
             RegisterRoutes(RouteTable.Routes);
         }
 
-        void Application_BeginRequest(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            #region session bug fixed
             /* Fix for the Flash Player Cookie bug in Non-IE browsers.
              * Since Flash Player always sends the IE cookies even in FireFox
              * we have to bypass the cookies by sending the values as part of the POST or GET
@@ -110,6 +111,12 @@ namespace NPC.Website.Manage
                 Response.StatusCode = 500;
                 Response.Write("Error Initializing Forms Authentication");
             }
+            #endregion
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+           
         }
 
         void UpdateCookie(string cookieName, string cookieValue)

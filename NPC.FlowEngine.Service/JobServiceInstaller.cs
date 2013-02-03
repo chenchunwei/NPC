@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration.Install;
 using System.Linq;
 using System.ServiceProcess;
@@ -7,6 +8,7 @@ using System.Text;
 
 namespace NPC.FlowEngine.Service
 {
+    [RunInstaller(true)]
     public class JobServiceInstaller : Installer
     {
         private readonly ServiceInstaller _serviceInstaller;

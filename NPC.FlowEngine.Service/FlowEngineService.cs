@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using System.Threading;
 using Fluent.Infrastructure.Log;
 using Quartz;
 using Quartz.Impl;
@@ -29,6 +30,7 @@ namespace NPC.FlowEngine.Service
         {
             try
             {
+                _logger.Info("流程服务正在启动中……");
                 _jobEntrance.Run();
                 _logger.Info("流程服务正常启动");
             }
@@ -36,10 +38,12 @@ namespace NPC.FlowEngine.Service
             {
                 _logger.ErrorFormat("流程服务启动异常：{0}", exception);
             }
+            //Thread.Sleep(1000000);
         }
 
         protected override void OnStop()
         {
+            _logger.Info("流程服务正在停止中……");
             _jobEntrance.Stop();
             _logger.Info("流程服务已停止");
         }

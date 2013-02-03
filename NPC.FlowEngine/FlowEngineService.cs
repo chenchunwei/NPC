@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
+using Fluent.Infrastructure.Log.Messages;
 using NPC.Domain.Models.FlowNodeInstances;
 using NPC.Domain.Models.FlowTypes;
 using NPC.Domain.Models.Flows;
@@ -31,30 +32,40 @@ namespace NPC.FlowEngine
 
         public void CreateFlowNodeInstance()
         {
+            var messageContainer = new MessageContainer("CreateFlowNodeInstance");
             var instances = _flowRepository.GetInstanceFlow();
-            instances.ToList().ForEach(CreateSingleFlowNodeInstance);
+            messageContainer.Debug("共需处理CreateFlowNodeInstance的记录条数:{0}", instances.Count);
+            instances.ToList().ForEach(instance => CreateSingleFlowNodeInstance(instance, messageContainer));
+            messageContainer.Log4Net();
         }
 
         public void DealFlowNodeFlowTo()
         {
+            var messageContainer = new MessageContainer("DealFlowNodeFlowTo");
             var flowNodeInstances = _flowNodeInstanceRepository.GetUnDeals();
-            flowNodeInstances.ToList().ForEach(DealSingleFlowNodeFlowTo);
+            messageContainer.Debug("共需处理DealFlowNodeFlowTo的记录条数:{0}", flowNodeInstances.Count);
+            flowNodeInstances.ToList().ForEach(flowNodeInstance => DealSingleFlowNodeFlowTo(flowNodeInstance, messageContainer));
+            messageContainer.Log4Net();
         }
 
         public void DealFlow()
         {
+            var messageContainer = new MessageContainer("DealFlow");
             var flows = _flowRepository.GetUnFinisheds();
-            flows.ToList().ForEach(DealSingleFlowNode);
+            messageContainer.Debug("共需处理DealFlow的记录条数:{0}", flows.Count);
+            flows.ToList().ForEach(flow => DealSingleFlowNode(flow, messageContainer));
+            messageContainer.Log4Net();
         }
 
-        private void DealSingleFlowNode(Flow flow)
+        private void DealSingleFlowNode(Flow flow, MessageContainer messageContainer)
         {
-            if (flow.IsCompleted())
-                flow.Finished();
+            if (!flow.IsCompleted())
+                return;
+            flow.Finished();
             _flowRepository.Save(flow);
         }
 
-        private void CreateSingleFlowNodeInstance(Flow flow)
+        private void CreateSingleFlowNodeInstance(Flow flow, MessageContainer messageContainer)
         {
             var trans = TransactionManager.BeginTransaction();
             try
@@ -63,9 +74,9 @@ namespace NPC.FlowEngine
                 if (flowNode == null)
                     throw new ApplicationException("流程不存在任务节点,流程 id=" + flow.Id);
                 if (flowNode.IsServerNode)
-                    DealServerNodeLoop(flow, flowNode);
+                    DealServerNodeLoop(flow, flowNode, messageContainer);
                 else
-                    DealClientNode(flow, flowNode);
+                    DealClientNode(flow, flowNode, messageContainer);
 
                 flow.FlowStatus = FlowStatus.Start;
                 flow.RecordDescription.DateOfLastestModify = DateTime.Now;
@@ -79,7 +90,7 @@ namespace NPC.FlowEngine
             }
         }
 
-        private void DealSingleFlowNodeFlowTo(FlowNodeInstance flowNodeInstance)
+        private void DealSingleFlowNodeFlowTo(FlowNodeInstance flowNodeInstance, MessageContainer messageContainer)
         {
             var trans = TransactionManager.BeginTransaction();
             try
@@ -89,6 +100,13 @@ namespace NPC.FlowEngine
                     return;
                 var nextNode = flowNodeInstance.GetNextNodeTypeWhenActioned();
                 flowNodeInstance.Finished();
+                flowNodeInstance.FlowNodeInstanceTasks.ToList().ForEach(task =>
+                {
+                    if (task.RecordDescription.IsUpdated)
+                    {
+                        _flowNodeInstanceTaskRepository.Save(task);
+                    }
+                });
                 _flowNodeInstanceRepository.Save(flowNodeInstance);
                 //如果不存在下一个节点表示流程完成
                 if (nextNode == null)
@@ -99,9 +117,9 @@ namespace NPC.FlowEngine
                 }
 
                 if (nextNode.IsServerNode)
-                    DealServerNodeLoop(flowNodeInstance.BelongsFlow, nextNode);
+                    DealServerNodeLoop(flowNodeInstance.BelongsFlow, nextNode, messageContainer);
                 else
-                    DealClientNode(flowNodeInstance.BelongsFlow, nextNode);
+                    DealClientNode(flowNodeInstance.BelongsFlow, nextNode, messageContainer);
 
                 trans.Commit();
             }
@@ -118,10 +136,10 @@ namespace NPC.FlowEngine
             _flowRepository.Save(flow);
         }
 
-        private void DealServerNodeLoop(Flow flow, FlowNode targetFlowNode)
+        private void DealServerNodeLoop(Flow flow, FlowNode targetFlowNode, MessageContainer messageContainer)
         {
             var nodes = new Stack<FlowNodeInstance>();
-            var node = DealServerNode(flow, targetFlowNode);
+            var node = DealServerNode(flow, targetFlowNode, messageContainer);
             if (node == null)
             {
                 Finished(flow);
@@ -135,10 +153,10 @@ namespace NPC.FlowEngine
                 var tempFlowNodeInstance = nodes.Pop();
                 if (!tempFlowNodeInstance.BelongsFlowNode.IsServerNode)
                 {
-                    DealClientNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
+                    DealClientNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned(), messageContainer);
                     return;
                 }
-                var returnNodeInstanace = DealServerNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned());
+                var returnNodeInstanace = DealServerNode(flow, tempFlowNodeInstance.GetNextNodeTypeWhenActioned(), messageContainer);
                 //服务端与客户端的区别，服务端的处理完之后就已经Finished了，所以直接接着处理下一个节点，
                 //如果是客户端则需要生成客户端任务，服务端则继续执行服务端的处理
                 if (returnNodeInstanace == null)
@@ -150,7 +168,7 @@ namespace NPC.FlowEngine
             }
         }
 
-        private FlowNodeInstance DealServerNode(Flow flow, FlowNode targetFlowNode)
+        private FlowNodeInstance DealServerNode(Flow flow, FlowNode targetFlowNode, MessageContainer messageContainer)
         {
             if (targetFlowNode == null)
                 return null;
@@ -165,7 +183,7 @@ namespace NPC.FlowEngine
             return newFlowInstanceOfServer;
         }
 
-        private FlowNodeInstance DealClientNode(Flow flow, FlowNode targetFlowNode)
+        private FlowNodeInstance DealClientNode(Flow flow, FlowNode targetFlowNode, MessageContainer messageContainer)
         {
             //创建新节点实例
             var newFlowInstance = new FlowNodeInstance();

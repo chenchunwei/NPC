@@ -16,7 +16,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -69,13 +69,26 @@
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
+      <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>
+      <Name>NPC.Domain.Model.Mappings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NPC.FlowEngine\NPC.FlowEngine.csproj">
       <Project>{966BFAAB-80CA-4FFA-AB10-D92FF323471F}</Project>
       <Name>NPC.FlowEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,5 +15,7 @@ namespace NPC.Application.ManageModels.Units
     public class EditUnitModelFormData
     {
         public string Name { get; set; }
+        public bool IsWebUnit { get; set; }
+        public bool IsFlowUnit { get; set; }
     }
 }

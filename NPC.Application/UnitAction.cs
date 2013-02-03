@@ -44,6 +44,8 @@ namespace NPC.Application
             {
                 Id = unit.Id,
                 Name = unit.Name,
+                IsFlowUnit = unit.IsFlowUint,
+                IsWebUnit = unit.IsWebUint,
                 IconCls = ApplicationConst.TreeLeafCls,
             };
             var childrens = _unitRepository.GetSubUnit(unit.Id).ToList();
@@ -69,6 +71,8 @@ namespace NPC.Application
                 var unit = new Unit()
                 {
                     Name = model.FormData.Name,
+                    IsFlowUint=model.FormData.IsFlowUnit,
+                    IsWebUint = model.FormData.IsWebUnit,
                     ParentUint = model.ParentId.HasValue ? _unitRepository.Find(model.ParentId.Value) : null
                 };
                 _unitRepository.Save(unit);

@@ -157,7 +157,6 @@
         $("#submitBtn").click(function () {
             $("#mainForm").submit();
         });
-
         $('#wins,#selectWin').show();
         $("#selectUser").click(function () {
             $('#selectWin').window('open');
@@ -189,13 +188,17 @@
                             return;
                         }
                         selectedUsers.push(row.id);
-                        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
-                            <div class="hc_left"></div><div class="hc_center">\
-                            <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
-                            <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
-                            </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
-                });
+                        appendLable(row);
+                    });
             }
         );
+    }
+
+    function appendLable(row) {
+                 $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+                    <div class="hc_left"></div><div class="hc_center">\
+                    <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
+                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                    </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
     }
 </script>

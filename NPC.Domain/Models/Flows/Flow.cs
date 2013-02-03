@@ -63,16 +63,11 @@ namespace NPC.Domain.Models.Flows
         #region 流程完成
         public virtual void Finished()
         {
-            //设置所有流程实例为忽略状态
-            FlowNodeInstances.ToList().ForEach(nodeInstance =>
-            {
-                if (!nodeInstance.TriggerActionCompletedRule())
-                {
-                    nodeInstance.Ignore();
-                }
-            });
+            //设置所有流程实例为忽略状态 其实不应该在Flow里面操作Instance的状态 应该移到 FlowService中
+            FlowNodeInstances.Where(o => !(o.InstanceStatus == InstanceStatus.Finished || o.InstanceStatus == InstanceStatus.Ignore))
+                .ToList().ForEach(nodeInstance => nodeInstance.Ignore());
             FlowStatus = FlowStatus.Finished;
-            RecordDescription.DateOfLastestModify = DateTime.Now;
+            RecordDescription.UpdateBy(null);
             DateTimeofFinished = DateTime.Now;
         }
         #endregion

@@ -82,11 +82,15 @@ namespace NPC.Application
                 proposal.Content = model.FormData.Content;
                 //proposal.ProposalType = model.FormData.ProposalType.Value;
                 proposal.RecordDescription.CreateBy(NpcContext.CurrentUser);
-                var users = _userRepository.GetUsers(model.FormData.SelectedOriginatorIds.ToArray());
-                users.ToList().ForEach(o => proposal.ProposalOriginators.Add(o));
+                if (model.FormData.SelectedOriginatorIds.Any())
+                {
+                    var users = _userRepository.GetUsers(model.FormData.SelectedOriginatorIds.ToArray());
+                    users.ToList().ForEach(o => proposal.ProposalOriginators.Add(o));
+                }
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
                 args.Add("Originator", user.Id.ToString());
+                args.Add("NpcAuditor", user.Id.ToString());
                 _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
@@ -143,7 +147,7 @@ namespace NPC.Application
             try
             {
                 var args = new Dictionary<string, string>();
-                args.Add("NpcAuditor", NpcContext.CurrentUser.Id.ToString());
+                args.Add("GovAuditor", NpcContext.CurrentUser.Id.ToString());
                 _flowService.ExecuteTask(scNpcAuditModel.TaskId,
                   EnumHelper.GetDescription(scNpcAuditModel.Action),
                   NpcContext.CurrentUser, args, scNpcAuditModel.Comment);
@@ -200,17 +204,21 @@ namespace NPC.Application
 
         public void GovOfficeAudit(GovOfficeAuditModel govOfficeAuditModel)
         {
-            if (govOfficeAuditModel.SponsorUnitId == null)
-                throw new ArgumentException("必须选择主办单位");
+
             var trans = TransactionManager.BeginTransaction();
             try
             {
                 var unitRepository = new UnitRepository();
                 var args = new Dictionary<string, string>();
-                var sponsorUnit = unitRepository.Find(govOfficeAuditModel.SponsorUnitId.Value);
-                if (sponsorUnit.JieKouRen == null)
-                    throw new ArgumentException("对不起！" + sponsorUnit.Name + "未配置流程处理接口人");
-                args.Add("SponsorId", sponsorUnit.JieKouRen.Id.ToString());
+                if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
+                {
+                    if (govOfficeAuditModel.SponsorUnitId == null)
+                        throw new ArgumentException("必须选择主办单位");
+                    var sponsorUnit = unitRepository.Find(govOfficeAuditModel.SponsorUnitId.Value);
+                    if (sponsorUnit.JieKouRen == null)
+                        throw new ArgumentException("对不起！" + sponsorUnit.Name + "未配置流程处理接口人");
+                    args.Add("Sponsor", sponsorUnit.JieKouRen.Id.ToString());
+                }
                 _flowService.ExecuteTask(govOfficeAuditModel.TaskId,
                       EnumHelper.GetDescription(govOfficeAuditModel.Action),
                       NpcContext.CurrentUser, args, govOfficeAuditModel.Comment);
