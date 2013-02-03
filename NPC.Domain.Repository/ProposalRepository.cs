@@ -49,10 +49,14 @@ namespace NPC.Domain.Repository
             var status = new List<ProposalStatus>();
             status.Add(ProposalStatus.Default);
             status.Add(ProposalStatus.Finished);
-            status.Add(ProposalStatus.GovAudit);
-            status.Add(ProposalStatus.NpcAssessment);
-            status.Add(ProposalStatus.NpcAudit);
-            status.Add(ProposalStatus.SponsorAudit);
+            status.Add(ProposalStatus.GovAuditing);
+            status.Add(ProposalStatus.GovSendBack);
+            status.Add(ProposalStatus.NpcAssessmentSendBack);
+            status.Add(ProposalStatus.NpcAssessmenting);
+            status.Add(ProposalStatus.NpcAuditing);
+            status.Add(ProposalStatus.NpcSendBack);
+            status.Add(ProposalStatus.SponsorAuditing);
+            status.Add(ProposalStatus.SponsorSendBack);
             status.Add(ProposalStatus.Stop);
             var matchStatus = new List<ProposalStatus>();
             if (queryItem.ProposalStatus.HasValue)

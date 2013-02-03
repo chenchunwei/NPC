@@ -22,6 +22,10 @@ namespace NPC.Domain.Models.Proposals
         public virtual ProposalType ProposalType { get; set; }
         public virtual ProposalStatus ProposalStatus { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual string Attachment { get; set; }
+        public virtual string ReplyAttachment { get; set; }
+        public virtual NpcAssessmentState? NpcAssessmentState { get; set; }
+
         /// <summary>
         /// 附议人
         /// </summary>

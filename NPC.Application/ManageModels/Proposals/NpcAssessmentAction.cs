@@ -8,9 +8,9 @@ namespace NPC.Application.ManageModels.Proposals
 {
     public enum NpcAssessmentAction
     {
-        [Description("满意")]
+        [Description("完结")]
         Satisfy,
-        [Description("不满意")]
+        [Description("不满意退回")]
         UnSatisfy
     }
 }

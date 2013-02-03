@@ -52,14 +52,14 @@
         }
         @foreach (var row in Model.FlowNodeInstanceTasks)
         {
+            var url = (WebUtilities.GetRelativePathWithApplicationHost(row.FlowNodeInstance.BelongsFlowNode.ProcessUrl)) + "?taskId=" + row.Id + "&flowId=" + row.FlowNodeInstance.BelongsFlow.Id;
             <div class="rowline">
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
-                        删除</a></div>
+                    <a href="@url" target="_blank">处理</a></div>
                 <div class="span_3" style="width: 500px;">
-                    <a href="@(WebUtilities.GetRelativePathWithApplicationHost(row.FlowNodeInstance.BelongsFlowNode.ProcessUrl))?taskId=@row.Id">@row.FlowNodeInstance.BelongsFlow.Title</a>
+                    <a href="@url">@row.FlowNodeInstance.BelongsFlow.Title</a>
                 </div>
                 <div class="span_2">
                 </div>

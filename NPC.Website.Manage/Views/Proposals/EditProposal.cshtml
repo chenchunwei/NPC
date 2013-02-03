@@ -90,14 +90,31 @@
                                   class="xheditor { upLinkUrl:'@Url.Action("Upload", "Common")', upLinkExt: 'zip,rar,txt,doc,docx,ppt,xls,xlsx,pptx', upImgUrl:'@Url.Action("Upload", "Common")', upImgExt:'jpg,jpeg,gif,png', upFlashUrl:'@Url.Action("Upload", "Common")', upFlashExt:'swf', upMediaUrl:'@Url.Action("Upload", "Common")', upMediaExt:'avi' }">@Model.FormData.Content</textarea>
                     </td>
                 </tr>
-                <tr valign="middle">
+                <tr>
                     <th>
-                        <span style="color: red;">*</span> 注意：
+                        附件：
                     </th>
                     <td>
-                        <span style="float: left; line-height: 50px;">代表提交的意见建议由word文本上传至附件中,上传附件请选择【建议主体】中的</span>
-                        <img style="float: left;margin-top: 5px;" src="@Url.Content("~/Content/Images/demo.jpg")"  alt=""/>
-                        <span style="float: left; line-height: 50px;">图标进行附件上传</span>
+                        @Html.HiddenFor(o => o.FormData.Attachment)
+                        <div id="container">
+                            <div id="filelist">
+                            </div>
+                            <li class="buttonon" id="pickfiles">
+                                <div class="hc_left">
+                                </div>
+                                <div class="hc_center">
+                                    <div>
+                                        <img src="@Url.Content("~/Content/images/icon_3.gif")" alt="" /></div>
+                                    <div>
+                                        上传附件</div>
+                                </div>
+                                <div class="hc_right">
+                                </div>
+                            </li>
+                            <div style="float: left">
+                                支持.txt/.doc/.docx/.xls/.xlsx/.rar/.zip格式
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -140,6 +157,8 @@
         </div>
     </div>
 </div>
+<script src="@Url.Content("~/Scripts/plupload/plupload.full.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")" type="text/javascript"></script>
 <script type="text/javascript">
     var selectedUsers = [];
     $(function () {
@@ -169,7 +188,48 @@
             handerSelected();
             $('#selectWin').window('close');
         });
+        initialPlUpload();
     });
+
+    function initialPlUpload() {
+        var uploaderOfPic = new plupload.Uploader({
+            runtimes: 'flash,browserplus,html5,gears,silverlight,',
+            browse_button: 'pickfiles',
+            container: 'container',
+            max_file_size: '10M',
+            file_data_name: 'uploaderFile',
+            url: '@Url.Action("PlUpload", "Common")',
+            flash_swf_url: '@Url.Content("~/Scripts/plupload/plupload.flash.swf")',
+            silverlight_xap_url: '@Url.Content("~/Scripts/plupload/plupload.silverlight.xap")',
+            filters: [
+                { title: "请选择文件", extensions: "txt,doc,docx,xls,xlsx,rar,zip"}]
+        });
+        uploaderOfPic.init();
+        uploaderOfPic.bind('FilesAdded', function (up, files) {
+            $('#filelist').html('<div id="' + files[files.length - 1].id + '">文件：' + files[files.length - 1].name + ' (' + plupload.formatSize(files[files.length - 1].size) + ') <b></b>' + '</div>');
+            up.refresh();
+            up.start();
+        });
+        uploaderOfPic.bind('UploadProgress', function (up, file) {
+            $('#' + file.id + " b").html(file.percent + "%");
+        });
+        uploaderOfPic.bind('Error', function (up, err) {
+            if (err.code == "-600")
+                $('#filelist').html('<div style="color:red">图片大小超出限制!</div>');
+            if (err.code == "-601")
+                $('#filelist').html('<div style="color:red">文件类型不正确，请选择jpg,gif,png格式图片!</div>');
+            up.refresh();
+        });
+        uploaderOfPic.bind('FileUploaded', function (up, file, data) {
+            var dataObject = eval('(' + data.response + ')');
+            if (dataObject.status != "success") {
+                alert(dataObject.msg);
+                return;
+            }
+            $("#FormData_Attachment").val(dataObject.fileName);
+            $('#' + file.id + " b").html("100%");
+        });
+    }
 
     function removeUser(id) {
         $("#user" + id).parent().parent().remove();
@@ -190,12 +250,12 @@
                         selectedUsers.push(row.id);
                         appendLable(row);
                     });
-            }
+                }
         );
     }
 
     function appendLable(row) {
-                 $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
                     <div class="hc_left"></div><div class="hc_center">\
                     <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
                     <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\

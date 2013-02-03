@@ -6,7 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
+using NHibernate;
+using log4net;
 
 namespace NPC.Website.Manage
 {
@@ -52,8 +55,8 @@ namespace NPC.Website.Manage
 
         protected void Application_Start()
         {
-            var loggerFactory = new DefaultLoggerFactory();
-            loggerFactory.GetLogger().InfoFormat("日志已启动！");
+          var  log = new DefaultLoggerFactory().GetLogger();
+          log.InfoFormat("日志已启动！");
             AreaRegistration.RegisterAllAreas();
 
 
@@ -116,7 +119,14 @@ namespace NPC.Website.Manage
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-           
+            var sessionItem = HttpContext.Current.Items[WebSessionManager.NhibernateSessionKey];
+            var session = sessionItem as ISession;
+            if (session != null)
+            {
+                session.Close();
+                var log = new DefaultLoggerFactory().GetLogger();
+                log.InfoFormat("Session已关闭！");
+            }
         }
 
         void UpdateCookie(string cookieName, string cookieValue)

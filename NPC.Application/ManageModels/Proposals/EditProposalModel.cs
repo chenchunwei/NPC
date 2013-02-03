@@ -30,5 +30,6 @@ namespace NPC.Application.ManageModels.Proposals
         public ProposalType? ProposalType { get; set; }
         public string Content { get; set; }
         public IList<Guid> SelectedOriginatorIds { get; set; }
+        public string Attachment { get; set; }
     }
 }

@@ -12,16 +12,24 @@ namespace NPC.Domain.Models.Proposals
         [Description("默认")]
         Default = 0,
         [Description("人大常委会审核中")]
-        NpcAudit = 1,
+        NpcAuditing = 1,
+        [Description("人大常委会退回")]
+        NpcSendBack = 2,
+        [Description("市政办退回")]
+        GovSendBack = 4,
         [Description("市政办处理中")]
-        GovAudit = 2,
+        GovAuditing = 8,
+        [Description("主办单位退回")]
+        SponsorSendBack = 16,
         [Description("主办单位处理中")]
-        SponsorAudit = 4,
+        SponsorAuditing = 32,
+        [Description("不满意退回")]
+        NpcAssessmentSendBack = 64,
         [Description("代表满意度回馈")]
-        NpcAssessment = 8,
+        NpcAssessmenting = 128,
         [Description("完成")]
-        Finished = 16,
+        Finished = 256,
         [Description("中止")]
-        Stop = 32
+        Stop = 512
     }
 }

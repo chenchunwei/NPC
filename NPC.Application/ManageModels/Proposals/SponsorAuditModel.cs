@@ -7,12 +7,10 @@ using NPC.Domain.Models.Proposals;
 
 namespace NPC.Application.ManageModels.Proposals
 {
-    public class SponsorAuditModel
+    public class SponsorAuditModel : ProposalBasicModel
     {
-        public Guid TaskId { get; set; }
-        public Flow Flow { get; set; }
         public string Comment { get; set; }
-        public Proposal Proposal { get; set; }
+        public string ReplyAttachment { get; set; }
         public SponsorAuditAction Action { get; set; }
     }
 }

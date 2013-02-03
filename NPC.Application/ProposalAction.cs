@@ -78,8 +78,10 @@ namespace NPC.Application
                 //if (model.FormData.ProposalType == null)
                 //    throw new ArgumentException("model.FormData.ProposalType不能为空");
                 var proposal = new Proposal();
+                proposal.ProposalStatus = ProposalStatus.NpcAuditing;
                 proposal.Title = model.FormData.Title;
                 proposal.Content = model.FormData.Content;
+                proposal.Attachment = model.FormData.Attachment;
                 //proposal.ProposalType = model.FormData.ProposalType.Value;
                 proposal.RecordDescription.CreateBy(NpcContext.CurrentUser);
                 if (model.FormData.SelectedOriginatorIds.Any())
@@ -140,12 +142,25 @@ namespace NPC.Application
             model.TaskId = taskId;
             return model;
         }
-
+        /// <summary>
+        /// 市人大常委审批
+        /// </summary>
+        /// <param name="scNpcAuditModel"></param>
         public void ScNpcAudit(ScNpcAuditModel scNpcAuditModel)
         {
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                var proposal = _proposalRepository.Find(scNpcAuditModel.FlowId);
+                if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
+                {
+                    proposal.ProposalStatus = ProposalStatus.GovAuditing;
+                }
+                else
+                {
+                    proposal.ProposalStatus = ProposalStatus.NpcSendBack;
+                }
+                _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
                 args.Add("GovAuditor", NpcContext.CurrentUser.Id.ToString());
                 _flowService.ExecuteTask(scNpcAuditModel.TaskId,
@@ -201,13 +216,25 @@ namespace NPC.Application
             unitRepository.GetFlowUnits().ToList().ForEach(unit => model.UnitOptions.Add(unit.Id.ToString(), unit.Name));
             return model;
         }
-
+        /// <summary>
+        /// 市政办审核 
+        /// </summary>
+        /// <param name="govOfficeAuditModel"></param>
         public void GovOfficeAudit(GovOfficeAuditModel govOfficeAuditModel)
         {
 
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                var proposal = _proposalRepository.Find(govOfficeAuditModel.FlowId);
+                if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
+                {
+                    proposal.ProposalStatus = ProposalStatus.SponsorAuditing;
+                }
+                else
+                {
+                    proposal.ProposalStatus = ProposalStatus.GovSendBack;
+                }
                 var unitRepository = new UnitRepository();
                 var args = new Dictionary<string, string>();
                 if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
@@ -231,12 +258,27 @@ namespace NPC.Application
             }
         }
 
+        /// <summary>
+        /// 主办单位处理
+        /// </summary>
+        /// <param name="sponsorAuditModel"></param>
         public void SponsorAudit(SponsorAuditModel sponsorAuditModel)
         {
 
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                var proposal = _proposalRepository.Find(sponsorAuditModel.FlowId);
+                proposal.ReplyAttachment = sponsorAuditModel.ReplyAttachment;
+                if (sponsorAuditModel.Action == SponsorAuditAction.Finished)
+                {
+                    proposal.ProposalStatus = ProposalStatus.NpcAssessmenting;
+                }
+                else
+                {
+                    proposal.ProposalStatus = ProposalStatus.SponsorSendBack;
+                }
+                _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
                 _flowService.ExecuteTask(sponsorAuditModel.TaskId,
                       EnumHelper.GetDescription(sponsorAuditModel.Action),
@@ -264,12 +306,25 @@ namespace NPC.Application
             model.TaskId = taskId;
             return model;
         }
-
+        /// <summary>
+        /// 满意度反馈
+        /// </summary>
+        /// <param name="npcAssessmentModel"></param>
         public void NpcAssessment(NpcAssessmentModel npcAssessmentModel)
         {
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                var proposal = _proposalRepository.Find(npcAssessmentModel.FlowId);
+                if (npcAssessmentModel.Action == NpcAssessmentAction.Satisfy)
+                {
+                    proposal.ProposalStatus = ProposalStatus.Finished;
+                }
+                else
+                {
+                    proposal.ProposalStatus = ProposalStatus.NpcAssessmentSendBack;
+                }
+                _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
                 _flowService.ExecuteTask(npcAssessmentModel.TaskId,
                       EnumHelper.GetDescription(npcAssessmentModel.Action),

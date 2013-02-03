@@ -85,6 +85,7 @@
     <Compile Include="Models\PhoneBooks\PhoneBookRecord.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBookRecordQueryItem.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBookType.cs" />
+    <Compile Include="Models\Proposals\NpcAssessmentState.cs" />
     <Compile Include="Models\Proposals\Proposal.cs" />
     <Compile Include="Models\Proposals\ProposalQueryItem.cs" />
     <Compile Include="Models\Proposals\ProposalStatus.cs" />

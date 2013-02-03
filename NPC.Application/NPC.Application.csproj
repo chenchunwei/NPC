@@ -81,6 +81,7 @@
     <Compile Include="ManageModels\Configs\JieKouRenSettingsModel.cs" />
     <Compile Include="ManageModels\Departments\EditDepartmentModel.cs" />
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
+    <Compile Include="ManageModels\Flows\FlowBasicModel.cs" />
     <Compile Include="ManageModels\LoginModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModelFormData.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ManageModels\Proposals\GovOfficeAuditModel.cs" />
     <Compile Include="ManageModels\Proposals\NpcAssessmentAction.cs" />
     <Compile Include="ManageModels\Proposals\NpcAssessmentModel.cs" />
+    <Compile Include="ManageModels\Proposals\ProposalBasicModel.cs" />
     <Compile Include="ManageModels\Proposals\ProposalListModel.cs" />
     <Compile Include="ManageModels\Proposals\ProposalSearchModel.cs" />
     <Compile Include="ManageModels\Proposals\ProposalTasksModel.cs" />

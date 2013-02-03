@@ -32,4 +32,12 @@
             @Html.Raw(Model.Content)
         </td>
     </tr>
+    <tr>
+        <th>
+            附件：
+        </th>
+        <td>
+            @Html.Raw(string.IsNullOrEmpty(Model.Attachment) ? "无" : string.Format("<a href=\"{0}\"></a>", Url.Content("~/") + Model.Attachment))
+        </td>
+    </tr>
 </table>
