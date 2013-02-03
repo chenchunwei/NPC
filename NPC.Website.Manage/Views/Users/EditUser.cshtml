@@ -29,7 +29,7 @@
             <table class="fromTable" width="100%">
                 <tr>
                     <th style="width: 220px;">
-                        <span style="color: red;">*</span> 部门：
+                        <span style="color: red;">*</span> 分组：
                     </th>
                     <td>
                         @Html.DropDownListFor(o => o.FormData.DepartmentId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
@@ -83,7 +83,7 @@
                         密码：
                     </th>
                     <td>
-                        @Html.PasswordFor(o => o.FormData.Pwd, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;登录密码请认真填写
+                        @Html.PasswordFor(o => o.FormData.Pwd, new { style = "width:380px;", maxlength = 10})&nbsp;登录密码请认真填写
                     </td>
                 </tr>
                 <tr>
@@ -95,7 +95,7 @@
                         重复密码：
                     </th>
                     <td>
-                        @Html.PasswordFor(o => o.FormData.RePwd, new { style = "width:380px;", maxlength = 10, @class = "mask-int" })&nbsp;重复输入密码
+                        @Html.PasswordFor(o => o.FormData.RePwd, new { style = "width:380px;", maxlength = 10 })&nbsp;重复输入密码
                     </td>
                 </tr>
                 <tr>

@@ -7,6 +7,7 @@ using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application.Common;
 using NPC.Application.ManageModels.Proposals;
+using NPC.Application.Services;
 using NPC.Domain.Models.FlowNodeInstances;
 using NPC.Domain.Models.Flows;
 using NPC.Domain.Models.Proposals;
@@ -92,7 +93,7 @@ namespace NPC.Application
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
                 args.Add("Originator", user.Id.ToString());
-                args.Add("NpcAuditor", user.Id.ToString());
+                args.Add("NpcAuditor", ProposalRoleService.GetNpcAuditJieKouRen().Id.ToString());
                 _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
@@ -151,18 +152,18 @@ namespace NPC.Application
             var trans = TransactionManager.BeginTransaction();
             try
             {
+                var args = new Dictionary<string, string>();
                 var proposal = _proposalRepository.Find(scNpcAuditModel.FlowId);
                 if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
                 {
                     proposal.ProposalStatus = ProposalStatus.GovAuditing;
+                    args.Add("GovAuditor", ProposalRoleService.GetNpcAuditJieKouRen().Id.ToString());
                 }
                 else
                 {
                     proposal.ProposalStatus = ProposalStatus.NpcSendBack;
                 }
                 _proposalRepository.Save(proposal);
-                var args = new Dictionary<string, string>();
-                args.Add("GovAuditor", NpcContext.CurrentUser.Id.ToString());
                 _flowService.ExecuteTask(scNpcAuditModel.TaskId,
                   EnumHelper.GetDescription(scNpcAuditModel.Action),
                   NpcContext.CurrentUser, args, scNpcAuditModel.Comment);

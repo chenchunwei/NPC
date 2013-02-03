@@ -99,6 +99,8 @@ namespace NPC.Application
                 throw new ArgumentException("id不能为null");
             var unit = _unitRepository.Find(model.Id.Value);
             unit.Name = model.FormData.Name;
+            unit.IsWebUint = model.FormData.IsWebUnit;
+            unit.IsFlowUint = model.FormData.IsFlowUnit;
             _unitRepository.Save(unit);
         }
         #endregion

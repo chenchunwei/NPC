@@ -14,5 +14,21 @@ namespace NPC.Application.Common
                 return System.Configuration.ConfigurationManager.AppSettings["AttachmentsPath"];
             }
         }
+
+        public static Guid NpcAuditJieKouRenUnitId
+        {
+            get
+            {
+                return Guid.Parse(System.Configuration.ConfigurationManager.AppSettings["NpcAuditJieKouRenUnitId"]);
+            }
+        }
+
+        public static Guid GovAuditJieKouRenUnitId
+        {
+            get
+            {
+                return Guid.Parse(System.Configuration.ConfigurationManager.AppSettings["GovAuditJieKouRenUnitId"]);
+            }
+        }
     }
 }

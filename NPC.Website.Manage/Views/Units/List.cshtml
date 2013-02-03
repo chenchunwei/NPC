@@ -72,7 +72,7 @@
                             是否承办单位：
                         </th>
                         <td>
-                            <input id="FormData_IsFlowUnit" name="FormData.IsFlowUnit" type="checkbox" />
+                            <input id="FormData_IsFlowUnit" name="FormData.IsFlowUnit" type="checkbox" value="true" />
                         </td>
                     </tr>
                     <tr>
@@ -80,7 +80,7 @@
                             开通网站：
                         </th>
                         <td>
-                            <input id="FormData_IsWebUnit" name="FormData_IsWebUnit" type="checkbox" />
+                            <input id="FormData_IsWebUnit" name="FormData.IsWebUnit" type="checkbox" value="true" />
                         </td>
                     </tr>
                 </table>
@@ -110,8 +110,8 @@
             columns: [[
             { field: 'name', title: '组织名称', width: 290, align: 'left' },
             { field: 'id', title: 'UnitId', width: 280, align: 'left' },
-            { field: 'isWebUnit', title: '开通网站', width: 80, align: 'left', formatter: convertState },
-            { field: 'isFlowUnit', title: '主办单位', width: 80, align: 'left',formatter: convertState }
+            { field: 'isFlowUnit', title: '承办单位', width: 80, align: 'left', formatter: convertState },
+            { field: 'isWebUnit', title: '开通网站', width: 80, align: 'left', formatter: convertState }
         ]],
             onLoadSuccess: function () {
             },
@@ -163,8 +163,16 @@
             $("#ParentId").val('');
             $("#Id").val(row.id);
             $("#FormData_Name").val(row.name);
-            $("#FormData_IsWebUnit").val(row.isWebUnit);
-            $("#FormData_IsFlowUnit").val(row.isFlowUnit);
+            if (row.isWebUnit) {
+                $("#FormData_IsWebUnit").attr("checked", "checked");
+            }else {
+                $("#FormData_IsWebUnit").removeAttr("checked");
+            }
+            if (row.isFlowUnit) {
+                $("#FormData_IsFlowUnit").attr("checked", "checked");
+            } else {
+                $("#FormData_IsFlowUnit").removeAttr("checked");
+            }
         }
     }
     function removeNode() {
