@@ -2,18 +2,21 @@
     <div class="advice">
         <img src="@Url.Content("~/img/advice.jpg")" alt="意见建议在线提交" title="意见建议在线提交">
     </div>
+    <form action="@Url.Content("~/Manage/Home/Login?cmd=login")" method="POST" style="margin: 0">
     <div class="login">
         <div class="title">
             在线互动
         </div>
         <div class="login-input">
-            用户名<input type="text" value="" name="用户名" />
+            用户名<input type="text" value="" name="account" />
         </div>
         <div class="login-input">
-            密 码<input type="password" value="" name="密码" />
+            密 码<input type="password" value="" name="password" />
         </div>
-        <input class="button" type="button" value="登录" name="">
+        <input type="hidden" value="59116356-f270-4845-bb7c-a1050188e6ad" name="extension">
+        <input class="button" type="submit" value="登录" name="">
     </div>
+    </form>
     <div class="bookmark">
         <div class="bookmark-box">
             @foreach (var nodeRecord in Model.Mediums)
@@ -21,7 +24,6 @@
                 <a href="@nodeRecord.RecordLink" target="_blank">
                     <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle"></a> 
             }
-
         </div>
     </div>
 </div>

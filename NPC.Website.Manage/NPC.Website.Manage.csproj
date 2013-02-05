@@ -104,6 +104,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Internals\CustomAuthenticationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1299,6 +1300,7 @@
     <Content Include="Views\Proposals\ProposalTasks.cshtml" />
     <Content Include="Views\Proposals\_ProposalDetail.cshtml" />
     <Content Include="Views\Configs\JieKouRenSettings.cshtml" />
+    <Content Include="Views\Users\Interactive.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

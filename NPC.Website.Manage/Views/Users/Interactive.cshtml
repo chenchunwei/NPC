@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "人大在线互动";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model NPC.Application.ManageModels.Users.InteractiveModel 
+<div class="workgroundin" style="height: 5px;">
+</div>
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示:在线互动必须安装腾讯QQ软件并开启在线聊天服务</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：点击图标可进行即时沟通或留言！<b style="color:red">未开通在线聊天服务的请点击"<a href="http://wp.qq.com/open.html">这里</a>"登录自己的QQ帐号,启用服务</b></div>
+            </div>
+            <table class="fromTable" width="100%">
+                @foreach (var kv in Model.DepartmentUsers)
+                {
+                    <tr>
+                        <th style="width: 220px;">
+                            @kv.Key.Name：
+                        </th>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <td>
+                            @foreach (var user in kv.Value)
+                            {
+                                @Html.Raw(string.Format("<div style=\"float:left;width:150px;\"><a target=\"_blank\" href=\"http://wpa.qq.com/msgrd?v=3&uin={0}&site=qq&menu=yes\"><div style=\"float:left;padding-top:5px;\"><img border=\"0\" src=\"http://wpa.qq.com/pa?p=2:{0}:41\" alt=\"点击这里给我发消息\" title=\"点击这里给我发消息\"></div></a><div style=\"float:left\">&nbsp;&nbsp;{1}</div></div>", user.QQ, user.Name))
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>

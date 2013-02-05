@@ -1,6 +1,5 @@
 ﻿@{
-    ViewBag.Title = NpcMainWebContext.CurrentUnit.Name;
-    Layout = null;
+    ViewBag.Title = Model.Message;
 }
 @using NPC.Application.Contexts
 @model NPC.Application.ManageModels.RedirectMessageModel 
@@ -23,18 +22,19 @@
         <div class="detail-right">
             <div class="title">
                 <div class="title-name">
-                    网站反馈消息
+                    提示消息
                 </div>
             </div>
             <div class="clear">
             </div>
             <div class="detail-content">
                 <h1>
-                    网站反馈消息</h1>
+                    提示消息</h1>
                 <div class="time">
                 </div>
                 <p>
-                    @Model.Message
+                    <h1>
+                    @Model.Message</h1>
                 </p>
             </div>
         </div>

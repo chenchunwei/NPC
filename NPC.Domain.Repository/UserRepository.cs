@@ -15,6 +15,12 @@ namespace NPC.Domain.Repository
             return Session.CreateQuery("from User where Department.Id=:departmentId and  RecordDescription.IsDelete=0")
                        .SetGuid("departmentId", departmentId).List<User>();
         }
+
+        public IList<User> GetUserByDeparmentLike(Guid departmentId)
+        {
+            return Session.CreateQuery("from User where Department.Path like :departmentIdLike and  RecordDescription.IsDelete=0")
+                       .SetString("departmentIdLike", "%" + departmentId + "%").List<User>();
+        }
         public IList<User> GetUsers(params Guid[] ids)
         {
             return Session.CreateQuery("from User Where Id in(:ids) And RecordDescription.IsDelete=0")

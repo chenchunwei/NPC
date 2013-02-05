@@ -135,5 +135,14 @@ namespace NPC.Website.Manage.Controllers
             return View(model);
         }
         #endregion
+
+        #region Interactive
+        public ActionResult Interactive()
+        {
+            var untiId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _userAction.InitializeInteractiveModel(untiId);
+            return View(model);
+        }
+        #endregion
     }
 }

@@ -285,5 +285,19 @@ namespace NPC.Application
             return model;
         }
         #endregion
+
+        #region InitializeInteractiveModel
+        public InteractiveModel InitializeInteractiveModel(Guid untiId)
+        {
+            var model = new InteractiveModel();
+            model.Departments = _departmentRepository.GetRootDepartment(untiId).ToList();
+            model.Departments.ToList().ForEach(dept =>
+            {
+                var users = _userRepository.GetUserByDeparment(dept.Id);
+                model.DepartmentUsers.Add(dept, users);
+            });
+            return model;
+        }
+        #endregion
     }
 }

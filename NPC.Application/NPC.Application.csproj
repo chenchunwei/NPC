@@ -124,6 +124,7 @@
     <Compile Include="ManageModels\Units\UnitTreeModel.cs" />
     <Compile Include="ManageModels\Users\EditPasswordModel.cs" />
     <Compile Include="ManageModels\Users\EditUserModel.cs" />
+    <Compile Include="ManageModels\Users\InteractiveModel.cs" />
     <Compile Include="ManageModels\Users\SelectedUsersModel.cs" />
     <Compile Include="ManageModels\Users\SelectedUsersResponse.cs" />
     <Compile Include="ManageModels\Users\SelectUserOptionsModel.cs" />
