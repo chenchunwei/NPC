@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "新闻投稿";
+}
+@using NPC.Application.Contexts
+@model NPC.Application.MianModels.Homes.ContributeModel 
+<link href="@Url.Content("~/css/global.css")" type="text/css" rel="stylesheet">
+<form id="mainForm" action="" method="POST" style="margin: 0">
+<div class="main2">
+    @Html.Action("SideBar", "Home")
+    <div class="detail-right">
+        <div class="title">
+            <div class="title-name">
+                新闻投稿
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="detail-content">
+            <table>
+                <tr>
+                    <td>
+                        标题<span style="color: red">*</span>：
+                    </td>
+                    <td>
+                        <input type="text" style="width: 380px;" maxlength="70" name="Title" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        作者<span style="color: red">*</span>：
+                    </td>
+                    <td>
+                        <input type="text" style="width: 380px;" maxlength="50" name="Author" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        内容<span style="color: red">*</span>：
+                    </td>
+                    <td>
+                        <textarea id="content" name="Content" cols="60" rows="20"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center; padding-top: 10px;">
+                        <input type="submit" value="投递" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/utility.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validator.extension.js")"></script>
+<script type="text/javascript">
+    $("#mainForm").validate({
+        ignore: "",
+        rules: {
+            "Title": "required",
+            "Author": "required",
+            "Content": "required"
+        },
+        messages: {
+            "Title": "必须填写",
+            "Author": "必须填写",
+            "Content": "必须填写"
+        }
+    });
+</script>

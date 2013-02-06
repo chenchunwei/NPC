@@ -37,5 +37,10 @@ namespace NPC.Website.Main.Controllers
                 return 1;
             }
         }
+
+        public ActionResult RedirectToMessage(string message, string returnUrl = "", string textOfReturnUrl = "")
+        {
+            return new RedirectResult(Url.Action("Message", "Home") + string.Format("?message={0}&returnUrl={1}&textOfReturnUrl={2}", message, returnUrl, textOfReturnUrl));
+        }
     }
 }

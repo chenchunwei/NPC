@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dimac.JMail, Version=1.1.0.0, Culture=neutral, PublicKeyToken=cb73ac4e12856317, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Infrastructure\ExternalAssembly\JMail\Dimac.JMail.dll</HintPath>
+    </Reference>
+    <Reference Include="Dimac.JMail.Smtp, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0f049353cb3ac909, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Infrastructure\ExternalAssembly\JMail\Dimac.JMail.Smtp.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Infrastructure\ExternalAssembly\Log4net\log4net.dll</HintPath>
@@ -132,6 +140,7 @@
     <Compile Include="ManageModels\Users\UserSearchModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
     <Compile Include="MianModels\HeaderModel.cs" />
+    <Compile Include="MianModels\Homes\ContributeModel.cs" />
     <Compile Include="MianModels\Homes\DetailModel.cs" />
     <Compile Include="MianModels\Homes\IndexModel.cs" />
     <Compile Include="MianModels\Homes\ListModel.cs" />

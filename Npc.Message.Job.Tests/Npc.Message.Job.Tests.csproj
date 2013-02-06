@@ -48,6 +48,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JMailTests.cs" />
+    <Compile Include="MailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MmsJobTests.cs" />
   </ItemGroup>

@@ -325,8 +325,11 @@
 </div>
 <div class="main3">
     <div class="contribute">
-        <a href="#">
-            <img src="img/news.jpg" alt="新闻投稿" title="新闻投稿"></a>
+        @if (Model.ContributeNode != null)
+        {
+            <a href="@Model.ContributeNode.RecordLink" target="_blank">
+                <img src="/Manage/Attachments/@Model.ContributeNode.FirstImage" alt="@Model.ContributeNode.FirstTitle" title="@Model.ContributeNode.FirstTitle"></a> 
+        }
     </div>
     <div style="width: 792px; float: left; overflow: hidden;">
         <ul id="mycarousel" class="jcarousel-skin-ie7">

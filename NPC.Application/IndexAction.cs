@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dimac.JMail;
 using Fluent.Infrastructure.Utilities;
 using NPC.Application;
+using NPC.Application.Common;
 using NPC.Application.Contexts;
 using NPC.Application.MainTownModels;
 using NPC.Application.MianModels;
@@ -21,6 +23,7 @@ namespace NPC.Application
         private readonly NodeRepository _nodeRepository;
         private readonly NodeRecordRepository _nodeRecordRepository;
         private readonly ArticleRepository _articleRepository;
+
         public IndexAction()
         {
             _articleRepository = new ArticleRepository();
@@ -28,6 +31,7 @@ namespace NPC.Application
             _articleCategoryRepository = new ArticleCategoryRepository();
             _nodeRecordRepository = new NodeRecordRepository();
         }
+
         private IList<NodeRecord> GetNodeRecord(Guid nodeId, int count)
         {
             var unitId = NpcMainWebContext.CurrentUnit.Id;
@@ -39,6 +43,7 @@ namespace NPC.Application
             }
             return nodeRecords;
         }
+
         public MainTownModels.Homes.IndexModel InitializeMainTownIndexModel()
         {
             var model = new MainTownModels.Homes.IndexModel();
@@ -189,10 +194,12 @@ namespace NPC.Application
             model.NpcPics = _nodeRecordRepository.GetTopN(unitId, "NpcPics", 80);
             FillRecords(model.NpcPics, unitId, 80, 0, "NpcPics");
 
+            model.ContributeNode = _nodeRecordRepository.GetTopN(unitId, "Contribute", 1).FirstOrDefault();
             return model;
         }
 
-        private void FillRecords(ICollection<NodeRecord> nodeRecords, Guid unitId, int picTopN, int normalTopN, string code)
+        private void FillRecords(ICollection<NodeRecord> nodeRecords, Guid unitId, int picTopN, int normalTopN,
+                                 string code)
         {
             var node = _nodeRepository.GetSingleByCode(unitId, code);
             if (node == null)
@@ -210,16 +217,17 @@ namespace NPC.Application
 
             if (needNormalN <= 0) return;
 
-            var articles = _articleRepository.GetTopNWithPic(unitId, node.OuterCategoryId.Value, needPicN, needNormalN).ToList();
+            var articles =
+                _articleRepository.GetTopNWithPic(unitId, node.OuterCategoryId.Value, needPicN, needNormalN).ToList();
             foreach (var article in articles)
             {
                 var record = new NodeRecord()
-                {
-                    FirstTitle = article.Title,
-                    RecordLink = "/Home/Detail?Id=" + article.Id,
-                    FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content)),
-                    FirstImage = article.UrlOfCoverImage
-                };
+                                 {
+                                     FirstTitle = article.Title,
+                                     RecordLink = "/Home/Detail?Id=" + article.Id,
+                                     FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content)),
+                                     FirstImage = article.UrlOfCoverImage
+                                 };
                 record.RecordDescription.DateOfCreate = article.RecordDescription.DateOfCreate;
                 nodeRecords.Add(record);
             }
@@ -233,8 +241,8 @@ namespace NPC.Application
             if (!node.OuterCategoryId.HasValue)
                 return null;
             var article = isPic
-                ? _articleRepository.GetTopNPic(unitId, node.OuterCategoryId.Value, 1).FirstOrDefault()
-                : _articleRepository.GetTopN(unitId, node.OuterCategoryId.Value, 1).FirstOrDefault();
+                              ? _articleRepository.GetTopNPic(unitId, node.OuterCategoryId.Value, 1).FirstOrDefault()
+                              : _articleRepository.GetTopN(unitId, node.OuterCategoryId.Value, 1).FirstOrDefault();
             if (article != null)
             {
                 var nodeRecord = new NodeRecord();
@@ -344,6 +352,29 @@ namespace NPC.Application
             FillRecords(model.PublicProposals, unitId, 0, 8, "PublicProposals");
             model.PublicProposalsNode = _nodeRepository.GetSingleByCode(unitId, "PublicProposals");
             return model;
+        }
+
+        public void Contribute(ContributeModel model)
+        {
+            var userName = AppConfig.SmtpUserName;
+            var content = string.Format("标题：{0}<br/>作者:{1}<p/>正文：{2}", model.Title, model.Author, model.Content);
+            var message = new Message();
+            message.Subject = "【新闻投稿】" + model.Title;
+            message.From = userName;
+            message.Charset = System.Text.Encoding.GetEncoding("GB2312");
+            message.BodyHtml = content;
+            message.To.Add(AppConfig.ContributeSendTo);
+            // 设置SMTP
+            var smt = new Smtp
+            {
+                UserName = userName,
+                Password = AppConfig.SmtpPassword,
+                HostName = AppConfig.SmtpServer,
+                Domain = AppConfig.SmtpDomain,
+                Port = short.Parse(AppConfig.SmtpPort),
+                Authentication = SmtpAuthentication.Login
+            };
+            smt.Send(message);
         }
     }
 }

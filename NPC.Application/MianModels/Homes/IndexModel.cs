@@ -50,6 +50,7 @@ namespace NPC.Application.MianModels.Homes
         public Node NpcPicsNode { get; set; }
         public Node LinksNode { get; set; }
 
+        public NodeRecord ContributeNode { get; set; }
         /// <summary>
         /// 顶部轮播 
         /// </summary>

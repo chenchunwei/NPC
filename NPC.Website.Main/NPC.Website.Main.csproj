@@ -150,6 +150,9 @@
     <Content Include="js\nav.js" />
     <Content Include="Scripts\jquery.ae.image.resize.min.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validator.extension.js" />
+    <Content Include="Scripts\utility.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -209,6 +212,7 @@
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Home\Records.cshtml" />
     <Content Include="Views\Home\Message.cshtml" />
+    <Content Include="Views\Home\Contribute.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

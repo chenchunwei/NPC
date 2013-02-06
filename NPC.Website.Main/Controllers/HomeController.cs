@@ -61,5 +61,26 @@ namespace NPC.Website.Main.Controllers
         {
             return View(model);
         }
+
+        #region 新闻投稿
+        public ActionResult Contribute()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("Contribute")]
+        public ActionResult ContributePost(ContributeModel model)
+        {
+            try
+            {
+                _indexAction.Contribute(model);
+            }
+            catch (Exception exception)
+            {
+                return RedirectToMessage(exception.Message);
+            }
+            return RedirectToMessage("投稿成功！");
+        }
+        #endregion
     }
 }
