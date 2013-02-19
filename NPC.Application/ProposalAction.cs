@@ -76,14 +76,14 @@ namespace NPC.Application
             try
             {
                 var user = NpcContext.CurrentUser;
-                //if (model.FormData.ProposalType == null)
-                //    throw new ArgumentException("model.FormData.ProposalType不能为空");
+                if (model.FormData.ProposalType == null)
+                    throw new ArgumentException("model.FormData.ProposalType不能为空");
                 var proposal = new Proposal();
                 proposal.ProposalStatus = ProposalStatus.NpcAuditing;
                 proposal.Title = model.FormData.Title;
                 proposal.Content = model.FormData.Content;
                 proposal.Attachment = model.FormData.Attachment;
-                //proposal.ProposalType = model.FormData.ProposalType.Value;
+                proposal.ProposalType = model.FormData.ProposalType.Value;
                 proposal.RecordDescription.CreateBy(NpcContext.CurrentUser);
                 if (model.FormData.SelectedOriginatorIds.Any())
                 {

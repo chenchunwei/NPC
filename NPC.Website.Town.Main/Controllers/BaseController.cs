@@ -40,8 +40,7 @@ namespace NPC.Website.Town.Main.Controllers
                 if (!bRequest && !bCookie)
                 {
                     Guid.TryParse(System.Configuration.ConfigurationManager.AppSettings["DefaultUnitId"], out UnitId);
-                    //filterContext.Result = new RedirectResult(Url.Action("Message","Home")+"?message="+HttpUtility.UrlEncode("未指定访问的UnitId！"));
-                }
+                 }
                 var cookie = new HttpCookie(KeyOfUnitId, UnitId.ToString());
                 cookie.HttpOnly = true;
                 filterContext.RequestContext.HttpContext.Response.Cookies.Add(cookie);

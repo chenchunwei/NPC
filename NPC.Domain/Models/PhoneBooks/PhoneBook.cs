@@ -21,5 +21,6 @@ namespace NPC.Domain.Models.PhoneBooks
         public virtual UserInModel User { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual PhoneBookType PhoneBookType { get; set; }
+        public virtual bool IsDefault { get; set; }
     }
 }

@@ -14,9 +14,8 @@ namespace NPC.Application.Common
         {
             return new Dictionary<string, string>()
             {
-              {"0","代表议案"},
-              {"1","代表建议"},
-              {"2","群众意见"}
+              {"1","意见建议"},
+              {"2","议案建议"}
             };
         }
 

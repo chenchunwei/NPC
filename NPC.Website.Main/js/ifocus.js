@@ -34,7 +34,7 @@
                 $("#ifocus_tx li").eq(currentIndex - 1).hide();
                 $("#ifocus_piclist li").eq(currentIndex).fadeIn("slow");
                 $("#ifocus_piclist li").eq(currentIndex - 1).hide();
-                currentIndex++; currentIndex = currentIndex >= 2 ? 0 : currentIndex;
+                currentIndex++; currentIndex = currentIndex >= 4 ? 0 : currentIndex;
                 DEMO = setTimeout(autoScroll, 2000);
             }
             function StopScrolll()//当鼠标移动到对象上面的时候停止自动滚动

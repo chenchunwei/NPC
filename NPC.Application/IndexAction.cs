@@ -66,6 +66,7 @@ namespace NPC.Application
             model.SuperviseNode = _nodeRepository.GetSingleByCode(unitId, "Supervises");
             model.MembersNode = _nodeRepository.GetSingleByCode(unitId, "Members");
 
+            model.FirstFullColumn = _nodeRecordRepository.GetTopN(unitId, "FirstFullColumn", 1).FirstOrDefault();
             model.LatestAttentions = _nodeRecordRepository.GetTopN(unitId, "LatestAttentions", 8);
             FillRecords(model.BottomPicsRolling, unitId, 0, 8, "LatestAttentions");
 
@@ -153,6 +154,7 @@ namespace NPC.Application
             model.Notices = _nodeRecordRepository.GetTopN(unitId, "Notices", 5);
             FillRecords(model.Notices, unitId, 0, 5, "Notices");
 
+
             model.Directors = _nodeRecordRepository.GetTopN(unitId, "Directors", 1);
             FillRecords(model.Directors, unitId, 1, 0, "Directors");
 
@@ -222,12 +224,12 @@ namespace NPC.Application
             foreach (var article in articles)
             {
                 var record = new NodeRecord()
-                                 {
-                                     FirstTitle = article.Title,
-                                     RecordLink = "/Home/Detail?Id=" + article.Id,
-                                     FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content)),
-                                     FirstImage = article.UrlOfCoverImage
-                                 };
+                {
+                    FirstTitle = article.Title,
+                    RecordLink = "/Home/Detail?Id=" + article.Id,
+                    FirstContent = MyString.RemoveSpaceString(MyString.RemoveHtml(article.Content)),
+                    FirstImage = article.UrlOfCoverImage
+                };
                 record.RecordDescription.DateOfCreate = article.RecordDescription.DateOfCreate;
                 nodeRecords.Add(record);
             }
@@ -271,9 +273,10 @@ namespace NPC.Application
             model.ArticleQueryItem.IsShow = true;
             model.Articles = _articleRepository.Query(queryItem).ToList();
             model.ListTitle = "文章列表";
-            if (queryItem.CategoryId.HasValue)
+            var categoryId = queryItem.CategoryId ?? queryItem.CategoryIdLike;
+            if (categoryId.HasValue)
             {
-                var category = _articleCategoryRepository.Find(queryItem.CategoryId.Value);
+                var category = _articleCategoryRepository.Find(categoryId.Value);
                 if (category != null)
                     model.ListTitle = category.CategoryName;
             }
@@ -315,14 +318,12 @@ namespace NPC.Application
             model.NodeRecordQueryItem = queryItem;
             model.NodeRecordQueryItem.IsShow = true;
             model.NodeRecords = _nodeRecordRepository.Query(queryItem).ToList();
-            if (queryItem.NodeId.HasValue)
+            model.ListTitle = "文章列表";
+            var nodeId = queryItem.NodeId ?? queryItem.NodeIdLike;
+            if (nodeId.HasValue)
             {
-                var node = _nodeRepository.Find(queryItem.NodeId.Value);
+                var node = _nodeRepository.Find(nodeId.Value);
                 model.ListTitle = node.Name;
-            }
-            else
-            {
-                model.ListTitle = "文章列表";
             }
             return model;
         }
@@ -331,6 +332,7 @@ namespace NPC.Application
         {
             var unitId = NpcMainWebContext.CurrentUnit.Id;
             var model = new SideBarModel();
+            model.ProposalNode = _nodeRecordRepository.GetTopN(unitId, "ProposalEntry", 1).FirstOrDefault();
             model.Mediums = _nodeRecordRepository.GetTopN(unitId, "Mediums", 3);
             FillRecords(model.Mediums, unitId, 3, 0, "Mediums");
             return model;

@@ -10,6 +10,7 @@ using NPC.Domain.Models.PhoneBooks;
 using NPC.Domain.Models.Units;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
+using NPC.Service;
 using Newtonsoft.Json;
 
 namespace NPC.Application
@@ -182,10 +183,13 @@ namespace NPC.Application
             FillUser(user, viewModel);
             if (user.PhoneBookRecord == null)
             {
+                var phoneBookService = new PhoneBookService();
+                var phoneBook = phoneBookService.CreateOrGetDefaultPhoneBook(userInContext.Unit);
                 var phoneBookRecord = new PhoneBookRecord();
                 phoneBookRecord.Mobile = viewModel.FormData.Mobile;
                 phoneBookRecord.Name = viewModel.FormData.Name;
                 phoneBookRecord.User = user;
+                phoneBookRecord.PhoneBook = phoneBook;
                 phoneBookRecord.RecordDescription.CreateBy(userInContext);
                 _phoneBookRecordRepository.Save(phoneBookRecord);
                 user.PhoneBookRecord = phoneBookRecord;
@@ -214,10 +218,13 @@ namespace NPC.Application
             user.Unit = userInContext.Unit;
             user.RecordDescription.CreateBy(userInContext);
             _userRepository.Save(user);
+            var phoneBookService = new PhoneBookService();
+            var phoneBook = phoneBookService.CreateOrGetDefaultPhoneBook(userInContext.Unit);
             var phoneBookRecord = new PhoneBookRecord();
             phoneBookRecord.Mobile = viewModel.FormData.Mobile;
             phoneBookRecord.Name = viewModel.FormData.Name;
             phoneBookRecord.User = user;
+            phoneBookRecord.PhoneBook = phoneBook;
             phoneBookRecord.RecordDescription.CreateBy(userInContext);
             _phoneBookRecordRepository.Save(phoneBookRecord);
             user.PhoneBookRecord = phoneBookRecord;

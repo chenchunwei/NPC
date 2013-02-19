@@ -4,12 +4,12 @@
 @{
     ViewBag.Title = @Model.Unit.Name;
 }
-<link href="@Url.Content("~/content/css/skin2/skin2.css")" type="text/css" rel="stylesheet">
+<link href="@Url.Content("~/content/css/skin2/skin2.css")" type="text/css" rel="stylesheet"/>
 <script src="@Url.Content("~/Scripts/jquery.jcarousel.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/js/jquery.KinSlideshow-1.2.1.min.js")" type="text/javascript"></script>
 <tr>
     <td>
-        <table width="100%" border="0" cellspacing="0" cellpadding="10">
+        <table width="100%" border="0" cellspacing="0" cellpadding="10" >
             <tbody>
                 <tr>
                     <td valign="top" width="169">
@@ -29,7 +29,6 @@
                                                         {
                                                             @Html.Raw("主席团人员");
                                                         }
-
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -44,7 +43,6 @@
                                         </table>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </td>
@@ -57,7 +55,7 @@
                                     foreach (var nodeRecord in Model.LatestAttentions)
                                     {
                                         <a href="@nodeRecord.RecordLink" target="_blank">@nodeRecord.FirstTitle</a>
-                                @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;")
+                                        @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;")
                                     }
                                 }
                             </marquee>
@@ -73,8 +71,11 @@
                                                         <table width="100%" border="0" cellspacing="2" cellpadding="0">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td width="37%" align="left" class="toplink">&nbsp;</td>
-                                                                    <td width="63%" align="left" class="toplink">&nbsp;
+                                                                    <td width="37%" align="left" class="toplink">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                    <td width="63%" align="left" class="toplink">
+                                                                        &nbsp;
                                                                         @if (Model.NewsNode != null)
                                                                         {
                                                                             @Model.NewsNode.Name
@@ -91,29 +92,26 @@
                                                                             <div id="KinSlideshow" style="visibility: hidden;">
                                                                                 @foreach (var nodeRecord in Model.PicNews)
                                                                                 {
-                                                                                    <a href="@nodeRecord.RecordLink" target="_blank">
-                                                                                        <img src="@(ApplicationConst.ImagePath + nodeRecord.FirstImage)" alt="" width="260" height="200" /></a>
+                                                                                    <a href="@nodeRecord.RecordLink" target="_blank"><img src="@(ApplicationConst.ImagePath + nodeRecord.FirstImage)" alt="" width="260" height="200" /></a>
                                                                                 }
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                     <td align="left" valign="top">
                                                                         <div id="hotList">
-
                                                                             <div class="newslist">
                                                                                 <ul>
                                                                                     @foreach (var nodeRecord in Model.News)
                                                                                     {
-                                                                                        <li>
-                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
                                                                                     }
                                                                                 </ul>
                                                                                 @if (Model.NewsNode != null && Model.NewsNode.OuterCategoryId.HasValue)
                                                                                 {
-                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                    <div align="right">
+                                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NewsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                                 }
                                                                             </div>
-
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -130,8 +128,8 @@
                     </td>
                     <td width="184" valign="top">
                         <form action="/Home/List" method="get">
-                            <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10">
-                            <input type="submit" value="查询">
+                        <input name="ArticleQueryItem.Keyword" type="text" size="15" maxlength="10">
+                        <input type="submit" value="查询">
                         </form>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tbody>
@@ -185,14 +183,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-
                                                     <td bgcolor="#FFFFFF" class="newslist0" align="left" height="448" valign="top">
                                                         @if (Model.StudyMaterialsNode != null)
                                                         {
                                                             @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;") 
                                                             <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.StudyMaterialsNode.OuterCategoryId" target="_blank">
-                                                                <font color="#be0000"><b> @Model.StudyMaterialsNode.Name</b></font>
-                                                            </a>
+                                                                <font color="#be0000"><b>@Model.StudyMaterialsNode.Name</b></font> </a>
                                                             
                                                             <ul>
                                                                 @foreach (var nodeRecord in Model.StudyMaterials)
@@ -201,15 +197,11 @@
                                                                 }
                                                             </ul>
                                                         }
-
-
-
                                                         @if (Model.ReferFilesNode != null)
                                                         {
                                                             @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;") 
                                                             <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.ReferFilesNode.OuterCategoryId" target="_blank">
-                                                                <font color="#be0000"><b> @Model.ReferFilesNode.Name</b></font>
-                                                            </a>
+                                                                <font color="#be0000"><b>@Model.ReferFilesNode.Name</b></font> </a>
                                                             
                                                             <ul>
                                                                 @foreach (var nodeRecord in Model.ReferFiles)
@@ -239,19 +231,26 @@
                                                         <table width="100%" border="0" cellpadding="2" cellspacing="2">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td align="left" valign="middle" class="toplink">标题</td>
-                                                                    <td align="left" valign="middle" class="toplink">发表时间</td>
-                                                                    <td align="left" valign="middle" class="toplink">发布人</td>
-                                                                    <td align="left" valign="middle" class="toplink">状态</td>
+                                                                    <td align="left" valign="middle" class="toplink">
+                                                                        标题
+                                                                    </td>
+                                                                    <td align="left" valign="middle" class="toplink">
+                                                                        发表时间
+                                                                    </td>
+                                                                    <td align="left" valign="middle" class="toplink">
+                                                                        发布人
+                                                                    </td>
+                                                                    <td align="left" valign="middle" class="toplink">
+                                                                        状态
+                                                                    </td>
                                                                 </tr>
-
                                                             </tbody>
                                                         </table>
-
                                                     </td>
                                                     <td width="30%" align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
-                                                        <a href="http://ldrd.pinghu.gov.cn/feedback.asp" target="_blank">
-                                                            <img src="@Url.Content("~/img/btn_fbjjjj.jpg")" width="108" height="25" border="0"></a></td>
+                                                        <a href="@Url.Content("~/Manage/Proposals/EditProposal")" target="_blank">
+                                                            <img src="@Url.Content("~/img/btn_fbjjjj.jpg")" width="108" height="25" border="0"></a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td valign="top" bgcolor="#FFFFFF">
@@ -269,21 +268,20 @@
                                                                                 <tr>
                                                                                     <td align="left">
                                                                                         <div id="div">
-
                                                                                             <div class="newslist">
                                                                                                 <ul>
                                                                                                     @foreach (var nodeRecord in Model.PublicProposals)
                                                                                                     {
-                                                                                                        <li>
-                                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
                                                                                                     }
                                                                                                 </ul>
                                                                                                 @if (Model.PublicProposalsNode != null && Model.PublicProposalsNode.OuterCategoryId.HasValue)
                                                                                                 {
-                                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.PublicProposalsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                    <div align="right">
+                                                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.PublicProposalsNode.OuterCategoryId">
+                                                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                                                 }
                                                                                             </div>
-
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -295,21 +293,20 @@
                                                                                 <tr>
                                                                                     <td align="left">
                                                                                         <div id="div">
-
                                                                                             <div class="newslist">
                                                                                                 <ul>
                                                                                                     @foreach (var nodeRecord in Model.DealedProposals)
                                                                                                     {
-                                                                                                        <li>
-                                                                                                            <a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
+                                                                                                        <li><a href="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</a></li>
                                                                                                     }
                                                                                                 </ul>
                                                                                                 @if (Model.DealedProposalsNode != null && Model.DealedProposalsNode.OuterCategoryId.HasValue)
                                                                                                 {
-                                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.DealedProposalsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                                    <div align="right">
+                                                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.DealedProposalsNode.OuterCategoryId">
+                                                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                                                 }
                                                                                             </div>
-
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -322,7 +319,8 @@
                                                     </td>
                                                     <td align="center" valign="middle" bgcolor="#FFFFFF" class="toplink">
                                                         <a href="http://211.140.23.203/renda/HX_LOGIN.php" target="_blank">
-                                                            <img src="@Url.Content("~/img/btn_rdtdl.jpg")" width="108" height="25" border="0"></a></td>
+                                                            <img src="@Url.Content("~/img/btn_rdtdl.jpg")" width="108" height="25" border="0"></a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -346,7 +344,6 @@
                                                 <tr>
                                                     <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
                                                         <div id="hotList">
-
                                                             <div class="newslist">
                                                                 <ul>
                                                                     @foreach (var nodeRecord in Model.HalfMonthlyTalkings)
@@ -356,21 +353,20 @@
                                                                 </ul>
                                                                 @if (Model.HalfMonthlyTalkingsNode != null && Model.HalfMonthlyTalkingsNode.OuterCategoryId.HasValue)
                                                                 {
-                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.HalfMonthlyTalkingsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                    <div align="right">
+                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.HalfMonthlyTalkingsNode.OuterCategoryId">
+                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                 }
                                                             </div>
-
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
                         <br>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0">
                             <tbody>
@@ -386,7 +382,6 @@
                                                 <tr>
                                                     <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
                                                         <div id="hotList">
-
                                                             <div class="newslist">
                                                                 <ul>
                                                                     @foreach (var nodeRecord in Model.Regulations)
@@ -396,7 +391,9 @@
                                                                 </ul>
                                                                 @if (Model.RegulationsNode != null && Model.RegulationsNode.OuterCategoryId.HasValue)
                                                                 {
-                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.RegulationsNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                    <div align="right">
+                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.RegulationsNode.OuterCategoryId">
+                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                 }
                                                             </div>
                                                         </div>
@@ -412,6 +409,32 @@
                 </tr>
             </tbody>
         </table>
+        @if (Model.FirstFullColumn != null)
+        {
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center">
+                        <a href="@Model.FirstFullColumn.RecordLink" target="_blank">
+                            @if (Model.FirstFullColumn.FirstImage.EndsWith(".SWF", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+                                    width="998" height="170">
+                                    <param name="movie" value="@Url.Content("~/Manage/Attachments/" + @Model.FirstFullColumn.FirstImage + "")">
+                                    <param name="quality" value="high">
+                                    <param name="wmode" value="Opaque">
+                                    <embed src="@Url.Content("~/Manage/Attachments/" + @Model.FirstFullColumn.FirstImage + "")" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                                           type="application/x-shockwave-flash" width="100%" height="115">
+                                </object>
+                            }
+                            else
+                            {
+                                <img src="@Model.FirstFullColumn.FirstImage" alt="@Model.FirstFullColumn.FirstTitle" width="100%" height="115"/>
+                            }
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        }
         <table width="100%" border="0" cellspacing="0" cellpadding="10">
             <tbody>
                 <tr>
@@ -445,13 +468,13 @@
                                                                             foreach (var node in Model.NavigationsNode.Childrens)
                                                                             {
                                                                             <form>
-                                                                                <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
-                                                                                    <option selected="" value="">----@node.Name----</option>
-                                                                                    @foreach (var nodeRecord in node.NodeRecords)
-                                                                                    {
-                                                                                        <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
-                                                                                    }
-                                                                                </select>
+                                                                            <select onchange="if(this.value!=''){MM_jumpMenu('parent',this,0);}">
+                                                                                <option selected="" value="">----@node.Name----</option>
+                                                                                @foreach (var nodeRecord in node.NodeRecords)
+                                                                                {
+                                                                                    <option value="@nodeRecord.RecordLink">@nodeRecord.FirstTitle</option>
+                                                                                }
+                                                                            </select>
                                                                             </form>
                                                                             }
 
@@ -481,7 +504,6 @@
                                                                 <tr>
                                                                     <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
                                                                         <div id="hotList">
-
                                                                             <div class="newslist">
                                                                                 <ul>
                                                                                     @foreach (var nodeRecord in Model.Supervises)
@@ -491,7 +513,9 @@
                                                                                 </ul>
                                                                                 @if (Model.SuperviseNode != null && Model.SuperviseNode.OuterCategoryId.HasValue)
                                                                                 {
-                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                    <div align="right">
+                                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.SuperviseNode.OuterCategoryId">
+                                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                                 }
                                                                             </div>
                                                                         </div>
@@ -519,7 +543,6 @@
                                                                 <tr>
                                                                     <td bgcolor="#FFFFFF" align="left" height="190" valign="top">
                                                                         <div id="hotList">
-
                                                                             <div class="newslist">
                                                                                 <ul>
                                                                                     @foreach (var nodeRecord in Model.NpcWorks)
@@ -529,7 +552,9 @@
                                                                                 </ul>
                                                                                 @if (Model.NpcWorksNode != null && Model.NpcWorksNode.OuterCategoryId.HasValue)
                                                                                 {
-                                                                                    <div align="right"><a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">更多&gt;&gt;</a>&nbsp;&nbsp;</div>
+                                                                                    <div align="right">
+                                                                                        <a href="/Home/List?ArticleQueryItem.CategoryId=@Model.NpcWorksNode.OuterCategoryId">
+                                                                                            更多&gt;&gt;</a>&nbsp;&nbsp;</div>
                                                                                 }
                                                                             </div>
                                                                         </div>
@@ -550,7 +575,8 @@
                                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">@(Model.MembersNode != null ? Html.Raw(Model.MembersNode.Name) : Html.Raw("代表名单"))</td>
+                                                                    <td height="49" align="center" valign="middle" background="@Url.Content("~/img/boxbg.jpg")" bgcolor="#FFFFFF" class="boxtitle">@(Model.MembersNode != null ? Html.Raw(Model.MembersNode.Name) : Html.Raw("代表名单"))
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td bgcolor="#FFFFFF" class="leftTop" height="239">
@@ -585,11 +611,13 @@
                                                         <table width="100%" border="0" cellspacing="5" cellpadding="0">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td align="left" class="toplink">@(Model.BottomPicsRollingNode != null ? Html.Raw(Model.BottomPicsRollingNode.Name) : Html.Raw("滚动图片"))</td>
+                                                                    <td align="left" class="toplink">@(Model.BottomPicsRollingNode != null ? Html.Raw(Model.BottomPicsRollingNode.Name) : Html.Raw("滚动图片"))
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        <ul id="mycarousel" class="scroll-img jcarousel-skin-ie7" style="width: 950px; height: 200px; overflow: hidden">
+                                                                        <ul id="mycarousel" class="scroll-img jcarousel-skin-ie7" style="width: 950px; height: 200px;
+                                                                            overflow: hidden">
                                                                             @foreach (var nodeRecord in Model.BottomPicsRolling)
                                                                             {
                                                                                 if (string.IsNullOrEmpty(nodeRecord.FirstImage))

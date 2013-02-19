@@ -1,4 +1,5 @@
-﻿@model  NPC.Domain.Models.Proposals.Proposal
+﻿@using Fluent.Infrastructure.Utilities
+@model  NPC.Domain.Models.Proposals.Proposal
 <table class="fromTable" width="100%">
     <tr>
         <th style="width: 160px;">
@@ -6,6 +7,14 @@
         </th>
         <td>
             <b>@Model.Title</b>
+        </td>
+    </tr>
+     <tr>
+        <th style="width: 160px;">
+            类型：
+        </th>
+        <td>
+           @EnumHelper.GetDescription(Model.ProposalType)
         </td>
     </tr>
     <tr>

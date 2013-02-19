@@ -25,6 +25,15 @@ namespace NPC.Website.Manage.Controllers
             var model = _phoneBookRecordAction.InitializePhoneBookRecordListModel(pageModel.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem);
             return View(model);
         }
+
+        public ActionResult SelectPhoneBookRecord(PhoneBookRecordListModel pageModel)
+        {
+            pageModel.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.PageIndex = PageIndex;
+            pageModel.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.UnitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _phoneBookRecordAction.InitializePhoneBookRecordListModel(pageModel.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem);
+            return View(model);
+        }
+
         #region 编辑或新增联系人
         [HttpPost, ActionName("EditPhoneBookRecord")]
         public ActionResult EditPhoneBookRecordPost(EditPhoneBookRecordModel viewModel)

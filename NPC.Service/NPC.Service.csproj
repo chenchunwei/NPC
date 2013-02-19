@@ -40,14 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="PhoneBookService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="OpenMasService.wsdl" />
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
+      <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
+      <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Repository\NPC.Domain.Repository.csproj">
+      <Project>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</Project>
+      <Name>NPC.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
+      <Project>{6D980D7E-5872-4FA2-8A0E-DB74FC6935F8}</Project>
+      <Name>NPC.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

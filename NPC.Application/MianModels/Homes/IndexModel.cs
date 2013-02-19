@@ -13,21 +13,21 @@ namespace NPC.Application.MianModels.Homes
         public IndexModel()
         {
             WheelBroadcastPicsOfTopLeft = new List<NodeRecord>();
-            News=new List<NodeRecord>();
-            Notices=new List<NodeRecord>();
-            Directors=new List<NodeRecord>();
-            ViceDirectors=new List<NodeRecord>();
-            Members=new List<NodeRecord>();
-            LeaderSpeechs=new List<NodeRecord>();
-            SuperviseWindow=new List<NodeRecord>();
-            NpcWorks=new List<NodeRecord>();
-            SelfImprovement=new List<NodeRecord>();
-            Basics=new List<NodeRecord>();
-            Mediums=new List<NodeRecord>();
-            TownPics=new List<NodeRecord>();
-            Elections=new List<NodeRecord>();
-            Investigates=new List<NodeRecord>();
-            NpcPics=new List<NodeRecord>();
+            News = new List<NodeRecord>();
+            Notices = new List<NodeRecord>();
+            Directors = new List<NodeRecord>();
+            ViceDirectors = new List<NodeRecord>();
+            Members = new List<NodeRecord>();
+            LeaderSpeechs = new List<NodeRecord>();
+            SuperviseWindow = new List<NodeRecord>();
+            NpcWorks = new List<NodeRecord>();
+            SelfImprovement = new List<NodeRecord>();
+            Basics = new List<NodeRecord>();
+            Mediums = new List<NodeRecord>();
+            TownPics = new List<NodeRecord>();
+            Elections = new List<NodeRecord>();
+            Investigates = new List<NodeRecord>();
+            NpcPics = new List<NodeRecord>();
             Links = new List<NodeRecord>();
         }
 
@@ -49,7 +49,7 @@ namespace NPC.Application.MianModels.Homes
         public Node InvestigatesNode { get; set; }
         public Node NpcPicsNode { get; set; }
         public Node LinksNode { get; set; }
-
+        public NodeRecord ProposalNode { get; set; }
         public NodeRecord ContributeNode { get; set; }
         /// <summary>
         /// 顶部轮播 
@@ -121,6 +121,7 @@ namespace NPC.Application.MianModels.Homes
         /// 友情链接  二级
         /// </summary>
         public IList<NodeRecord> Links { get; set; }
+     
 
         public NodeRecord FirstFullColumn { get; set; }
 

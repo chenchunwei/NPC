@@ -21,7 +21,7 @@
                         {
                             <li id="@("p" + index)" @(index == 0 ? Html.Raw("class=\"current\"") : Html.Raw(""))>
                                 <a href="@nodeRecord.RecordLink" target="_blank">
-                                    <img src="/Manage/Attachments/@nodeRecord.SecondImage" alt="@nodeRecord.FirstTitle" /></a>
+                                    <img src="/Manage/Attachments/@nodeRecord.SecondImage?params=570x250x1x1xffffff.jpg" alt="@nodeRecord.FirstTitle" /></a>
                             </li>
                             index++;
                         }
@@ -50,7 +50,7 @@
                     @foreach (var nodeRecord in Model.WheelBroadcastPicsOfTopLeft)
                     {
                         <li id="p@("p" + indexBtn)" @(indexBtn == 0 ? Html.Raw("class=\"current\"") : Html.Raw(""))>
-                            <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" /></li>
+                            <img src="/Manage/Attachments/@nodeRecord.FirstImage?params=75x45x1x1xffffff.jpg" alt="@nodeRecord.FirstTitle" /></li>
                         indexBtn++;
                     }
                 </ul>
@@ -341,7 +341,7 @@
                 }
                 <li><a href="@nodeRecord.RecordLink">
                     <div class="view">
-                        <img src="/Manage/Attachments/@nodeRecord.FirstImage" style="width:130px; height: 80px;"/>
+                        <img src="/Manage/Attachments/@nodeRecord.FirstImage?params=130x80x1x1xffffff.jpg" style="width:130px; height: 80px;"/>
                         <p>
                             @MyString.SubString(nodeRecord.FirstTitle, 12, "")
                         </p>
@@ -434,7 +434,7 @@
                         continue;
                     }
                     <li><a href="@nodeRecord.RecordLink" target="_blank">
-                        <img src="/Manage/Attachments/@nodeRecord.FirstImage" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" class="NpcPics"/>
+                        <img src="/Manage/Attachments/@nodeRecord.FirstImage?params=248x130x1x1xffffff.jpg" alt="@nodeRecord.FirstTitle" title="@nodeRecord.FirstTitle" class="NpcPics"/>
                         <div class="word2">
                             @MyString.SubString(nodeRecord.FirstTitle, 16, "")
                         </div>

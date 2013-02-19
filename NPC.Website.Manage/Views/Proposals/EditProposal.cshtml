@@ -71,7 +71,7 @@
                         @Html.TextBoxFor(o => o.FormData.Title, new { maxlength = 100, style = "width:350px;" })
                     </td>
                 </tr>
-                @*  <tr>
+                  <tr>
                     <th>
                         <span style="color: red;">*</span> 类型：
                     </th>
@@ -80,7 +80,7 @@
                             new SelectListItem[] { new SelectListItem() { Text = "请选择", Value = "" } }
                             .Union(Model.ProposalTypeOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })))
                     </td>
-                </tr>*@
+                </tr>
                 <tr>
                     <th>
                         <span style="color: red;">*</span> 建议主体：
@@ -166,10 +166,12 @@
             ignore: "",
             rules: {
                 "FormData.Title": "required",
+                "FormData.ProposalType": "required",
                 "FormData.Content": "required"
             },
             messages: {
                 "FormData.Title": "请输提案标题",
+                "FormData.ProposalType": "请选择类型",
                 "FormData.Content": "请填写建议主体"
             }
         });

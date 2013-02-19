@@ -14,5 +14,10 @@ namespace NPC.Domain.Repository
        {
            return Session.CreateQuery("from PhoneBook where RecordDescription.IsDelete=0 and Unit.Id=:unitId").SetGuid("unitId", unitId).List<PhoneBook>();
        }
+
+        public PhoneBook GetDefaultPhoneBook(Guid unitId)
+        {
+            return Session.CreateQuery("from PhoneBook where RecordDescription.IsDelete=0 and Unit.Id=:unitId and IsDefault=1").SetGuid("unitId", unitId).List<PhoneBook>().FirstOrDefault();            
+        }
     }
 }

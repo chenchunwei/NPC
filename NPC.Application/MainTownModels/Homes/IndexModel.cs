@@ -31,7 +31,7 @@ namespace NPC.Application.MainTownModels.Homes
 
         public Unit Unit { get; set; }
         public Node ChairmansModuleNode { get; set; }
-
+        public NodeRecord FirstFullColumn { get; set; }
         public IList<NodeRecord> ChairmansModules { get; set; }
 
         public NodeRecord Video { get; set; }

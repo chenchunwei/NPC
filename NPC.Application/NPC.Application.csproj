@@ -192,6 +192,10 @@
       <Project>{3BEF3F17-B6B9-42B3-AA07-52F70E88A90F}</Project>
       <Name>Npc.OpenMas</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NPC.Service\NPC.Service.csproj">
+      <Project>{53130493-00DC-4B08-8A10-DAD1492AEEB1}</Project>
+      <Name>NPC.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

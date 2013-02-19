@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using NPC.Domain.Models.PhoneBooks;
 
 namespace NPC.Domain.Model.Mappings.PhoneBooks
@@ -17,6 +13,7 @@ namespace NPC.Domain.Model.Mappings.PhoneBooks
             References(o => o.Unit).Column("UnitId");
             Component(o => o.RecordDescription);
             References(o => o.User).Column("UserId");
+            Map(o => o.IsDefault);
             Table("PhoneBooks");
         }
     }

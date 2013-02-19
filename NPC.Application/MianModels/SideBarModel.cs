@@ -12,6 +12,8 @@ namespace NPC.Application.MianModels
         {
             Mediums = new List<NodeRecord>();
         }
+
+        public NodeRecord ProposalNode { get; set; }
         public IList<NodeRecord> Mediums { get; set; }
     }
 }
