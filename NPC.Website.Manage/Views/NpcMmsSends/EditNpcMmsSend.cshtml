@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model NPC.Application.ManageModels.NpcMmsSends.EditNpcMmsSendModel 
-<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/common/jquery.keyfilter-1.7.min.js")" type="text/javascript"></script>
 <div class="workgroundin" style="height: 5px;">
 </div>
 <div class="main_content">
@@ -18,101 +16,101 @@
     </div>
     <div class="row">
         <form id="mainForm" action="" method="POST" style="margin: 0">
-            <div class="rightContent">
-                <div class="workgroundin" style="height: 5px;">
-                </div>
-                <div class="tipsOrange">
-                    <div class="icon">
-                    </div>
-                    <div class="font">
-                        提示：带<span style="color: red;">*</span>号为必填项！</div>
-                </div>
-                <table class="fromTable" width="100%">
-                    <tr>
-                        <th style="width: 200px;">
-                            待发送的彩信：
-                        </th>
-                        <td>
-                            @Model.NpcMms.Title
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            总帧数：
-                        </th>
-                        <td>
-                            @Model.NpcMms.NpcMmsContents.Count
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span style="color: red;">*</span> 彩信标题：
-                        </th>
-                        <td>
-                            @Html.TextBoxFor(o => o.SendTitle, new { style = "width: 350px;", maxlength = "50" })
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span style="color: red;">*</span> 接收人：
-                        </th>
-                        <td>
-                            <textarea rows="12" cols="60" id="ReceiversStr" name="ReceiversStr"></textarea>&nbsp;填写手机号码，多个号码以","号隔开
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            &nbsp;
-                        </th>
-                        <td>
-                            <li class="buttonoff" id="selectRecordBtn">
-                                <div class="hc_left">
-                                </div>
-                                <div class="hc_center">
-                                    <div>
-                                        从通迅录中选择
-                                    </div>
-                                </div>
-                                <div class="hc_right">
-                                </div>
-                            </li>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            定时发送：
-                        </th>
-                        <td>
-                            <input id="TimeOfExpectSend" name="TimeOfExpectSend" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-                                   class="Wdate" style="width: 150px;" /><span>&nbsp;不填写表示立即发送</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                        </th>
-                        <td>
-                            <li class="buttonoff" id="sendBtn">
-                                <div class="hc_left">
-                                </div>
-                                <div class="hc_center">
-                                    <div>
-                                        发送</div>
-                                </div>
-                                <div class="hc_right">
-                                </div>
-                            </li>
-                        </td>
-                    </tr>
-                </table>
-                <div class="clr">
-                </div>
+        <div class="rightContent">
+            <div class="workgroundin" style="height: 5px;">
             </div>
-            <div class="footBar">
-                <div class="fb_content">
+            <div class="tipsOrange">
+                <div class="icon">
                 </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
             </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 200px;">
+                        待发送的彩信：
+                    </th>
+                    <td>
+                        @Model.NpcMms.Title
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        总帧数：
+                    </th>
+                    <td>
+                        @Model.NpcMms.NpcMmsContents.Count
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 彩信标题：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.SendTitle, new { style = "width: 350px;", maxlength = "50" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 接收人：
+                    </th>
+                    <td>
+                        <textarea rows="12" cols="60" id="ReceiversStr" name="ReceiversStr"></textarea>&nbsp;填写手机号码，多个号码以","号隔开
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <td>
+                        <li class="buttonoff" id="selectRecordBtn">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    从通迅录中选择
+                                </div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        定时发送：
+                    </th>
+                    <td>
+                        <input id="TimeOfExpectSend" name="TimeOfExpectSend" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                            class="Wdate" style="width: 150px;" /><span>&nbsp;不填写表示立即发送</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <li class="buttonoff" id="sendBtn">
+                            <div class="hc_left">
+                            </div>
+                            <div class="hc_center">
+                                <div>
+                                    发送</div>
+                            </div>
+                            <div class="hc_right">
+                            </div>
+                        </li>
+                    </td>
+                </tr>
+            </table>
             <div class="clr">
             </div>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+        <div class="clr">
+        </div>
         </form>
     </div>
 </div>
@@ -133,6 +131,9 @@
         </div>
     </div>
 </div>
+<script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/common/jquery.keyfilter-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.json-2.4.min.js")" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
         $("#sendBtn").click(function () {
@@ -141,6 +142,13 @@
         $("#selectRecordBtn").click(function () {
             $('#selectWin').window('open');
             $("#selectWin iframe").attr('src', '@Url.Action("SelectPhoneBookRecord", "PhoneBooks")');
+        });
+        $("#btnAddSelect").click(function () {
+            handerSelected();
+        });
+        $("#btnCompletedSelect").click(function () {
+            handerSelected();
+            $('#selectWin').window('close');
         });
         $('#wins,#selectWin').show();
         $.validator.addMethod('checkTelNumList', function (value, element) {
@@ -161,4 +169,28 @@
         });
         $("#ReceiversStr").keyfilter(/[0-9,]/i);
     });
+
+    function handerSelected() {
+        var options = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
+        alert($.toJSON(options));
+        //        $.post('@Url.Action("ParseSelectedToUsersByDepartments", "Users")', { 'selectedJson': $.toJSON(options) },
+        //                function (data) {
+        //                    $(evalJson(data).users).each(function (index, row) {
+        //                        if ($.inArray(row.id, selectedUsers) >= 0 || row.id == '') {
+        //                            return;
+        //                        }
+        //                        selectedUsers.push(row.id);
+        //                        appendLable(row);
+        //                    });
+        //                }
+        //        );
+    }
+
+    function appendLable(row) {
+        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
+                    <div class="hc_left"></div><div class="hc_center">\
+                    <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
+                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
+                    </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
+    }
 </script>

@@ -111,6 +111,7 @@
     <Compile Include="ManageModels\PhoneBooks\PhoneBookListModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordListModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordSearchModel.cs" />
+    <Compile Include="ManageModels\PhoneBooks\SelectePhoneBookRecordModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />
     <Compile Include="ManageModels\Proposals\GovOfficeAuditAction.cs" />
     <Compile Include="ManageModels\Proposals\GovOfficeAuditModel.cs" />

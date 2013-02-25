@@ -118,5 +118,12 @@ namespace NPC.Application
             _phoneBookRepository.SaveOrUpdate(target);
         }
         #endregion
+
+        #region InitializeSelectedRecordsResponse
+        public object InitializeSelectedRecordsResponse(SelectePhoneBookRecordModel selectedUsersModel)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

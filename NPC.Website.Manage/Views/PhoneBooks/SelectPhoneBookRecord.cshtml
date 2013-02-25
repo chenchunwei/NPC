@@ -25,42 +25,45 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easyui.extension.js")"></script>
 </head>
 <body>
-    <table id="treegrid">  <form action="" method="GET" id="searchForm" style="margin: 0">
-         <div class="mc_search">
-                <div class="pic">
-                    <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
-                <div class="font">
-                    通讯录：</div>
-                <div class="s1">
-                </div>
-                <div class="i1">
-                    @Html.DropDownListFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId, new[] { new SelectListItem() { Text = "选择通讯簿", Value = "" }, }.Union(
-                     Model.PhoneBookRecordSearchModel.PhoneBookOptions.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })), new { style = "width:100px;" })
-                </div>
-                <div class="font">
-                    &nbsp; &nbsp; &nbsp; &nbsp;
-                </div>
-                <div class="s1">
-                    <select>
-                        <option>联系人</option>
-                    </select></div>
-                <div class="i1">
-                    @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Name,new{style="width:100px;"})
-                </div>
-                <div class="font">
-                    &nbsp; &nbsp; &nbsp; &nbsp;
-                </div>
-                <div class="s1">
-                    <select>
-                        <option>号码</option>
-                    </select></div>
-                <div class="i1">
-                    @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Mobile, new { style = "width:100px;" })
-                </div>
-                @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
+    <table id="treegrid">
+        <form action="" method="GET" id="searchForm" style="margin: 0">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                通讯录：</div>
+            <div class="s1">
             </div>
+            <div class="i1">
+                @Html.DropDownListFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.PhoneBookId,
+                                          new[] { new SelectListItem() { Text = "选择通讯簿", Value = "" }, }.Union(
+                                              Model.PhoneBookRecordSearchModel.PhoneBookOptions
+                                                   .Select(o => new SelectListItem() { Text = o.Value, Value = o.Key })), new { style = "width:100px;" })
+            </div>
+            <div class="font">
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            </div>
+            <div class="s1">
+                <select>
+                    <option>联系人</option>
+                </select></div>
+            <div class="i1">
+                @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Name, new { style = "width:100px;" })
+            </div>
+            <div class="font">
+                &nbsp; &nbsp; &nbsp; &nbsp;
+            </div>
+            <div class="s1">
+                <select>
+                    <option>号码</option>
+                </select></div>
+            <div class="i1">
+                @Html.TextBoxFor(o => o.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Mobile, new { style = "width:100px;" })
+            </div>
+            @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
+        </div>
+        <input type="hidden" id="checkedAllPage" value="0" />
         </form>
-        
         <div class="topline" style="margin: 0">
             <div class="span_1">
                 <input type="checkbox" id="topChk" /></div>
@@ -81,7 +84,7 @@
             <div class="span_4">
             </div>
         </div>
-        <div  class="row" style="margin-right: 0">
+        <div class="row" style="margin-right: 0">
             @if (!Model.PhoneBookRecords.Any())
             {
                 <div class="noRowline">
@@ -122,15 +125,16 @@
                         @Html.Partial("_LiButton", new Tuple<string, string>("全选", "chkAllBtn"))
                         @Html.Partial("_LiButton", new Tuple<string, string>("取消", "unChkAllBtn"))
                         @Html.Partial("_LiButton", new Tuple<string, string>("反选", "invertBtn"))
+                        @Html.Partial("_LiButton", new Tuple<string, string>("全择所有页", "chkAllPageBtn"))
                     </ul>
                     <div class="fb_page">
                         <script type="text/javascript">
-                        var pg = new showPages('pg');
-                        pg.argName = 'p';  //定义参数名(可选,缺省为page)
-                        pg.newPage = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.PageIndex;
-                        pg.count =  @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalRecordsCount;
-                        pg.pageCount = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalPage;
-                        pg.printHtml(1);    //显示
+                            var pg = new showPages('pg');
+                            pg.argName = 'p';  //定义参数名(可选,缺省为page)
+                            pg.newPage = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.PageIndex;
+                            pg.count =  @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalRecordsCount;
+                            pg.pageCount = @Model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem.Pagination.TotalPage;
+                            pg.printHtml(1);    //显示
                         </script>
                     </div>
                 </div>
@@ -139,7 +143,7 @@
     </table>
 </body>
 <script type="text/javascript">
-      $(function () {
+    $(function () {
         $("#chkAllBtn").click(function () {
             controller.batchOfChk("input[name=ids],#topChk", 1);
             $("#checkedAllPage").val("0");
@@ -171,8 +175,9 @@
         var returnOptions = { ids: [], checkedAllPage: false, whereOptions: {} };
         if ($("#checkedAllPage").val() == "1") {
             returnOptions.checkedAllPage = true;
-            returnOptions.whereOptions.departmentLikeId = $("#UserSearchModel_UserQueryItem_DepartmentLikeId").val();
-            returnOptions.whereOptions.name = $("#UserSearchModel_UserQueryItem_Name").val();
+            returnOptions.whereOptions.phoneBookId = $("#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_PhoneBookId").val();
+            returnOptions.whereOptions.name = $("#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_Name").val();
+            returnOptions.whereOptions.mobile = $("#PhoneBookRecordSearchModel_PhoneBookRecordQueryItem_Mobile").val();
             return returnOptions;
         }
         $.each($("input[name=ids]:checked"), function (i, o) {
@@ -186,5 +191,6 @@
 
         }
     };
+   
 </script>
 </html>

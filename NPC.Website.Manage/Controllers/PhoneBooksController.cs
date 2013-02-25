@@ -8,6 +8,7 @@ using NPC.Application;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.PhoneBooks;
 using NPC.Domain.Models.PhoneBooks;
+using Newtonsoft.Json;
 
 namespace NPC.Website.Manage.Controllers
 {
@@ -110,5 +111,13 @@ namespace NPC.Website.Manage.Controllers
             return View(model);
         }
         #endregion
+
+        public JsonResult ParseSelectedToPhoneBookRecords(string selectedJson)
+        {
+            var selectedUsersModel = JsonConvert.DeserializeObject<SelectePhoneBookRecordModel>(selectedJson);
+            selectedUsersModel.UnitId = new NpcContext().CurrentUser.Unit.Id;
+            var model = _phoneBookRecordAction.InitializeSelectedRecordsResponse(selectedUsersModel);
+            return new NewtonsoftJsonResult() { Data = model };
+        }
     }
 }
