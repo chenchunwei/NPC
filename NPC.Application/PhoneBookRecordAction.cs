@@ -120,9 +120,29 @@ namespace NPC.Application
         #endregion
 
         #region InitializeSelectedRecordsResponse
-        public object InitializeSelectedRecordsResponse(SelectePhoneBookRecordModel selectedUsersModel)
+        public SelectedRecordsResponse InitializeSelectedRecordsResponse(SelectePhoneBookRecordModel selectedUsersModel)
         {
-            throw new NotImplementedException();
+
+            var model = new SelectedRecordsResponse();
+            var queryItem = new PhoneBookRecordQueryItem();
+            queryItem.Pagination.PageSize = 100;
+            if (selectedUsersModel.CheckedAllPage)
+            {
+                queryItem.PhoneBookId = selectedUsersModel.Where.PhoneBookId;
+                queryItem.Name = selectedUsersModel.Where.Name;
+                queryItem.Mobile = selectedUsersModel.Where.Mobile;
+            }
+            else
+            {
+                if (!selectedUsersModel.Ids.Any())
+                    return model;
+                queryItem.Ids = selectedUsersModel.Ids;
+            }
+            queryItem.UnitId = selectedUsersModel.UnitId;
+            _phoneBookRecordRepository.Query(queryItem).ToList().ForEach(phoneBookRecord =>
+                model.Telnumbers.Add(phoneBookRecord.Mobile));
+            return model;
+
         }
         #endregion
     }

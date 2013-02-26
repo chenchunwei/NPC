@@ -172,25 +172,23 @@
 
     function handerSelected() {
         var options = $("#selectWin").find("iframe")[0].contentWindow.pageApi.selectedValues();
-        alert($.toJSON(options));
-        //        $.post('@Url.Action("ParseSelectedToUsersByDepartments", "Users")', { 'selectedJson': $.toJSON(options) },
-        //                function (data) {
-        //                    $(evalJson(data).users).each(function (index, row) {
-        //                        if ($.inArray(row.id, selectedUsers) >= 0 || row.id == '') {
-        //                            return;
-        //                        }
-        //                        selectedUsers.push(row.id);
-        //                        appendLable(row);
-        //                    });
-        //                }
-        //        );
+        $.post('@Url.Action("ParseSelectedToPhoneBookRecords", "PhoneBooks")', { 'selectedJson': $.toJSON(options) },
+            function (data) {
+                $(evalJson(data).tels).each(function (index, row) {
+                    if ($.inArray(row, $("#ReceiversStr").val().split(',')) >= 0 || row == '') {
+                        return;
+                    }
+                    appendLable(row);
+                });
+            });
     }
 
     function appendLable(row) {
-        $("#originators").append('<li class="buttonoff"><input type="hidden" name="FormData.SelectedOriginatorIds" value="' + row.id + '" />\
-                    <div class="hc_left"></div><div class="hc_center">\
-                    <div class="removeUser"  id="user' + row.id + '" onclick="removeUser(\'' + row.id + '\')">\
-                    <img src="@Url.Content("~/Content/images/icon_5.gif")" alt="" />\
-                    </div><div>' + row.name + '</div></div><div class="hc_right"></div></li>');
+        if ($("#ReceiversStr").val().length == 0) {
+            $("#ReceiversStr").val(row);
+            return;
+        }
+        var newText = $("#ReceiversStr").val() + "," + row;
+        $("#ReceiversStr").val(newText);
     }
 </script>
