@@ -9,10 +9,14 @@ namespace NPC.Application.ManageModels.OpenMasConfigs
 {
     public class EditOpenMasConfigModel
     {
-        public string MasService { get; set; }
-        public string AppPwd { get; set; }
-        public string AppAccount { get; set; }
-        public string ExtensionNo { get; set; }
+        public string MmsMasService { get; set; }
+        public string MmsAppPwd { get; set; }
+        public string MmsAppAccount { get; set; }
+        public string MmsExtensionNo { get; set; }
+        public string SmsMasService { get; set; }
+        public string SmsAppPwd { get; set; }
+        public string SmsAppAccount { get; set; }
+        public string SmsExtensionNo { get; set; }
         public string Signature { get; set; }
         public Unit Unit { get; set; }
     }

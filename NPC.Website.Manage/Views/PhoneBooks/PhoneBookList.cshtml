@@ -153,6 +153,13 @@
         $("#btnCancelNewPhoneBook").click(function () {
             $("#newPhoneBookWin").window("close");
         });
+        $("#batchDelBtn").click(function () {
+            var delIds = [];
+            $("input[name=ids]:checked").each(function (i, o) {
+                delIds.push($(o).val());
+            });
+            controller.del(urlOfDel, delIds);
+        });
     });
 
     function editPhoneBook(id, name) {

@@ -26,6 +26,7 @@ namespace NPC.Application
             var model = new PhoneBookRecordListModel();
             _phoneBookRepository.GetAll(queryItem.UnitId.Value).ToList().ForEach(o => model.PhoneBookRecordSearchModel.PhoneBookOptions.Add(o.Id.ToString(), o.Name));
             model.PhoneBookRecords = _phoneBookRecordRepository.Query(queryItem);
+            model.PhoneBookRecordSearchModel.PhoneBookRecordQueryItem = queryItem;
             return model;
         }
         #endregion
@@ -125,12 +126,12 @@ namespace NPC.Application
 
             var model = new SelectedRecordsResponse();
             var queryItem = new PhoneBookRecordQueryItem();
-            queryItem.Pagination.PageSize = 100;
+            queryItem.Pagination.PageSize = 1000;
             if (selectedUsersModel.CheckedAllPage)
             {
-                queryItem.PhoneBookId = selectedUsersModel.Where.PhoneBookId;
-                queryItem.Name = selectedUsersModel.Where.Name;
-                queryItem.Mobile = selectedUsersModel.Where.Mobile;
+                queryItem.PhoneBookId = selectedUsersModel.WhereOptions.PhoneBookId;
+                queryItem.Name = selectedUsersModel.WhereOptions.Name;
+                queryItem.Mobile = selectedUsersModel.WhereOptions.Mobile;
             }
             else
             {

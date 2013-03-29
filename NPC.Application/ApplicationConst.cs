@@ -10,6 +10,6 @@ namespace NPC.Application
         public const string TreeNodeIconCls = "icon-ok";
         public const string TreeParentNode = "tree-folder-open";
         public const string TreeLeafCls = "tree-file";
-        public const string ImagePath = "http://111.1.31.40:807/";
+        public const string ImagePath = "/manage/attachments/";
     }
 }

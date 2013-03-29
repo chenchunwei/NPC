@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,51 @@ namespace NPC.Domain.Repository
 {
     public class NpcSmsRepository : AbstractNhibernateRepository<Guid, NpcSms>
     {
+        private readonly NestSqlBuilder _nestSqlBuilder = new NestSqlBuilder();
+
+        #region 分页查询
+        public IList<NpcSms> Query(NpcSmsQueryItem queryItem)
+        {
+            var queryReturns = FormatQuery(queryItem);
+            var tempString = queryReturns.Item1;
+            var parameters = queryReturns.Item2;
+            var query = Session.CreateSQLQuery(_nestSqlBuilder.BuilderRecord(string.Format(tempString, "distinct sms.*", ""), "Order by DateOfCreate desc"));
+            var queryTotalCount = Session.CreateSQLQuery(string.Format(tempString, "count(Distinct sms.Id)", ""));
+
+            SetParameters(query, parameters);
+            SetParameters(queryTotalCount, parameters);
+
+            query.SetFirstResult((queryItem.Pagination.PageIndex - 1) * queryItem.Pagination.PageSize);
+            query.SetMaxResults(queryItem.Pagination.PageSize);
+
+            var count = queryTotalCount.UniqueResult<object>();
+            queryItem.Pagination.TotalRecordsCount = Int32.Parse(count.ToString());
+
+            return query.AddEntity(typeof(NpcSms)).List<NpcSms>();
+        }
+
+        private static Tuple<string, Hashtable> FormatQuery(NpcSmsQueryItem queryItem)
+        {
+            //表区域
+            var stringBuilder = new StringBuilder("Select {0} From NpcSmses sms ");
+            stringBuilder.Append("Where 1=1 ");
+            var parameters = new Hashtable();
+
+            if (!string.IsNullOrEmpty(queryItem.Title))
+            {
+                stringBuilder.Append("And sms.Title like :Title ");
+                parameters.Add("Title", "%" + queryItem.Title + "%");
+            }
+
+            if (queryItem.UnitId.HasValue)
+            {
+                stringBuilder.Append("And sms.UnitId = :UnitId ");
+                parameters.Add("UnitId", queryItem.UnitId.Value);
+            }
+            stringBuilder.Append("And sms.IsDelete=0 ");
+            stringBuilder.Append("{1}");
+            return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);
+        }
+        #endregion
     }
 }

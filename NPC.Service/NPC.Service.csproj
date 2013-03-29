@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenMasConfigService.cs" />
     <Compile Include="PhoneBookService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

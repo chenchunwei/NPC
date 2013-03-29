@@ -40,6 +40,10 @@
                         <td>
                             @foreach (var user in kv.Value)
                             {
+                                if(string.IsNullOrEmpty(user.QQ))
+                                {
+                                    continue;
+                                }
                                 @Html.Raw(string.Format("<div style=\"float:left;width:150px;\"><a target=\"_blank\" href=\"http://wpa.qq.com/msgrd?v=3&uin={0}&site=qq&menu=yes\"><div style=\"float:left;padding-top:5px;\"><img border=\"0\" src=\"http://wpa.qq.com/pa?p=2:{0}:41\" alt=\"点击这里给我发消息\" title=\"点击这里给我发消息\"></div></a><div style=\"float:left\">&nbsp;&nbsp;{1}</div></div>", user.QQ, user.Name))
                             }
                         </td>

@@ -83,6 +83,8 @@
     <Compile Include="NpcSmses\NpcSmsMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NpcSmsSends\NpcSmsSendMap.cs" />
+    <Compile Include="NpcSmsSends\NpcSmsSendReceiverMap.cs" />
     <Compile Include="OpenMasConfigs\OpenMasConfigMap.cs" />
     <Compile Include="PhoneBooks\PhoneBookMap.cs" />
     <Compile Include="PhoneBooks\PhoneBookRecordMap.cs" />

@@ -60,14 +60,6 @@
                 </tr>
                 <tr>
                     <th>
-                        <span style="color: red;">*</span> QQ：
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(o => o.FormData.QQ, new { style = "width:380px;", maxlength = 18, @class = "mask-int" })&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <th>
                         <span style="color: red;">*</span> 排序值：
                     </th>
                     <td>
@@ -83,7 +75,7 @@
                         密码：
                     </th>
                     <td>
-                        @Html.PasswordFor(o => o.FormData.Pwd, new { style = "width:380px;", maxlength = 10})&nbsp;登录密码请认真填写
+                        @Html.PasswordFor(o => o.FormData.Pwd, new { style = "width:380px;", maxlength = 10 })&nbsp;登录密码请认真填写
                     </td>
                 </tr>
                 <tr>
@@ -96,6 +88,14 @@
                     </th>
                     <td>
                         @Html.PasswordFor(o => o.FormData.RePwd, new { style = "width:380px;", maxlength = 10 })&nbsp;重复输入密码
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        QQ：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.FormData.QQ, new { style = "width:380px;", maxlength = 18, @class = "mask-int" })&nbsp;
                     </td>
                 </tr>
                 <tr>
@@ -144,9 +144,9 @@
                ,"FormData.Mobile": "必填项"
                  @if (!Model.Id.HasValue)
                  {
-               @Html.Raw(@" , ""FormData.Account"": ""必填项""
-               , ""FormData.Pwd"": ""必填项""
-               ,""FormData.RePwd"": ""必填项""")
+                   @Html.Raw(@" , ""FormData.Account"": ""必填项""
+                   , ""FormData.Pwd"": ""必填项""
+                   ,""FormData.RePwd"": ""必填项""")
                  }
             }
         });

@@ -76,8 +76,12 @@
     <Compile Include="Models\NpcMmsSends\NpcMmsSendQueryItem.cs" />
     <Compile Include="Models\NpcMmsSends\SendStatus.cs" />
     <Compile Include="Models\NpcSmses\NpcSms.cs" />
+    <Compile Include="Models\NpcSmses\NpcSmsQueryItem.cs" />
+    <Compile Include="Models\NpcSmsSends\NpcSmsSendQueryItem.cs" />
+    <Compile Include="Models\NpcSmsSends\NpcSmsSendReceiver.cs" />
     <Compile Include="Models\NpcSmses\SignatureType.cs" />
     <Compile Include="Models\NpcSmses\SmsType.cs" />
+    <Compile Include="Models\NpcSmsSends\NpcSmsSend.cs" />
     <Compile Include="Models\OpenMasConfigs\OpenMasConfig.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\PhoneBooks\PhoneBook.cs" />

@@ -10,6 +10,7 @@ using NPC.Domain.Models.NpcMmsSends;
 using NPC.Domain.Models.NpcMmses;
 using NPC.Domain.Models.OpenMasConfigs;
 using NPC.Domain.Repository;
+using NPC.Service;
 using Npc.OpenMas;
 using Npc.OpenMas.OmsHelper;
 using OpenMas;
@@ -24,17 +25,16 @@ namespace NPC.Application.Services
         private readonly ILog _logger;
         private readonly NpcMmsSendRepository _npcMmsSendRepository;
         private readonly OpenMasConfigRepository _openMasConfigRepository;
-        private readonly IDictionary<Guid, OpenMasConfig> _openMasConfigs;
         private static readonly Object Locker = new Object();
         private readonly string _baseDirectory;
-
+        private readonly OpenMasConfigService _openMasConfigService;
         public NpcMmsSendService()
         {
             _baseDirectory = System.Configuration.ConfigurationManager.AppSettings["AttachmentsPath"];
-            _openMasConfigs = new Dictionary<Guid, OpenMasConfig>();
             _logger = new DefaultLoggerFactory().GetLogger();
             _openMasConfigRepository = new OpenMasConfigRepository();
             _npcMmsSendRepository = new NpcMmsSendRepository();
+            _openMasConfigService=new OpenMasConfigService();
         }
 
         public void Execute()
@@ -54,7 +54,7 @@ namespace NPC.Application.Services
             try
             {
                 var parList = new List<ParInfo>();
-                var config = GetConfigOfUnit(npcMmsSend.Unit.Id);
+                var config = _openMasConfigService.GetConfigOfUnit(npcMmsSend.Unit.Id);
                 #region 创建彩信
                 var count = 1;
                 foreach (var content in npcMmsSend.NpcMms.NpcMmsContents.OrderBy(o => o.OrderSort))
@@ -104,15 +104,15 @@ namespace NPC.Application.Services
                 var smil = CommonUtil.BuilderSmil(GetLayoutInfo(npcMmsSend.NpcMms.LayoutType, "image", "text"), parList);
                 mmsBuilder.AddContent(GetSmilContent(smil));
                 var mmsXml = mmsBuilder.BuildContentToXml();
-                var mms = new Mms(config.MasService);
+                var mms = new Mms(config.MmsMasService);
                 string messageId;
                 if (npcMmsSend.TimeOfExceptSend == null)
                 {
-                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd);
+                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.MmsExtensionNo.ToString(CultureInfo.InvariantCulture), config.MmsAppAccount, config.MmsAppPwd);
                 }
                 else
                 {
-                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.ExtensionNo.ToString(CultureInfo.InvariantCulture), config.AppAccount, config.AppPwd, npcMmsSend.TimeOfExceptSend.Value);
+                    messageId = mms.SendMessage(npcMmsSend.NpcMmsReceivers.Select(o => o.TelNum).ToArray(), npcMmsSend.Title, mmsXml, config.MmsExtensionNo.ToString(CultureInfo.InvariantCulture), config.MmsAppAccount, config.MmsAppPwd, npcMmsSend.TimeOfExceptSend.Value);
                 }
                 #endregion
                 npcMmsSend.SendStatus = SendStatus.Done;
@@ -252,22 +252,5 @@ namespace NPC.Application.Services
             Pic = 1
         }
         #endregion
-
-        #region 获取彩信配置文件
-        public OpenMasConfig GetConfigOfUnit(Guid unitId)
-        {
-            OpenMasConfig config;
-            if (_openMasConfigs.ContainsKey(unitId))
-            {
-                config = _openMasConfigs[unitId];
-            }
-            else
-            {
-                config = _openMasConfigRepository.GetOpenMasConfigByUnit(unitId);
-                _openMasConfigs.Add(unitId, config);
-            }
-            return config;
-        }
-        #endregion
-    }
+      }
 }

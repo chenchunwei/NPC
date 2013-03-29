@@ -61,6 +61,11 @@ namespace NPC.Domain.Repository
                 stringBuilder.Append("And pb.UnitId = :UnitId ");
                 parameters.Add("UnitId", queryItem.UnitId.Value);
             }
+            if (queryItem.Ids.Any())
+            {
+                stringBuilder.Append("And pbr.Id in(:Ids) ");
+                parameters.Add("Ids", queryItem.Ids);
+            }
             stringBuilder.Append("And pbr.IsDelete=0 ");
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);

@@ -83,7 +83,7 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="javascript:;" onclick="editRecord('@row.Id')">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                    <a href="@Url.Action("EditUser","Users")?id=@row.Id" target="_blank">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_5">
                     @row.Account
@@ -131,7 +131,7 @@
 </div>
 
 <script type="text/javascript">
-    var urlOfDel = '@Url.Action("Delete", "PhoneBooks")';
+    var urlOfDel = '@Url.Action("Delete", "Users")';
     function singleDel(id) {
         var delIds = [];
         delIds.push(id);
@@ -157,7 +157,11 @@
         });
         
         $("#batchDelBtn").click(function () {
-            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+            var delIds = [];
+            $("input[name=ids]:checked").each(function(i, o) {
+                delIds.push($(o).val());
+            });
+            controller.del(urlOfDel, delIds);
         });
         $("#searchBtn").click(function () {
             $("#searchForm").submit();

@@ -251,7 +251,11 @@
             }
         });
         $("#batchDelBtn").click(function () {
-            controller.del(urlOfDel, $("input[name=ids]:checked").toArray());
+            var delIds = [];
+            $("input[name=ids]:checked").each(function (i, o) {
+                delIds.push($(o).val());
+            });
+            controller.del(urlOfDel, delIds);
         });
         $("#searchBtn").click(function () {
             $("#searchForm").submit();

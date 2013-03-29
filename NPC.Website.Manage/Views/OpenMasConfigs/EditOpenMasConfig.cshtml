@@ -27,30 +27,6 @@
             </div>
             <table class="fromTable" width="100%">
                 <tr>
-                    <th style="width: 220px;">
-                        <span style="color: red;">*</span> 应用帐号：
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(o => o.AppAccount, new { style = "width:380px;", maxlength = 150 })
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <span style="color: red;">*</span> 应用密码：
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(o => o.AppPwd, new { style = "width:380px;", maxlength = 150 })
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <span style="color: red;">*</span> Mas服务器地址：
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(o => o.MasService, new { style = "width:380px;", maxlength = 250 })
-                    </td>
-                </tr>
-                <tr>
                     <th>
                         <span style="color: red;">*</span>签名：
                     </th>
@@ -59,11 +35,79 @@
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="2">
+                        <div style="font-weight: bold; padding-left: 50px;">
+                            短信设置</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 220px;">
+                        <span style="color: red;">*</span> 应用帐号：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.SmsAppAccount, new { style = "width:380px;", maxlength = 150 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 应用密码：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.SmsAppPwd, new { style = "width:380px;", maxlength = 150 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> Mas服务器地址：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.SmsMasService, new { style = "width:380px;", maxlength = 250 })
+                    </td>
+                </tr>
+                <tr>
                     <th>
                         <span style="color: red;">*</span> 扩展号：
                     </th>
                     <td>
-                        @Html.TextBoxFor(o => o.ExtensionNo, new { style = "width:80px;", maxlength = 10 })&nbsp;必须为整数
+                        @Html.TextBoxFor(o => o.SmsExtensionNo, new { style = "width:80px;", maxlength = 10 })&nbsp;必须为整数
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div style="font-weight: bold; padding-left: 50px;">
+                            彩信设置</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 220px;">
+                        <span style="color: red;">*</span> 应用帐号：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.MmsAppAccount, new { style = "width:380px;", maxlength = 150 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 应用密码：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.MmsAppPwd, new { style = "width:380px;", maxlength = 150 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> Mas服务器地址：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.MmsMasService, new { style = "width:380px;", maxlength = 250 })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span style="color: red;">*</span> 扩展号：
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(o => o.MmsExtensionNo, new { style = "width:80px;", maxlength = 10 })&nbsp;必须为整数
                     </td>
                 </tr>
                 <tr>
@@ -95,16 +139,26 @@
         $("#mainForm").validate({
             ignore: "",
             rules: {
-                "AppAccount": "required",
-                "AppPwd": "required",
-                "MasService": "required",
-                "ExtensionNo": "required"
+                "Signature":"required",
+                "SmsAppAccount": "required",
+                "SmsAppPwd": "required",
+                "SmsMasService": "required",
+                "SmsExtensionNo": "required",
+                "MmsAppAccount": "required",
+                "MmsAppPwd": "required",
+                "MmsMasService": "required",
+                "MmsExtensionNo": "required"
             },
             messages: {
-                "AppAccount": "必填项",
-                "AppPwd": "必填项",
-                "MasService": "必填项",
-                "ExtensionNo": "必填项"
+                "Signature": "必填项",
+                "SmsAppAccount": "必填项",
+                "SmsAppPwd": "必填项",
+                "SmsMasService": "必填项",
+                "SmsExtensionNo": "必填项",
+                "MmsAppAccount": "必填项",
+                "MmsAppPwd": "必填项",
+                "MmsMasService": "必填项",
+                "MmsExtensionNo": "必填项"
             }
         });
         $("#submitBtn").click(function () {

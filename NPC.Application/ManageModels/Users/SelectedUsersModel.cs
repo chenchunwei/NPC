@@ -12,14 +12,14 @@ namespace NPC.Application.ManageModels.Users
         public SelectedUsersModel()
         {
             Ids = new List<Guid>();
-            Where = new SelectedUsersModelWhere();
+            WhereOptions = new SelectedUsersModelWhere();
         }
         [DataMember(Name = "checkedAllPage")]
         public bool CheckedAllPage { get; set; }
         [DataMember(Name = "ids")]
         public IList<Guid> Ids { get; set; }
         [DataMember(Name = "whereOptions")]
-        public SelectedUsersModelWhere Where { get; set; }
+        public SelectedUsersModelWhere WhereOptions { get; set; }
         public Guid? UnitId { get; set; }
     }
 

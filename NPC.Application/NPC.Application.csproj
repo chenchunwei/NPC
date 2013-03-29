@@ -158,6 +158,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalAction.cs" />
     <Compile Include="Services\NpcMmsSendService.cs" />
+    <Compile Include="Services\NpcSmsSendService.cs" />
     <Compile Include="Services\ProposalRoleService.cs" />
     <Compile Include="TaskAction.cs" />
     <Compile Include="UnitAction.cs" />

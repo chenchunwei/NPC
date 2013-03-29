@@ -35,7 +35,17 @@ namespace NPC.FlowEngine
             var messageContainer = new MessageContainer("CreateFlowNodeInstance");
             var instances = _flowRepository.GetInstanceFlow();
             messageContainer.Debug("共需处理CreateFlowNodeInstance的记录条数:{0}", instances.Count);
-            instances.ToList().ForEach(instance => CreateSingleFlowNodeInstance(instance, messageContainer));
+            instances.ToList().ForEach(instance =>
+            {
+                try
+                {
+                    CreateSingleFlowNodeInstance(instance, messageContainer);
+                }
+                catch (Exception exception)
+                {
+                    messageContainer.Error("在处理CreateFlowNodeInstance时id={0}时出错ex={1}", instance.Id, exception);
+                }
+            });
             messageContainer.Log4Net();
         }
 
@@ -44,7 +54,17 @@ namespace NPC.FlowEngine
             var messageContainer = new MessageContainer("DealFlowNodeFlowTo");
             var flowNodeInstances = _flowNodeInstanceRepository.GetUnDeals();
             messageContainer.Debug("共需处理DealFlowNodeFlowTo的记录条数:{0}", flowNodeInstances.Count);
-            flowNodeInstances.ToList().ForEach(flowNodeInstance => DealSingleFlowNodeFlowTo(flowNodeInstance, messageContainer));
+            flowNodeInstances.ToList().ForEach(flowNodeInstance =>
+            {
+                try
+                {
+                    DealSingleFlowNodeFlowTo(flowNodeInstance, messageContainer);
+                }
+                catch (Exception exception)
+                {
+                    messageContainer.Error("在处理DealFlowNodeFlowTo时id={0}时出错ex={1}", flowNodeInstance.Id, exception);
+                }
+            });
             messageContainer.Log4Net();
         }
 
@@ -53,7 +73,17 @@ namespace NPC.FlowEngine
             var messageContainer = new MessageContainer("DealFlow");
             var flows = _flowRepository.GetUnFinisheds();
             messageContainer.Debug("共需处理DealFlow的记录条数:{0}", flows.Count);
-            flows.ToList().ForEach(flow => DealSingleFlowNode(flow, messageContainer));
+            flows.ToList().ForEach(flow =>
+            {
+                try
+                {
+                    DealSingleFlowNode(flow, messageContainer);
+                }
+                catch (Exception exception)
+                {
+                    messageContainer.Error("在处理DealFlow时id={0}时出错ex={1}", flow.Id, exception);
+                }
+            });
             messageContainer.Log4Net();
         }
 

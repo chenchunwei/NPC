@@ -27,24 +27,7 @@ namespace NPC.Website.Manage.Controllers
             return View();
         }
 
-        public JsonResult GetSelectUserOptionsWithUnit(Guid? id)
-        {
-            var model = _userAction.InitializeSelectUserOptionsModelWithUnit(id);
-            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
-        }
-
-        public JsonResult GetSelectUserOptionsWithDepartment(Guid? id)
-        {
-            var model = _userAction.InitializeSelectUserOptionsModelWithDepartment(id);
-            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
-        }
-
-        public JsonResult GetSelectUserOptionsWithUser(Guid id)
-        {
-            var model = _userAction.InitializeSelectUserOptionsModelWithUser(id);
-            return new NewtonsoftJsonResult() { Data = model.SelectUserOptionsRows };
-        }
-
+      
         [HttpPost]
         public JsonResult ParseSelectedToUsers(string selectedJson)
         {
@@ -142,6 +125,16 @@ namespace NPC.Website.Manage.Controllers
             var untiId = new NpcContext().CurrentUser.Unit.Id;
             var model = _userAction.InitializeInteractiveModel(untiId);
             return View(model);
+        }
+        #endregion
+
+        #region 删除记录
+        [HttpPost, ActionName("Delete")]
+        public JsonResult Delete()
+        {
+            IList<Guid> ids = Request["ids"].Split(',').Select(o => new Guid(o)).ToList();
+            _userAction.Delete(ids.ToArray());
+            return new NewtonsoftJsonResult() { Data = new { Status = "success", Message = "删除成功!" } };
         }
         #endregion
     }

@@ -359,11 +359,11 @@ namespace NPC.Application
         public void Contribute(ContributeModel model)
         {
             var userName = AppConfig.SmtpUserName;
-            var content = string.Format("标题：{0}<br/>作者:{1}<p/>正文：{2}", model.Title, model.Author, model.Content);
+            var content = string.Format("标题：{0}<br/>作者：{1}<p/>正文：{2}", model.Title, model.Author, model.Content);
             var message = new Message();
             message.Subject = "【新闻投稿】" + model.Title;
             message.From = userName;
-            message.Charset = System.Text.Encoding.GetEncoding("GB2312");
+            message.Charset = Encoding.GetEncoding("GB2312");
             message.BodyHtml = content;
             message.To.Add(AppConfig.ContributeSendTo);
             // 设置SMTP

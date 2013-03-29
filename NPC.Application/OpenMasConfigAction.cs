@@ -23,10 +23,16 @@ namespace NPC.Application
             var config = _openMasConfigRepository.GetOpenMasConfigByUnit(unit.Id);
             if (config == null)
                 return model;
-            model.AppAccount = config.AppAccount;
-            model.AppPwd = config.AppPwd;
-            model.ExtensionNo = config.ExtensionNo;
-            model.MasService = config.MasService;
+            model.MmsAppAccount = config.MmsAppAccount;
+            model.MmsAppPwd = config.MmsAppPwd;
+            model.MmsExtensionNo = config.MmsExtensionNo;
+            model.MmsMasService = config.MmsMasService;
+
+            model.SmsAppAccount = config.SmsAppAccount;
+            model.SmsAppPwd = config.SmsAppPwd;
+            model.SmsExtensionNo = config.SmsExtensionNo;
+            model.SmsMasService = config.SmsMasService;
+
             model.Signature = config.Signature;
             return model;
         }
@@ -34,10 +40,14 @@ namespace NPC.Application
         public void EditOpenMasConfig(EditOpenMasConfigModel model)
         {
             var config = _openMasConfigRepository.GetOpenMasConfigByUnit(model.Unit.Id) ?? new OpenMasConfig();
-            config.AppAccount = model.AppAccount;
-            config.AppPwd = model.AppPwd;
-            config.ExtensionNo = model.ExtensionNo;
-            config.MasService = model.MasService;
+            config.MmsAppAccount = model.MmsAppAccount;
+            config.MmsAppPwd = model.MmsAppPwd;
+            config.MmsExtensionNo = model.MmsExtensionNo;
+            config.MmsMasService = model.MmsMasService;
+            config.SmsAppAccount = model.SmsAppAccount;
+            config.SmsAppPwd = model.SmsAppPwd;
+            config.SmsExtensionNo = model.SmsExtensionNo;
+            config.SmsMasService = model.SmsMasService;
             config.Unit = model.Unit;
             config.Signature = model.Signature;
             config.RecordDescription.CreateBy(NpcContext.CurrentUser);

@@ -46,7 +46,7 @@
 </script>
 <script id="txtTmpl" type="text/html">
     <div class="{$getClassName('txt',txt,img)}">
-        {txt}
+        {$unescapeTmp(txt)}
     </div>
 </script>
 <script id="orderSortTmpl" type="text/html">
@@ -59,21 +59,14 @@
     {/if}
 </script>
 <script type="text/javascript">
-    template.helper('$unescape', (function () {
-        var badChars = /&(?![\w#]+;)|[<>"']/g;
-        var map = {
-            "\r": "<br/>",
-            "\r\n": "<br/>",
-            ' ': "&nbsp;"
-        };
+    template.helper('$unescapeTmp', (function () {
         var fn = function (s) {
             return map[s];
         };
         return function (content) {
-            if (typeof content === 'string')
-                for (var key in map) {
-                    content.replace(key, fn(key));
-                }
+            if (typeof content === 'string') {
+                content = content.replace(/\r\n|\n/g, "//br//");
+            }
             return content;
         };
     })());
@@ -136,8 +129,8 @@
                         </th>
                         <td>
                             
-                            <input type="radio" value="0" name="FormData.LayoutType" checked="checked" @Html.Raw(Model.FormData.LayoutType==LayoutType.PicTop?"checked=\"checked\"":"") />图片在上，文字在下
-                            <input type="radio" value="1" name="FormData.LayoutType" @Html.Raw(Model.FormData.LayoutType==LayoutType.PicBottom?"checked=\"checked\"":"")/>文字在上，图片在下
+                            <input type="radio" value="0" name="FormData.LayoutType" checked="checked" @Html.Raw(Model.FormData.LayoutType == LayoutType.PicTop ? "checked=\"checked\"" : "") />图片在上，文字在下
+                            <input type="radio" value="1" name="FormData.LayoutType" @Html.Raw(Model.FormData.LayoutType == LayoutType.PicBottom ? "checked=\"checked\"" : "")/>文字在上，图片在下
                         </td>
                     </tr>
                     <tr>
@@ -228,7 +221,7 @@
                         </th>
                         <td>
                             <div style="float: left;">
-                                <textarea rows="12" cols="60" id="txt" maxlength="400"></textarea></div>
+                                <textarea rows="12" cols="60" id="txt" maxlength="380"></textarea></div>
                             <div class="clr">
                             </div>
                         </td>
@@ -311,6 +304,7 @@
     };
     FrameView.createNewFrameHtml = function (frame, afterFrame) {
         var html = template.render("frameTmpl", frame);
+        html = html.replace(/\/\/br\/\//ig, "<br/>");
         if (afterFrame != null) {
             var target = $("#frame" + afterFrame.index);
             $(target).after(html);
@@ -328,11 +322,12 @@
         frameContainer.frameRemoveListeners.push(FrameView);
         @if (Model.FrameSerializers.Any())
         {
-            foreach (var frame in Model.FrameSerializers.OrderBy(o=>o.OrderSort))
+            foreach (var frame in Model.FrameSerializers.OrderBy(o => o.OrderSort))
             {
-               @Html.Raw(string.Format(@"frameContainer.addFrameWithOptions({{txt:'{0}',orderSort:{1},
-               img:'{2}',voice:'{3}',positionStyle:'{4}',index:{1},id:'{5}',timeDuring:{6}}});", frame.Text, frame.OrderSort, frame.Image,
-               frame.Voice, (int)Model.FormData.LayoutType,frame.Id,frame.TimeDuring));
+               @Html.Raw(string.Format(@"frameContainer.addFrameWithOptions({{txt:unescape('{0}'),orderSort:{1},
+               img:'{2}',voice:'{3}',positionStyle:'{4}',index:{1},id:'{5}',timeDuring:{6}}});",
+               HttpUtility.UrlEncodeUnicode(frame.Text), frame.OrderSort, frame.Image,
+               frame.Voice, (int)Model.FormData.LayoutType, frame.Id, frame.TimeDuring));
             }
             @Html.Raw(string.Format("selected({0})", (int)Model.FrameSerializers[0].OrderSort));
         }

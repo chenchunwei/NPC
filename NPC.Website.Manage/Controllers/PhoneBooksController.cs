@@ -114,7 +114,7 @@ namespace NPC.Website.Manage.Controllers
 
         public JsonResult ParseSelectedToPhoneBookRecords(string selectedJson)
         {
-            var selectedUsersModel = JsonConvert.DeserializeObject<SelectePhoneBookRecordModel>(selectedJson);
+            var selectedUsersModel = JsonConvert.DeserializeObject<SelectePhoneBookRecordModel>(selectedJson,new JsonSerializerSettings(){ MaxDepth = 3});
             selectedUsersModel.UnitId = new NpcContext().CurrentUser.Unit.Id;
             var model = _phoneBookRecordAction.InitializeSelectedRecordsResponse(selectedUsersModel);
             return new NewtonsoftJsonResult() { Data = model };

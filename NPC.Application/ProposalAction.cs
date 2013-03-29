@@ -14,6 +14,7 @@ using NPC.Domain.Models.Proposals;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
 using NPC.FlowEngine;
+using NPC.Service;
 
 namespace NPC.Application
 {
@@ -73,6 +74,7 @@ namespace NPC.Application
         public void Create(EditProposalModel model)
         {
             var trans = TransactionManager.BeginTransaction();
+
             try
             {
                 var user = NpcContext.CurrentUser;
@@ -92,18 +94,22 @@ namespace NPC.Application
                 }
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
+                var npcAuditor = ProposalRoleService.GetNpcAuditJieKouRen();
                 args.Add("Originator", user.Id.ToString());
-                args.Add("NpcAuditor", ProposalRoleService.GetNpcAuditJieKouRen().Id.ToString());
+                args.Add("NpcAuditor", npcAuditor.Id.ToString());
                 _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
                 trans.Commit();
+                SendMessage(npcAuditor);
             }
             catch (Exception)
             {
                 trans.Rollback();
                 throw;
             }
+
+
         }
         #endregion
 
@@ -154,10 +160,12 @@ namespace NPC.Application
             {
                 var args = new Dictionary<string, string>();
                 var proposal = _proposalRepository.Find(scNpcAuditModel.FlowId);
+                var govAuditor = ProposalRoleService.GetGovAuditJieKouRen();
                 if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
                 {
                     proposal.ProposalStatus = ProposalStatus.GovAuditing;
-                    args.Add("GovAuditor", ProposalRoleService.GetNpcAuditJieKouRen().Id.ToString());
+                    args.Add("GovAuditor", govAuditor.Id.ToString());
+                    SendMessage(govAuditor);
                 }
                 else
                 {
@@ -168,6 +176,15 @@ namespace NPC.Application
                   EnumHelper.GetDescription(scNpcAuditModel.Action),
                   NpcContext.CurrentUser, args, scNpcAuditModel.Comment);
                 trans.Commit();
+                if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
+                {
+                    SendMessage(govAuditor);
+                }
+                else
+                {
+                    //HACK:退回的时候没有发短信
+                    SendMessage(null);
+                }
             }
             catch (Exception exception)
             {
@@ -238,6 +255,7 @@ namespace NPC.Application
                 }
                 var unitRepository = new UnitRepository();
                 var args = new Dictionary<string, string>();
+                User govAuditor = null;
                 if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
                 {
                     if (govOfficeAuditModel.SponsorUnitId == null)
@@ -251,6 +269,7 @@ namespace NPC.Application
                       EnumHelper.GetDescription(govOfficeAuditModel.Action),
                       NpcContext.CurrentUser, args, govOfficeAuditModel.Comment);
                 trans.Commit();
+                SendMessage(govAuditor);
             }
             catch (Exception exception)
             {
@@ -285,6 +304,7 @@ namespace NPC.Application
                       EnumHelper.GetDescription(sponsorAuditModel.Action),
                       NpcContext.CurrentUser, args, sponsorAuditModel.Comment);
                 trans.Commit();
+
             }
             catch (Exception exception)
             {
@@ -352,6 +372,24 @@ namespace NPC.Application
             model.Proposal = _proposalRepository.Find(model.Flow.Id);
             model.TaskId = taskId;
             return model;
+        }
+
+        private void SendMessage(User user)
+        {
+            if (user == null)
+                return;
+            try
+            {
+                var openConfig = new OpenMasConfigService().GetConfigOfUnit(Guid.Parse(AppConfig.CommonMessageSendUnitId));
+                if (Helper.CheckRegex(user.Account, @"^(1[\d]{10},)*(1[\d]{10})$"))
+                {
+                    var returnMessage = NpcSmsSendService.SendSms(openConfig, "人大在线平台有新的议案建议需要您审批，请及时处理！", new string[] { user.Account });
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.ErrorFormat("发送流程任务通知时出错");
+            }
         }
     }
 }

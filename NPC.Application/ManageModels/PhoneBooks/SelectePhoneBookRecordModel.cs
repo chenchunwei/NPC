@@ -11,7 +11,7 @@ namespace NPC.Application.ManageModels.PhoneBooks
         public SelectePhoneBookRecordModel()
         {
             Ids = new List<Guid>();
-            Where = new SelectePhoneBookRecordModelWhere();
+            WhereOptions = new SelectePhoneBookRecordModelWhere();
         }
 
         [DataMember(Name = "checkedAllPage")]
@@ -21,12 +21,12 @@ namespace NPC.Application.ManageModels.PhoneBooks
         public IList<Guid> Ids { get; set; }
 
         [DataMember(Name = "whereOptions")]
-        public SelectePhoneBookRecordModelWhere Where { get; set; }
+        public SelectePhoneBookRecordModelWhere WhereOptions { get; set; }
 
         public Guid? UnitId { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "whereOptions")]
     public class SelectePhoneBookRecordModelWhere
     {
         [DataMember(Name = "name")]

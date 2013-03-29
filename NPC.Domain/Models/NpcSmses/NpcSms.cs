@@ -6,6 +6,7 @@ using Fluent.Infrastructure.Domain;
 using Fluent.Infrastructure.Web.HttpMoudles;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.PhoneBooks;
+using NPC.Domain.Models.Units;
 
 namespace NPC.Domain.Models.NpcSmses
 {
@@ -13,19 +14,14 @@ namespace NPC.Domain.Models.NpcSmses
     {
         public NpcSms()
         {
-            Receivers = new List<PhoneBookRecord>();
             RecordDescription = new RecordDescription();
         }
-
         public virtual Guid Id { get; set; }
-        public virtual IList<PhoneBookRecord> Receivers { get; set; }
         public virtual string Content { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
         public virtual SmsType SmsType { get; set; }
-        public virtual DateTime? TimeOfExpectSend { get; set; }
         public virtual bool IsNeedSignature { get; set; }
+        public virtual Unit Unit { get; set; }
         public virtual SignatureType SignatureType { get; set; }
-        public virtual string MessageId { get; set; }
-        public virtual DateTime? TimeOfCallback { get; set; }
     }
 }

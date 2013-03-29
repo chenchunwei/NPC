@@ -75,5 +75,13 @@ namespace NPC.Application.Common
                 return System.Configuration.ConfigurationManager.AppSettings["ContributeSendTo"];
             }
         }
+
+        public static string CommonMessageSendUnitId
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["CommonMessageSendUnitId"];
+            }
+        }
     }
 }

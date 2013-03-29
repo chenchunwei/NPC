@@ -277,8 +277,8 @@ namespace NPC.Application
             queryItem.Pagination.PageSize = 100;
             if (selectedUsersModel.CheckedAllPage)
             {
-                queryItem.DepartmentLikeId = selectedUsersModel.Where.DepartmentLikeId;
-                queryItem.Name = selectedUsersModel.Where.Name;
+                queryItem.DepartmentLikeId = selectedUsersModel.WhereOptions.DepartmentLikeId;
+                queryItem.Name = selectedUsersModel.WhereOptions.Name;
             }
             else
             {
@@ -304,6 +304,21 @@ namespace NPC.Application
                 model.DepartmentUsers.Add(dept, users);
             });
             return model;
+        }
+        #endregion
+
+
+        #region 删除用户
+        public void Delete(params Guid[] ids)
+        {
+            if (ids != null && ids.Length > 0)
+                ids.ToList().ForEach(SingleDelete);
+        }
+        private void SingleDelete(Guid id)
+        {
+            var target = _userRepository.Find(id);
+            target.RecordDescription.Delete();
+            _userRepository.SaveOrUpdate(target);
         }
         #endregion
     }

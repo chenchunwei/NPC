@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ArticleCategoryRepository.cs" />
     <Compile Include="ArticleRepository.cs" />
+    <Compile Include="NpcSmsSendRepository.cs" />
     <Compile Include="FlowNodeInstanceTaskRepository.cs" />
     <Compile Include="PhoneBookRepository.cs" />
     <Compile Include="FlowNodeInstanceRepository.cs" />
