@@ -83,6 +83,7 @@ namespace NPC.Website.Manage.Controllers
         public ActionResult EditUser(Guid? id)
         {
             var model = _userAction.InitializeEditUserModel(id);
+            model.Id = id;
             return View(model);
         }
 

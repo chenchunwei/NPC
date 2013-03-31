@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "角色列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Fluent.Infrastructure.Utilities
+@model NPC.Application.ManageModels.Roles.RoleListModel 
+<div class="workgroundin">
+    <ul class="head_content">
+        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("添加新角色", "newRoleBtn", "icon_3.gif", true))
+    </ul>
+</div>
+<form action="" method="GET" id="searchForm">
+<div class="main_search">
+    <div class="mc_search">
+        <div class="pic">
+            <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+        <div class="font">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+        <div class="s1">
+        </div>
+        <div class="i1">
+        </div>
+    </div>
+</div>
+</form>
+<div class="main_content">
+    <div class="topline">
+        <div class="span_1">
+            <input type="checkbox" id="topChk" /></div>
+        <div class="span_2"  style="width: 210px;">
+            操作</div>
+        <div class="span_3" style="width: 310px;">
+            角色名</div>
+        <div class="span_2" style="width: 210px;">
+            角色码</div>
+        <div class="span_2">
+            创建人</div>
+        <div class="span_2">
+            创建时间</div>
+        <div class="span_4">
+        </div>
+        <div class="span_4">
+        </div>
+        <div class="span_4">
+        </div>
+    </div>
+    <div class="row">
+        @if (!Model.Roles.Any())
+        {
+            <div class="noRowline">
+                未找到符合条件的相关记录信息！
+            </div>
+        }
+        @foreach (var row in Model.Roles)
+        {
+            <div class="rowline">
+                <div class="span_1">
+                    <input type="checkbox" name="ids" value="@row.Id" /></div>
+                <div class="span_2"  style="width: 200px;">
+                    <a href="@Url.Action("EditRole")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                        删除</a>| <a href="@Url.Action("RolePrivilegeSettings")?id=@row.Id" target="_blank">设置权限</a></div>
+                <div class="span_3" style="width: 300px;">
+                    @row.Name
+                </div>
+                <div class="span_2" style="width: 200px;">
+                    @row.Code
+                </div>
+                <div class="span_2">
+                </div>
+                <div class="span_2">
+                </div>
+                <div class="span_4">
+                </div>
+                <div class="span_4">
+                </div>
+                <div class="span_4">
+                </div>
+            </div> 
+        }
+        <div class="footBar">
+            <div class="fb_content">
+                <ul class="fb_button">
+                    @Html.Partial("_LiButton", new Tuple<string, string>("全选", "chkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("取消", "unChkAllBtn"))
+                    @Html.Partial("_LiButton", new Tuple<string, string>("反选", "invertBtn"))
+                </ul>
+                <div class="fb_page">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var urlOfDel = '@Url.Action("DeleteRole", "Roles")';
+    function singleDel(id) {
+        var delIds = [];
+        delIds.push(id);
+        controller.del(urlOfDel, delIds);
+    }
+    $("#chkAllBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 1);
+    });
+    $("#unChkAllBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 0);
+    });
+    $("#invertBtn").click(function () {
+        controller.batchOfChk("input[name=ids]", 2);
+    });
+    $("#topChk").click(function () {
+        var result = $(this).attr("checked") ? 1 : 0;
+        controller.batchOfChk("input[name=ids]", result);
+    });
+    $("#newRoleBtn").click(function () {
+        window.location.href = '@Url.Action("EditRole", "Roles")';
+    });
+    $("#batchDelBtn").click(function () {
+        var delIds = [];
+        $("input[name=ids]:checked").each(function (i, o) {
+            delIds.push($(o).val());
+        });
+        controller.del(urlOfDel, delIds);
+    });
+    $("#searchBtn").click(function () {
+        $("#searchForm").submit();
+    });
+</script>

@@ -96,7 +96,9 @@
     <Compile Include="Controllers\NpcMmsSendsController.cs" />
     <Compile Include="Controllers\OpenMasConfigsController.cs" />
     <Compile Include="Controllers\PhoneBooksController.cs" />
+    <Compile Include="Controllers\PrivilegesController.cs" />
     <Compile Include="Controllers\ProposalsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
@@ -1203,6 +1205,10 @@
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Permission\Fluent.Permission.csproj">
+      <Project>{10C9D54E-8858-49A8-ABFF-302FACD1FB0C}</Project>
+      <Name>Fluent.Permission</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NPC.Application\NPC.Application.csproj">
       <Project>{22C05668-41AB-46B3-81EF-72294624FBCB}</Project>
       <Name>NPC.Application</Name>
@@ -1302,6 +1308,11 @@
     <Content Include="Views\Configs\JieKouRenSettings.cshtml" />
     <Content Include="Views\Users\Interactive.cshtml" />
     <Content Include="Views\PhoneBooks\SelectPhoneBookRecord.cshtml" />
+    <Content Include="Views\Roles\RoleList.cshtml" />
+    <Content Include="Views\Privileges\PrivilegeList.cshtml" />
+    <Content Include="Views\Privileges\EditPrivilege.cshtml" />
+    <Content Include="Views\Roles\EditRole.cshtml" />
+    <Content Include="Views\Roles\RolePrivilegeSettings.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

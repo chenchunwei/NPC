@@ -13,7 +13,7 @@
         <ul>
             @foreach (var article in Model.Articles)
             { 
-                <li><a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.Title</a></li>
+                <li><a href="@Url.Action("Detail", "Home")?id=@article.Id" target="_blank">@article.Title</a><div class="ldate">@article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div></li>
             }
         </ul>
         @Html.Partial("_Pager", new PagerModel { Pagination = Model.ArticleQueryItem.Pagination })

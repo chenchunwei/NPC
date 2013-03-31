@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "编辑角色权限";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.ComponentModel
+@model  NPC.Application.ManageModels.Roles.RolePrivilegeSettingsModel
+<script type="text/javascript" src="@Url.Content("~/Scripts/xheditor-1.1.14/xheditor-1.1.14-zh-cn.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/common/jquery.masker.js")"></script>
+<div class="workgroundin" style="height: 5px;">
+</div>
+<form method="post" action="" id="mainForm" style="margin: 0px;" enctype="multipart/form-data">
+<div class="main_content">
+    <div class="main_search">
+        <div class="mc_search">
+            <div class="pic">
+                <img src="@Url.Content("~/Content/images/icon_12.gif")" alt="" /></div>
+            <div class="font">
+                提示:请认真设置用户权限</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="treeBody" style="padding-top: 5px;">
+            <div class="tipsOrange">
+                <div class="icon">
+                </div>
+                <div class="font">
+                    提示：带<span style="color: red;">*</span>号为必填项！</div>
+            </div>
+            <table class="fromTable" width="100%">
+                <tr>
+                    <th style="width: 200px;">
+                        角色名：
+                    </th>
+                    <td>
+                        @Html.Raw(Model.Role.Name)/ @Html.Raw(Model.Role.Code)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        描述：
+                    </th>
+                    <td>
+                        @Html.Raw(Model.Role.Description)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        权限列表：
+                    </th>
+                    <td>
+                        <table>
+                            @foreach (var privilege in Model.Privileges)
+                            {
+                                <tr>
+                                    <td>
+                                        @(privilege.Name)[@privilege.Code]
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="SelectedPrivileges" value="@privilege.Id"/>
+                                    </td>
+                                </tr>
+                                
+                            }
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="wrapper_btn">
+                            <div class="btn" id="submitBtn">
+                                <div class="fbb_left">
+                                    <img src="@Url.Content("~/Content/Images/fbb_left.jpg")" alt="" /></div>
+                                <div class="fbb_center">
+                                    保存</div>
+                                <div class="fbb_right">
+                                    <img src="@Url.Content("~/Content/Images/fbb_right.jpg")" alt="" /></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="footBar">
+            <div class="fb_content">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        var selectdPrivileges = [];
+        @foreach (var privilege in Model.Role.Privileges)
+        {
+          @Html.Raw("selectdPrivileges.push('" + privilege.Id + "');");
+        }
+        $("input[name='SelectedPrivileges']").each(function(i, o) {
+           if ($.inArray($(o).val(), selectdPrivileges) > -1) {
+               $(o).attr("checked", "checked");
+           }
+        });
+      
+        $("#submitBtn").click(function () {
+            $("#mainForm").submit();
+        });
+    });
+</script>

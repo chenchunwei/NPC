@@ -21,7 +21,7 @@ ul{margin:0px;padding:0px;}
 .layout .main1 .focus li{list-style: none;}
 .layout .main1 .news{overflow: hidden;float:left;border:1px solid #ccc;margin:0px;padding:3px 6px;height:246px;width:285px;}
 .layout .main1 .news .title {margin:10px;border-bottom:1px dashed #ccc;padding-bottom:10px;padding-left:5px;width:270px;overflow: hidden;}
-.layout .main1 .news .title .title-name{color:#cc0000;font-weight:bold;display:inline;width:100px;overflow: hidden;}
+.layout .main1 .news .title .title-name{color:#cc0000;font-weight:bold;display:inline;width:100px;overflow: hidden; }
 .layout .main1 .news .title .more{display:inline;margin-left:160px;margin-left:160px;width:50px;overflow: hidden;}
 .layout .main1 .news li{list-style:disc inside;margin:10px 15px;*margin:8px 10px;width:240px;overflow: hidden;}
 
@@ -89,6 +89,8 @@ ul{margin:0px;padding:0px;}
 .layout .main2 .right .bookmark-box a:hover{border:1px solid #cc0000;}
 .layout .main2 .right .bookmark-box a img{margin:6px 9px;}
 
+.layout .main2 .list-right ul li .ldate{color:#999;float: right;}
+
 .layout .main3{clear:both;margin-bottom:8px;float:left;width:998px;overflow:hidden;*margin-bottom:4px;}
 .layout .main3 .contribute{float:left;margin-right:10px;width:195px;height:104px;overflow:hidden;}
 .layout .main3 .contribute a{border:1px solid #8f5a24;display:block;}
@@ -145,7 +147,7 @@ ul{margin:0px;padding:0px;}
 .layout .main2 .detail-right .title {border-bottom:1px solid #ccc;float:left;line-height:30px;background:#eee;width:758px;}
 .layout .main2 .detail-right .title-name{color:#fff;background:#cc0000;font-weight:bold;padding:0px 25px;float:left;display:block;}
 .layout .main2 .detail-right .detail-content{margin:25px 50px 10px 50px;min-height:530px}
-.layout .main2 .detail-right .detail-content h1{font-size:16px;font-family:"微软雅黑";font-weight:bold;text-align: center;border-bottom:1px dashed #ccc;padding-bottom:10px;}
+.layout .main2 .detail-right .detail-content h1{font-size:20px;font-family:"微软雅黑";font-weight:bold;text-align: center;border-bottom:1px dashed #ccc;padding-bottom:10px;}
 .layout .main2 .detail-right .detail-content .time{text-align:center;color:#646464;}
 .layout .main2 .detail-right .detail-content p{line-height:28px;}
 .layout .main2 .detail-right .page{background: #ddd;border-top:1px solid #ccc;border-bottom:1px solid #ccc;height:28px;line-height:28px;text-align:right;padding-right:15px;}

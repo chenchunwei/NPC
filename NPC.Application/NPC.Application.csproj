@@ -113,6 +113,8 @@
     <Compile Include="ManageModels\PhoneBooks\PhoneBookRecordSearchModel.cs" />
     <Compile Include="ManageModels\PhoneBooks\SelectedRecordsResponse.cs" />
     <Compile Include="ManageModels\PhoneBooks\SelectePhoneBookRecordModel.cs" />
+    <Compile Include="ManageModels\Privileges\EditPrivilegeModel.cs" />
+    <Compile Include="ManageModels\Privileges\PrivilegeListModel.cs" />
     <Compile Include="ManageModels\Proposals\EditProposalModel.cs" />
     <Compile Include="ManageModels\Proposals\GovOfficeAuditAction.cs" />
     <Compile Include="ManageModels\Proposals\GovOfficeAuditModel.cs" />
@@ -128,6 +130,9 @@
     <Compile Include="ManageModels\Proposals\SponsorAuditAction.cs" />
     <Compile Include="ManageModels\Proposals\SponsorAuditModel.cs" />
     <Compile Include="ManageModels\RedirectMessageModel.cs" />
+    <Compile Include="ManageModels\Roles\EditRoleModel.cs" />
+    <Compile Include="ManageModels\Roles\RoleListModel.cs" />
+    <Compile Include="ManageModels\Roles\RolePrivilegeSettingsModel.cs" />
     <Compile Include="ManageModels\Tasks\MyTasksModel.cs" />
     <Compile Include="ManageModels\Units\EditUnitModel.cs" />
     <Compile Include="ManageModels\Units\UnitListModel.cs" />
@@ -155,8 +160,10 @@
     <Compile Include="NpcMmsSendAction.cs" />
     <Compile Include="OpenMasConfigAction.cs" />
     <Compile Include="PhoneBookRecordAction.cs" />
+    <Compile Include="PrivilegeAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProposalAction.cs" />
+    <Compile Include="RoleAction.cs" />
     <Compile Include="Services\NpcMmsSendService.cs" />
     <Compile Include="Services\NpcSmsSendService.cs" />
     <Compile Include="Services\ProposalRoleService.cs" />
@@ -174,6 +181,10 @@
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Permission\Fluent.Permission.csproj">
+      <Project>{10C9D54E-8858-49A8-ABFF-302FACD1FB0C}</Project>
+      <Name>Fluent.Permission</Name>
     </ProjectReference>
     <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
       <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>

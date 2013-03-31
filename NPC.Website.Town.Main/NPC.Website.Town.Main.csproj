@@ -216,7 +216,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="log4net.config" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />

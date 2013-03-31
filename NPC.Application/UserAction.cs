@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Utilities;
+using Fluent.Permission.RoleUsers;
+using Fluent.Permission.Roles;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Users;
 using NPC.Domain.Models.Departments;
@@ -168,7 +170,13 @@ namespace NPC.Application
                 model.FormData.Name = user.Name;
                 model.FormData.QQ = user.QQ;
                 model.FormData.OrderSort = user.OrderSort;
+                var roleUserRepository = new RoleUserRepository();
+                var roleUser = roleUserRepository.GetRoleUserByUserId(id.Value);
+                if (roleUser != null)
+                    model.FormData.RoleNames = string.Join(",", roleUser.Roles.Select(o => o.Code));
             }
+            var roleRepository = new RoleRepository();
+            model.Roles = roleRepository.GetAllRoleByUnitId(NpcContext.CurrentUser.Unit.Id);
             return model;
         }
         #endregion
@@ -201,6 +209,8 @@ namespace NPC.Application
                 _phoneBookRecordRepository.Save(user.PhoneBookRecord);
             }
             _userRepository.Save(user);
+            if (!string.IsNullOrEmpty(viewModel.FormData.RoleNames))
+                SaveOrUpdateRoleUser(user.Id, viewModel.FormData.RoleNames.Split(new[] { ',' }));
         }
         #endregion
 
@@ -229,6 +239,24 @@ namespace NPC.Application
             _phoneBookRecordRepository.Save(phoneBookRecord);
             user.PhoneBookRecord = phoneBookRecord;
             _userRepository.Save(user);
+            if (!string.IsNullOrEmpty(viewModel.FormData.RoleNames))
+                SaveOrUpdateRoleUser(user.Id, viewModel.FormData.RoleNames.Split(new[] { ',' }));
+        }
+        #endregion
+
+        #region new RoleUser
+        private void SaveOrUpdateRoleUser(Guid userId, IList<string> roleCodes)
+        {
+            if (roleCodes == null || !roleCodes.Any())
+                return;
+            var roleUserRepository = new RoleUserRepository();
+            var roleRepository = new RoleRepository();
+            var roleUser = roleUserRepository.GetRoleUserByUserId(userId) ?? new RoleUser();
+            roleUser.Roles.Clear();
+            roleUser.UserId = userId;
+            var roles = roleRepository.GetRolesByCodes(roleCodes);
+            roles.ToList().ForEach(role => roleUser.Roles.Add(role));
+            roleUserRepository.Save(roleUser);
         }
         #endregion
 
@@ -254,6 +282,8 @@ namespace NPC.Application
             var model = new UserListModel();
             model.Users = _userRepository.Query(userQueryItem);
             model.UserSearchModel.UserQueryItem = userQueryItem;
+            var roleUserRepository = new RoleUserRepository();
+            model.RoleUsers = roleUserRepository.GetRoleUsersByUserIds(model.Users.Select(o => o.Id));
             return model;
         }
         #endregion

@@ -82,7 +82,7 @@
             <div class="grouplevel">
                 议案建议
             </div>
-             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                  style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditProposal", "Proposals")'">
                 发起意见/议案
             </div>
@@ -109,7 +109,6 @@
                      style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "ArticleCategories")'">
                 文章分类查看
             </div>
-           
             <div class="grouplevel">
                 手机报管理
             </div>
@@ -159,7 +158,7 @@
                  style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "Departments")'">
                 分组管理
             </div>
-             <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("Interactive", "Users")'">
                 在线互动
             </div>
@@ -180,6 +179,21 @@
                 修改密码
             </div>
             @Html.Action("ManageMenus", "Home")
+            <div class="grouplevel">
+                权限管理
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("PrivilegeList", "Privileges")'">
+                权限查看
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='@Url.Action("RoleList", "Roles")'">
+                角色查看
+            </div>
+            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                style="cursor: pointer;" onclick="window.location.href='@Url.Action("JieKouRenSettings", "Configs")'">
+                用户权限管理
+            </div>
             <div class="bottom">
                 <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" />
             </div>

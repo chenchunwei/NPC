@@ -21,7 +21,7 @@
         <div class="s1">
         </div>
         <div class="i1">
-               @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
+            @Html.DropDownListFor(o => o.UserSearchModel.UserQueryItem.DepartmentLikeId, new BindingList<SelectListItem>(), new { style = "width:280px;" })
         </div>
         <div class="font">
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -58,9 +58,9 @@
         <div class="span_5">
             姓名</div>
         <div class="span_3">
-            号码</div>
-        <div class="span_5">
-            QQ</div>
+            电话</div>
+        <div class="span_3">
+            角色</div>
         <div class="span_2">
             加入时间</div>
         <div class="span_4">
@@ -83,7 +83,7 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                    <a href="@Url.Action("EditUser","Users")?id=@row.Id" target="_blank">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                    <a href="@Url.Action("EditUser", "Users")?id=@row.Id" target="_blank">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_5">
                     @row.Account
@@ -94,8 +94,11 @@
                 <div class="span_3">
                     @(row.PhoneBookRecord != null ? row.PhoneBookRecord.Mobile : string.Empty)
                 </div>
-                <div class="span_5">
-                    @row.QQ
+                <div class="span_3">
+                    @{
+                        var roleUser = Model.GetRoleUser(row);
+                        @(roleUser!=null?string.Join("/",roleUser.Roles.Select(o=>o.Name)):"")
+                }
                 </div>
                 <div class="span_2">
                     @(row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd"))
@@ -129,7 +132,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     var urlOfDel = '@Url.Action("Delete", "Users")';
     function singleDel(id) {
@@ -155,10 +157,10 @@
             var result = $(this).attr("checked") ? 1 : 0;
             controller.batchOfChk("input[name=ids]", result);
         });
-        
+
         $("#batchDelBtn").click(function () {
             var delIds = [];
-            $("input[name=ids]:checked").each(function(i, o) {
+            $("input[name=ids]:checked").each(function (i, o) {
                 delIds.push($(o).val());
             });
             controller.del(urlOfDel, delIds);
