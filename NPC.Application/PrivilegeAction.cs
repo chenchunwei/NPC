@@ -59,7 +59,6 @@ namespace NPC.Application
                 throw new ApplicationException("权限编码已被使用，请更换其它编码");
             privilege.Code = editPrivilegeModel.PrivilegeCode;
             privilege.Name = editPrivilegeModel.PrivilegeName;
-            privilege.UnitId = editPrivilegeModel.UnitId;
             privilege.Description = editPrivilegeModel.PrivilegeDescription;
             _privilegeRepository.Save(privilege);
         }

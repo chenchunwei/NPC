@@ -79,36 +79,65 @@
             <div class="title">
                 <img src="@Url.Content("~/Content/images/quickmenu_title.jpg")" alt="" />
             </div>
-            <div class="grouplevel">
-                议案建议
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+            @{
+                var npcContext = new NpcContext();
+            }
+            @if (npcContext.CurrentRoleUser.Validate("AddProposal") ||
+                 npcContext.CurrentRoleUser.Validate("EditProposal") ||
+                 npcContext.CurrentRoleUser.Validate("ReadProposal"))
+            {
+                <div class="grouplevel">
+                    议案建议
+                </div>
+                if (npcContext.CurrentRoleUser.Validate("AddProposal"))
+                {
+                <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                  style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditProposal", "Proposals")'">
-                发起意见/议案
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "Proposals")'">
-                意见/议案查看
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                    发起意见/议案
+                </div>
+                }
+                if (npcContext.CurrentRoleUser.Validate("ReadProposal"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                         style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("List", "Proposals")' ">
+                    意见/议案查看
+                </div>
+                }
+                <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
                      style="cursor: pointer;" onclick="window.location.href='@Url.Action("ProposalTasks", "Proposals")'">
-                意见/议案任务
-            </div>
-            <div class="grouplevel">
-                文章管理
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                     onclick="window.location.href='@Url.Action("List", "Artilces")'" style="cursor: pointer;">
-                文章查看
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("EditArticle", "Artilces")'">
-                发布新文章
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "ArticleCategories")'">
-                文章分类查看
-            </div>
+                    意见/议案任务
+                </div>
+            }
+            @if (npcContext.CurrentRoleUser.Validate("AddArticle") ||
+                 npcContext.CurrentRoleUser.Validate("EditArticle") ||
+                 npcContext.CurrentRoleUser.Validate("ReadArticle") ||
+                 npcContext.CurrentRoleUser.Validate("DeleteArticle"))
+            {
+                <div class="grouplevel">
+                    文章管理
+                </div>
+                if (npcContext.CurrentRoleUser.Validate("ReadArticle"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                         onclick=" window.location.href = '@Url.Action("List", "Artilces")' " style="cursor: pointer;">
+                    文章查看
+                </div>
+                }
+                if (npcContext.CurrentRoleUser.Validate("AddArticle"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                         style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("EditArticle", "Artilces")' ">
+                    发布新文章
+                </div>
+                }
+                if (npcContext.CurrentRoleUser.Validate("ReadArticle"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                         style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("List", "ArticleCategories")' ">
+                    文章分类查看
+                </div>
+                }
+            }
             <div class="grouplevel">
                 手机报管理
             </div>
@@ -136,21 +165,25 @@
                  onclick="window.location.href='@Url.Action("EditOpenMasConfig", "OpenMasConfigs")'" style="cursor: pointer;">
                 OpenMas服务配置
             </div>
-            <div class="grouplevel">
-                网站管理
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                     onclick="window.location.href='@Url.Action("List", "Nodes")'" style="cursor: pointer;">
-                网站模块管理
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                     onclick="window.location.href='@Url.Action("EditNodeRecord", "NodeRecords")'" style="cursor: pointer;">
-                添加定制记录
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 onclick="window.location.href='@Url.Action("List", "NodeRecords")'" style="cursor: pointer;">
-                定制记录查看
-            </div>
+            @if (npcContext.CurrentRoleUser.Validate("AddNode") ||
+                  npcContext.CurrentRoleUser.Validate("EditNode"))
+            {
+                <div class="grouplevel">
+                    网站管理
+                </div>
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                      onclick=" window.location.href = '@Url.Action("List", "Nodes")' " style="cursor: pointer;">
+                    网站模块管理
+                </div>
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                      onclick=" window.location.href = '@Url.Action("EditNodeRecord", "NodeRecords")' " style="cursor: pointer;">
+                    添加定制记录
+                </div>
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                      onclick=" window.location.href = '@Url.Action("List", "NodeRecords")' " style="cursor: pointer;">
+                    定制记录查看
+                </div>
+            }
             <div class="grouplevel">
                 用户管理
             </div>
@@ -179,21 +212,33 @@
                 修改密码
             </div>
             @Html.Action("ManageMenus", "Home")
-            <div class="grouplevel">
-                权限管理
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                 style="cursor: pointer;" onclick="window.location.href='@Url.Action("PrivilegeList", "Privileges")'">
-                权限查看
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                style="cursor: pointer;" onclick="window.location.href='@Url.Action("RoleList", "Roles")'">
-                角色查看
-            </div>
-            <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
-                style="cursor: pointer;" onclick="window.location.href='@Url.Action("JieKouRenSettings", "Configs")'">
-                用户权限管理
-            </div>
+             @if (npcContext.CurrentRoleUser.Validate("AddPrivilege") ||
+                  npcContext.CurrentRoleUser.Validate("EditPrivilege") ||
+                  npcContext.CurrentRoleUser.Validate("DeletePrivilege") ||
+                  npcContext.CurrentRoleUser.Validate("ReadPrivilege") ||
+                  npcContext.CurrentRoleUser.Validate("AddRole") ||
+                  npcContext.CurrentRoleUser.Validate("EditRole") ||
+                  npcContext.CurrentRoleUser.Validate("DeleteRole") ||
+                  npcContext.CurrentRoleUser.Validate("ReadRole"))
+             {
+                 <div class="grouplevel">
+                     权限管理
+                 </div>
+                 if (npcContext.CurrentRoleUser.Validate("ReadPrivilege"))
+                 {
+                     <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                          style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("PrivilegeList", "Privileges")' ">
+                         权限查看
+                     </div>
+                 }
+                 if (npcContext.CurrentRoleUser.Validate("ReadRole"))
+                 {
+                     <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                          style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("RoleList", "Roles")' ">
+                         角色查看
+                     </div>
+                 }
+             }
             <div class="bottom">
                 <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" />
             </div>

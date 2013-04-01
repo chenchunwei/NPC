@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Utilities;
+using Fluent.Permission.Privileges;
+using Fluent.Permission.RoleUsers;
+using Fluent.Permission.Roles;
 using NPC.Application.ManageModels.Units;
 using NPC.Domain.Models.Departments;
 using NPC.Domain.Models.Units;
@@ -71,7 +74,7 @@ namespace NPC.Application
                 var unit = new Unit()
                 {
                     Name = model.FormData.Name,
-                    IsFlowUint=model.FormData.IsFlowUnit,
+                    IsFlowUint = model.FormData.IsFlowUnit,
                     IsWebUint = model.FormData.IsWebUnit,
                     ParentUint = model.ParentId.HasValue ? _unitRepository.Find(model.ParentId.Value) : null
                 };
@@ -111,6 +114,34 @@ namespace NPC.Application
             var unit = _unitRepository.Find(id);
             unit.RecordDescription.IsDelete = true;
             _unitRepository.Save(unit);
+        }
+        #endregion
+
+        #region 初始化组织权限
+        private void InitUnitPermissions(Unit unit, User admin)
+        {
+            var privilegeRepository = new PrivilegeRepository();
+            var privileges = privilegeRepository.GetAllPrivileges();
+            var roleRepository = new RoleRepository();
+            var roles = roleRepository.GetAllRoleByUnitId(unit.Id);
+            var role =roles.FirstOrDefault(r=>r.Code=="SuperAdmin");
+            if (role==null)
+            {
+                role=new Role();
+                role.Name = "超级管理员";
+                role.Code = "SuperAdmin";
+                privileges.ToList().ForEach(privilege => role.Privileges.Add(privilege));
+                roleRepository.Save(role);
+            }
+            var roleUserRepository = new RoleUserRepository();
+            var roleUser = roleUserRepository.GetRoleUserByUserId(admin.Id);
+            if (roleUser == null)
+            {
+                roleUser = new RoleUser();
+                roleUser.UserId = admin.Id;
+                roleUser.Roles.Add(role);
+                roleUserRepository.Save(roleUser);
+            }
         }
         #endregion
     }
