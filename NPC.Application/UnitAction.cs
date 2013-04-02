@@ -86,6 +86,7 @@ namespace NPC.Application
                     Pwd = Md5Utility.GetMd5HashCode("admin"),
                     Unit = unit
                 };
+                InitUnitPermissions(unit, user);
                 _userRepository.Save(user);
                 trans.Commit();
             }
@@ -100,11 +101,23 @@ namespace NPC.Application
         {
             if (model.Id == null)
                 throw new ArgumentException("id不能为null");
-            var unit = _unitRepository.Find(model.Id.Value);
-            unit.Name = model.FormData.Name;
-            unit.IsWebUint = model.FormData.IsWebUnit;
-            unit.IsFlowUint = model.FormData.IsFlowUnit;
-            _unitRepository.Save(unit);
+            var trans = TransactionManager.BeginTransaction();
+            try
+            {
+                var unit = _unitRepository.Find(model.Id.Value);
+                unit.Name = model.FormData.Name;
+                unit.IsWebUint = model.FormData.IsWebUnit;
+                unit.IsFlowUint = model.FormData.IsFlowUnit;
+                var admin = _userRepository.FindByAccount("admin", unit.Id);
+                InitUnitPermissions(unit, admin);
+                _unitRepository.Save(unit);
+                trans.Commit();
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                throw;
+            }
         }
         #endregion
 
@@ -124,12 +137,13 @@ namespace NPC.Application
             var privileges = privilegeRepository.GetAllPrivileges();
             var roleRepository = new RoleRepository();
             var roles = roleRepository.GetAllRoleByUnitId(unit.Id);
-            var role =roles.FirstOrDefault(r=>r.Code=="SuperAdmin");
-            if (role==null)
+            var role = roles.FirstOrDefault(r => r.Code == "SuperAdmin");
+            if (role == null)
             {
-                role=new Role();
+                role = new Role();
                 role.Name = "超级管理员";
                 role.Code = "SuperAdmin";
+                role.UnitId = unit.Id;
                 privileges.ToList().ForEach(privilege => role.Privileges.Add(privilege));
                 roleRepository.Save(role);
             }
