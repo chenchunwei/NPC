@@ -1,8 +1,7 @@
 ﻿@using Fluent.Infrastructure.Utilities
 @model  NPC.Application.MianModels.HeaderModel 
 <link href="@Url.Content("~/css/js.css")" type="text/css" rel="stylesheet"/>
-<script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>    
-
+<script src="@Url.Content("~/js/ifocus.js")" type="text/javascript"></script>
 <div class="top">
     <div class="banner">
         @if (Model.TopBanner == null || string.IsNullOrEmpty(Model.TopBanner.FirstImage))
@@ -54,24 +53,27 @@
         <div class="date" style="line-height: 38px;">
             @{
                 Func<DayOfWeek, string> dayOfWeek = (o) =>
-                {
-                    switch (o)
-                    {
-                        case DayOfWeek.Monday: return "星期一";
-                        case DayOfWeek.Tuesday: return "星期二";
-                        case DayOfWeek.Wednesday: return "星期三";
-                        case DayOfWeek.Thursday: return "星期四";
-                        case DayOfWeek.Friday: return "星期五";
-                        case DayOfWeek.Saturday: return "星期六";
-                        case DayOfWeek.Sunday: return "星期日";
-                        default: return "";
-                    }
-                };
+                                                        {
+                                                            switch (o)
+                                                            {
+                                                                case DayOfWeek.Monday: return "星期一";
+                                                                case DayOfWeek.Tuesday: return "星期二";
+                                                                case DayOfWeek.Wednesday: return "星期三";
+                                                                case DayOfWeek.Thursday: return "星期四";
+                                                                case DayOfWeek.Friday: return "星期五";
+                                                                case DayOfWeek.Saturday: return "星期六";
+                                                                case DayOfWeek.Sunday: return "星期日";
+                                                                default: return "";
+                                                            }
+                                                        };
            
             }
             @DateTime.Now.ToString("yyyy年MM月dd日")&nbsp; @(dayOfWeek(DateTime.Now.DayOfWeek))
             农历:@Html.Raw(DateTimeUtilities.GetChineseDateTime(DateTime.Now))
         </div>
+        <iframe style="margin-top: 6px" width="450" scrolling="no" height="40" frameborder="0"
+            allowtransparency="true" src="http://www.tianqi.com/index.php?c=code&id=1&icon=4&py=pinghu&wind=1&num=1">
+        </iframe>
     </div>
 </div>
 @* 
