@@ -92,6 +92,7 @@
     <Compile Include="Proposals\ProposalMap.cs" />
     <Compile Include="Tasks\TaskMap.cs" />
     <Compile Include="Tasks\TaskUserStateMap.cs" />
+    <Compile Include="UnitDomains\UnitDomainMap.cs" />
     <Compile Include="Units\UnitFlowSettingsMap.cs" />
     <Compile Include="Units\UnitMap.cs" />
     <Compile Include="Users\UserMap.cs" />

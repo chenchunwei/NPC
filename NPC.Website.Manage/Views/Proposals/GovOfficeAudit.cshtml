@@ -42,7 +42,7 @@
                     </th>
                     <td style="padding: 5px 5px;">
                         @Html.DropDownListFor(o => o.SubsidiaryUnitIds, new SelectListItem[] { new SelectListItem() { Text = "请选择协办单位", Value = "" } }
-                        .Union(Model.UnitOptions.Select(item => new SelectListItem() { Text = item.Value, Value = item.Key })))
+                        .Union(Model.SubsidiaryOptions.Select(item => new SelectListItem() { Text = item.Value, Value = item.Key })))
                     </td>
                 </tr>
                 <tr>

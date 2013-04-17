@@ -178,7 +178,51 @@ namespace NPC.Application
 
         public void FlowSettings(UnitFlowSettingsModel unitFlowSettingsModel)
         {
-            throw new NotImplementedException();
+            ValidatorFlowSettingsModel(unitFlowSettingsModel);
+            var unit = _unitRepository.Find(unitFlowSettingsModel.Id);
+            unit.UnitFlowSettings = unit.UnitFlowSettings ?? new UnitFlowSettings();
+            unit.UnitFlowSettings.Unit = unit;
+            unit.UnitFlowSettings.GovUnit = _unitRepository.Find(unitFlowSettingsModel.GovUnitId.Value);
+            unit.UnitFlowSettings.NpcUnit = _unitRepository.Find(unitFlowSettingsModel.NpcUnitId.Value);
+            unit.UnitFlowSettings.SponsorUnits.Clear();
+            unit.UnitFlowSettings.SubsidiaryUnits.Clear();
+            unitFlowSettingsModel.SponsorUnitIdString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(unitId => unit.UnitFlowSettings.SponsorUnits.Add(_unitRepository.Find(Guid.Parse(unitId))));
+            unitFlowSettingsModel.SubsidiaryUnitString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(unitId =>
+             unit.UnitFlowSettings.SubsidiaryUnits.Add(_unitRepository.Find(Guid.Parse(unitId))));
+            _unitRepository.Save(unit);
+
+        }
+
+        private void ValidatorFlowSettingsModel(UnitFlowSettingsModel unitFlowSettingsModel)
+        {
+            var govUnit = _unitRepository.Find(unitFlowSettingsModel.GovUnitId.Value);
+            if (govUnit == null)
+            {
+                throw new ApplicationException("政府办公室Id不正确，请核实");
+            }
+            var npcUnit = _unitRepository.Find(unitFlowSettingsModel.NpcUnitId.Value);
+            if (npcUnit == null)
+            {
+                throw new ApplicationException("人大办Id不正确，请核实");
+            }
+            unitFlowSettingsModel.SponsorUnitIdString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(unitId =>
+            {
+                var sponsorUnit = _unitRepository.Find(Guid.Parse(unitId));
+                if (sponsorUnit == null)
+                {
+                    throw new ApplicationException("主办单位id中" + unitId + "未找到与之对应的组织");
+                }
+
+            });
+            unitFlowSettingsModel.SubsidiaryUnitString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(unitId =>
+            {
+                var subsidiaryUnit = _unitRepository.Find(Guid.Parse(unitId));
+                if (subsidiaryUnit == null)
+                {
+                    throw new ApplicationException("协办单位id中" + unitId + "未找到与之对应的组织");
+                }
+
+            });
         }
         #endregion
     }

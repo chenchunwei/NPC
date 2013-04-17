@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NPC.Application.Common;
+using NPC.Domain.Models.Units;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
 
@@ -10,22 +11,24 @@ namespace NPC.Application.Services
 {
     public class ProposalRoleService
     {
-        public static User GetNpcAuditJieKouRen()
+        public static User GetNpcAuditJieKouRen(Unit unit)
         {
-            var unitRepository = new UnitRepository();
-            var unit = unitRepository.Find(AppConfig.NpcAuditJieKouRenUnitId);
-            if(unit==null)
-                throw new ArgumentException("未找到配置的NpcAuditJieKouRenUnit，请核实WebConfig的配置项NpcAuditJieKouRenUnitId");
-            return unit.JieKouRen;
+            if (unit.UnitFlowSettings == null)
+                throw new ArgumentException(unit.Name + "未设置审批单位相关信息，无法发起议案建议！请联系管理员进行设置");
+            var targetUnit = unit.UnitFlowSettings.NpcUnit;
+            if (targetUnit.JieKouRen == null)
+                throw new ArgumentException(targetUnit.Name + "未设置审批议案建议的接口人，请联系该单位或管理员进行设置");
+            return targetUnit.JieKouRen;
         }
 
-        public static User GetGovAuditJieKouRen()
+        public static User GetGovAuditJieKouRen(Unit unit)
         {
-            var unitRepository = new UnitRepository();
-            var unit = unitRepository.Find(AppConfig.GovAuditJieKouRenUnitId);
-            if (unit == null)
-                throw new ArgumentException("未找到配置的GovAuditJieKouRenUnit，请核实WebConfig的配置项GovAuditJieKouRenUnitId");
-            return unit.JieKouRen;
+            if (unit.UnitFlowSettings == null)
+                throw new ArgumentException(unit.Name + "未设置审批单位相关信息，无法发起议案建议！请联系管理员进行设置");
+            var targetUnit = unit.UnitFlowSettings.GovUnit;
+            if (targetUnit.JieKouRen == null)
+                throw new ArgumentException(targetUnit.Name + "未设置审批议案建议的接口人，请联系该单位或管理员进行设置");
+            return targetUnit.JieKouRen;
         }
     }
 }

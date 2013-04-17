@@ -75,11 +75,11 @@ namespace NPC.Website.Manage.Controllers
             {
                 _unitAction.FlowSettings(unitFlowSettingsModel);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                return new NewtonsoftJsonResult() { Data = new { status = "failure" } };
+                return RedirectToMessage("设置时出错：" + exception.Message);
             }
-            return new NewtonsoftJsonResult() { Data = new { status = "success" } };
+            return RedirectToMessage("设置成功");
         }
         #endregion
     }

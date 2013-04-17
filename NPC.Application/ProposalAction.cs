@@ -94,7 +94,7 @@ namespace NPC.Application
                 }
                 _proposalRepository.Save(proposal);
                 var args = new Dictionary<string, string>();
-                var npcAuditor = ProposalRoleService.GetNpcAuditJieKouRen();
+                var npcAuditor = ProposalRoleService.GetNpcAuditJieKouRen(user.Unit);
                 args.Add("Originator", user.Id.ToString());
                 args.Add("NpcAuditor", npcAuditor.Id.ToString());
                 _flowService.CreateFlowWithAssignId(proposal.Id, "ProposalFlow", user,
@@ -160,7 +160,7 @@ namespace NPC.Application
             {
                 var args = new Dictionary<string, string>();
                 var proposal = _proposalRepository.Find(scNpcAuditModel.FlowId);
-                var govAuditor = ProposalRoleService.GetGovAuditJieKouRen();
+                var govAuditor = ProposalRoleService.GetGovAuditJieKouRen(proposal.RecordDescription.UserOfCreate.Unit);
                 if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
                 {
                     proposal.ProposalStatus = ProposalStatus.GovAuditing;
@@ -231,7 +231,8 @@ namespace NPC.Application
             model.Flow = task.FlowNodeInstance.BelongsFlow;
             model.Proposal = _proposalRepository.Find(model.Flow.Id);
             model.TaskId = taskId;
-            unitRepository.GetFlowUnits().ToList().ForEach(unit => model.UnitOptions.Add(unit.Id.ToString(), unit.Name));
+            model.Proposal.RecordDescription.UserOfCreate.Unit.UnitFlowSettings.SponsorUnits.ToList().ForEach(unit => model.UnitOptions.Add(unit.Id.ToString(), unit.Name));
+            model.Proposal.RecordDescription.UserOfCreate.Unit.UnitFlowSettings.SubsidiaryUnits.ToList().ForEach(unit => model.SubsidiaryOptions.Add(unit.Id.ToString(), unit.Name));
             return model;
         }
         /// <summary>

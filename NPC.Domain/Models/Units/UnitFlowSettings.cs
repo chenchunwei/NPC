@@ -13,8 +13,8 @@ namespace NPC.Domain.Models.Units
            SponsorUnits = new List<Unit>();
        }
 
+       public virtual Unit Unit { get; set; }
        public virtual Guid Id { get; set; }
-       public virtual Unit Unit  { get; set; }
        public virtual Unit GovUnit { get; set; }
        public virtual Unit NpcUnit { get; set; }
        public virtual IList<Unit> SponsorUnits { get; set; }

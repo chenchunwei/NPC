@@ -6,6 +6,7 @@ using Fluent.Infrastructure;
 using Fluent.Infrastructure.Domain;
 using NPC.Domain.Models.Common;
 using NPC.Domain.Models.Departments;
+using NPC.Domain.Models.UnitDomains;
 using NPC.Domain.Models.Users;
 
 namespace NPC.Domain.Models.Units
@@ -17,6 +18,8 @@ namespace NPC.Domain.Models.Units
             UnitStatus = UnitStatus.Disable;
             Departments = new List<Department>();
             RecordDescription = new RecordDescription();
+            UnitDomains=new List<UnitDomain>();
+            UnitDomains=new List<UnitDomain>();
         }
         public virtual Guid Id { get; set; }
         public virtual IList<Department> Departments { get; set; }
@@ -31,6 +34,7 @@ namespace NPC.Domain.Models.Units
         public virtual User JieKouRen { get; set; }
         public virtual string AliasName { get; set; }
         public virtual UnitFlowSettings UnitFlowSettings { get; set; }
+        public virtual IList<UnitDomain> UnitDomains { get; set; }
 
         public virtual string Path
         {

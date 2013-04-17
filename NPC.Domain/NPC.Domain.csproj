@@ -100,6 +100,7 @@
     <Compile Include="Models\Tasks\TaskQueryItem.cs" />
     <Compile Include="Models\Tasks\TaskStatus.cs" />
     <Compile Include="Models\Tasks\TaskUserState.cs" />
+    <Compile Include="Models\UnitDomains\UnitDomain.cs" />
     <Compile Include="Models\Units\Unit.cs" />
     <Compile Include="Models\Units\UnitFlowSettings.cs" />
     <Compile Include="Models\Units\UnitStatus.cs" />
