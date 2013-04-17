@@ -52,7 +52,7 @@
                 <td style="width: 130px;">
                     操作时间
                 </td>
-                <td style="width: 150px;">
+                <td >
                     操作人
                 </td>
                 <td style="width: 230px;">
@@ -75,7 +75,7 @@
                         @record.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd HH:mm")
                     </td>
                     <td>
-                        @(record.RecordDescription.UserOfCreate != null ? record.RecordDescription.UserOfCreate.Name : "")
+                        @(record.RecordDescription.UserOfCreate != null ? record.RecordDescription.UserOfCreate.Name + "(" + record.RecordDescription.UserOfCreate.Unit.GetAliasNameOrName() + ")" : "")
                     </td>
                     <td>
                         <b style="color: #c30">@record.Action</b>
@@ -100,7 +100,10 @@
                         &nbsp;
                     </td>
                     <td>
-                        @Helper.GetUser(task.UserId).Name
+                        @{
+                         var user=Helper.GetUser(task.UserId);
+                        }
+                        @user.Name (@user.Unit.GetAliasNameOrName())
                     </td>
                     <td>
                         @(task.IsOpened ? "已查阅" : "尚未打开")

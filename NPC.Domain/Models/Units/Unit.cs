@@ -35,7 +35,10 @@ namespace NPC.Domain.Models.Units
         public virtual string AliasName { get; set; }
         public virtual UnitFlowSettings UnitFlowSettings { get; set; }
         public virtual IList<UnitDomain> UnitDomains { get; set; }
-
+        public virtual string GetAliasNameOrName()
+        {
+            return string.IsNullOrEmpty(AliasName) ? Name : AliasName;
+        }
         public virtual string Path
         {
             get
