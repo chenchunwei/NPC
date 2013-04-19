@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NPC.Application.Contexts;
 using NPC.Domain.Models.Units;
 using NPC.Domain.Repository;
+using NPC.Website.Common;
 
 namespace NPC.Website.Town.Main.Controllers
 {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using Fluent.Infrastructure.Log;
 
-namespace NPC.Website.Town.Main
+namespace NPC.Website.Common
 {
     public class UnitMapping
     {

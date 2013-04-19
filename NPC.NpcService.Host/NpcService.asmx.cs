@@ -7,10 +7,11 @@ using System.Web.Services.Protocols;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
 using NPC.Domain.Repository;
+using NPC.Website.Common;
 using OpenMas;
 using log4net;
 
-namespace NPC.OpenMasCallback.Host
+namespace NPC.NpcService.Host
 {
     /// <summary>
     /// NpcService 的摘要说明
@@ -30,11 +31,16 @@ namespace NPC.OpenMasCallback.Host
         {
             try
             {
+                var unitId = UnitMapping.UnitId;
+                if (!unitId.HasValue)
+                    return;
+                var openMasConfig = new OpenMasConfigRepository().GetOpenMasConfigByUnit(unitId.Value);
                 //调用上行短信获取接口获取短消息
-                var sms = new OpenMas.Sms(OpenMasConfig.UrlOfSmsService);
+                var sms = new OpenMas.Sms(openMasConfig.SmsMasService);
                 var message = sms.GetMessage(messageId);
+                _logger.DebugFormat("收到的messageId={0}的短信内容为：{1}", messageId, message.Content);
+                _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
                 //业务逻辑，短信内容可以从message中获取
-
             }
             catch (Exception ex)
             {
@@ -54,7 +60,7 @@ namespace NPC.OpenMasCallback.Host
                 var statusCode = deliveryReport.statusCode;//返回的结果代码，0表示成功
                 var messageDeliveryStatus = int.Parse(deliveryReport.messageDeliveryStatus);//结果状态
 
-               
+
             }
             catch (Exception ex)
             {
@@ -63,15 +69,21 @@ namespace NPC.OpenMasCallback.Host
         }
 
         [WebMethod]
-        [SoapDocumentMethodAttribute("urn:NotifyMms", RequestNamespace = "http://openmas.chinamobile.com/pulgin", OneWay = true, Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [SoapDocumentMethodAttribute("urn:NotifyMms", RequestNamespace = "http://openmas.chinamobile.com/pulgin", OneWay = true, Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
         public void NotifyMms(string messageId)
         {
             try
             {
+                var unitId = UnitMapping.UnitId;
+                if(!unitId.HasValue)
+                    return;
+                var openMasConfig = new OpenMasConfigRepository().GetOpenMasConfigByUnit(unitId.Value);
                 //调用上行彩信获取接口获取短消息
-                const string mmsServiceUrl = "http://10.70.×.×:8080/mmsservice/";
-                var mms = new OpenMas.Mms(mmsServiceUrl);
+                var mms = new Mms(openMasConfig.MmsMasService);
                 var message = mms.GetMessage(messageId);
+
+                _logger.DebugFormat("收到的messageId={0}的彩信内容为：{1}", messageId, message.Content);
+                _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
 
                 //业务逻辑，彩信内容可以从message中获取
                 _logger.InfoFormat("接收到OpenMas发来的彩信messageId={0}", messageId);
@@ -109,6 +121,11 @@ namespace NPC.OpenMasCallback.Host
                 //处理异常信息
                 _logger.ErrorFormat("回写messageId={0};receviedTel={1}彩信状态时出错{2}", deliveryReport.messageId, deliveryReport.receivedAddress);
             }
+        }
+
+        private string GetHostOfUrl()
+        {
+            return HttpContext.Current.Request.Url.Host;
         }
     }
 }

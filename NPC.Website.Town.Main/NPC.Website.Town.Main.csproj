@@ -78,7 +78,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\skin1\next-horizontal.png" />
@@ -213,6 +212,10 @@
     <ProjectReference Include="..\NPC.Domain\NPC.Domain.csproj">
       <Project>{6d980d7e-5872-4fa2-8a0e-db74fc6935f8}</Project>
       <Name>NPC.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Website.Common\NPC.Website.Common.csproj">
+      <Project>{E6883C51-A3F2-4D8F-BD4D-2282A15D9600}</Project>
+      <Name>NPC.Website.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
