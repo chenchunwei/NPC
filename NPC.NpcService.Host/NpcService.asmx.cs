@@ -16,13 +16,13 @@ namespace NPC.NpcService.Host
     /// <summary>
     /// NpcService 的摘要说明
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://rdzx.pinghu.gov.cn/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    public class OpenMasCallbackService : System.Web.Services.WebService
+    public class NpcService : System.Web.Services.WebService
     {
         private readonly ILog _logger;
-        public OpenMasCallbackService()
+        public NpcService()
         {
             _logger = new DefaultLoggerFactory().GetLogger();
         }

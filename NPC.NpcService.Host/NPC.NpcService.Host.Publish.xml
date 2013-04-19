@@ -5,7 +5,6 @@
     <file relUrl="bin/Fluent.Infrastructure.pdb" publishTime="01/17/2013 23:38:18" />
     <file relUrl="bin/Iesi.Collections.pdb" publishTime="10/02/2012 12:25:48" />
     <file relUrl="bin/log4net.xml" publishTime="10/02/2012 12:25:57" />
-    <file relUrl="bin/NPC.NpcService.Host.dll" publishTime="01/17/2013 23:38:20" />
     <file relUrl="bin/log4net.dll" publishTime="10/02/2012 12:25:57" />
     <file relUrl="NpcService.asmx" publishTime="01/17/2013 23:36:34" />
     <file relUrl="bin/NPC.Domain.dll" publishTime="01/17/2013 23:38:19" />
@@ -13,11 +12,12 @@
     <file relUrl="bin/Iesi.Collections.dll" publishTime="10/02/2012 12:25:48" />
     <file relUrl="bin/NPC.NpcService.Host.pdb" publishTime="01/17/2013 23:38:20" />
     <file relUrl="bin/Newtonsoft.Json.xml" publishTime="10/02/2012 12:25:58" />
-    <file relUrl="bin/Iesi.Collections.xml" publishTime="10/02/2012 12:25:48" />
+    <file relUrl="bin/NPC.NpcService.Host.dll" publishTime="01/17/2013 23:38:20" />
     <file relUrl="bin/Newtonsoft.Json.dll" publishTime="10/02/2012 12:25:58" />
     <file relUrl="bin/Aspose.Cells.dll" publishTime="10/02/2012 12:25:56" />
-    <file relUrl="bin/Aspose.Cells.xml" publishTime="10/02/2012 12:25:56" />
     <file relUrl="bin/Fluent.Infrastructure.dll" publishTime="01/17/2013 23:38:18" />
+    <file relUrl="bin/Aspose.Cells.xml" publishTime="10/02/2012 12:25:56" />
+    <file relUrl="bin/Iesi.Collections.xml" publishTime="10/02/2012 12:25:48" />
     <file relUrl="log4net.config" publishTime="12/24/2012 23:13:17" />
     <file relUrl="bin/NPC.Domain.Repository.pdb" publishTime="01/17/2013 23:38:19" />
     <file relUrl="bin/FluentNHibernate.dll" publishTime="10/02/2012 12:25:58" />
