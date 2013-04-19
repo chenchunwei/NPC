@@ -68,17 +68,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NpcService.asmx" />
+    <Content Include="NpcService.asmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUnitLoader.cs" />
     <Compile Include="NpcService.asmx.cs">
       <DependentUpon>NpcService.asmx</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitLoaders\HttpContextUnitLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="log4net.config" />

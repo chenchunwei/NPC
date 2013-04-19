@@ -67,6 +67,8 @@
     <Compile Include="Models\NodeRecords\NodeRecord.cs" />
     <Compile Include="Models\NodeRecords\NodeRecordQueryItem.cs" />
     <Compile Include="Models\Nodes\Node.cs" />
+    <Compile Include="Models\NotifyMessages\NotifyMessage.cs" />
+    <Compile Include="Models\NotifyMessages\NotifyMessageQueryItem.cs" />
     <Compile Include="Models\NpcMmses\NpcMmsQueryItem.cs" />
     <Compile Include="Models\NpcMmses\LayoutType.cs" />
     <Compile Include="Models\NpcMmses\NpcMms.cs" />

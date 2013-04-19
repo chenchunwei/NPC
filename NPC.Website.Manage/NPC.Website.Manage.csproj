@@ -92,6 +92,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NodeRecordsController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
+    <Compile Include="Controllers\NotifyMessagesController.cs" />
     <Compile Include="Controllers\NpcMmsesController.cs" />
     <Compile Include="Controllers\NpcMmsSendsController.cs" />
     <Compile Include="Controllers\OpenMasConfigsController.cs" />
@@ -1314,6 +1315,7 @@
     <Content Include="Views\Roles\EditRole.cshtml" />
     <Content Include="Views\Roles\RolePrivilegeSettings.cshtml" />
     <Content Include="Views\Units\UnitFlowSettings.cshtml" />
+    <Content Include="Views\NotifyMessages\List.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

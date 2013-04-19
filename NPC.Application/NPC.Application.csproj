@@ -99,6 +99,8 @@
     <Compile Include="ManageModels\Nodes\NodeListModel.cs" />
     <Compile Include="ManageModels\Nodes\NodeTreeModel.cs" />
     <Compile Include="ManageModels\Nodes\RelateNodeModel.cs" />
+    <Compile Include="ManageModels\NotifyMessages\NotifyMessageListModel.cs" />
+    <Compile Include="ManageModels\NotifyMessages\NotifyMessageSearchModel.cs" />
     <Compile Include="ManageModels\NpcMmses\EditNpcMmsModel.cs" />
     <Compile Include="ManageModels\NpcMmses\NpcMmsListModel.cs" />
     <Compile Include="ManageModels\NpcMmses\NpcMmsSearchModel.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="MianModels\SideBarModel.cs" />
     <Compile Include="NodeAction.cs" />
     <Compile Include="NodeRecordAction.cs" />
+    <Compile Include="NotifyMessageAction.cs" />
     <Compile Include="NpcMmsAction.cs" />
     <Compile Include="NpcMmsSendAction.cs" />
     <Compile Include="OpenMasConfigAction.cs" />

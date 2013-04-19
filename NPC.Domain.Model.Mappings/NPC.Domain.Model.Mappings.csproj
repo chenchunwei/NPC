@@ -68,6 +68,7 @@
     <Compile Include="Nodes\NodeRecordMarkMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NotifyMessages\NotifyMessageMap.cs" />
     <Compile Include="NpcMmses\NpcMmsContentMap.cs">
       <SubType>Code</SubType>
     </Compile>

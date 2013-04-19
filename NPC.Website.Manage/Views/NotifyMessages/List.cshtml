@@ -1,11 +1,10 @@
 ﻿@{
-    ViewBag.Title = "彩信库查看";
+    ViewBag.Title = "彩信/短信查看";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model   NPC.Application.ManageModels.NpcMmses.NpcMmsListModel
+@model   NPC.Application.ManageModels.NotifyMessages.NotifyMessageListModel
 <div class="workgroundin">
     <ul class="head_content">
-        @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("编辑新彩信", "newMmsBtn", "icon_3.gif", true))
         @Html.Partial("_LiButtonOfToolbar", new Tuple<string, string, string, bool>("批量删除", "batchDelBtn", "icon_4.gif", false))
     </ul>
 </div>
@@ -22,7 +21,7 @@
                 <option>标题</option>
             </select></div>
         <div class="i1">
-            @Html.TextBoxFor(o => o.NpcMmsSearchModel.NpcMmsQueryItem.Title)
+            @Html.TextBoxFor(o => o.NotifyMessageSearchModel.NotifyMessageQueryItem.Title)
         </div>
         @Html.Partial("_DivButton", new Tuple<string, string>("搜索", "searchBtn"))
     </div>
@@ -36,8 +35,8 @@
             操作</div>
         <div class="span_3">
             标题</div>
-        <div class="span_2">
-            总帧数</div>
+        <div class="span_3">
+            来自</div>
         <div class="span_2">
             创建时间</div>
         <div class="span_4">
@@ -48,13 +47,13 @@
         </div>
     </div>
     <div class="row">
-        @if (!Model.NpcMmses.Any())
+        @if (!Model.NotifyMessages.Any())
         {
             <div class="noRowline">
                 未找到符合条件的相关记录信息！
             </div>
         }
-        @foreach (var row in Model.NpcMmses)
+        @foreach (var row in Model.NotifyMessages)
         {
             <div class="rowline">
                 <div class="span_1">
@@ -64,9 +63,9 @@
                     <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_3">
-                    @row.Title</div>
-                <div class="span_2">
-                    @row.NpcMmsContents.Count()
+                    @row.Content</div>
+                <div class="span_3">
+                    @row.From
                 </div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
@@ -89,9 +88,9 @@
                     <script type="text/javascript">
                         var pg = new showPages('pg');
                         pg.argName = 'p';  //定义参数名(可选,缺省为page)
-                        pg.newPage = @Model.NpcMmsSearchModel.NpcMmsQueryItem.Pagination.PageIndex;
-                        pg.count =  @Model.NpcMmsSearchModel.NpcMmsQueryItem.Pagination.TotalRecordsCount;
-                        pg.pageCount = @Model.NpcMmsSearchModel.NpcMmsQueryItem.Pagination.TotalPage;
+                        pg.newPage = @Model.NotifyMessageSearchModel.NotifyMessageQueryItem.Pagination.PageIndex;
+                        pg.count =  @Model.NotifyMessageSearchModel.NotifyMessageQueryItem.Pagination.TotalRecordsCount;
+                        pg.pageCount = @Model.NotifyMessageSearchModel.NotifyMessageQueryItem.Pagination.TotalPage;
                         pg.printHtml(1);    //显示
                     </script>
                 </div>
@@ -101,7 +100,7 @@
 </div>
 <script type="text/javascript">
 
-    var urlOfDel = '@Url.Action("Delete", "NpcMmses")';
+    var urlOfDel = '@Url.Action("Delete", "NotifyMessages")';
     function singleDel(id) {
         var delIds = [];
         delIds.push(id);
@@ -120,9 +119,7 @@
         var result = $(this).attr("checked") ? 1 : 0;
         controller.batchOfChk("input[name=ids]", result);
     });
-    $("#newMmsBtn").click(function () {
-        window.location.href = '@Url.Action("EditNpcMms", "NpcMmses")';
-    });
+   
     $("#batchDelBtn").click(function () {
         var delIds = [];
         $("input[name=ids]:checked").each(function (i, o) {
