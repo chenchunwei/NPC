@@ -91,13 +91,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Domein.Base\Fluent.Domein.Base.csproj">
+      <Project>{C34A2D8E-C5DC-4462-B76E-72F30503ACBE}</Project>
+      <Name>Fluent.Domein.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{c50b79ef-2006-453d-8238-79cd7e5bbacc}</Project>
       <Name>Fluent.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Permission\Fluent.Permission.csproj">
+      <Project>{10C9D54E-8858-49A8-ABFF-302FACD1FB0C}</Project>
+      <Name>Fluent.Permission</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NPC.Application\NPC.Application.csproj">
       <Project>{22C05668-41AB-46B3-81EF-72294624FBCB}</Project>
       <Name>NPC.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
+      <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>
+      <Name>NPC.Domain.Model.Mappings</Name>
     </ProjectReference>
     <ProjectReference Include="..\NPC.Domain.Repository\NPC.Domain.Repository.csproj">
       <Project>{0B9F42A2-B337-4E41-A867-1F4ED2F1F91B}</Project>

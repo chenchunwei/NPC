@@ -6,6 +6,8 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
+using Fluent.Infrastructure.Utilities;
+using NPC.Domain.Models.NotifyMessages;
 using NPC.Domain.Repository;
 using NPC.Website.Common;
 using OpenMas;
@@ -44,12 +46,16 @@ namespace NPC.NpcService.Host
                 var sms = new OpenMas.Sms(openMasConfig.SmsMasService);
                 var message = sms.GetMessage(messageId);
 
-                //message.ApplicationId
-                //message.Content
-                //message.ExtendCode
-                //message.From
-                //message.ReceivedTime
-                //message.To
+                var notifyMessage = new NotifyMessage();
+                notifyMessage.ApplicationId = message.ApplicationId;
+                notifyMessage.Content = message.Content;
+                notifyMessage.ExtendCode = message.ExtendCode;
+                notifyMessage.From = message.From;
+                notifyMessage.MessageId = messageId;
+                notifyMessage.MessageType = MessageType.Sms;
+                notifyMessage.ReceivedTime = message.ReceivedTime;
+                notifyMessage.To = message.To;
+                notifyMessage.Title = MyString.SubString(message.Content, 25, "");
 
                 _logger.DebugFormat("收到的messageId={0}的短信内容为：{1}", messageId, message.Content);
                 _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
@@ -89,6 +95,7 @@ namespace NPC.NpcService.Host
         {
             try
             {
+                //2b03219a-2e44-414d-817d-8314e1f42c42
                 _logger.DebugFormat("收到的messageId={0}的彩信上行操作", messageId);
                 var unitId = UnitMapping.UnitId;
                 if (!unitId.HasValue)
@@ -99,16 +106,22 @@ namespace NPC.NpcService.Host
                 //调用上行彩信获取接口获取短消息
                 var mms = new Mms(openMasConfig.MmsMasService);
                 var message = mms.GetMessage(messageId);
+                if (message == null)
+                {
+                    _logger.DebugFormat("收到的UnitId={0}的彩信上行操作,但获取的信息为null", unitId.Value);
+                    return;
+                }
+                var notifyMessage = new NotifyMessage();
+                notifyMessage.ApplicationId = message.ApplicationId;
+                notifyMessage.Content = message.Content;
+                notifyMessage.ExtendCode = message.ExtendCode;
+                notifyMessage.From = message.From;
+                notifyMessage.MessageId = messageId;
+                notifyMessage.MessageType = MessageType.Sms;
+                notifyMessage.ReceivedTime = message.ReceivedTime;
+                notifyMessage.To = message.To;
+                notifyMessage.Title = message.Subject;
 
-
-                //message.ApplicationId
-                //message.Content
-                //message.ExtendCode
-                //message.From
-                //message.Priority
-                //message.ReceivedTime
-                //message.Subject
-                
                 _logger.DebugFormat("收到的messageId={0}的彩信内容为：{1}", messageId, message.Content);
                 _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
 

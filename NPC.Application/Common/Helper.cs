@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
+using NPC.Domain.Models.Proposals;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
 
@@ -16,8 +17,8 @@ namespace NPC.Application.Common
         {
             return new Dictionary<string, string>()
             {
-              {"1","意见建议"},
-              {"2","议案建议"}
+              {ProposalType.NpcProposal.ToString(),"意见建议"},
+              {ProposalType.NpcSuggest.ToString(),"议案建议"}
             };
         }
 

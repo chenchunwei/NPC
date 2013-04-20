@@ -14,11 +14,12 @@ namespace NPC.Domain.Models.NotifyMessages
             RecordDescription=new RecordDescription();
         }
         public virtual Guid Id { get; set; }
+        public virtual string Title { get; set; }
         public virtual string ApplicationId { get; set; }
         public virtual string Content { get; set; }
         public virtual string ExtendCode { get; set; }
         public virtual string From { get; set; }
-        public virtual string ReceivedTime { get; set; }
+        public virtual DateTime ReceivedTime { get; set; }
         public virtual string To { get; set; }
         public virtual string MessageId { get; set; }
         public virtual MessageType MessageType { get; set; }

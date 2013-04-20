@@ -14,6 +14,7 @@ namespace NPC.Domain.Model.Mappings.NotifyMessages
             Id(o => o.Id).GeneratedBy.GuidComb();
             Map(o => o.ApplicationId);
             Map(o => o.Content);
+            Map(o => o.Title);
             Map(o => o.ExtendCode);
             Map(o => o.From);
             Map(o => o.MessageId);

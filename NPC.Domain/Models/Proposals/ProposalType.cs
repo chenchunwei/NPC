@@ -11,8 +11,8 @@ namespace NPC.Domain.Models.Proposals
         [Description("无")]
         None = 0,
         [Description("意见建议")]
-        NpcProposal = 1,
+        NpcSuggest = 1,
         [Description("议案建议")]
-        NpcSuggest = 2
+        NpcProposal = 2
     }
 }

@@ -23,6 +23,8 @@ namespace NPC.Domain.Repository
         }
         public IList<User> GetUsers(params Guid[] ids)
         {
+            if (ids == null || !ids.Any())
+                return new List<User>();
             return Session.CreateQuery("from User Where Id in(:ids) And RecordDescription.IsDelete=0")
               .SetParameterList("ids", ids).List<User>();
         }

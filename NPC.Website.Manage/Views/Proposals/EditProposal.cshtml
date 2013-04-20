@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model NPC.Application.ManageModels.Proposals.EditProposalModel
-
 <form method="post" action="" id="mainForm" style="margin: 0px;">
 <div class="main_content">
     <div class="main_search">
@@ -70,7 +69,7 @@
                         @Html.TextBoxFor(o => o.FormData.Title, new { maxlength = 100, style = "width:350px;" })
                     </td>
                 </tr>
-                  <tr>
+                <tr>
                     <th>
                         <span style="color: red;">*</span> 类型：
                     </th>
@@ -116,6 +115,17 @@
                         </div>
                     </td>
                 </tr>
+                @if (!string.IsNullOrEmpty(Model.FormData.Attachment))
+                {
+                    <tr>
+                        <th>
+                            编辑前附件：
+                        </th>
+                        <td>
+                            <a href="@Url.Content("~/")@Model.FormData.Attachment" target="_blank">/Manage/Attachments/@Model.FormData.Attachment</a>
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td colspan="2">
                         <div class="wrapper_btn">
@@ -141,17 +151,17 @@
 </form>
 <div id="wins" style="display: none;">
     <div id="selectWin" class="easyui-window" title="请选择发起人" style="width: 750px; height: 500px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background-color: #EFEFEF; display: none;" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
+        background-color: #EFEFEF; display: none;" data-options="iconCls:'icon-save',modal:true,closed:true,collapsible:false,minimizable:false,maximizable:false">
         <div class="easyui-layout" data-options="fit:true">
             <div region="center" border="false" style="background-color: #EFEFEF; overflow: hidden;">
                 <iframe src="" height="100%" width="100%" style="border: none; overflow-y: scroll;">
                 </iframe>
             </div>
             <div region="south" border="false" style="text-align: right; height: 40px; line-height: 30px;
-                                                                                                                                                                                                                                                              background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
+                background-color: #EFEFEF; padding-bottom: 8px; overflow: hidden; padding-right: 28px;">
                 <a id="btnAddSelect" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">
                     添加并继续</a> <a id="btnCompletedSelect" class="easyui-linkbutton" icon="icon-cancel"
-                                 href="javascript:void(0)">完成并关闭</a>
+                        href="javascript:void(0)">完成并关闭</a>
             </div>
         </div>
     </div>

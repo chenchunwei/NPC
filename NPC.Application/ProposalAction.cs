@@ -40,6 +40,15 @@ namespace NPC.Application
             var model = new EditProposalModel();
             model.ProposalTypeOptions = Helper.GetProposalTypeOptions();
             model.CurrentUser = NpcContext.CurrentUser;
+            if (id.HasValue)
+            {
+                var proposal = _proposalRepository.Find(id.Value);
+                model.FormData.Attachment = proposal.Attachment;
+                model.FormData.Content = proposal.Content;
+                model.FormData.ProposalType = proposal.ProposalType;
+                model.FormData.Title = proposal.Title;
+
+            }
             return model;
         }
         #endregion
@@ -55,7 +64,8 @@ namespace NPC.Application
                 var proposal = _proposalRepository.Find(id);
                 proposal.Title = model.FormData.Title;
                 proposal.Content = model.FormData.Content;
-                // proposal.ProposalType = model.FormData.ProposalType.Value;
+                proposal.ProposalType = model.FormData.ProposalType.Value;
+                proposal.Attachment = model.FormData.Attachment;
                 proposal.RecordDescription.UpdateBy(NpcContext.CurrentUser);
                 var users = _userRepository.GetUsers(model.FormData.SelectedOriginatorIds.ToArray());
                 users.ToList().ForEach(o => proposal.ProposalOriginators.Add(o));
@@ -382,9 +392,15 @@ namespace NPC.Application
             try
             {
                 var openConfig = new OpenMasConfigService().GetConfigOfUnit(Guid.Parse(AppConfig.CommonMessageSendUnitId));
-                if (Helper.CheckRegex(user.Account, @"^(1[\d]{10},)*(1[\d]{10})$"))
+                var telNum = user.PhoneBookRecord != null
+                                 ? user.PhoneBookRecord.Mobile
+                                 : Helper.CheckRegex(user.Account, @"^(1[\d]{10},)*(1[\d]{10})$")
+                                       ? user.Account
+                                       : string.Empty;
+                if (!string.IsNullOrEmpty(telNum))
                 {
                     var returnMessage = NpcSmsSendService.SendSms(openConfig, "人大在线平台有新的议案建议需要您审批，请及时处理！", new string[] { user.Account });
+                    Logger.DebugFormat("发送出去的短信id={0}", returnMessage);
                 }
             }
             catch (Exception exception)

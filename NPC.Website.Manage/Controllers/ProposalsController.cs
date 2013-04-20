@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Fluent.Infrastructure.Web.HttpFiles;
 using NPC.Application;
 using NPC.Application.Contexts;
 using NPC.Application.ManageModels.Proposals;
@@ -30,7 +31,9 @@ namespace NPC.Website.Manage.Controllers
             try
             {
                 if (id.HasValue)
+                {
                     _proposalAction.Update(model, id.Value);
+                }
                 else
                     _proposalAction.Create(model);
             }
