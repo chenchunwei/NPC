@@ -18,6 +18,7 @@ namespace NPC.Domain.Model.Mappings.Proposals
             Map(o => o.ProposalStatus).CustomType<ProposalStatus>();
             Map(o => o.Attachment);
             Map(o => o.ReplyAttachment);
+            Map(o => o.IsFromMessage);
             Map(o => o.NpcAssessmentState).CustomType<NpcAssessmentState>();
             Component(o => o.RecordDescription);
             HasManyToMany(o => o.ProposalOriginators).ParentKeyColumn("ProposalId").ChildKeyColumn("OriginatorId").Table("ProposalOrginators");

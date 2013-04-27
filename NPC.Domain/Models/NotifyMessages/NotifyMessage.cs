@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Fluent.Infrastructure.Domain;
 using NPC.Domain.Models.Common;
+using NPC.Domain.Models.Proposals;
+using NPC.Domain.Models.Units;
 
 namespace NPC.Domain.Models.NotifyMessages
 {
@@ -11,7 +13,7 @@ namespace NPC.Domain.Models.NotifyMessages
     {
         public NotifyMessage()
         {
-            RecordDescription=new RecordDescription();
+            RecordDescription = new RecordDescription();
         }
         public virtual Guid Id { get; set; }
         public virtual string Title { get; set; }
@@ -24,6 +26,9 @@ namespace NPC.Domain.Models.NotifyMessages
         public virtual string MessageId { get; set; }
         public virtual MessageType MessageType { get; set; }
         public virtual RecordDescription RecordDescription { get; set; }
+        public virtual bool IsDealed { get; set; }
+        public virtual Unit Unit { get; set; }
+        public virtual ProposalType ProposalType { get; set; }
     }
 
     public enum MessageType

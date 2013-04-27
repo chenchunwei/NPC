@@ -87,16 +87,29 @@
     <Compile Include="FlowEngineService.Designer.cs">
       <DependentUpon>FlowEngineService.cs</DependentUpon>
     </Compile>
+    <Compile Include="JobEntrance.cs" />
     <Compile Include="JobServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Jobs\DealFlowJob.cs" />
+    <Compile Include="Jobs\DealFlowNodeFlowToJob.cs" />
+    <Compile Include="Jobs\FetchProposalFromMessageJob.cs" />
+    <Compile Include="Jobs\FlowNodeInstanceJob.cs" />
     <Compile Include="ServiceEntrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Domein.Base\Fluent.Domein.Base.csproj">
+      <Project>{C34A2D8E-C5DC-4462-B76E-72F30503ACBE}</Project>
+      <Name>Fluent.Domein.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fluent.Infrastructure\Fluent.Infrastructure.csproj">
       <Project>{C50B79EF-2006-453D-8238-79CD7E5BBACC}</Project>
       <Name>Fluent.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fluent.Permission\Fluent.Permission.csproj">
+      <Project>{10C9D54E-8858-49A8-ABFF-302FACD1FB0C}</Project>
+      <Name>Fluent.Permission</Name>
     </ProjectReference>
     <ProjectReference Include="..\NPC.Domain.Model.Mappings\NPC.Domain.Model.Mappings.csproj">
       <Project>{BEDEBDBE-FEB6-4A84-8170-09DE9BE16B8E}</Project>
@@ -105,6 +118,10 @@
     <ProjectReference Include="..\NPC.FlowEngine\NPC.FlowEngine.csproj">
       <Project>{966BFAAB-80CA-4FFA-AB10-D92FF323471F}</Project>
       <Name>NPC.FlowEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPC.Service\NPC.Service.csproj">
+      <Project>{53130493-00DC-4B08-8A10-DAD1492AEEB1}</Project>
+      <Name>NPC.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +158,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

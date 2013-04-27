@@ -126,5 +126,17 @@ namespace NPC.Domain.Repository
         }
         #endregion
 
+        #region 根据手机号码获取用户
+        public User FindByMobile(string mobile)
+        {
+            var user = Session.CreateSQLQuery(@"select top 1 * from users where account=:mobile")
+                .AddEntity(typeof(User)).SetString("mobile", mobile).UniqueResult<User>();
+            user = user ?? Session.CreateSQLQuery(@"select top 1 u.* from users u join PhoneBookRecords pbr 
+                    on u.Id=pbr.UserId where pbr.Mobile=:mobile")
+                .AddEntity(typeof(User)).SetString("mobile", mobile).UniqueResult<User>();
+            return user;
+        }
+        #endregion
+
     }
 }

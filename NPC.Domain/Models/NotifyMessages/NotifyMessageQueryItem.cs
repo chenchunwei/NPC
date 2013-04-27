@@ -14,5 +14,6 @@ namespace NPC.Domain.Models.NotifyMessages
         }
         public string Title { get; set; }
         public Guid? UnitId { get; set; }
+        public bool? IsDealed { get; set; }
     }
 }

@@ -52,6 +52,11 @@ namespace NPC.Domain.Repository
                 stringBuilder.Append("And nm.UnitId = :UnitId ");
                 parameters.Add("UnitId", queryItem.UnitId.Value);
             }
+            if (queryItem.IsDealed.HasValue)
+            {
+                stringBuilder.Append("And nm.IsDealed = :IsDealed ");
+                parameters.Add("IsDealed", queryItem.IsDealed.Value);
+            }
             stringBuilder.Append("And nm.IsDelete=0 ");
             stringBuilder.Append("{1}");
             return new Tuple<string, Hashtable>(stringBuilder.ToString(), parameters);

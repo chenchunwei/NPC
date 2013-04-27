@@ -5,18 +5,19 @@ using System.Text;
 using Fluent.Infrastructure.Log;
 using Quartz;
 using log4net;
+using FlowEngineServiceInEngine = NPC.FlowEngine.FlowEngineService;
 
-namespace NPC.FlowEngine.Jobs
+namespace NPC.FlowEngine.Service.Jobs
 {
     public class DealFlowNodeFlowToJob : IJob
     {
         private readonly ILog _logger;
-        private readonly FlowEngineService _flowEngineService;
+        private readonly FlowEngineServiceInEngine _flowEngineService;
         public DealFlowNodeFlowToJob()
         {
             var loggerFactory = new DefaultLoggerFactory();
             _logger = loggerFactory.GetLogger();
-            _flowEngineService = new FlowEngineService();
+            _flowEngineService = new FlowEngineServiceInEngine();
         }
         public void Execute(IJobExecutionContext context)
         {

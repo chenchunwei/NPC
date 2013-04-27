@@ -170,7 +170,7 @@
     <Compile Include="RoleAction.cs" />
     <Compile Include="Services\NpcMmsSendService.cs" />
     <Compile Include="Services\NpcSmsSendService.cs" />
-    <Compile Include="Services\ProposalRoleService.cs" />
+    <Compile Include="Services\ProposalService.cs" />
     <Compile Include="TaskAction.cs" />
     <Compile Include="UnitAction.cs" />
     <Compile Include="UserAction.cs" />

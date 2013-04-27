@@ -31,5 +31,6 @@ namespace NPC.Domain.Models.Proposals
         /// </summary>
         public virtual IList<User> ProposalOriginators { get; set; }
         public virtual IList<Task> Tasks { get; set; }
+        public virtual bool IsFromMessage { get; set; }
     }
 }

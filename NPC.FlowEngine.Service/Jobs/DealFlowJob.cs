@@ -5,18 +5,18 @@ using System.Text;
 using Fluent.Infrastructure.Log;
 using Quartz;
 using log4net;
-
-namespace NPC.FlowEngine.Jobs
+using FlowEngineServiceInEngine = NPC.FlowEngine.FlowEngineService;
+namespace NPC.FlowEngine.Service.Jobs
 {
     class DealFlowJob : IJob
     {
         private readonly ILog _logger;
-        private readonly FlowEngineService _flowEngineService;
+        private readonly FlowEngineServiceInEngine _flowEngineService;
         public DealFlowJob()
         {
             var loggerFactory = new DefaultLoggerFactory();
             _logger = loggerFactory.GetLogger();
-            _flowEngineService = new FlowEngineService();
+            _flowEngineService = new FlowEngineServiceInEngine();
         }
         public void Execute(IJobExecutionContext context)
         {
@@ -27,4 +27,3 @@ namespace NPC.FlowEngine.Jobs
     }
 }
 
- 

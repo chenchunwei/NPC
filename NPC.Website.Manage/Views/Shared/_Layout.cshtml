@@ -107,6 +107,10 @@
                      style="cursor: pointer;" onclick="window.location.href='@Url.Action("ProposalTasks", "Proposals")'">
                     意见/议案任务
                 </div>
+                <div class="groupleve2" onmouseover="this.className='groupleve2on';" onmouseout="this.className='groupleve2';"
+                     style="cursor: pointer;" onclick="window.location.href='@Url.Action("List", "NotifyMessages")'">
+                    议案短信查看
+                </div>
             }
             @if (npcContext.CurrentRoleUser.Validate("AddArticle") ||
                  npcContext.CurrentRoleUser.Validate("EditArticle") ||
@@ -212,7 +216,7 @@
                 修改密码
             </div>
             @Html.Action("ManageMenus", "Home")
-             @if (npcContext.CurrentRoleUser.Validate("AddPrivilege") ||
+            @if (npcContext.CurrentRoleUser.Validate("AddPrivilege") ||
                   npcContext.CurrentRoleUser.Validate("EditPrivilege") ||
                   npcContext.CurrentRoleUser.Validate("DeletePrivilege") ||
                   npcContext.CurrentRoleUser.Validate("ReadPrivilege") ||
@@ -220,25 +224,25 @@
                   npcContext.CurrentRoleUser.Validate("EditRole") ||
                   npcContext.CurrentRoleUser.Validate("DeleteRole") ||
                   npcContext.CurrentRoleUser.Validate("ReadRole"))
-             {
-                 <div class="grouplevel">
-                     权限管理
-                 </div>
-                 if (npcContext.CurrentRoleUser.Validate("ReadPrivilege"))
-                 {
-                     <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+            {
+                <div class="grouplevel">
+                    权限管理
+                </div>
+                if (npcContext.CurrentRoleUser.Validate("ReadPrivilege"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
                           style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("PrivilegeList", "Privileges")' ">
-                         权限查看
-                     </div>
-                 }
-                 if (npcContext.CurrentRoleUser.Validate("ReadRole"))
-                 {
-                     <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
+                    权限查看
+                </div>
+                }
+                if (npcContext.CurrentRoleUser.Validate("ReadRole"))
+                {
+                <div class="groupleve2" onmouseover=" this.className = 'groupleve2on'; " onmouseout=" this.className = 'groupleve2'; "
                           style="cursor: pointer;" onclick=" window.location.href = '@Url.Action("RoleList", "Roles")' ">
-                         角色查看
-                     </div>
-                 }
-             }
+                    角色查看
+                </div>
+                }
+            }
             <div class="bottom">
                 <img src="@Url.Content("~/Content/images/sc_bottom.jpg")" alt="" />
             </div>

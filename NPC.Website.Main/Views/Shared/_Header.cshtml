@@ -71,7 +71,7 @@
             @DateTime.Now.ToString("yyyy年MM月dd日")&nbsp; @(dayOfWeek(DateTime.Now.DayOfWeek))
             农历:@Html.Raw(DateTimeUtilities.GetChineseDateTime(DateTime.Now))
         </div>
-        <iframe style="margin-top: 6px" width="450" scrolling="no" height="40" frameborder="0"
+        <iframe style="margin-top: 6px;overflow: hidden;height:28px;" width="450" scrolling="no" height="40" frameborder="0" 
             allowtransparency="true" src="http://www.tianqi.com/index.php?c=code&id=1&icon=4&py=pinghu&wind=1&num=1">
         </iframe>
     </div>

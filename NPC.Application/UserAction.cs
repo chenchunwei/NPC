@@ -247,6 +247,7 @@ namespace NPC.Application
         #region new RoleUser
         private void SaveOrUpdateRoleUser(Guid userId, IList<string> roleCodes)
         {
+            var userInContext = NpcContext.CurrentUser;
             if (roleCodes == null || !roleCodes.Any())
                 return;
             var roleUserRepository = new RoleUserRepository();
@@ -254,7 +255,7 @@ namespace NPC.Application
             var roleUser = roleUserRepository.GetRoleUserByUserId(userId) ?? new RoleUser();
             roleUser.Roles.Clear();
             roleUser.UserId = userId;
-            var roles = roleRepository.GetRolesByCodes(roleCodes);
+            var roles = roleRepository.GetRolesByCodes(roleCodes, userInContext.Unit.Id);
             roles.ToList().ForEach(role => roleUser.Roles.Add(role));
             roleUserRepository.Save(roleUser);
         }

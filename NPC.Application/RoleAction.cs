@@ -31,7 +31,7 @@ namespace NPC.Application
                                 ? _roleRepository.Find(editRoleModel.Id.Value)
                                 : new Role();
             //判断RoleCode是否重得
-            if (_roleRepository.IsCodeRepeat(editRoleModel.RoleCode, editRoleModel.Id))
+            if (_roleRepository.IsCodeRepeat(editRoleModel.RoleCode,editRoleModel.UnitId, editRoleModel.Id))
                 throw new ApplicationException("角色编码已被使用，请更换其它编码");
             role.Code = editRoleModel.RoleCode;
             role.Name = editRoleModel.RoleName;

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NPC.Application.Common;
 using NPC.Domain.Models.Units;
 using NPC.Domain.Models.Users;
 using NPC.Domain.Repository;
 
-namespace NPC.Application.Services
+namespace NPC.Service
 {
     public class ProposalRoleService
     {

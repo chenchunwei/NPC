@@ -7,7 +7,9 @@ using System.Web.Services.Protocols;
 using Fluent.Infrastructure.Domain.NhibernateRepository;
 using Fluent.Infrastructure.Log;
 using Fluent.Infrastructure.Utilities;
+using NPC.Application.Services;
 using NPC.Domain.Models.NotifyMessages;
+using NPC.Domain.Models.Proposals;
 using NPC.Domain.Repository;
 using NPC.Website.Common;
 using OpenMas;
@@ -45,21 +47,40 @@ namespace NPC.NpcService.Host
                 //调用上行短信获取接口获取短消息
                 var sms = new OpenMas.Sms(openMasConfig.SmsMasService);
                 var message = sms.GetMessage(messageId);
+                if (message == null)
+                {
+                    _logger.ErrorFormat("接收到OpenMas发来的短信messageId={0},使用{1}去获取时失败", messageId, openMasConfig.SmsMasService);
+                    return;
 
+                }
+                var proposalInfo = ProposalParser(message.Content);
+                if (proposalInfo == null)
+                {
+                    NpcSmsSendService.SendSms(openMasConfig, GetDescirption(), new[] { message.From });
+                    _logger.ErrorFormat("接收到OpenMas发来的短信messageId={0},内容{1}不符合格式!", messageId, message);
+                    return;
+                }
                 var notifyMessage = new NotifyMessage();
+
+                notifyMessage.MessageId = messageId;
                 notifyMessage.ApplicationId = message.ApplicationId;
-                notifyMessage.Content = message.Content;
+                notifyMessage.ProposalType = proposalInfo.Item1;
+                notifyMessage.Title = proposalInfo.Item2;
+                notifyMessage.Content = proposalInfo.Item3;
                 notifyMessage.ExtendCode = message.ExtendCode;
                 notifyMessage.From = message.From;
-                notifyMessage.MessageId = messageId;
                 notifyMessage.MessageType = MessageType.Sms;
                 notifyMessage.ReceivedTime = message.ReceivedTime;
                 notifyMessage.To = message.To;
-                notifyMessage.Title = MyString.SubString(message.Content, 25, "");
+                notifyMessage.Unit = openMasConfig.Unit;
+
 
                 _logger.DebugFormat("收到的messageId={0}的短信内容为：{1}", messageId, message.Content);
                 _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
                 //业务逻辑，短信内容可以从message中获取
+
+                var repository = new NotifyMessageRepository();
+                repository.SaveOrUpdate(notifyMessage);
             }
             catch (Exception ex)
             {
@@ -121,12 +142,15 @@ namespace NPC.NpcService.Host
                 notifyMessage.ReceivedTime = message.ReceivedTime;
                 notifyMessage.To = message.To;
                 notifyMessage.Title = message.Subject;
+                notifyMessage.Unit = openMasConfig.Unit;
 
                 _logger.DebugFormat("收到的messageId={0}的彩信内容为：{1}", messageId, message.Content);
                 _logger.DebugFormat("全文序列化内容为：{0}", Newtonsoft.Json.JsonConvert.SerializeObject(message));
 
                 //业务逻辑，彩信内容可以从message中获取
                 _logger.InfoFormat("接收到OpenMas发来的彩信messageId={0}", messageId);
+                var repository = new NotifyMessageRepository();
+                repository.SaveOrUpdate(notifyMessage);
             }
             catch (Exception ex)
             {
@@ -164,5 +188,55 @@ namespace NPC.NpcService.Host
             }
         }
         #endregion
+
+        /// <summary>
+        /// 获取分隔字符
+        /// </summary>
+        /// <returns></returns>
+        private char[] GetSpliterChar()
+        {
+            return new[] { ',', '，' };
+        }
+
+        /// <summary>
+        /// 转换类型
+        /// </summary>
+        /// <param name="typeStr"></param>
+        /// <returns></returns>
+        private ProposalType CovnertProposalType(string typeStr)
+        {
+            if (string.IsNullOrEmpty(typeStr))
+                return ProposalType.None;
+            switch (typeStr.ToLower())
+            {
+                case "议案":
+                    return ProposalType.NpcProposal;
+                case "建议":
+                    return ProposalType.NpcSuggest;
+            }
+            return ProposalType.None;
+        }
+
+        private Tuple<ProposalType, string, string> ProposalParser(string proposalContent)
+        {
+            var propsalArr = proposalContent.Split(GetSpliterChar(), 3, StringSplitOptions.RemoveEmptyEntries);
+            var propsalType = CovnertProposalType(propsalArr[0]);
+            if (propsalType == ProposalType.None)
+                return null;
+            var title = propsalArr[1];
+            var content = propsalArr[2];
+            return new Tuple<ProposalType, string, string>(propsalType, title, content);
+        }
+
+        private string GetDescirption()
+        {
+            return "标式不正确,标准格式为【议案或建议,标题,内容】。例如:建议,关于道路绿化的建议,市区主干道绿化不完善,建议相关部分关注！";
+        }
+
+        public void TestProposalParser()
+        {
+            var returnValue = ProposalParser("议案,天天上向，若干苯,一直在，三，要");
+
+        }
     }
 }

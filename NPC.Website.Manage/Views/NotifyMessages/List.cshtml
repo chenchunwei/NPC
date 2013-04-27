@@ -31,7 +31,7 @@
     <div class="topline">
         <div class="span_1">
             <input type="checkbox" id="topChk" /></div>
-        <div class="span_5">
+        <div class="span_2">
             操作</div>
         <div class="span_3">
             标题</div>
@@ -58,12 +58,11 @@
             <div class="rowline">
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
-                <div class="span_5">
-                    <a href="@Url.Action("EditNpcMmsSend", "NpcMmsSends")?npcMmsId=@row.Id">发送</a> |
-                    <a href="@Url.Action("EditNpcMms", "NpcMmses")?id=@row.Id">编辑</a> | <a href="javascript:;" onclick="singleDel('@row.Id')">
+                <div class="span_2">
+                <a href="javascript:;" onclick="singleDel('@row.Id')">
                         删除</a></div>
                 <div class="span_3">
-                    @row.Content</div>
+                    @row.Title</div>
                 <div class="span_3">
                     @row.From
                 </div>
