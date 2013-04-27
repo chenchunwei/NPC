@@ -64,6 +64,7 @@ namespace NPC.Service
             proposal.ProposalType = ProposalType.NpcProposal;
             proposal.RecordDescription.CreateBy(user);
             proposal.Title = notifyMessage.Title;
+            proposal.ProposalStatus=ProposalStatus.NpcAuditing;
             _proposalRepository.Save(proposal);
             var args = new Dictionary<string, string>();
             var npcAuditor = ProposalRoleService.GetNpcAuditJieKouRen(user.Unit);
