@@ -142,6 +142,7 @@ namespace NPC.Application
             model.TownPicsNode = _nodeRepository.GetSingleByCode(unitId, "TownPics");
             model.ViceDirectorsNode = _nodeRepository.GetSingleByCode(unitId, "ViceDirectors");
             model.VideoNode = _nodeRepository.GetSingleByCode(unitId, "Video");
+            
 
             model.News = _nodeRecordRepository.GetTopN(unitId, "News", 8);
             FillRecords(model.News, unitId, 0, 8, "News");
@@ -335,6 +336,7 @@ namespace NPC.Application
             model.ProposalNode = _nodeRecordRepository.GetTopN(unitId, "ProposalEntry", 1).FirstOrDefault();
             model.Mediums = _nodeRecordRepository.GetTopN(unitId, "Mediums", 3);
             FillRecords(model.Mediums, unitId, 3, 0, "Mediums");
+            model.NpcStaffEntryNode = _nodeRepository.GetSingleByCode(unitId, "NpcStaffEntry");
             return model;
         }
 
@@ -346,7 +348,7 @@ namespace NPC.Application
             return model;
         }
 
-        public object InitializeRightBarModel()
+        public RightBarModel InitializeRightBarModel()
         {
             var unitId = NpcMainWebContext.CurrentUnit.Id;
             var model = new RightBarModel();

@@ -13,6 +13,7 @@ namespace NPC.Application.MainTownModels
       {
           PublicProposals = new List<NodeRecord>();
       }
+
       public IList<NodeRecord> PublicProposals { get; set; }
       public Node PublicProposalsNode { get; set; }
     }

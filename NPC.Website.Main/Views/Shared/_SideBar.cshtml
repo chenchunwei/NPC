@@ -1,4 +1,5 @@
-﻿<div class="right">
+﻿@model NPC.Application.MianModels.SideBarModel
+<div class="right">
     @if (Model.ProposalNode != null)
     {
         <div class="advice">
@@ -7,22 +8,17 @@
         </div>
         
     }
-   
-@*   <form action="@Url.Content("~/Manage/Home/Login?cmd=login")" method="POST" style="margin: 0">*@
-    <div class="login">
-        <div class="title">
-            常委会资料查询
-        </div>
-        @*  <div class="login-input">
-            用户名<input type="text" value="" name="account" />
-        </div>
-        <div class="login-input">
-            密 码<input type="password" value="" name="password" />
-        </div>*@
-        <input type="hidden" value="59116356-f270-4845-bb7c-a1050188e6ad" name="extension">
-        <input class="button" type="button" value="点击进入" onclick="window.location.href='http://mail.pinghu.gov.cn/'">
+    <div class="login" style="margin: auto;">
+        @if (Model.NpcStaffEntryNode != null)
+        {
+            var firstRecord = Model.NpcStaffEntryNode.NodeRecords.FirstOrDefault();
+            if (firstRecord != null)
+            {
+            <a href="@firstRecord.RecordLink" target="_blank">
+                <img src="/Manage/Attachments/@firstRecord.FirstImage" alt="@firstRecord.FirstTitle" title="@firstRecord.FirstTitle" style="width: 220px;height: 120px; margin-top: -5px; margin-left: -5px;"></a> 
+            }
+        }
     </div>
-    @*  </form>*@
     <div class="bookmark">
         <div class="bookmark-box">
             @foreach (var nodeRecord in Model.Mediums)

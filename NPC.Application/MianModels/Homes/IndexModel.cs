@@ -49,6 +49,7 @@ namespace NPC.Application.MianModels.Homes
         public Node InvestigatesNode { get; set; }
         public Node NpcPicsNode { get; set; }
         public Node LinksNode { get; set; }
+        public Node NpcStaffEntryNode { get; set; }
         public NodeRecord ProposalNode { get; set; }
         public NodeRecord ContributeNode { get; set; }
         /// <summary>
