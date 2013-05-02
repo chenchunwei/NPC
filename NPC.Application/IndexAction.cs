@@ -142,7 +142,7 @@ namespace NPC.Application
             model.TownPicsNode = _nodeRepository.GetSingleByCode(unitId, "TownPics");
             model.ViceDirectorsNode = _nodeRepository.GetSingleByCode(unitId, "ViceDirectors");
             model.VideoNode = _nodeRepository.GetSingleByCode(unitId, "Video");
-            
+
 
             model.News = _nodeRecordRepository.GetTopN(unitId, "News", 8);
             FillRecords(model.News, unitId, 0, 8, "News");
@@ -263,6 +263,8 @@ namespace NPC.Application
         {
             var model = new DetailModel();
             model.Article = _articleRepository.Find(id);
+            model.Article.HitCount++;
+            _articleRepository.SaveOrUpdate(model.Article);
             return model;
         }
 

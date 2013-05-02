@@ -41,6 +41,7 @@ namespace NPC.Application
                 throw new ArgumentException("model.FormData.ArticleCategoryId不能为空");
             var article = new Article();
             FillArticle(article, model);
+            article.RecordDescription.CreateBy(NpcContext.CurrentUser);
             _articleRepository.Save(article);
         }
 
@@ -52,6 +53,7 @@ namespace NPC.Application
                 throw new ArgumentException("model.Id不能为空");
             var article = _articleRepository.Find(model.Id.Value);
             FillArticle(article, model);
+            article.RecordDescription.UpdateBy(NpcContext.CurrentUser);
             _articleRepository.Save(article);
             model.Id = article.Id;
         }
@@ -70,7 +72,6 @@ namespace NPC.Application
             article.IsShow = model.FormData.IsShow;
             if (!string.IsNullOrEmpty(model.FormData.UrlOfCoverImage))
                 article.UrlOfCoverImage = model.FormData.UrlOfCoverImage;
-            article.RecordDescription.CreateBy(NpcContext.CurrentUser);
             article.Unit = NpcContext.CurrentUser.Unit;
         }
         #endregion

@@ -45,6 +45,8 @@
             推送状态</div>
         <div class="span_2">
             创建时间</div>
+        <div class="span_2" style="width: 265px;">
+            MessageId</div>
         <div class="span_4">
         </div>
         <div class="span_4">
@@ -53,7 +55,7 @@
         </div>
     </div>
     <div class="row">
-         @if (!Model.NpcMmsSends.Any())
+        @if (!Model.NpcMmsSends.Any())
         {
             <div class="noRowline">
                 未找到符合条件的相关记录信息！
@@ -65,7 +67,7 @@
                 <div class="span_1">
                     <input type="checkbox" name="ids" value="@row.Id" /></div>
                 <div class="span_2">
-                   <a href="javascript:;" onclick="singleDel('@row.Id')">删除</a></div>
+                    <a href="javascript:;" onclick="singleDel('@row.Id')">删除</a></div>
                 <div class="span_3">
                     @row.Title</div>
                 <div class="span_2">
@@ -77,6 +79,8 @@
                     @(EnumHelper.GetDescription(row.SendStatus))</div>
                 <div class="span_2">
                     @row.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")</div>
+                <div class="span_2" style="width: 255px;">
+                    @row.MessageId</div>
                 <div class="span_4">
                 </div>
                 <div class="span_4">

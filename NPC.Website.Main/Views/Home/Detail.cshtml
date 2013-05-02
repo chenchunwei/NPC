@@ -8,22 +8,23 @@
     <div class="detail-right">
         <div class="title">
             <div class="title-name">
-               @Model.Article.ArticleCategory.CategoryName
+                @Model.Article.ArticleCategory.CategoryName
             </div>
         </div>
         <div class="clear">
         </div>
         <div class="detail-content">
-            <h1> @Model.Article.Title</h1>
+            <h1>
+                @Model.Article.Title</h1>
             <div class="time">
-                @Model.Article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")
+                @Model.Article.RecordDescription.DateOfCreate.ToString("yyyy-MM-dd")&nbsp;&nbsp;&nbsp;&nbsp;阅读量：@Model.Article.HitCount
             </div>
             <p>
                 @Html.Raw(Model.Article.Content)
             </p>
         </div>
         <div class="page">
-             <a href="@Url.Action("List", "Home")?ArticleQueryItem.CategoryId=@Model.Article.ArticleCategory.Id">
+            <a href="@Url.Action("List", "Home")?ArticleQueryItem.CategoryId=@Model.Article.ArticleCategory.Id">
                 返回[@Model.Article.ArticleCategory.CategoryName]列表</a>
         </div>
     </div>
