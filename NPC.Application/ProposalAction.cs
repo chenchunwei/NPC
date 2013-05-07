@@ -111,15 +111,13 @@ namespace NPC.Application
                     string.Format("{0}发起[{1}]议案", user.Name, MyString.SubString(model.FormData.Title, 14, "…")),
                   args, "发起流程");
                 trans.Commit();
-                SendMessage(npcAuditor);
+                SendMessage(NpcContext.CurrentUser.Unit.Id, npcAuditor, "人大在线平台有新的议案建议需要您审批，请登录人大互动在线及时处理！");
             }
             catch (Exception)
             {
                 trans.Rollback();
                 throw;
             }
-
-
         }
         #endregion
 
@@ -175,7 +173,6 @@ namespace NPC.Application
                 {
                     proposal.ProposalStatus = ProposalStatus.GovAuditing;
                     args.Add("GovAuditor", govAuditor.Id.ToString());
-                    SendMessage(govAuditor);
                 }
                 else
                 {
@@ -188,12 +185,11 @@ namespace NPC.Application
                 trans.Commit();
                 if (scNpcAuditModel.Action == ScNpcAuditAction.Submit)
                 {
-                    SendMessage(govAuditor);
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, govAuditor, "人大在线平台有新的议案建议需要您审批，请登录人大互动在线及时处理！！");
                 }
                 else
                 {
-                    //HACK:退回的时候没有发短信
-                    SendMessage(null);
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, proposal.RecordDescription.UserOfCreate, string.Format("意见或建议[{0}]被否决退回!", proposal.Title));
                 }
             }
             catch (Exception exception)
@@ -266,7 +262,8 @@ namespace NPC.Application
                 }
                 var unitRepository = new UnitRepository();
                 var args = new Dictionary<string, string>();
-                User govAuditor = null;
+
+                User sponsorAuditor = null;
                 if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
                 {
                     if (govOfficeAuditModel.SponsorUnitId == null)
@@ -274,13 +271,24 @@ namespace NPC.Application
                     var sponsorUnit = unitRepository.Find(govOfficeAuditModel.SponsorUnitId.Value);
                     if (sponsorUnit.JieKouRen == null)
                         throw new ArgumentException("对不起！" + sponsorUnit.Name + "未配置流程处理接口人");
-                    args.Add("Sponsor", sponsorUnit.JieKouRen.Id.ToString());
+                    sponsorAuditor = sponsorUnit.JieKouRen;
+                    args.Add("Sponsor", sponsorAuditor.Id.ToString());
+
                 }
+
                 _flowService.ExecuteTask(govOfficeAuditModel.TaskId,
                       EnumHelper.GetDescription(govOfficeAuditModel.Action),
                       NpcContext.CurrentUser, args, govOfficeAuditModel.Comment);
                 trans.Commit();
-                SendMessage(govAuditor);
+                if (govOfficeAuditModel.Action == GovOfficeAuditAction.Submit)
+                {
+                    var govAuditor = ProposalRoleService.GetGovAuditJieKouRen(proposal.RecordDescription.UserOfCreate.Unit);
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, govAuditor, "人大在线平台有新的议案建议需要您审批，请登录人大互动在线及时处理！");
+                }
+                else
+                {
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, sponsorAuditor, "意见或建议被否决退回,请登录人大互动在线进行处理");
+                }
             }
             catch (Exception exception)
             {
@@ -315,6 +323,17 @@ namespace NPC.Application
                       EnumHelper.GetDescription(sponsorAuditModel.Action),
                       NpcContext.CurrentUser, args, sponsorAuditModel.Comment);
                 trans.Commit();
+
+                if (sponsorAuditModel.Action == SponsorAuditAction.Finished)
+                {
+                    var originator = proposal.RecordDescription.UserOfCreate;
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, originator, "议案建议已处理完成，请登录人大互动在线及时处理反馈！");
+                }
+                else
+                {
+                    var govAuditor = ProposalRoleService.GetGovAuditJieKouRen(proposal.RecordDescription.UserOfCreate.Unit);
+                    SendMessage(proposal.RecordDescription.UserOfCreate.Unit.Id, govAuditor, "意见或建议被否决退回,请登录人大互动在线进行处理");
+                }
 
             }
             catch (Exception exception)
@@ -385,13 +404,15 @@ namespace NPC.Application
             return model;
         }
 
-        private void SendMessage(User user)
+        private void SendMessage(Guid openMasUnitId, User user, string message)
         {
             if (user == null)
                 return;
             try
             {
-                var openConfig = new OpenMasConfigService().GetConfigOfUnit(Guid.Parse(AppConfig.CommonMessageSendUnitId));
+                var openConfig = new OpenMasConfigService().GetConfigOfUnit(openMasUnitId);
+                if (openConfig == null)
+                    return;
                 var telNum = user.PhoneBookRecord != null
                                  ? user.PhoneBookRecord.Mobile
                                  : Helper.CheckRegex(user.Account, @"^(1[\d]{10},)*(1[\d]{10})$")
@@ -399,13 +420,13 @@ namespace NPC.Application
                                        : string.Empty;
                 if (!string.IsNullOrEmpty(telNum))
                 {
-                    var returnMessage = NpcSmsSendService.SendSms(openConfig, "人大在线平台有新的议案建议需要您审批，请及时处理！", new string[] { user.Account });
+                    var returnMessage = NpcSmsSendService.SendSms(openConfig, message, new string[] { user.Account });
                     Logger.DebugFormat("发送出去的短信id={0}", returnMessage);
                 }
             }
             catch (Exception exception)
             {
-                Logger.ErrorFormat("发送流程任务通知时出错");
+                Logger.ErrorFormat("发送流程任务通知时出错,ex:{0}", exception);
             }
         }
     }
