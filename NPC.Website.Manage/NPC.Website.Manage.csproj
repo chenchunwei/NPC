@@ -90,6 +90,7 @@
     <Compile Include="Controllers\ExtensionController.cs" />
     <Compile Include="Controllers\FlowController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\NodeRecordsController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Controllers\NotifyMessagesController.cs" />
@@ -1316,6 +1317,7 @@
     <Content Include="Views\Roles\RolePrivilegeSettings.cshtml" />
     <Content Include="Views\Units\UnitFlowSettings.cshtml" />
     <Content Include="Views\NotifyMessages\List.cshtml" />
+    <Content Include="Views\Messages\List.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

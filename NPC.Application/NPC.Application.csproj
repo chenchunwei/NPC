@@ -91,6 +91,8 @@
     <Compile Include="ManageModels\Departments\DepartmentTreeModel.cs" />
     <Compile Include="ManageModels\Flows\FlowBasicModel.cs" />
     <Compile Include="ManageModels\LoginModel.cs" />
+    <Compile Include="ManageModels\Messages\MessageListModel.cs" />
+    <Compile Include="ManageModels\Messages\MessageSearchModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModel.cs" />
     <Compile Include="ManageModels\NodeRecords\EditNodeRecordModelFormData.cs" />
     <Compile Include="ManageModels\NodeRecords\NodeRecordListModel.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="ManageModels\Users\UserListModel.cs" />
     <Compile Include="ManageModels\Users\UserSearchModel.cs" />
     <Compile Include="ManageModels\Users\UserViewModel.cs" />
+    <Compile Include="MessageAction.cs" />
     <Compile Include="MianModels\HeaderModel.cs" />
     <Compile Include="MianModels\Homes\ContributeModel.cs" />
     <Compile Include="MianModels\Homes\DetailModel.cs" />

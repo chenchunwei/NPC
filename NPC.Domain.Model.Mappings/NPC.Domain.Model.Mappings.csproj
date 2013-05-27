@@ -61,6 +61,7 @@
     <Compile Include="FlowTypes\FlowNodeMap.cs" />
     <Compile Include="FlowTypes\FlowTypeDataFieldMap.cs" />
     <Compile Include="FlowTypes\FlowTypeMap.cs" />
+    <Compile Include="Messages\MessageMap.cs" />
     <Compile Include="NodeRecords\NodeRecordMap.cs" />
     <Compile Include="Nodes\NodeMap.cs">
       <SubType>Code</SubType>
